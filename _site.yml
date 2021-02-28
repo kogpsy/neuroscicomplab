@@ -33,6 +33,6 @@ navbar:
     - text: "About"
       href: about.html
     - icon: fab fa-github
-      href: https://github.com/rstudio/distill
+      href: https://github.com/kogpsy/neuroscicomplabl
 
 output: distill::distill_article
