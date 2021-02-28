@@ -1,0 +1,38 @@
+name: "Neurowissenschaft im Computerlab"
+title: "Methodenkurs Neurowissenschaft im Computerlab"
+description: |
+  Neurowissenschaft im Computerlab
+output_dir: "docs"
+theme: theme.css
+navbar:
+  left:
+    - icon: fas fa-laptop-code
+      href: https://www.kog.psy.unibe.ch/
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Bayesian Statistics"
+      menu:
+        - text: "Einführung"
+          href: intro-to-bayesian-stats.html
+        - text: "---"
+        - text: "Parameter Estimation"
+          href: "parameter-estimation.html"
+    - text: "Multilevel Models"
+      menu:
+        - text: "Einführung"
+          href: intro-to-bayesian-stats.html
+    - text: Decision Making
+      menu:
+        - text: "Einführung"
+          href: intro-to-bayesian-stats.html
+    - text: "Cognitive Models"
+      menu:
+        - text: "Einführung"
+          href: intro-to-bayesian-stats.html
+    - text: "About"
+      href: about.html
+    - icon: fab fa-github
+      href: https://github.com/rstudio/distill
+
+output: distill::distill_article
