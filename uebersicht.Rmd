@@ -24,8 +24,8 @@ output:
 
 # Einleitung
 
-## `r fontawesome::fa(name = "blender", fill = "steelblue")` Inhalt dieses Kurses
-
+## Inhalt dieses Kurses
+<!-- `r fontawesome::fa(name = "blender", fill = "steelblue")` -->
 In diesem Kurs beschäftigen wir uns im weiteren Sinne mit Model-based Cognitive Neuroscience. Dieses Forschungsgebiet existiert noch nicht sehr lange, und ist aus dem Zusammenschluss von mathematischer Modellierung und neurowissenschaftlichen Methoden entstanden.
 
 In diesem Kurs geht es um den behavioralen/kognitiven Teil dieses Forschungsgebiets---das bedeutet, mathematische Modelle, anhand derer experimentelle Daten analysiert werden können. Es gibt ein sehr gutes Lehrbuch [@forstmannModelBasedCognitiveNeuroscience2015] zum Thema Model-based Cognitive Neuroscience; wir werden einzelne Kapitel daraus verwenden. Das Buch ist auf SpringerLink verfügbar: [An Introduction to Model-Based Cognitive Neuroscience]((https://link.springer.com/book/10.1007%2F978-1-4939-2236-9)). Ausserdem werden wir Beispiele aus dem Buch von @farrellIntroductionCognitiveModeling2015 benutzten. Dieses Buch ist leider nicht frei erhältlich---es gibt jedoch eine Website mit Code und Übungen: [Computational Modeling of Cognition and Behavior](https://psy-farrell.github.io/computational-modelling/). Wir werden uns ab Mitte des Semesters mit Modellen von Entscheidungsverhalten und kognitiven Modellen beschäftigen, darunter sogennante Bayesian Models of cognition. Damit ist gemeint, dass wir Bayesianische Inferenz als rationales Verhalten betrachten, und Abweichungen davon in menschlichem Verhalten zu suchen.
@@ -43,9 +43,9 @@ Die Themen sind also:
 - Mathematische Modelle von Entscheidungsverhalten
 - Modelle von kognitiven Prozessen (Bayesianische und andere)
 
-##  `r fontawesome::fa(name = "laptop-code", fill = "steelblue")` Software
-
-Wir werden in diesem Kurs vor allem mit R arbeiten, aber wenn es um Bayesianische Datenanalyse geht, verwenden wir Stan. Dies ist eine probabilistische Programmiersprache, mit der man Monte Carlo Sampling in einfachen bis sehr komplexen Modellen durchführen kann.
+## Software
+<!-- `r fontawesome::fa(name = "laptop-code", fill = "steelblue")` -->
+Wir werden in diesem Kurs vor allem mit R arbeiten, aber wenn es um Bayesianische Datenanalyse geht, verwenden wir [Stan](https://mc-stan.org/). Dies ist eine probabilistische Programmiersprache, mit der man Monte Carlo Sampling in einfachen bis sehr komplexen Modellen durchführen kann.
 
 Glücklicherweise gibt es ein R Package, mit dem man von R aus Stan benutzen kann: [RStan](https://mc-stan.org/users/interfaces/rstan). Noch viel einfacher wird es, wenn wir [brms](https://github.com/paul-buerkner/brms) oder [rstanarm](https://mc-stan.org/rstanarm/) verwenden. Mit diesen Packages lassen sich Bayesianische statistische Modelle mit (fast) derselben Syntax wie frequentistische Modelle schätzen.
 
