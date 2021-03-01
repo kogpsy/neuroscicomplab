@@ -90,6 +90,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <meta property="description" itemprop="description" content="Scientific and technical writing, native to the web"/>
 
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
 
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2018-05-04"/>
@@ -2131,9 +2132,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Optional: embed custom fonts here with `@import`          */
   /* This must remain at the top of this file.                 */
-  /* @import url('https://fonts.googleapis.com/css2?family=Amiri');
-  @import url('https://fonts.googleapis.com/css2?family=Bitter');
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono'); */
   @import url('https://fonts.googleapis.com/css2?family=Lato');
   @import url('https://fonts.googleapis.com/css2?family=Fira+Mono');
   @import url('https://fonts.googleapis.com/css2?family=Montserrat');
@@ -2194,16 +2192,25 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --title-size:       18px;
     --text-color:       rgba(255, 255, 255, 0.8);
     --text-size:        15px;
-    --hover-color:      #ebcb8b;
+    --hover-color:      #81a1c1;
     --bkgd-color:       #4c566a;
   }
 
   .distill-site-footer {
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
+    --text-color:       rgba(93, 128, 174, 0.8);
+    --text-size:        12px;
+    --hover-color:      rgba(59, 66, 83, 0.8);;
+    --bkgd-color:       #ECEFF4;
   }
+
+  /* Change the appearance of in-line code chunks */
+  /* code {
+    font-family: 'Fira Mono', sans-serif;
+    color: #383838;
+    background: #F5F5F5;
+    font-weight: 400;
+    font-size: 0.9em;
+  } */
 
   /*-- Additional custom styles --*/
   /* Add any additional CSS rules below                      */
@@ -2363,7 +2370,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.7.2/header-attrs.js"></script>
   <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
   <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
@@ -2394,13 +2401,34 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
 <a href="index.html" class="title">Methodenkurs Neurowissenschaft im Computerlab</a>
-<a href="https://www.kog.psy.unibe.ch/">
-<i class="fas fa-laptop-code" aria-hidden="true"></i>
+<a href="index.html">
+<i class="fa fa-home" aria-hidden="true"></i>
 </a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Syllabus
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="uebersicht.html">Übersicht</a>
+<a href="leistungskontrolle.html">Leistungskontrolle</a>
+<a href="rmarkdown.htm">Rmarkdown</a>
+</div>
+</div>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Übungen
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="uebung-1.html">Übung 1</a>
+</div>
+</div>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
 <div class="nav-right">
-<a href="index.html">Home</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
 Bayesian Statistics
@@ -2409,8 +2437,6 @@ Bayesian Statistics
 </button>
 <div class="nav-dropdown-content">
 <a href="intro-to-bayesian-stats.html">Einführung</a>
-<hr/>
-<a href="parameter-estimation.html">Parameter Estimation</a>
 </div>
 </div>
 <div class="nav-dropdown">
@@ -2420,17 +2446,7 @@ Multilevel Models
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="intro-to-bayesian-stats.html">Einführung</a>
-</div>
-</div>
-<div class="nav-dropdown">
-<button class="nav-dropbtn">
-Decision Making
- 
-<span class="down-arrow">&#x25BE;</span>
-</button>
-<div class="nav-dropdown-content">
-<a href="intro-to-bayesian-stats.html">Einführung</a>
+<a href="intro.html">Einführung</a>
 </div>
 </div>
 <div class="nav-dropdown">
@@ -2440,10 +2456,10 @@ Cognitive Models
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="intro-to-bayesian-stats.html">Einführung</a>
+<a href="intro.html">Decision Making</a>
+<a href="intro.html">Weitere Modelle</a>
 </div>
 </div>
-<a href="about.html">About</a>
 <a href="https://github.com/kogpsy/neuroscicomplab">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
@@ -2548,10 +2564,20 @@ Figure 1: Diamond Prices
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/kogpsy/neuroscicomplab/issues/new">create an issue</a> on the source repository.</p>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/kogpsy/neuroscicomplab">https://github.com/kogpsy/neuroscicomplab</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
+<div class="distill-site-nav distill-site-footer">
+<p>© Copyright 2021 <a href="https://github.com/awellis">Andrew Ellis</a></p>
+<p>Software licensed under the <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Zero v4.0 Universal</a>.</p>
+</div>
 <!--/radix_placeholder_navigation_after_body-->
+
 
 </body>
 

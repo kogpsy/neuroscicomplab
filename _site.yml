@@ -1,38 +1,68 @@
 name: "Neurowissenschaft im Computerlab"
 title: "Methodenkurs Neurowissenschaft im Computerlab"
+base_url: https://kogpsy.github.io/neuroscicomplab
+repository_url: https://github.com/kogpsy/neuroscicomplab
+source_url: https://github.com/kogpsy/neuroscicomplab
 description: |
   Neurowissenschaft im Computerlab
 output_dir: "docs"
 theme: theme.css
+creative_commons: CC BY
+# cookie_consent:
+#   style: simple
+#   type: express
+#   palette: light
+#   lang: en
+#   cookies_policy: url
 navbar:
+  # left:
+  #   - icon: fas fa-laptop-code
+  #     href: https://www.kog.psy.unibe.ch/
   left:
-    - icon: fas fa-laptop-code
-      href: https://www.kog.psy.unibe.ch/
-  right:
-    - text: "Home"
+    - icon: fa-home
       href: index.html
+
+    - text: "Syllabus"
+      menu:
+        - text: "Übersicht"
+          href: uebersicht.html
+        - text: "Leistungskontrolle"
+          href: leistungskontrolle.html
+        - text: "Rmarkdown"
+          href: rmarkdown.htm
+
+    - text: "Übungen"
+      menu:
+        - text: "Übung 1"
+          href: uebung-1.html
+
+  right:
     - text: "Bayesian Statistics"
       menu:
         - text: "Einführung"
           href: intro-to-bayesian-stats.html
-        - text: "---"
-        - text: "Parameter Estimation"
-          href: "parameter-estimation.html"
+        # - text: "---"
+        # - text: "Parameter Estimation"
+        #   href: "parameter-estimation.html"
+
     - text: "Multilevel Models"
       menu:
         - text: "Einführung"
-          href: intro-to-bayesian-stats.html
-    - text: Decision Making
-      menu:
-        - text: "Einführung"
-          href: intro-to-bayesian-stats.html
+          href: intro.html
+
+
     - text: "Cognitive Models"
       menu:
-        - text: "Einführung"
-          href: intro-to-bayesian-stats.html
-    - text: "About"
-      href: about.html
+        - text: Decision Making
+          href: intro.html
+        - text: "Weitere Modelle"
+          href: intro.html
+
     - icon: fab fa-github
       href: https://github.com/kogpsy/neuroscicomplab
 
-output: distill::distill_article
+
+output:
+  distill::distill_article:
+    toc: true
+    toc_float: true

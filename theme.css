@@ -13,9 +13,6 @@
 
 /* Optional: embed custom fonts here with `@import`          */
 /* This must remain at the top of this file.                 */
-/* @import url('https://fonts.googleapis.com/css2?family=Amiri');
-@import url('https://fonts.googleapis.com/css2?family=Bitter');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono'); */
 @import url('https://fonts.googleapis.com/css2?family=Lato');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat');
@@ -76,16 +73,25 @@ d-appendix {
   --title-size:       18px;
   --text-color:       rgba(255, 255, 255, 0.8);
   --text-size:        15px;
-  --hover-color:      #ebcb8b;
+  --hover-color:      #81a1c1;
   --bkgd-color:       #4c566a;
 }
 
 .distill-site-footer {
-  --text-color:       rgba(255, 255, 255, 0.8);
-  --text-size:        15px;
-  --hover-color:      white;
-  --bkgd-color:       #0F2E3D;
+  --text-color:       rgba(93, 128, 174, 0.8);
+  --text-size:        12px;
+  --hover-color:      rgba(59, 66, 83, 0.8);;
+  --bkgd-color:       #ECEFF4;
 }
+
+/* Change the appearance of in-line code chunks */
+/* code {
+  font-family: 'Fira Mono', sans-serif;
+  color: #383838;
+  background: #F5F5F5;
+  font-weight: 400;
+  font-size: 0.9em;
+} */
 
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */

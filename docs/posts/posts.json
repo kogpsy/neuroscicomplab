@@ -1,19 +1,19 @@
 [
   {
-    "path": "posts/welcome/",
-    "title": "Welcome to NeuroSciCompLab",
-    "description": "Welcome to our new blog, NeuroSciCompLab. We hope you enjoy \nreading what we have to say!",
+    "path": "posts/2021-03-01-zoom/",
+    "title": "Zoom Links",
+    "description": "Zoom URLs für die Vor- und Nachmittagssitzungen.",
     "author": [
       {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
       }
     ],
-    "date": "2021-02-26",
+    "date": "2021-03-01",
     "categories": [],
-    "contents": "\n\n\n\n",
+    "contents": "\nVormittag\nZeit: 10:15 - 12:00\nURL: https://unibe-ch.zoom.us/j/93649599809?pwd=ekI1R0JiWS9WVmMySW4rSTZESzhTdz09\nMeeting ID: 936 4959 9809\nPasscode: 16068\nNachmittag\nZeit: 14:15 - 16:00\nURL: https://unibe-ch.zoom.us/j/92669720311?pwd=OUdiTVVOMk51eFZ4U0tzWXpNMkMyUT09\nMeeting ID: 926 6972 0311\nPasscode: 35651\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-02-26T09:46:43+01:00",
+    "last_modified": "2021-03-01T15:31:06+01:00",
     "input_file": {}
   }
 ]
