@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ## `r fontawesome::fa(name = "r-project", fill = "steelblue")` RStudio Projekte
 Ich empfehle (wie schon in den Statistik Übungen) **immer** in einem RStudio Projekt zu arbeiten. Als Faustregel: jedes Datenanalyseprojekt kriegt ein eigenes RStudio Projekt. Die Vorteile sind:
  
-- Man kann das Projekt schliessen und wieder im gleichen Zustand öffnen, d.h. alle offenen Files werden wieder hergestellt. So kann man z.B. eine Woche lang nicht an einem Projekt arbeiten, und danach wieder in dem Zustan weiterfahren, in dem man aufgehört hat.
+- Man kann das Projekt schliessen und wieder im gleichen Zustand öffnen, d.h. alle offenen Files werden wieder hergestellt. So kann man z.B. eine Woche lang nicht an einem Projekt arbeiten, und danach wieder in dem Zustand weiterfahren, in dem man aufgehört hat.
 - Man muss keine absoluten Pfade benutzen, sondern nur relative.
 
 

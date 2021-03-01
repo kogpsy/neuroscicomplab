@@ -40,7 +40,7 @@ navbar:
     - text: "Bayesian Statistics"
       menu:
         - text: "Einführung"
-          href: intro-to-bayesian-stats.html
+          href: 01-intro-bayesian-stats.html
         # - text: "---"
         # - text: "Parameter Estimation"
         #   href: "parameter-estimation.html"
