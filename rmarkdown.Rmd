@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 ## `r fontawesome::fa(name = "r-project", fill = "steelblue")` RStudio Projekte
-Ich empfehle (wie schon in den Statistik Übungen) **immer** in einem RStudio Projekt zu arbeiten. Als Faustregel: jedes Datenanalyseprojekt kriegt ein eigenes RStudio Projekt. Die Vorteil sind:
+Ich empfehle (wie schon in den Statistik Übungen) **immer** in einem RStudio Projekt zu arbeiten. Als Faustregel: jedes Datenanalyseprojekt kriegt ein eigenes RStudio Projekt. Die Vorteile sind:
  
 - Man kann das Projekt schliessen und wieder im gleichen Zustand öffnen, d.h. alle offenen Files werden wieder hergestellt. So kann man z.B. eine Woche lang nicht an einem Projekt arbeiten, und danach wieder in dem Zustan weiterfahren, in dem man aufgehört hat.
 - Man muss keine absoluten Pfade benutzen, sondern nur relative.
@@ -29,7 +29,8 @@ Ich empfehle (wie schon in den Statistik Übungen) **immer** in einem RStudio Pr
 
 ## Rmarkdown
 <!-- `r fontawesome::fa(name = "book", fill = "steelblue")` -->
-Rmarkdown ist eine Erweiterung der Markdown Sprache, welche wiederum eine einfache Markup Sprache ist.
+Rmarkdown ist eine Erweiterung der Markdown Sprache, welche wiederum eine
+einfache Sprache ist,  um Text zu formattieren. 
 
 
 > Mit Markdown ist es möglich, HTML oder LaTeX zu erstellen, ohne das man selber viel HTML/LaTeX kennen muss. LaTeX ist vor allem dann gut, wenn man viele Formeln benutzt, oder komplizierte Dokumente erstellt.
@@ -37,7 +38,7 @@ Rmarkdown ist eine Erweiterung der Markdown Sprache, welche wiederum eine einfac
 
 Rmarkdown erlaubt zusätzlich die Einbindung von R Code; dieser wird zuerst evaluiert, und der Ouput wird zu Markdown konvertiert. Damit lassen sich Paper und Bachelor/Masterarbeiten schreiben, was sehr sinnvoll ist, wenn man mit R arbeitet.
 
-Ein weiterer Grund, Rmarkdown zu benutzen, ist Reproduzierbarkeit. Man kann Code für Datenanalyse direkt in ein MAnuskript einbinden, so dass die Resultate immer up-to-date sind, und nicht zwischen Dokumenten hin-und her kopiert werden müssen (was sehr fehleranfällig ist).
+Ein weiterer Grund, Rmarkdown zu benutzen, ist Reproduzierbarkeit. Man kann Code für Datenanalyse direkt in ein Manuskript einbinden, so dass die Resultate immer up-to-date sind, und nicht zwischen Dokumenten hin-und her kopiert werden müssen (was sehr fehleranfällig ist).
 
 Ein exzellente Einführung in Rmarkdown finden Sie im Blog von Danielle Navarro:
 [Einführung in Rmarkdown](https://slides.djnavarro.net/starting-rmarkdown/).
