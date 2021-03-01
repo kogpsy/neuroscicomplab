@@ -1,7 +1,7 @@
 ---
 title: "Rmarkdown"
 description: |
-  Arbeiten mit RStudio Projects und Rmarktext.
+  Arbeiten mit RStudio Projects und Rmarkdown.
 author:
   - first_name: "Andrew"
     last_name: "Ellis"
@@ -27,13 +27,13 @@ Ich empfehle (wie schon in den Statistik Übungen) **immer** in einem RStudio Pr
 
 
 
-## `r fontawesome::fa(name = "book", fill = "steelblue")` Rmarkdown
-
+## Rmarkdown
+<!-- `r fontawesome::fa(name = "book", fill = "steelblue")` -->
 Rmarkdown ist eine Erweiterung der Markdown Sprache, welche wiederum eine einfache Markup Sprache ist.
 
-```{block, type = "comment"}
-Mit Markdown ist es möglich, HTML oder LaTeX zu erstellen, ohne das man selber viel HTML/LaTeX kennen muss. LaTeX ist vor allem dann gut, wenn man viele Formeln benutzt, oder komplizierte Dokumente erstellt.
-```
+
+> Mit Markdown ist es möglich, HTML oder LaTeX zu erstellen, ohne das man selber viel HTML/LaTeX kennen muss. LaTeX ist vor allem dann gut, wenn man viele Formeln benutzt, oder komplizierte Dokumente erstellt.
+
 
 Rmarkdown erlaubt zusätzlich die Einbindung von R Code; dieser wird zuerst evaluiert, und der Ouput wird zu Markdown konvertiert. Damit lassen sich Paper und Bachelor/Masterarbeiten schreiben, was sehr sinnvoll ist, wenn man mit R arbeitet.
 
@@ -47,7 +47,7 @@ Schauen Sie sich die Slides an.
 ```
 
 
- > Dieses Skript wird mit Rmarkdown erstellt. Wenn Sie auf das `Edit` Icon klicken, sehen Sie den Source Code der Seite, auf der Sie sich gerade befinden.
+ > Dieses Skript wird mit Rmarkdown erstellt. Wenn Sie auf das  Icon oben rechts klicken, sehen Sie den Source Code.
 
 RStudio macht es sehr einfach, mit Rmarkdown zu arbeiten. Un ein neues Dokument zu erstellen, öffnen Sie das `File` Menu. Dort wählen Sie `New File` aus, und dann `Rmarkdown...`. 
 Sie sehen dann dieses Dialogfenster:

@@ -29,7 +29,7 @@ navbar:
         - text: "Leistungskontrolle"
           href: leistungskontrolle.html
         - text: "Rmarkdown"
-          href: rmarkdown.htm
+          href: rmarkdown.html
 
     - text: "Übungen"
       menu:
