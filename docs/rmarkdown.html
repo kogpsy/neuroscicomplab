@@ -2506,25 +2506,26 @@ Cognitive Models
 <p>Rmarkdown erlaubt zusätzlich die Einbindung von R Code; dieser wird zuerst evaluiert, und der Ouput wird zu Markdown konvertiert. Damit lassen sich Paper und Bachelor/Masterarbeiten schreiben, was sehr sinnvoll ist, wenn man mit R arbeitet.</p>
 <p>Ein weiterer Grund, Rmarkdown zu benutzen, ist Reproduzierbarkeit. Man kann Code für Datenanalyse direkt in ein MAnuskript einbinden, so dass die Resultate immer up-to-date sind, und nicht zwischen Dokumenten hin-und her kopiert werden müssen (was sehr fehleranfällig ist).</p>
 <p>Ein exzellente Einführung in Rmarkdown finden Sie im Blog von Danielle Navarro: <a href="https://slides.djnavarro.net/starting-rmarkdown/">Einführung in Rmarkdown</a>.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
+<blockquote>
+<p>Schauen Sie sich die Slides an.</p>
+</blockquote>
 <blockquote>
 <p>Dieses Skript wird mit Rmarkdown erstellt. Wenn Sie auf das Icon oben rechts klicken, sehen Sie den Source Code.</p>
 </blockquote>
-RStudio macht es sehr einfach, mit Rmarkdown zu arbeiten. Un ein neues Dokument zu erstellen, öffnen Sie das <code>File</code> Menu. Dort wählen Sie <code>New File</code> aus, und dann <code>Rmarkdown...</code>. Sie sehen dann dieses Dialogfenster:
+<p>RStudio macht es sehr einfach, mit Rmarkdown zu arbeiten. Un ein neues Dokument zu erstellen, öffnen Sie das <code>File</code> Menu. Dort wählen Sie <code>New File</code> aus, und dann <code>Rmarkdown...</code>.</p>
+<p>Sie sehen dann dieses Dialogfenster:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/create-rmarkdown.png" width="473" /></p>
 </div>
 <p>Hier können Sie das Output Format bestimmen: HTML, PDF (LaTeX), oder Word.</p>
 <p>Nachdem Sie <code>OK</code> geklickt haben, erhalten Sie ein Rmarkdown Template. Dies können Sie mit der <code>Knit</code> Funktion zu einem HTML (oder PDF, Word) konvertieren. Zuerst müssen Sie das Dokument jedoch speichern.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
+<blockquote>
+<p>Erstellen Sie ein Rmarkdown Dokument und speichern Sie es. Probieren Sie verschiedene Output Formate, und <code>knitten</code> Sie das Dokument.</p>
+</blockquote>
 <p>In der nächsten Übung machen wir zwei ganz wichtige Dinge: wir benutzen Rmarkdown, und wir generieren Daten. Genauer gesagt benutzen wir ein statistisches (probabilistisches) Modell, um Zufallszahlen zu generieren. In dieser Übung generieren wir Daten, die dem statistischen Modell eines t-Tests entsprechen.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
+<blockquote>
+<p>Fügen Sie folgenden R Code in einen oder (noch besser) mehreren Code Chunks ein. Benützen Sie Markdown Text, um das Ganze zu kommentieren., d.h. die Kommentare zwischen den R Code Zeilen könnten auch als Prosa zwischen R Code Chunks stehen.</p>
+</blockquote>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
@@ -2566,7 +2567,7 @@ RStudio macht es sehr einfach, mit Rmarkdown zu arbeiten. Un ein neues Dokument 
     <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="rmarkdown_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+<p><img src="rmarkdown_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
 <p>Mit diesem Code simulieren Sie zwei experimentelle Gruppen, mit je 50 Teilnehmern. Die eine Gruppe trug “fancy hats”, die andere Gruppe nicht. Wir generieren normalverteilte Zufallszahlen—für die <code>Fancy Hat</code> Gruppe mit <span class="math inline">\(\mu=103\)</span>, für die <code>No Fancy Hat</code> mit <span class="math inline">\(\mu=98\)</span>. Mit <code>bind_rows()</code> fügen wir beide Dataframes zusammen, und am Schluss machen wir einen Boxplot.</p>
 <p>Wenn Sie eine R Code Chunk einfügen, z.B. mit <code>Code</code> &gt; <code>Insert Chunk</code>, erhalten Sie ein <code>Options</code> Icon am oberen rechten Rand des Chunks. Hier können Sie wählen, ob der Code/Output angezeigt wird.</p>

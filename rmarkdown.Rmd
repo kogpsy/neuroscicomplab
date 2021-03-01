@@ -42,15 +42,17 @@ Ein weiterer Grund, Rmarkdown zu benutzen, ist Reproduzierbarkeit. Man kann Code
 Ein exzellente Einführung in Rmarkdown finden Sie im Blog von Danielle Navarro:
 [Einführung in Rmarkdown](https://slides.djnavarro.net/starting-rmarkdown/).
 
-```{block, type = "uebung"}
-Schauen Sie sich die Slides an.
-```
+
+> Schauen Sie sich die Slides an.
+
 
 
  > Dieses Skript wird mit Rmarkdown erstellt. Wenn Sie auf das  Icon oben rechts klicken, sehen Sie den Source Code.
 
 RStudio macht es sehr einfach, mit Rmarkdown zu arbeiten. Un ein neues Dokument zu erstellen, öffnen Sie das `File` Menu. Dort wählen Sie `New File` aus, und dann `Rmarkdown...`. 
+
 Sie sehen dann dieses Dialogfenster:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::include_graphics("images/create-rmarkdown.png")
 ```
@@ -59,15 +61,15 @@ Hier können Sie das Output Format bestimmen: HTML, PDF (LaTeX), oder Word.
 
 Nachdem Sie `OK` geklickt haben, erhalten Sie ein Rmarkdown Template. Dies können Sie mit der `Knit` Funktion zu einem HTML (oder PDF, Word) konvertieren. Zuerst müssen Sie das Dokument jedoch speichern.
 
-```{block, type = "uebung"}
-Erstellen Sie ein Rmarkdown Dokument und speichern Sie es. Probieren Sie verschiedene Output Formate, und `knitten` Sie das Dokument.
-```
+
+> Erstellen Sie ein Rmarkdown Dokument und speichern Sie es. Probieren Sie verschiedene Output Formate, und `knitten` Sie das Dokument.
+
 
 In der nächsten Übung machen wir zwei ganz wichtige Dinge: wir benutzen Rmarkdown, und wir generieren Daten. Genauer gesagt benutzen wir ein statistisches (probabilistisches) Modell, um Zufallszahlen zu generieren. In dieser Übung generieren wir Daten, die dem statistischen Modell eines t-Tests entsprechen.
 
-```{block, type = "uebung"}
-Fügen Sie folgenden R Code in einen oder (noch besser) mehreren Code Chunks ein. Benützen Sie Markdown Text, um das Ganze zu kommentieren., d.h. die Kommentare zwischen den R Code Zeilen könnten auch als Prosa zwischen R Code Chunks stehen.
-```
+
+>Fügen Sie folgenden R Code in einen oder (noch besser) mehreren Code Chunks ein. Benützen Sie Markdown Text, um das Ganze zu kommentieren., d.h. die Kommentare zwischen den R Code Zeilen könnten auch als Prosa zwischen R Code Chunks stehen.
+
 
 
 ```{r echo=TRUE}
