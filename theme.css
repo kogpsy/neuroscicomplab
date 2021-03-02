@@ -85,13 +85,13 @@ d-appendix {
 }
 
 /* Change the appearance of in-line code chunks */
-/* code {
+code {
   font-family: 'Fira Mono', sans-serif;
-  color: #383838;
-  background: #F5F5F5;
+  color: #000000;
+  background: #ffffff;
   font-weight: 400;
   font-size: 0.9em;
-} */
+}
 
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */

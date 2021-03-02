@@ -2217,13 +2217,13 @@ d-appendix {
 }
 
 /* Change the appearance of in-line code chunks */
-/* code {
+code {
   font-family: 'Fira Mono', sans-serif;
-  color: #383838;
-  background: #F5F5F5;
+  color: #000000;
+  background: #ffffff;
   font-weight: 400;
   font-size: 0.9em;
-} */
+}
 
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */
@@ -2394,6 +2394,38 @@ d-appendix d-footnote-list a.footnote-backlink {
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+<style type="text/css">
+/* -----------div tips------------- */
+
+  div.puzzle, div.fyi, div.exercise, div.note {
+    padding: 1em;
+    margin: 1em 0;
+    padding-left: 100px;
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    min-height: 120px;
+    color: #000000;
+    background-color: #80A0C2;
+    border: dotted 5px #ffffff;
+  }
+  
+div.puzzle {
+  background-image: url("images/Your-turn.png");
+}
+
+div.fyi {
+ background-image: url("images/fyi.png");
+}
+
+div.exercise {
+  background-image: url("images/Live-code.png");
+}
+
+div.note {
+  background-image: url("images/lightbulb.png");
+}
+</style>
 <!--/radix_placeholder_site_in_header-->
 
 

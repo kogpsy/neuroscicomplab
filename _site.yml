@@ -66,3 +66,4 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
+    css: style.css
