@@ -42,7 +42,7 @@ Nullhypothese wahr ist. Diese Wahrscheinlichkeit nennt man einen *p-Wert*.
 Diese Methoden stehen schon seit längerem in der Kritik:
 
 - @gigerenzerMindlessStatistics2004;@gigerenzerStatisticalRitualsReplication2018a
-behauptet unter anderem, dass die Verwendung von NHST MEthoden oftmals einem
+behauptet unter anderem, dass die Verwendung von NHST Methoden oftmals einem
 statistischen Ritual gleichkommt.
 
 - @wassersteinASAStatementPValues2016 schreiben im *Statement on Statistical
@@ -52,7 +52,7 @@ Significance and P-Values* der American Statistical Association:
   * P-values do not measure the probability that the studied hypothesis is true, or the probability that the data were produced by random chance alone.
   * Scientific conclusions and business or policy decisions should not be based only on whether a p-value passes a specific threshold.
 
-Es scheint also grosse Probleme mit dem Verständnis von konzepten der
+Es scheint also grosse Probleme mit dem Verständnis von Konzepten der
 klassischen Statistik zu geben. Zum Beispiel werden Grundlegende Konzepte wie
 p-Werte und Konfidenzintervalle oft falsch verstanden
 [@hoekstraRobustMisinterpretationConfidence2014].
@@ -253,7 +253,7 @@ Parametern ganze Verteilungen, mit denen wir unsere Unsicherheit quantifizieren.
 Ganz stark vereinfacht brauchen wir in der Bayesianischen Statistik eine
 Prior-Verteilung Englisch: *prior*), und wir erhalten eine
 Posteriori-Verteilung (Englisch: *posterior*), nachdem wir
-unseren prior anahand der Daten (*likelihood*) angepasst haben.
+unseren prior anhand der Daten (*likelihood*) angepasst haben.
 
 :::note
 Unser **prior** gibt an, was wir glauben, bevor wir die Daten berücksichtigen,
@@ -363,7 +363,7 @@ ob das nur Glück ist, oder ob Spielerin A tatsächlich besser sein könnte.
 
 :::fyi
 Dieses Beispiel ist analytisch lösbar. Ich werde die analytische Lösung in einem
-Blog Post demonstrieren, da wir hier eine simulationsbasierte Lösung ansteben.
+Blog Post demonstrieren, da wir hier eine simulationsbasierte Lösung anstreben.
 :::
 
 Wenn Sie diesen Sachverhalt quantifizieren möchten, könnten Sie behaupten, dass
@@ -449,6 +449,8 @@ $P(\theta)$ ist die a-priori-Wahrscheinlichkeit, mit der Spielerin A gewinnt. We
 
 
 Wir definieren nun einen Vektor von möglichen Werten:
+
+
 ```{r}
 n_points <- 100
 p_grid <- seq( from=0 , to=1 , length.out = n_points )
@@ -456,6 +458,7 @@ p_grid <- seq( from=0 , to=1 , length.out = n_points )
 
 
 Die Likelihood, das heisst die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert, ist
+
 
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = p_grid)
@@ -548,10 +551,10 @@ d %>%
   theme(panel.grid = element_blank()) +
   facet_grid(b~a)
 ```
-Die uniforme Verteilung erhalten wir, wenn wir $\alpha = \beta = 1$ setzen. Wenn wir $\alpha = \beta = 4$ setzen, erhalten wir eine Verteilung mit Erwartungswert $0.5$, dies ist der Fall für alle Verteilungen in denen die beiden Parameter denselben Wert annehmen. Wenn wir ausdrücken wollen, dass wir A für die bessere Spielerin als B halten, dann wählen wir $\alpha > \beta$.
+Die uniforme Verteilung erhalten wir, wenn wir $\alpha = \beta = 1$ setzen. Wenn wir $\alpha = \beta = 4$ setzen, erhalten wir eine Verteilung mit Erwartungswert $0.5$---dies ist der Fall für alle Verteilungen in denen die beiden Parameter denselben Wert annehmen. Wenn wir ausdrücken wollen, dass wir A für die bessere Spielerin als B halten, dann wählen wir $\alpha > \beta$.
 
 :::fyi
-Die Verteilung heisst in R `*beta()`. Die Paramter $\alpha$ und $\beta$ heissen ganz einfach `shape1` und `shape2`. 
+Die Verteilungsfunktionen heissen in R `dbeta()`, `pbeta()`, `qbeta()` und `rbeta()`. Die Parameter $\alpha$ und $\beta$ heissen ganz einfach `shape1` und `shape2`. 
 :::
 
 ```{r}
@@ -559,7 +562,7 @@ prior4 <- dbeta(x = p_grid, shape1 = 20, shape2 = 4)
 compute_posterior(likelihood, prior4)
 ```
 
-Wenn wir überzeugt gewesen wären, dass B besser ist, dann hätten wir vielleicht diesen Prior:
+Wenn wir überzeugt wären, dass B besser ist, dann hätten wir vielleicht diesen Prior:
 
 
 ```{r}
@@ -568,7 +571,7 @@ compute_posterior(likelihood, prior5)
 ```
 ## Einfluss des Priors auf den Posterior
 
-Die obigen Beispiele illustrienen, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte **non-informative** Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.
+Die obigen Beispiele illustrieren, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte **non-informative** Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.
 
 
 
@@ -596,7 +599,7 @@ Die Vorgehensweise ist genauso, wie oben beschrieben: wir schreiben zuerst ein p
 
 Das Modell wird in der Stan Sprache geschrieben. Wir verwenden hier einen `Beta(4, 4)` Prior.
 
-```{}
+```{C++}
 data {
   int<lower=0> n; // number of games
   int<lower=0> k; // number of wins
@@ -654,7 +657,7 @@ traceplot(fit)
 ```
 
 
-```{r}
+```{r, layout="l-body-outset", fig.width=6, fig.height=1.5}
 bayesplot::mcmc_intervals(fit, "theta")
 ```
 
@@ -686,19 +689,42 @@ m1 <- brm(k | trials(n) ~ 0 + Intercept, family = binomial(link = "identity"),
           file = "models/binomial-2")
 ```
 
-```{r}
+```{r, layout="l-body-outset", fig.width=6, fig.height=1.5}
 plot(m1)
 ```
 
+
+## Posterior-Verteilungen zusammenfassen
+Wir erhalten mit Bayesianischer Inferenz zwar Posterior-Verteilungen, aber 
+oftmals wollen wir diese zusammen, damit wir eine Entscheidung fällen können.
+
+Dies wird häufig anhand bestimmter Kennzahlen gemacht. Z.B. können wir den Mittelwert oder Median und eine Ober- und Untergrenze wählen. Ein solches Interval wird *credible interval* genannt. Häufig wird ein $95\%$ credible interval angegeben, aber es hindert uns nichts daran, ein $50\%$  oder $80\%$ credible interval zu benutzen.  Mit der `median_qi()` vom Package `tidybayes` können wir das `.width` Argument benutzen:
+
 ```{r}
 library(tidybayes)
+```
 
+```{r}
+m1 %>%
+  spread_draws(b_Intercept) %>% 
+  median_qi(.width = c(.50, .80, .95)) %>% 
+  kableExtra::kbl()
+```
+Mit `mean_qi()` erhalten wir Mittelwert und credible intervals.
+
+
+Um die Posterior-Verteilung zu visualisieren, können wir die Verteilung mit einem credible interval kombinieren.
+
+```{r}
 m1 %>%
   spread_draws(b_Intercept) %>%
   ggplot(aes(x = b_Intercept)) +
-  stat_halfeye()
+  stat_halfeye(.width = c(.50, .80, .95))
 ```
 
+:::puzzle
+Was ist der Unterschied zwischen einem **Konfidenzintervall** und einem **credible interval**? Welches Intervall würden Sie verwenden, um eine Wahrscheinlichkeitsaussage über einen Parameter zu machen?
+:::
 
 
 ## Weiterführende Literatur

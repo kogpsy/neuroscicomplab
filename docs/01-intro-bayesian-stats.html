@@ -2557,6 +2557,7 @@ Cognitive Models
 <li><a href="#schätzmethoden">Schätzmethoden</a></li>
 <li><a href="#stan">Stan</a></li>
 <li><a href="#brms">brms</a></li>
+<li><a href="#posterior-verteilungen-zusammenfassen">Posterior-Verteilungen zusammenfassen</a></li>
 <li><a href="#weiterführende-literatur">Weiterführende Literatur</a></li>
 </ul></li>
 </ul>
@@ -2571,7 +2572,7 @@ Cognitive Models
 </ul>
 <p>Diese Methoden stehen schon seit längerem in der Kritik:</p>
 <ul>
-<li><p><span class="citation" data-cites="gigerenzerMindlessStatistics2004"><a href="#ref-gigerenzerMindlessStatistics2004" role="doc-biblioref">Gigerenzer</a> (<a href="#ref-gigerenzerMindlessStatistics2004" role="doc-biblioref">2004</a>)</span>;<span class="citation" data-cites="gigerenzerStatisticalRitualsReplication2018a"><a href="#ref-gigerenzerStatisticalRitualsReplication2018a" role="doc-biblioref">Gigerenzer</a> (<a href="#ref-gigerenzerStatisticalRitualsReplication2018a" role="doc-biblioref">2018</a>)</span> behauptet unter anderem, dass die Verwendung von NHST MEthoden oftmals einem statistischen Ritual gleichkommt.</p></li>
+<li><p><span class="citation" data-cites="gigerenzerMindlessStatistics2004"><a href="#ref-gigerenzerMindlessStatistics2004" role="doc-biblioref">Gigerenzer</a> (<a href="#ref-gigerenzerMindlessStatistics2004" role="doc-biblioref">2004</a>)</span>;<span class="citation" data-cites="gigerenzerStatisticalRitualsReplication2018a"><a href="#ref-gigerenzerStatisticalRitualsReplication2018a" role="doc-biblioref">Gigerenzer</a> (<a href="#ref-gigerenzerStatisticalRitualsReplication2018a" role="doc-biblioref">2018</a>)</span> behauptet unter anderem, dass die Verwendung von NHST Methoden oftmals einem statistischen Ritual gleichkommt.</p></li>
 <li><p><span class="citation" data-cites="wassersteinASAStatementPValues2016"><a href="#ref-wassersteinASAStatementPValues2016" role="doc-biblioref">Wasserstein and Lazar</a> (<a href="#ref-wassersteinASAStatementPValues2016" role="doc-biblioref">2016</a>)</span> schreiben im <em>Statement on Statistical Significance and P-Values</em> der American Statistical Association:</p>
 <ul>
 <li>P-values can indicate how incompatible the data are with a specified statistical model.</li>
@@ -2579,7 +2580,7 @@ Cognitive Models
 <li>Scientific conclusions and business or policy decisions should not be based only on whether a p-value passes a specific threshold.</li>
 </ul></li>
 </ul>
-<p>Es scheint also grosse Probleme mit dem Verständnis von konzepten der klassischen Statistik zu geben. Zum Beispiel werden Grundlegende Konzepte wie p-Werte und Konfidenzintervalle oft falsch verstanden <span class="citation" data-cites="hoekstraRobustMisinterpretationConfidence2014">(<a href="#ref-hoekstraRobustMisinterpretationConfidence2014" role="doc-biblioref">Hoekstra et al. 2014</a>)</span>.</p>
+<p>Es scheint also grosse Probleme mit dem Verständnis von Konzepten der klassischen Statistik zu geben. Zum Beispiel werden Grundlegende Konzepte wie p-Werte und Konfidenzintervalle oft falsch verstanden <span class="citation" data-cites="hoekstraRobustMisinterpretationConfidence2014">(<a href="#ref-hoekstraRobustMisinterpretationConfidence2014" role="doc-biblioref">Hoekstra et al. 2014</a>)</span>.</p>
 <h2 id="beispiel-t-test">Beispiel: t-Test</h2>
 <p>Schauen wir uns das Beispiel der letzten Sitzung nochmals an. Wir haben einen Datensatz generiert, um zwei geschätzte Mittelwerte zu vergleichen, mit dem Ziel herauszufinden, ob eine Gruppe einen grösseren Mittelwert als die andere hat.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3592,7 +3593,7 @@ Figure 1: Wahrscheinlichkeitsverteilungen
 </p>
 </div>
 </div>
-<p>In der Bayesianischen Statistik erhalten wir anstatt Punktschätzungen von Parametern ganze Verteilungen, mit denen wir unsere Unsicherheit quantifizieren. Ganz stark vereinfacht brauchen wir in der Bayesianischen Statistik eine Prior-Verteilung Englisch: <em>prior</em>), und wir erhalten eine Posteriori-Verteilung (Englisch: <em>posterior</em>), nachdem wir unseren prior anahand der Daten (<em>likelihood</em>) angepasst haben.</p>
+<p>In der Bayesianischen Statistik erhalten wir anstatt Punktschätzungen von Parametern ganze Verteilungen, mit denen wir unsere Unsicherheit quantifizieren. Ganz stark vereinfacht brauchen wir in der Bayesianischen Statistik eine Prior-Verteilung Englisch: <em>prior</em>), und wir erhalten eine Posteriori-Verteilung (Englisch: <em>posterior</em>), nachdem wir unseren prior anhand der Daten (<em>likelihood</em>) angepasst haben.</p>
 <div class="note">
 <p>Unser <strong>prior</strong> gibt an, was wir glauben, bevor wir die Daten berücksichtigen, und unser <strong>posterior</strong> gibt an, was wir glauben, nachdem wir die Daten gesehen haben.</p>
 </div>
@@ -3648,7 +3649,7 @@ Wir werden machen, was <span class="citation" data-cites="gigerenzerStatisticalR
 <h3 id="beispiel">Beispiel</h3>
 <p>Zwei Kartenspieler spielen gegeneinander. Sie beobachten, dass Spielerin A 6 von 9 Spielen gewinnt, während Spielerin B nur 3 davon gewinnt. Sie fragen sich nun, ob das nur Glück ist, oder ob Spielerin A tatsächlich besser sein könnte.</p>
 <div class="fyi">
-<p>Dieses Beispiel ist analytisch lösbar. Ich werde die analytische Lösung in einem Blog Post demonstrieren, da wir hier eine simulationsbasierte Lösung ansteben.</p>
+<p>Dieses Beispiel ist analytisch lösbar. Ich werde die analytische Lösung in einem Blog Post demonstrieren, da wir hier eine simulationsbasierte Lösung anstreben.</p>
 </div>
 <p>Wenn Sie diesen Sachverhalt quantifizieren möchten, könnten Sie behaupten, dass die Wahrscheinlichkeit, dass Spielerin A gewinnt, grösser als 0.5 sein müsste, falls diese besser ist. Eine Wahrscheinlichkeit von 0.5 würde bedeuten, dass beide mit gleicher Wahrscheinlichkeit gewinnen.</p>
 <p>Unser Ziel ist es also, den Wahrscheinlichkeitsparameter <span class="math inline">\(\theta\)</span> einer Binomialverteilung zu schätzen. Die Daten, <span class="math inline">\(y\)</span>, sind in diesem Fall die 6 Erfolge in 9 Versuchen.</p>
@@ -3733,7 +3734,7 @@ Figure 2: Maximum-Likelihood Schätzung
 <p><span class="math display">\[ P(\theta|Data) \propto P(Data|\theta) * P(\theta) \]</span> Um dies zu berechnen, brauchen wir <span class="math inline">\(P(Data|\theta)\)</span> und <span class="math inline">\(P(\theta)\)</span>. <span class="math inline">\(P(Data|\theta)\)</span> ist einfach; die Wahrscheinlichkeit <span class="math inline">\(k\)</span> Erfolge in <span class="math inline">\(n\)</span> Versuchen zu erhalten ist</p>
 <p><span class="math display">\[ P(x = k) = {n \choose k} \theta^k (1-\theta^{n-k}) \]</span> Das bedeutet: <span class="math inline">\(k\)</span> Erfolge mit Wahrscheinlichkeit <span class="math inline">\(\theta^k\)</span> und <span class="math inline">\(n-k\)</span> Misserfolge mit Wahrscheinlichkeit <span class="math inline">\(1-\theta^{n-k}\)</span>. Mit dem Term <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span> berücksichtigen wir alle Reihenfolgen, mit denen wir 6 Erfolge in 9 Spielen erhalten.</p>
 <p><span class="math inline">\(P(\theta)\)</span> ist die a-priori-Wahrscheinlichkeit, mit der Spielerin A gewinnt. Wenn wir nicht über die beiden Spielerinnen wissen, ist es sinnvoll anzunehmen, dass alle Wahrscheinlichkeiten zwischen 0 und 1 gleichwahrscheinlich sind. So eine Verteilung nennt man eine uniforme Verteilung über dem Interval <span class="math inline">\(\left(0, 1\right) = \{x \in \mathbb{R} | 0 &lt; x &lt; 1 \}\)</span>.</p>
-Wir definieren nun einen Vektor von möglichen Werten:
+<p>Wir definieren nun einen Vektor von möglichen Werten:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>n_points</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
@@ -3831,9 +3832,9 @@ Figure 3: Beta Verteilungen
 </p>
 </div>
 </div>
-<p>Die uniforme Verteilung erhalten wir, wenn wir <span class="math inline">\(\alpha = \beta = 1\)</span> setzen. Wenn wir <span class="math inline">\(\alpha = \beta = 4\)</span> setzen, erhalten wir eine Verteilung mit Erwartungswert <span class="math inline">\(0.5\)</span>, dies ist der Fall für alle Verteilungen in denen die beiden Parameter denselben Wert annehmen. Wenn wir ausdrücken wollen, dass wir A für die bessere Spielerin als B halten, dann wählen wir <span class="math inline">\(\alpha &gt; \beta\)</span>.</p>
+<p>Die uniforme Verteilung erhalten wir, wenn wir <span class="math inline">\(\alpha = \beta = 1\)</span> setzen. Wenn wir <span class="math inline">\(\alpha = \beta = 4\)</span> setzen, erhalten wir eine Verteilung mit Erwartungswert <span class="math inline">\(0.5\)</span>—dies ist der Fall für alle Verteilungen in denen die beiden Parameter denselben Wert annehmen. Wenn wir ausdrücken wollen, dass wir A für die bessere Spielerin als B halten, dann wählen wir <span class="math inline">\(\alpha &gt; \beta\)</span>.</p>
 <div class="fyi">
-<p>Die Verteilung heisst in R <code>*beta()</code>. Die Paramter <span class="math inline">\(\alpha\)</span> und <span class="math inline">\(\beta\)</span> heissen ganz einfach <code>shape1</code> und <code>shape2</code>.</p>
+<p>Die Verteilungsfunktionen heissen in R <code>dbeta()</code>, <code>pbeta()</code>, <code>qbeta()</code> und <code>rbeta()</code>. Die Parameter <span class="math inline">\(\alpha\)</span> und <span class="math inline">\(\beta\)</span> heissen ganz einfach <code>shape1</code> und <code>shape2</code>.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3843,7 +3844,7 @@ Figure 3: Beta Verteilungen
 </div>
 <p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
 </div>
-<p>Wenn wir überzeugt gewesen wären, dass B besser ist, dann hätten wir vielleicht diesen Prior:</p>
+<p>Wenn wir überzeugt wären, dass B besser ist, dann hätten wir vielleicht diesen Prior:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>p_grid</span>, shape1 <span class='op'>=</span> <span class='fl'>4</span>, shape2 <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
@@ -3853,7 +3854,7 @@ Figure 3: Beta Verteilungen
 <p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
 </div>
 <h2 id="einfluss-des-priors-auf-den-posterior">Einfluss des Priors auf den Posterior</h2>
-<p>Die obigen Beispiele illustrienen, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte <strong>non-informative</strong> Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.</p>
+<p>Die obigen Beispiele illustrieren, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte <strong>non-informative</strong> Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.</p>
 <aside>
 Probieren Sie ein ähnliches Beispiel als interaktive Webapp: <a href="https://tellmi.psy.lmu.de/felix/BayesLessons/BayesianLesson1.Rmd">A First Lesson in Bayesian Inference</a>
 </aside>
@@ -3868,7 +3869,7 @@ Mehr dazu einem Blog Post.
 <p>Wir werden in dieser Veranstaltung selten Stan direkt verwenden, da es mittlerweile gute R Packages gibt, mit denen die Bedienung von Stan sehr einfach geworden ist. Ich halte es jedoch für pädagogisch wertvoll, wenn wir uns zumindest dieses Beta-Binomial Besipiel in Stan anschauen.</p>
 <p>Die Vorgehensweise ist genauso, wie oben beschrieben: wir schreiben zuerst ein probabilistischen Model<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> auf, und bedingen dann auf die beobachteten Daten.</p>
 <p>Das Modell wird in der Stan Sprache geschrieben. Wir verwenden hier einen <code>Beta(4, 4)</code> Prior.</p>
-<pre><code>data {
+<pre class="{c++}"><code>data {
   int&lt;lower=0&gt; n; // number of games
   int&lt;lower=0&gt; k; // number of wins
   
@@ -3942,12 +3943,12 @@ convergence, Rhat=1).</code></pre>
 </div>
 <p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-27-1.png" width="624" /></p>
 </div>
-<div class="layout-chunk" data-layout="l-body">
+<div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>bayesplot</span><span class='fu'>::</span><span class='fu'><a href='https://mc-stan.org/bayesplot/reference/MCMC-intervals.html'>mcmc_intervals</a></span><span class='op'>(</span><span class='va'>fit</span>, <span class='st'>"theta"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-28-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-28-1.png" width="576" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3982,24 +3983,131 @@ convergence, Rhat=1).</code></pre>
 </code></pre>
 </div>
 </div>
-<div class="layout-chunk" data-layout="l-body">
+<div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-33-1.png" width="576" /></p>
 </div>
+<h2 id="posterior-verteilungen-zusammenfassen">Posterior-Verteilungen zusammenfassen</h2>
+<p>Wir erhalten mit Bayesianischer Inferenz zwar Posterior-Verteilungen, aber oftmals wollen wir diese zusammen, damit wir eine Entscheidung fällen können.</p>
+<p>Dies wird häufig anhand bestimmter Kennzahlen gemacht. Z.B. können wir den Mittelwert oder Median und eine Ober- und Untergrenze wählen. Ein solches Interval wird <em>credible interval</em> genannt. Häufig wird ein <span class="math inline">\(95\%\)</span> credible interval angegeben, aber es hindert uns nichts daran, ein <span class="math inline">\(50\%\)</span> oder <span class="math inline">\(80\%\)</span> credible interval zu benutzen. Mit der <code>median_qi()</code> vom Package <code>tidybayes</code> können wir das <code>.width</code> Argument benutzen:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://mjskay.github.io/tidybayes/'>tidybayes</a></span><span class='op'>)</span>
-
-<span class='va'>m1</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/spread_draws.html'>spread_draws</a></span><span class='op'>(</span><span class='va'>b_Intercept</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>b_Intercept</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-34-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/spread_draws.html'>spread_draws</a></span><span class='op'>(</span><span class='va'>b_Intercept</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>kableExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+b_Intercept
+</th>
+<th style="text-align:right;">
+.lower
+</th>
+<th style="text-align:right;">
+.upper
+</th>
+<th style="text-align:right;">
+.width
+</th>
+<th style="text-align:left;">
+.point
+</th>
+<th style="text-align:left;">
+.interval
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.5885875
+</td>
+<td style="text-align:right;">
+0.5025237
+</td>
+<td style="text-align:right;">
+0.6682483
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:left;">
+median
+</td>
+<td style="text-align:left;">
+qi
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5885875
+</td>
+<td style="text-align:right;">
+0.4231849
+</td>
+<td style="text-align:right;">
+0.7428155
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:left;">
+median
+</td>
+<td style="text-align:left;">
+qi
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5885875
+</td>
+<td style="text-align:right;">
+0.3514341
+</td>
+<td style="text-align:right;">
+0.8102628
+</td>
+<td style="text-align:right;">
+0.95
+</td>
+<td style="text-align:left;">
+median
+</td>
+<td style="text-align:left;">
+qi
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Mit <code>mean_qi()</code> erhalten wir Mittelwert und credible intervals.</p>
+<p>Um die Posterior-Verteilung zu visualisieren, können wir die Verteilung mit einem credible interval kombinieren.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>spread_draws</span><span class='op'>(</span><span class='va'>b_Intercept</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>b_Intercept</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>stat_halfeye</span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-36-1.png" width="624" /></p>
+</div>
+<div class="puzzle">
+<p>Was ist der Unterschied zwischen einem <strong>Konfidenzintervall</strong> und einem <strong>credible interval</strong>? Welches Intervall würden Sie verwenden, um eine Wahrscheinlichkeitsaussage über einen Parameter zu machen?</p>
 </div>
 <h2 id="weiterführende-literatur">Weiterführende Literatur</h2>
 <p><span class="citation" data-cites="etzIntroductionBayesianInference2018"><a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">Etz and Vandekerckhove</a> (<a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">2018</a>)</span> bieten eine sehr gründliche Einführung, mit vielen (Harry Potter-themed) Beispielen. <span class="citation" data-cites="schootGentleIntroductionBayesian2014"><a href="#ref-schootGentleIntroductionBayesian2014" role="doc-biblioref">Schoot et al.</a> (<a href="#ref-schootGentleIntroductionBayesian2014" role="doc-biblioref">2014</a>)</span> ist ebenfalls eine sehr gründliche Einführung. Eine empfehlenswerte Übersicht über Literatur, vor allem in Bezug auf Psychologie, geben <span class="citation" data-cites="etzHowBecomeBayesian2016"><a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">Etz et al.</a> (<a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">2016</a>)</span>.</p>
