@@ -125,6 +125,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="citation_reference" content="citation_title=Statistical Rituals: The Replication Delusion and How We Got There;citation_publication_date=2018;citation_publisher=SAGE Publications Inc;citation_volume=1;citation_doi=10.1177/2515245918771329;citation_issn=2515-2459;citation_author=Gerd Gigerenzer"/>
   <meta name="citation_reference" content="citation_title=Robust misinterpretation of confidence intervals;citation_publication_date=2014;citation_volume=21;citation_doi=10.3758/s13423-013-0572-3;citation_issn=1531-5320;citation_author=Rink Hoekstra;citation_author=Richard D. Morey;citation_author=Jeffrey N. Rouder;citation_author=Eric-Jan Wagenmakers"/>
   <meta name="citation_reference" content="citation_title=Doing bayesian data analysis (second edition);citation_publication_date=2015;citation_publisher=Academic Press;citation_author=John Kruschke"/>
+  <meta name="citation_reference" content="citation_title=Statistical rethinking: A bayesian course with examples in r and stan;citation_publication_date=2020;citation_publisher=CRC Press;citation_author=R. McElreath"/>
+  <meta name="citation_reference" content="citation_title=A Gentle Introduction to Bayesian Analysis: Applications to Developmental Research;citation_publication_date=2014;citation_volume=85;citation_doi=10.1111/cdev.12169;citation_issn=1467-8624;citation_author=Rens Schoot;citation_author=David Kaplan;citation_author=Jaap Denissen;citation_author=Jens B. Asendorpf;citation_author=Franz J. Neyer;citation_author=Marcel A. G. Aken"/>
   <meta name="citation_reference" content="citation_title=A practical solution to the pervasive problems of p values;citation_publication_date=2007;citation_volume=14;citation_doi=10.3758/BF03194105;citation_issn=1069-9384, 1531-5320;citation_author=Eric-Jan Wagenmakers"/>
   <meta name="citation_reference" content="citation_title=The ASA Statement on p-Values: Context, Process, and Purpose;citation_publication_date=2016;citation_publisher=Taylor &amp; Francis;citation_volume=70;citation_doi=10.1080/00031305.2016.1154108;citation_issn=0003-1305;citation_author=Ronald L. Wasserstein;citation_author=Nicole A. Lazar"/>
   <!--radix_placeholder_rmarkdown_metadata-->
@@ -2549,6 +2551,7 @@ Cognitive Models
 <li><a href="#degrees-of-belief">Degrees of belief</a></li>
 <li><a href="#grundlagen-der-bayesianischen-inferenz">Grundlagen der Bayesianischen Inferenz</a></li>
 <li><a href="#parameterschätzung-wahrscheinlichkeitsparameter-einer-binomialverteilung">Parameterschätzung: Wahrscheinlichkeitsparameter einer Binomialverteilung</a></li>
+<li><a href="#bayes-theorem">Bayes’ Theorem</a></li>
 <li><a href="#beta-verteilung">Beta Verteilung</a></li>
 <li><a href="#einfluss-des-priors-auf-den-posterior">Einfluss des Priors auf den Posterior</a></li>
 <li><a href="#schätzmethoden">Schätzmethoden</a></li>
@@ -3724,6 +3727,7 @@ Figure 2: Maximum-Likelihood Schätzung
 </div>
 </div>
 <p>Grafik <a href="#fig:maxlikbinom">2</a> zeigt, dass <span class="math inline">\(\theta\)</span> = 6/9 derjenige Parameter ist, für den die Wahrscheinlichkeit maximiert wird, dass wir 6 Erfolge in 9 Spielen beobachten.</p>
+<h2 id="bayes-theorem">Bayes’ Theorem</h2>
 <p>Mit einer Punktschätzung können wir unsere Unsicherheit aber nicht quantifizieren—dafür brauchen wir eine Verteilung über den ganzen Bereich der möglichen Parameterwerte. Diese Verteilung erhalten wir, indem wir das Bayes’sche Theorem anwenden. Die Wahrscheinlichkeit, dass A gewinnt, <span class="math inline">\(\theta\)</span>, bedingt auf die Daten, ist:</p>
 <p><span class="math display">\[ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)}\]</span> Der Term <span class="math inline">\(P(Data)\)</span> ist eingentlich nur eine Normalisierungskonstante, welche dafür sorgt, dass wir eine Verteilung erhalten (welche zu 1 integriert), und wird oft weggelassen:</p>
 <p><span class="math display">\[ P(\theta|Data) \propto P(Data|\theta) * P(\theta) \]</span> Um dies zu berechnen, brauchen wir <span class="math inline">\(P(Data|\theta)\)</span> und <span class="math inline">\(P(\theta)\)</span>. <span class="math inline">\(P(Data|\theta)\)</span> ist einfach; die Wahrscheinlichkeit <span class="math inline">\(k\)</span> Erfolge in <span class="math inline">\(n\)</span> Versuchen zu erhalten ist</p>
@@ -3737,7 +3741,7 @@ Wir definieren nun einen Vektor von möglichen Werten:
 </code></pre>
 </div>
 </div>
-<p>Die Likelihood, das heisst die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert ist</p>
+<p>Die Likelihood, das heisst die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert, ist</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>likelihood</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>dbinom</a></span><span class='op'>(</span><span class='va'>wins</span> , size <span class='op'>=</span> <span class='va'>games</span> , prob <span class='op'>=</span> <span class='va'>p_grid</span><span class='op'>)</span>
@@ -3998,7 +4002,9 @@ convergence, Rhat=1).</code></pre>
 <p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-34-1.png" width="624" /></p>
 </div>
 <h2 id="weiterführende-literatur">Weiterführende Literatur</h2>
-<p><span class="citation" data-cites="etzIntroductionBayesianInference2018"><a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">Etz and Vandekerckhove</a> (<a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">2018</a>)</span> bieten eine sehr gute, und gründliche Einführung. Das Buch von <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span> ist ein gutes Lehrbuch, obwohl der R Code nicht unbedingt sehr benutzerfreundlich ist. Eine empfehlenswerte Übersicht über Literatur geben <span class="citation" data-cites="etzHowBecomeBayesian2016"><a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">Etz et al.</a> (<a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">2016</a>)</span>.</p>
+<p><span class="citation" data-cites="etzIntroductionBayesianInference2018"><a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">Etz and Vandekerckhove</a> (<a href="#ref-etzIntroductionBayesianInference2018" role="doc-biblioref">2018</a>)</span> bieten eine sehr gründliche Einführung, mit vielen (Harry Potter-themed) Beispielen. <span class="citation" data-cites="schootGentleIntroductionBayesian2014"><a href="#ref-schootGentleIntroductionBayesian2014" role="doc-biblioref">Schoot et al.</a> (<a href="#ref-schootGentleIntroductionBayesian2014" role="doc-biblioref">2014</a>)</span> ist ebenfalls eine sehr gründliche Einführung. Eine empfehlenswerte Übersicht über Literatur, vor allem in Bezug auf Psychologie, geben <span class="citation" data-cites="etzHowBecomeBayesian2016"><a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">Etz et al.</a> (<a href="#ref-etzHowBecomeBayesian2016" role="doc-biblioref">2016</a>)</span>.</p>
+<p>Das Buch von <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span> ist ein gutes Lehrbuch, obwohl der R Code nicht unbedingt sehr benutzerfreundlich ist.</p>
+<p>Mein Favorit ist <span class="citation" data-cites="mcelreathStatisticalRethinkingBayesian2020"><a href="#ref-mcelreathStatisticalRethinkingBayesian2020" role="doc-biblioref">McElreath</a> (<a href="#ref-mcelreathStatisticalRethinkingBayesian2020" role="doc-biblioref">2020</a>)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-etzHowBecomeBayesian2016" class="csl-entry" role="doc-biblioentry">
@@ -4018,6 +4024,12 @@ Hoekstra, Rink, Richard D. Morey, Jeffrey N. Rouder, and Eric-Jan Wagenmakers. 2
 </div>
 <div id="ref-kruschkeDoingBayesianData2015" class="csl-entry" role="doc-biblioentry">
 Kruschke, John. 2015. <em>Doing Bayesian Data Analysis (Second Edition)</em>. <span>Boston</span>: <span>Academic Press</span>.
+</div>
+<div id="ref-mcelreathStatisticalRethinkingBayesian2020" class="csl-entry" role="doc-biblioentry">
+McElreath, R. 2020. <em>Statistical Rethinking: <span>A</span> Bayesian Course with Examples in r and Stan</em>. A Chapman &amp; Hall Book. <span>CRC Press</span>. <a href="https://books.google.ch/books?id=Ie2vxQEACAAJ">https://books.google.ch/books?id=Ie2vxQEACAAJ</a>.
+</div>
+<div id="ref-schootGentleIntroductionBayesian2014" class="csl-entry" role="doc-biblioentry">
+Schoot, Rens van de, David Kaplan, Jaap Denissen, Jens B. Asendorpf, Franz J. Neyer, and Marcel A. G. van Aken. 2014. <span>“A <span>Gentle Introduction</span> to <span>Bayesian Analysis</span>: <span>Applications</span> to <span>Developmental Research</span>.”</span> <em>Child Development</em> 85 (3): 842–60. <a href="https://doi.org/10.1111/cdev.12169">https://doi.org/10.1111/cdev.12169</a>.
 </div>
 <div id="ref-wagenmakersPracticalSolutionPervasive2007" class="csl-entry" role="doc-biblioentry">
 Wagenmakers, Eric-Jan. 2007. <span>“A Practical Solution to the Pervasive Problems of p Values.”</span> <em>Psychonomic Bulletin &amp; Review</em> 14 (5): 779–804. <a href="https://doi.org/10.3758/BF03194105">https://doi.org/10.3758/BF03194105</a>.

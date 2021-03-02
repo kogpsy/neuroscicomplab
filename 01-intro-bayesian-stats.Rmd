@@ -431,6 +431,7 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
 ```
 Grafik \@ref(fig:maxlikbinom) zeigt, dass $\theta$ = 6/9 derjenige Parameter ist, für den die Wahrscheinlichkeit maximiert wird, dass wir 6 Erfolge in 9 Spielen beobachten.
 
+## Bayes' Theorem
 Mit einer Punktschätzung können wir unsere Unsicherheit aber nicht quantifizieren---dafür brauchen wir eine Verteilung über den ganzen Bereich der möglichen Parameterwerte. Diese Verteilung erhalten wir, indem wir das Bayes'sche Theorem anwenden. Die Wahrscheinlichkeit, dass A gewinnt, $\theta$, bedingt auf die Daten, ist:
 
 $$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)}$$
@@ -454,7 +455,7 @@ p_grid <- seq( from=0 , to=1 , length.out = n_points )
 ```
 
 
-Die Likelihood, das heisst die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert ist
+Die Likelihood, das heisst die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert, ist
 
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = p_grid)
@@ -701,4 +702,10 @@ m1 %>%
 
 
 ## Weiterführende Literatur
-@etzIntroductionBayesianInference2018 bieten eine sehr gute, und gründliche Einführung. Das Buch von [@kruschkeDoingBayesianData2015] ist ein gutes Lehrbuch, obwohl der R Code nicht unbedingt sehr benutzerfreundlich ist. Eine empfehlenswerte Übersicht über Literatur geben @etzHowBecomeBayesian2016.
+@etzIntroductionBayesianInference2018 bieten eine sehr gründliche Einführung, mit vielen (Harry Potter-themed) Beispielen. @schootGentleIntroductionBayesian2014 ist ebenfalls eine sehr gründliche Einführung. Eine empfehlenswerte Übersicht über Literatur, vor allem in Bezug auf Psychologie, geben @etzHowBecomeBayesian2016.
+
+Das Buch von [@kruschkeDoingBayesianData2015] ist ein gutes Lehrbuch, obwohl der R Code nicht unbedingt sehr benutzerfreundlich ist. 
+
+Mein Favorit ist @mcelreathStatisticalRethinkingBayesian2020.
+
+
