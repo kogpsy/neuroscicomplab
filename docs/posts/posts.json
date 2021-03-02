@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-03-02-install-rstan/",
+    "title": "Rstan und brms installieren",
+    "description": "Eine Anleitung zur Installation der `rstan` und `brms` R packages.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-03-02",
+    "categories": [],
+    "contents": "\nFür das Beispiel am Ende der 2. Sitzung brauchen sie rstan und brms. Bevor Sie diese installieren, sollten sie einen C++ Compiler installieren. Die Anleitungen für Windows, MacOS und Linux finden Sie hier: https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started#configuring-c-toolchain.\nWenn Sie Hilfen benötigen, bitte im #troubleshooting Stream in Zulip fragen.\nWenn Sie die C++ Toolchain installiert haben, können Sie rstan und brms installieren:\n\n\ninstall.packages(\"rstan\", repos = \"https://cloud.r-project.org/\", dependencies = TRUE)\ninstall.packages(\"brms\")\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-02T07:14:03+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-01-zoom/",
     "title": "Zoom Links",
     "description": "Zoom URLs für die Vor- und Nachmittagssitzungen.",

@@ -7,7 +7,15 @@
     <description>Neurowissenschaft im Computerlab
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 01 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Rstan und brms installieren</title>
+      <dc:creator>Andrew Ellis</dc:creator>
+      <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-02-install-rstan</link>
+      <description>Eine Anleitung zur Installation der `rstan` und `brms` R packages.</description>
+      <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-02-install-rstan</guid>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Zoom Links</title>
       <dc:creator>Andrew Ellis</dc:creator>
