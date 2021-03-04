@@ -154,7 +154,7 @@ posterior
 ```
 
 
-## Plot
+## Aufgabe 4
 
 Stellen Sie Prior, Likelihood und Posterior grafisch dar
 
@@ -175,7 +175,7 @@ df %>%
 ```
 
 
-## Aufgabe 4
+## Aufgabe 5
 
 Was ist die Warscheinlichkeit, dass jemand mit solchen Vorleistungen mindestens 9 Fragen von 10 beantwortet, falls die Vorleistungen tatsächlich die wahre Fähigkeiten der Schüler messen?
 
