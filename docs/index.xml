@@ -7,7 +7,15 @@
     <description>Neurowissenschaft im Computerlab
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 02 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Übung 1</title>
+      <dc:creator>Andrew Ellis</dc:creator>
+      <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-04-uebung-1</link>
+      <description>Die erste Übung ist online.</description>
+      <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-04-uebung-1</guid>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Rstan und brms installieren</title>
       <dc:creator>Andrew Ellis</dc:creator>

@@ -34,7 +34,7 @@ navbar:
     - text: "Übungen"
       menu:
         - text: "Übung 1"
-          href: exercises/exercise-1.html
+          href: exercise-1.html
 
   right:
     - text: "Bayesian Statistics"

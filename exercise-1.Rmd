@@ -13,7 +13,7 @@ author:
 
 citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-1.html
 # slug: ellis2021overview
-bibliography: ../bibliography.bib
+bibliography: bibliography.bib
 output: 
     distill::distill_article:
       toc: true
@@ -29,8 +29,8 @@ library(tidyverse)
 
 # Aufgabenstellung
 
-:::code
-Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als `Rmarkdown` File bis Donnerstag, 11. März, in den Order für Übung 1 auf ILIAS. Falls `Rmarkdown` nicht funkioniert, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File `Matrikelnummer_Nachname.Rmd` oder `Matrikelnummer_Nachname.R`, z. B. `15-172-874_Nachname.Rmd`.
+:::exercise
+Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname.Rmd* oder *Matrikelnummer_Nachname.R*, z. B. *15-172-874_Nachname.Rmd*.
 :::
 
 Sie verabreichen einen Test, der aus 10 Fragen besteht. Die Fragen sind etwa gleich schwierig, und Sie sind sich sicher, dass die Fragen weder zu leicht noch zu schwierig für Ihre Schüler sind. Beim Betrachten der Resultate fällt Ihnen das Ergebnis eines Schülers besonders auf.

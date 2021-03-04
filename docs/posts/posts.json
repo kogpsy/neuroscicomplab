@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-03-04-uebung-1/",
+    "title": "Übung 1",
+    "description": "Die erste Übung ist online.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-03-04",
+    "categories": [],
+    "contents": "\nDie Übung finden Sie im Menu: Übungen > Übung 1.\nSie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis Donnerstag, 11. März um 00:00 Uhr, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File Matrikelnummer_Nachname.Rmd oder Matrikelnummer_Nachname.R, z. B. 15-172-874_Nachname.Rmd.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-04T15:51:41+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-02-install-rstan/",
     "title": "Rstan und brms installieren",
     "description": "Eine Anleitung zur Installation der `rstan` und `brms` R packages.",
