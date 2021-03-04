@@ -10,11 +10,11 @@
     min-height: 120px;
     color: #000000;
     background-color: #80A0C2;
-    border: dotted 5px #ffffff;
+    border: dashed 5px #ffffff;
   }
-  
+
 div.puzzle {
-  background-image: url("images/Your-turn.png");
+  background-image: url("images/puzzle.png");
 }
 
 div.fyi {
@@ -22,7 +22,7 @@ div.fyi {
 }
 
 div.exercise {
-  background-image: url("images/Live-code.png");
+  background-image: url("images/code.png");
 }
 
 div.note {

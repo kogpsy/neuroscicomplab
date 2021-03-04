@@ -599,7 +599,8 @@ Die Vorgehensweise ist genauso, wie oben beschrieben: wir schreiben zuerst ein p
 
 Das Modell wird in der Stan Sprache geschrieben. Wir verwenden hier einen `Beta(4, 4)` Prior.
 
-```{C++}
+
+```{stan output.var="binomial-1"}
 data {
   int<lower=0> n; // number of games
   int<lower=0> k; // number of wins
@@ -615,6 +616,7 @@ model {
   k ~ binomial(n, theta);
 }
 ```
+
 Dieser Code wird in einem File mit dem Suffix `.stan` gespeichert. 
 
 <aside> Ich nenne das Stan File `binomial-model.stan`. </aside>
@@ -663,8 +665,7 @@ bayesplot::mcmc_intervals(fit, "theta")
 
 
 ```{r}
-theta <- extract(fit, pars = c("theta"))$theta
-hist(theta)
+bayesplot::mcmc_areas(fit, "theta")
 ```
 
 

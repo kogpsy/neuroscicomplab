@@ -1,5 +1,5 @@
 name: "Neurowissenschaft im Computerlab"
-title: "Methodenkurs Neurowissenschaft im Computerlab"
+title: "neuroscicomplab"
 base_url: https://kogpsy.github.io/neuroscicomplab
 repository_url: https://github.com/kogpsy/neuroscicomplab
 source_url: https://github.com/kogpsy/neuroscicomplab
@@ -34,7 +34,7 @@ navbar:
     - text: "Übungen"
       menu:
         - text: "Übung 1"
-          href: uebung-1.html
+          href: exercises/exercise-1.html
 
   right:
     - text: "Bayesian Statistics"
