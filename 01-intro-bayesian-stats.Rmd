@@ -441,7 +441,7 @@ Der Term $P(Data)$ ist eingentlich nur eine Normalisierungskonstante, welche daf
 $$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
 Um dies zu berechnen, brauchen wir $P(Data|\theta)$ und $P(\theta)$. $P(Data|\theta)$ ist einfach; die Wahrscheinlichkeit $k$ Erfolge in $n$ Versuchen zu erhalten ist
 
-$$ P(x = k) = {n \choose k} \theta^k (1-\theta^{n-k}) $$
+$$ P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
 Das bedeutet: $k$ Erfolge mit Wahrscheinlichkeit $\theta^k$ und $n-k$ Misserfolge mit Wahrscheinlichkeit $1-\theta^{n-k}$. Mit dem Term $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ berücksichtigen wir alle Reihenfolgen, mit denen wir 6 Erfolge in 9 Spielen erhalten.
 
 
@@ -582,7 +582,7 @@ Die obigen Beispiele illustrieren, dass die Prior-Verteilung einen grossen Einfl
 
 ## Schätzmethoden
 
-Die Methode, welche wir oben angewandt haben, nennt sich "grid-search". Dies bezieht sich auf den Prior---wir haben einen Vektor von Priorwerten definiert, und jeden Punkt mit der Likelihood multipliziert, in direkter Anwendung von Bayes' Theorem. Dies ist für dieses kleine Problem sehr gut möglich. Daneben gibt es für dieses Beispiel auch die analytische Lösung. Die Beta-Prior-Verteilung kann mit den beobachteten Erfolgen und Versuchen updated werden, um eine neue Beta-Verteilung mit den Parametern $k + \alpha$ und $n - k + \beta$.
+Die Methode, welche wir oben angewandt haben, nennt sich "grid approximation". Dies bezieht sich auf den Prior---wir haben einen Vektor von Priorwerten definiert, und jeden Punkt mit der Likelihood multipliziert, in direkter Anwendung von Bayes' Theorem. Dies ist für dieses kleine Problem sehr gut möglich. Daneben gibt es für dieses Beispiel auch die analytische Lösung. Die Beta-Prior-Verteilung kann mit den beobachteten Erfolgen und Versuchen updated werden, um eine neue Beta-Verteilung mit den Parametern $k + \alpha$ und $n - k + \beta$.
 
 <aside> Mehr dazu einem Blog Post. </aside>
 

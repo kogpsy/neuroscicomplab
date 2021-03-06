@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html</loc>
-    <lastmod>2021-03-04T15:11:35+01:00</lastmod>
+    <lastmod>2021-03-06T14:57:35+01:00</lastmod>
   </url>
   <url>
     <loc>https://kogpsy.github.io/neuroscicomplab/exercise-1.html</loc>
-    <lastmod>2021-03-04T21:55:30+01:00</lastmod>
+    <lastmod>2021-03-06T15:03:59+01:00</lastmod>
   </url>
   <url>
     <loc>https://kogpsy.github.io/neuroscicomplab/</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-04-uebung-1/</loc>
-    <lastmod>2021-03-04T15:51:41+01:00</lastmod>
+    <lastmod>2021-03-06T14:57:06+01:00</lastmod>
   </url>
   <url>
     <loc>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-02-install-rstan/</loc>

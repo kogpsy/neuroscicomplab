@@ -30,7 +30,11 @@ library(tidyverse)
 # Aufgabenstellung
 
 :::exercise
-Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname.Rmd* oder *Matrikelnummer_Nachname.R*, z. B. *15-172-874_Nachname.Rmd*.
+Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-1.Rmd* oder *Matrikelnummer_Nachname_uebung-1.R*, z. B. *15-172-874_Nachname_uebung-1.Rmd*.
+:::
+
+:::note
+Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
 :::
 
 Sie verabreichen einen Test, der aus 10 Fragen besteht. Die Fragen sind etwa gleich schwierig, und Sie sind sich sicher, dass die Fragen weder zu leicht noch zu schwierig für Ihre Schüler sind. Beim Betrachten der Resultate fällt Ihnen das Ergebnis eines Schülers besonders auf.
@@ -107,6 +111,8 @@ n_points <- 100
 theta_grid <- seq(from = 0 , to = 1 , length.out = n_points)
 ```
 
+## Aufgabe 1
+
 Berechnen Sie nun die Wahrscheinlichkeit, das Testergebnis des Schülers zu erreichen, d.h. die Wahrscheinlichkeit der Daten für jeden möglichen Parameterwert.
 
 
@@ -121,15 +127,19 @@ tibble(theta_grid, likelihood) %>%
   ggplot(aes(x = theta_grid, y = likelihood)) +
   geom_line()
 ```
-## Aufgabe 1
-
-Wenn Sie kein Vorwissen hätten: Was würden Sie als Schätzung der Fähigkeit des Schülers benutzen?
-
-
-
-
-
 ## Aufgabe 2
+
+Wenn Sie kein Vorwissen über die bisherigen Testresultate des Schülers hätten: Was würden Sie als Schätzung der Fähigkeit des Schülers benutzen?
+
+<aside>
+Sie haben nur das aktuelle Resultat zur Verfügung (9 richtige Antowrten in 10 Fragen).
+</aside>
+
+
+
+
+
+## Aufgabe 3
 Versuchen Sie nun, Ihr Vorwissen über die Leistungen des Schülers in Form einer Prior-Verteilung auszudrücken.
 
 <aside>
@@ -141,7 +151,7 @@ Versuchen Sie es mit einer Beta-Verteilung. Schauen Sie im [Skript](https://kogp
 prior <- dbeta(x = theta_grid, shape1 = ___,  shape2 = ___)
 ```
 
-## Aufgabe 3
+## Aufgabe 4
 
 Berechnen Sie die Posterior-Verteilung als Produkt von Likelihood und Ihrem Prior.
 
@@ -154,7 +164,7 @@ posterior
 ```
 
 
-## Aufgabe 4
+## Aufgabe 5
 
 Stellen Sie Prior, Likelihood und Posterior grafisch dar
 
@@ -175,7 +185,7 @@ df %>%
 ```
 
 
-## Aufgabe 5
+## Aufgabe 6
 
 Was ist die Warscheinlichkeit, dass jemand mit solchen Vorleistungen mindestens 9 Fragen von 10 beantwortet, falls die Vorleistungen tatsächlich die wahre Fähigkeiten der Schüler messen?
 
