@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -27,26 +27,13 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 library(tidyverse)
-library(DiagrammeR)
 ```
 
 
+
+Bisher:
 ```{r}
-grViz("
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  node [shape = circle,
-        fixedsize = true,
-        width = 0.9] // sets as circles
-  1; 2; 3; 4; 5; 6; 7; 8
-
-  # several 'edge' statements
-  A->1 B->2 B->3 B->4 C->A
-  1->D E->A 2->4 1->5 1->F
-  E->6 4->6 5->7 6->7 3->8
-}")
+wins <- 6
+games <- 9
 ```
 

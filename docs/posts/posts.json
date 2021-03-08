@@ -15,8 +15,8 @@
     ],
     "contents": "\nDie Übung finden Sie im Menu: Übungen > Übung 1.\nSie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis Donnerstag, 11. März um 00:00 Uhr, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File Matrikelnummer_Nachname_uebung-1.Rmd oder Matrikelnummer_Nachname_uebung-1.R, z. B. 15-172-874_Nachname_uebung-1.Rmd.\n\nBevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.\n\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-08T17:00:39+01:00",
-    "input_file": "uebung-1.utf8.md"
+    "last_modified": "2021-03-08T17:00:40+01:00",
+    "input_file": {}
   },
   {
     "path": "posts/2021-03-02-install-rstan/",

@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
   <meta name="citation_title" content="neuroscicomplab: Part 2"/>
-  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html"/>
+  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html"/>
   <meta name="citation_fulltext_world_readable" content=""/>
   <meta name="citation_online_date" content="2021/03/08"/>
   <meta name="citation_publication_date" content="2021/03/08"/>
@@ -122,7 +122,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Part 2"]},{"type":"character","attributes":{},"value":["Klassische (frequentistische) und Bayesianische Statistik.\n"]},{"type":"character","attributes":{},"value":["2021-03-08"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Part 2"]},{"type":"character","attributes":{},"value":["Klassische (frequentistische) und Bayesianische Statistik.\n"]},{"type":"character","attributes":{},"value":["2021-03-08"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2378,10 +2378,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.7.3/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-  <script src="site_libs/viz-1.8.2/viz.js"></script>
-  <link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-  <script src="site_libs/grViz-binding-1.0.6.9000/grViz.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2529,28 +2525,13 @@ Cognitive Models
 </div>
 
 <div class="d-article">
+Bisher:
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/DiagrammeR/man/grViz.html'>grViz</a></span><span class='op'>(</span><span class='st'>"
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  node [shape = circle,
-        fixedsize = true,
-        width = 0.9] // sets as circles
-  1; 2; 3; 4; 5; 6; 7; 8
-
-  # several 'edge' statements
-  A-&gt;1 B-&gt;2 B-&gt;3 B-&gt;4 C-&gt;A
-  1-&gt;D E-&gt;A 2-&gt;4 1-&gt;5 1-&gt;F
-  E-&gt;6 4-&gt;6 5-&gt;7 6-&gt;7 3-&gt;8
-}"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wins</span> <span class='op'>&lt;-</span> <span class='fl'>6</span>
+<span class='va'>games</span> <span class='op'>&lt;-</span> <span class='fl'>9</span>
 </code></pre>
 </div>
-<div id="htmlwidget-729b8228c9c3bee3571d" style="width:624px;height:384px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-729b8228c9c3bee3571d">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2573,12 +2554,12 @@ digraph boxes_and_circles {
 <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/kogpsy/neuroscicomplab">https://github.com/kogpsy/neuroscicomplab</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 <h3 id="citation">Citation</h3>
 <p>For attribution, please cite this work as</p>
-<pre class="citation-appendix short">Ellis (2021, March 8). neuroscicomplab: Part 2. Retrieved from https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html</pre>
+<pre class="citation-appendix short">Ellis (2021, March 8). neuroscicomplab: Part 2. Retrieved from https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html</pre>
 <p>BibTeX citation</p>
 <pre class="citation-appendix long">@misc{ellis2021part,
   author = {Ellis, Andrew},
   title = {neuroscicomplab: Part 2},
-  url = {https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html},
+  url = {https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html},
   year = {2021}
 }</pre>
 </div>
