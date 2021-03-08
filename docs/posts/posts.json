@@ -10,11 +10,13 @@
       }
     ],
     "date": "2021-03-04",
-    "categories": [],
+    "categories": [
+      "uebungen"
+    ],
     "contents": "\nDie Übung finden Sie im Menu: Übungen > Übung 1.\nSie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis Donnerstag, 11. März um 00:00 Uhr, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File Matrikelnummer_Nachname_uebung-1.Rmd oder Matrikelnummer_Nachname_uebung-1.R, z. B. 15-172-874_Nachname_uebung-1.Rmd.\n\nBevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.\n\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-06T14:57:06+01:00",
-    "input_file": {}
+    "last_modified": "2021-03-08T17:00:39+01:00",
+    "input_file": "uebung-1.utf8.md"
   },
   {
     "path": "posts/2021-03-02-install-rstan/",
@@ -27,10 +29,13 @@
       }
     ],
     "date": "2021-03-02",
-    "categories": [],
+    "categories": [
+      "rstan",
+      "brms"
+    ],
     "contents": "\nFür das Beispiel am Ende der 2. Sitzung brauchen sie rstan und brms. Bevor Sie diese installieren, sollten sie einen C++ Compiler installieren. Die Anleitungen für Windows, MacOS und Linux finden Sie hier: https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started#configuring-c-toolchain.\nWenn Sie Hilfen benötigen, bitte im #troubleshooting Stream in Zulip fragen.\nWenn Sie die C++ Toolchain installiert haben, können Sie rstan und brms installieren:\n\n\ninstall.packages(\"rstan\", repos = \"https://cloud.r-project.org/\", dependencies = TRUE)\ninstall.packages(\"brms\")\n\n\n\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-02T07:14:03+01:00",
+    "last_modified": "2021-03-08T16:57:29+01:00",
     "input_file": {}
   },
   {

@@ -10,6 +10,9 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 date: 03-02-2021
+categories:
+  - rstan
+  - brms
 output:
   distill::distill_article:
     self_contained: false
