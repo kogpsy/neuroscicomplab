@@ -231,7 +231,7 @@ samples <-
 
 ```{r echo=FALSE}
 d %>%
-    paged_table(options = list(rows.print = 15))
+    paged_table(options = list(rows.print = 6))
 ```
 ]
 
@@ -239,7 +239,7 @@ d %>%
 
 ```{r echo=FALSE}
 samples %>%
-    paged_table(options = list(rows.print = 15))
+    paged_table(options = list(rows.print = 6))
 ```
 ]
 ]
