@@ -161,7 +161,7 @@ prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 .panel[.panel-name[Posterior]
 ```{r}
-{{unstandardized_posterior <- likelihood * prior}}
+unstandardized_posterior <- likelihood * prior
 posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 ```
 ]
@@ -203,7 +203,6 @@ d %>%
   theme(legend.position = "none")
 ```
 ]
-
 ]
 
 ---
@@ -269,7 +268,6 @@ samples %>%
   geom_density(fill = "steelblue") +
   scale_x_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1))
 ```
-
 ]]
 
 ---
@@ -288,8 +286,6 @@ sum(posterior[theta_grid > 0.5])
 d %>% #<<
   filter(theta_grid > .5) %>% 
   summarise(sum = sum(posterior)) #<<
-
-
 ```
 ]
 
@@ -609,7 +605,6 @@ fit <- brm(y ~ 1,
            data = d,
            cores = parallel::detectCores())
 ```
-
 ]
 
 
@@ -627,15 +622,7 @@ d <- tibble(y)
 ```
 ]
 
-
-.panel[.panel-name[Load package]
-```{r}
-library(brms)
-d <- tibble(y)
-```
-]
-
-.panel[.panel-name[Priors?]
+.panel[.panel-name[Welche Priors]
 ```{r}
 get_prior(y ~ 1,
           family = gaussian,
@@ -653,7 +640,7 @@ priors <- set_prior("normal(120, 5)", class = "Intercept") +
 
 
 .panel[.panel-name[Fit Model]
-```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 m <- brm(y ~ 1,
            family = gaussian,
            prior = priors,
@@ -684,7 +671,7 @@ plot(m)
 ```
 ]
 
-.panel[.panel-name[ Posterior Samples]
+.panel[.panel-name[Posterior Samples]
 ```{r}
 library(tidybayes)
 m %>%
