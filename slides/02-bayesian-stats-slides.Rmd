@@ -552,7 +552,7 @@ y <- rnorm(n = n, mean = mu, sd = sigma) %>% round(2)
 ```
 ]
 
-.panel[.panel-name[Daten generieren]
+.panel[.panel-name[Histogramm ]
 ```{r echo = FALSE}
 hist(y, col = 'skyblue3', breaks = 10) 
 ```

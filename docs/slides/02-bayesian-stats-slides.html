@@ -134,7 +134,7 @@ prior &lt;- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 .panel[.panel-name[Posterior]
 
 ```r
-*unstandardized_posterior &lt;- likelihood * prior
+unstandardized_posterior &lt;- likelihood * prior
 posterior &lt;- unstandardized_posterior / sum(unstandardized_posterior)
 ```
 ]
@@ -162,7 +162,6 @@ d %&gt;%
 .panel[.panel-name[Plot]
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
 ]
-
 ]
 
 ---
@@ -220,7 +219,6 @@ samples &lt;-
 ]
 .panel[.panel-name[Density ]
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
-
 ]]
 
 ---
@@ -446,7 +444,7 @@ y &lt;- rnorm(n = n, mean = mu, sd = sigma) %&gt;% round(2)
 ```
 ]
 
-.panel[.panel-name[Daten generieren]
+.panel[.panel-name[Histogramm ]
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-30-1.png" width="100%" /&gt;
 ]
 
@@ -498,7 +496,6 @@ fit &lt;- brm(y ~ 1,
            data = d,
            cores = parallel::detectCores())
 ```
-
 ]
 
 
@@ -517,16 +514,7 @@ d &lt;- tibble(y)
 ```
 ]
 
-
-.panel[.panel-name[Load package]
-
-```r
-library(brms)
-d &lt;- tibble(y)
-```
-]
-
-.panel[.panel-name[Priors?]
+.panel[.panel-name[Welche Priors]
 
 ```r
 get_prior(y ~ 1,
@@ -606,10 +594,10 @@ intervals der Posterior Verteilung zusammengefasst.
 plot(m)
 ```
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-38-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-37-1.png" width="100%" /&gt;
 ]
 
-.panel[.panel-name[ Posterior Samples]
+.panel[.panel-name[Posterior Samples]
 
 ```r
 library(tidybayes)
@@ -669,7 +657,7 @@ m %&gt;%
   stat_halfeye(.width = c(.50, .80, .95))
 ```
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-40-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-39-1.png" width="100%" /&gt;
 ]]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

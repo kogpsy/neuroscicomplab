@@ -44,8 +44,8 @@ navbar:
           href: 01-intro-bayesian-stats.html
         - text: "2. Bayesianische Statistik: Modelle"
           href: 02-bayesian-stats.html
-        - text: "3. Bayesianische Statistik: Modelvergleiche"
-          href: 03-model-comparison.html
+        # - text: "3. Bayesianische Statistik: Modelvergleiche"
+        #   href: 03-model-comparison.html
 
         # - text: "---"
         # - text: "Parameter Estimation"
