@@ -513,7 +513,7 @@ samples %>%
 
 # Graphical model
 
-Grafische Darstellung des  <span> style="color: var(--text-color)">generativen Modells</span:
+Grafische Darstellung des  <span style="color: var(--text-color)">Generativen Modells</span>:
 --
 
 .pull-left[
@@ -529,8 +529,7 @@ Grafische Darstellung des  <span> style="color: var(--text-color)">generativen M
 
 # Graphical model
 
-Grafische Darstellung eines  <span style="color: var(--text-color)">generativen
-Modells</span mit normalverteilten Daten:
+Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen Modells</span> mit normalverteilten Daten:
 --
 
 .pull-left[
