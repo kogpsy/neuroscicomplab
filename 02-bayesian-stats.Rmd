@@ -1,7 +1,7 @@
 ---
-title: "Part 2"
+title: "Bayesianische Statistik"
 description: | 
-  Klassische (frequentistische) und Bayesianische Statistik.
+  Sampling, Modelle, Parameterschätzung.
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"
@@ -30,10 +30,4 @@ library(tidyverse)
 ```
 
 
-
-Bisher:
-```{r}
-wins <- 6
-games <- 9
-```
 

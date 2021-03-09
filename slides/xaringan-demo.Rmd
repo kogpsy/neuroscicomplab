@@ -16,6 +16,7 @@ output:
 background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
 
 ```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(include = FALSE)
 options(htmltools.dir.version = FALSE)
 library(xaringanthemer)
 style_duo(primary_color = "#1F4257", secondary_color = "#F97B64")

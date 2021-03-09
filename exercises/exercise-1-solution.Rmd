@@ -199,6 +199,6 @@ Was ist die Warscheinlichkeit, dass jemand mit solchen Vorleistungen mindestens 
 
 
 ```{r eval=FALSE, include=FALSE}
-1 - pbinom(q = ncorrect, size = nquestions, prob = prior_ncorrect/prior_nquestions)
+1 - pbinom(q = ncorrect-1, size = nquestions, prob = prior_ncorrect/prior_nquestions)
 ```
 

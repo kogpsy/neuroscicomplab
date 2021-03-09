@@ -5,6 +5,7 @@ repository_url: https://github.com/kogpsy/neuroscicomplab
 source_url: https://github.com/kogpsy/neuroscicomplab
 description: |
   Neurowissenschaft im Computerlab
+include: ["slides/"]
 output_dir: "docs"
 theme: theme.css
 creative_commons: CC BY
@@ -37,26 +38,31 @@ navbar:
           href: exercise-1.html
 
   right:
-    - text: "Bayesian Statistics"
+    - text: "Kapitel"
       menu:
-        - text: "Einführung"
+        - text: "1. Einführung in Bayesianische Statistik"
           href: 01-intro-bayesian-stats.html
+        - text: "2. Parameterschätzung"
+          href: 02-bayesian-stats.html
+        - text: "2. Modelvergleiche"
+          href: 03-model-comparison.html
+
         # - text: "---"
         # - text: "Parameter Estimation"
         #   href: "parameter-estimation.html"
-
-    - text: "Multilevel Models"
+#
+    - text: "Slides"
       menu:
-        - text: "Einführung"
-          href: intro.html
-
-
-    - text: "Cognitive Models"
-      menu:
-        - text: Decision Making
-          href: intro.html
-        - text: "Weitere Modelle"
-          href: intro.html
+        - text: "2. Parameterschätzung"
+          href: slides/02-bayesian-stats-slides.html
+#
+#
+#     - text: "Cognitive Models"
+#       menu:
+#         - text: Decision Making
+#           href: intro.html
+#         - text: "Weitere Modelle"
+#           href: intro.html
 
     - icon: fab fa-github
       href: https://github.com/kogpsy/neuroscicomplab
