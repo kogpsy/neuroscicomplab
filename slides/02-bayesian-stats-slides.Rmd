@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 session: 3
-subtitle: "Teil 2<br/>Parameterschätzung"
+subtitle: "Teil 2<br/>Modelle"
 author: "Andrew Ellis"
 institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
 date: "`r Sys.Date()`"
@@ -35,6 +35,7 @@ knitr::opts_chunk$set(include = TRUE,
 options(htmltools.dir.version = FALSE)
 
 library(tidyverse)
+library(rmarkdown)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -47,6 +48,7 @@ style_duo_accent(
 
 xaringanExtra::use_tile_view()
 xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
 xaringanExtra::use_extra_styles(
   hover_code_line = TRUE,         #<<
   mute_unhighlighted_code = TRUE  #<<
@@ -60,8 +62,13 @@ layout: true
 
 ## Letzte Sitzung:
 
-### Bayes' Theorem
+- Parameterschätzung: Wahrscheinlichkeitsparameter einer Binomialverteilung
+- Beta Verteilungen
+- Grid Approximation
 
+---
+
+## Bayes' Theorem
 
 $$P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)}$$
 oder ohne Normalisierungskonstante: 
@@ -161,9 +168,9 @@ posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 
 .panel[.panel-name[Plot (code)]
 ```{r echo=TRUE, eval=FALSE}
-df <- tibble(theta_grid, prior, likelihood, posterior)
+d <- tibble(theta_grid, prior, likelihood, posterior)
 
-df %>%
+d %>%
   pivot_longer(-theta_grid, names_to = "distribution", values_to = "density") %>% 
   mutate(distribution = as_factor(distribution)) %>% 
   ggplot(aes(theta_grid, density, color = distribution)) +
@@ -202,25 +209,312 @@ d %>%
 ---
 ## Posterior zusammenfassen
 
-Samples aus dem Posterior
+
+
+Samples aus dem Posterior ziehen:
+
+.panelset[
+
+.panel[.panel-name[Samples ziehen]
 ```{r}
-
-n_samples <- 1e2
-
-set.seed(3) # wegen reproduzierbarkeit
+n_samples <- 1e4
+set.seed(3) # wegen Reproduzierbarkeit
 
 samples <-
   d %>% 
-  slice_sample(n = n_samples, weight_by = posterior, replace = TRUE)
-
-glimpse(samples)
+  slice_sample(n = n_samples, weight_by = posterior, replace = TRUE) %>%
+  mutate(sample_number = 1:n())
 ```
+]
+
+.panel[.panel-name[Grid-approximated Posterior]
+
+```{r echo=FALSE}
+d %>%
+    paged_table(options = list(rows.print = 8))
+```
+]
+
+.panel[.panel-name[Samples]
+
+```{r echo=FALSE}
+samples %>%
+    paged_table(options = list(rows.print = 8))
+```
+]
+]
+
+
+
+
+---
+## Posterior zusammenfassen
+
+
+.panelset[
+
+.panel[.panel-name[Samples visualisieren]
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+samples %>%
+  ggplot(aes(x = sample_number, y = theta_grid)) +
+  geom_point(alpha = 1/10) +
+  scale_y_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1)) +
+  xlab("sample number")
+```
+]
+.panel[.panel-name[Density ]
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+samples %>% 
+  ggplot(aes(x = theta_grid)) +
+  geom_density(fill = "steelblue") +
+  scale_x_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1))
+```
+
+]]
+
+---
+## Intervalle mit definierten Endpunkten
+
+.panelset[
+
+.panel[.panel-name[Base R]
+```{r}
+sum(posterior[theta_grid > 0.5])
+```
+]
+
+.panel[.panel-name[Posterior aufsummieren]
+```{r}
+d %>% #<<
+  filter(theta_grid > .5) %>% 
+  summarise(sum = sum(posterior)) #<<
+
+
+```
+]
+
+.panel[.panel-name[Anzahl Samples zählen (1)]
+```{r}
+samples %>% #<<
+  filter(theta_grid > .5) %>% 
+  summarise(sum = n() / n_samples) #<<
+```
+]
+
+.panel[.panel-name[Anzahl Samples zählen (2)]
+```{r}
+samples %>% 
+  count(theta_grid > .5) %>% 
+  mutate(probability = n / sum(n))
+```
+]]
+
+---
+### Intervalle mit definierter Masse
+
+.panelset[
+
+.panel[.panel-name[Credible Interval]
+```{r}
+quantile(samples$theta_grid, prob = c(.25, .75))
+```
+]
+
+.panel[.panel-name[Median mit Quantilen 1]
+```{r}
+library(tidybayes)
+median_qi(samples$theta_grid, .width = .5)
+```
+]
+
+.panel[.panel-name[Median mit Quantilen 2]
+```{r}
+library(tidybayes)
+median_qi(samples$theta_grid, .width = c(.5, .8, .99))
+```
+]
+
+.panel[.panel-name[Highest Posterior Density (HDPI)]
+```{r}
+mode_hdi(samples$theta_grid, .width = .5)
+```
+]]
+
+---
+
+## Highest Posterior Density
+
+.panelset[
+
+.panel[.panel-name[Ohne zentrale Tendenz]
+```{r}
+hdi(samples$theta_grid, .width = .5)
+```
+]
+
+.panel[.panel-name[Quantile vs HPDI]
+```{r echo = FALSE}
+library(patchwork)
+
+p1 <-
+  d %>% 
+  ggplot(aes(x = theta_grid)) +
+  # check out our sweet `qi()` indexing
+  geom_ribbon(data = d %>% filter(theta_grid > qi(samples$theta_grid, .width = .5)[1] & 
+                                    theta_grid < qi(samples$theta_grid, .width = .5)[2]),
+              aes(ymin = 0, ymax = posterior),
+              fill = "grey75") +
+  geom_line(aes(y = posterior)) +
+  labs(subtitle = "50% Percentile Interval",
+       x = "Erfolgswahrscheinlichkeit",
+       y = "density")
+
+
+p2 <-
+  d %>% 
+  ggplot(aes(x = theta_grid)) +
+  geom_ribbon(data = . %>% filter(theta_grid > hdi(samples$theta_grid, .width = .5)[1] & 
+                                    theta_grid < hdi(samples$theta_grid, .width = .5)[2]),
+              aes(ymin = 0, ymax = posterior),
+              fill = "grey75") +
+  geom_line(aes(y = posterior)) +
+  labs(subtitle = "50% HPDI",
+       x = "Erfolgswahrscheinlichkeit",
+       y = "density")
+
+p1 | p2
+```
+]
+]
+
+
+
+---
+
+## Sampling: Simulation
+
+.panelset[
+
+.panel[.panel-name[Daten mit fixierten Parametern]
+```{r echo = FALSE}
+set.seed(3)
+d <- tibble(draws = rbinom(1e4, size = 9, prob = .7))
+
+# the histogram
+d %>% 
+  ggplot(aes(x = draws)) +
+  geom_histogram(binwidth = 1, center = 0,
+                 color = "grey92", size = 1/10) +
+  scale_x_continuous("Erfolge",
+                     breaks = seq(from = 0, to = 9, by = 2)) +
+  ylab("Häufigkeit") +
+  coord_cartesian(xlim = c(0, 9)) +
+  theme(panel.grid = element_blank())
+```
+]
+
+.panel[.panel-name[Daten mit verschiedenen Parameterwerten]
+```{r echo = FALSE}
+n_draws <- 1e5
+
+simulate_binom <- function(n, probability) {
+  set.seed(3)
+  rbinom(n_draws, size = n, prob = probability) 
+}
+
+d <-
+  crossing(n           = c(3, 6, 9),
+           probability = c(.3, .6, .9)) %>% 
+  mutate(draws = map2(n, probability, simulate_binom)) %>% 
+  ungroup() %>% 
+  mutate(n           = str_c("n = ", n),
+         probability = str_c("theta = ", probability)) %>% 
+  unnest(draws)
+
+d %>% 
+  ggplot(aes(x = draws)) +
+  geom_histogram(binwidth = 1, center = 0,
+                 color = "grey92", size = 1/10) +
+  scale_x_continuous("Erfolge",
+                     breaks = seq(from = 0, to = 9, by = 2)) +
+  ylab("Häufigkeit") +
+  coord_cartesian(xlim = c(0, 9)) +
+  theme(panel.grid = element_blank()) +
+  facet_grid(n ~ probability)
+```
+]
+
+.panel[.panel-name[Prior Predictive Distribution]
+```{r echo = FALSE}
+n_samples <- 1e4
+n <- 100
+n_success <- 6
+n_trials <- 9
+
+d <-
+  tibble(theta_grid = seq(from = 0, to = 1, length.out = n),
+         prior  = dbeta(theta_grid, shape1 = 4, shape2 = 4)) %>% 
+  mutate(likelihood = dbinom(n_success, size = n_trials, prob = theta_grid)) %>% 
+  mutate(posterior = (likelihood * prior) / sum(likelihood * prior))
+
+samples <-
+  d %>% 
+  mutate(prior = prior/sum(prior)) %>%
+  slice_sample(n = n_samples, weight_by = prior, replace = T) %>% 
+  mutate(k = purrr::map_dbl(theta_grid, rbinom, n = 1, size = 9))
+
+samples %>% 
+  ggplot(aes(x = k)) +
+  geom_histogram(binwidth = 1, center = 0,
+                 color = "grey92", size = 1/10) +
+  scale_x_continuous("Erfolge",
+                     breaks = seq(from = 0, to = 9, by = 3)) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  ggtitle("Prior predictive distribution") +
+  coord_cartesian(xlim = c(0, 9),
+                  ylim = c(0, 3000)) +
+  theme(panel.grid = element_blank())
+```
+]
+
+.panel[.panel-name[Posterior Predictive Distribution]
+```{r echo = FALSE}
+n_samples <- 1e4
+
+# make it reproducible
+set.seed(3)
+
+samples <-
+  d %>% 
+  slice_sample(n = n_samples, weight_by = posterior, replace = T) %>% 
+  mutate(k = purrr::map_dbl(theta_grid, rbinom, n = 1, size = 9))
+
+samples %>% 
+  ggplot(aes(x = k)) +
+  geom_histogram(binwidth = 1, center = 0,
+                 color = "grey92", size = 1/10) +
+  scale_x_continuous("Erfolge",
+                     breaks = seq(from = 0, to = 9, by = 3)) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  ggtitle("Posterior predictive distribution") +
+  coord_cartesian(xlim = c(0, 9),
+                  ylim = c(0, 3000)) +
+  theme(panel.grid = element_blank())
+```
+]
+]
+
+
+
+
 
 
 ---
 
 # Graphical model
 
+Grafische Darstellung des  <span style="color: var(--text-color)">generativen Modells</span:
+--
 
 .pull-left[
 ![an image](images/binomial-graphical-model.png)]
@@ -231,3 +525,182 @@ glimpse(samples)
 ![an image](images/bernoulli-graphical-model.png)]
 
 ---
+
+
+# Graphical model
+
+Grafische Darstellung eines  <span style="color: var(--text-color)">generativen
+Modells</span mit normalverteilten Daten:
+--
+
+.pull-left[
+![an image](images/normal-graphical-model.png)]
+
+--
+
+
+.pull-right[
+
+.panelset[
+
+.panel[.panel-name[Daten generieren]
+```{r}
+n <- 20
+
+mu_sigma <- 5
+sigma <- 6
+
+set.seed(6)
+mu <- rnorm(n = 1, mean = 120, sd = mu_sigma)
+sigma <- runif(n = 1, 1, 10)
+y <- rnorm(n = n, mean = mu, sd = sigma) %>% round(2)
+```
+]
+
+.panel[.panel-name[Daten generieren]
+```{r echo = FALSE}
+hist(y, col = 'skyblue3', breaks = 10) 
+```
+]
+
+]
+]
+
+---
+
+## Posterior Inferenz
+
+.pull-left[
+```{c++}
+// The input data is a vector 'y' of length 'N'.
+data {
+  int<lower=0> N;
+  vector[N] y;
+}
+
+// The parameters accepted by the model. Our model
+// accepts two parameters 'mu' and 'sigma'.
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+
+// The model to be estimated. We model the output
+// 'y' to be normally distributed with mean 'mu'
+// and standard deviation 'sigma'.
+model {
+  mu ~ normal(120, 5);
+  sigma ~ uniform(1, 10);
+  y ~ normal(mu, sigma);
+}
+```
+]
+
+.pull-right[
+```{r eval = FALSE}
+library(brms)
+d <- tibble(y)
+
+priors <- set_prior("normal(120, 5)", class = "Intercept") +
+    set_prior("uniform(1, 10)", class = "sigma")
+
+fit <- brm(y ~ 1,
+           family = gaussian,
+           prior = priors,
+           data = d,
+           cores = parallel::detectCores())
+```
+
+]
+
+
+
+---
+
+## `brms` Model
+
+.panelset[
+
+.panel[.panel-name[Load package]
+```{r}
+library(brms)
+d <- tibble(y)
+```
+]
+
+
+.panel[.panel-name[Load package]
+```{r}
+library(brms)
+d <- tibble(y)
+```
+]
+
+.panel[.panel-name[Priors?]
+```{r}
+get_prior(y ~ 1,
+          family = gaussian,
+          data = d)
+```
+]
+
+
+.panel[.panel-name[Priors definieren]
+```{r}
+priors <- set_prior("normal(120, 5)", class = "Intercept") +
+  set_prior("cauchy(0, 1)", class = "sigma")
+```
+]
+
+
+.panel[.panel-name[Fit Model]
+```{r echo=TRUE, results='hide', message=FALSE, warning=FALSE}
+m <- brm(y ~ 1,
+           family = gaussian,
+           prior = priors,
+           data = d,
+           cores = parallel::detectCores(),
+           file = "model_1")
+```
+]
+]
+
+---
+
+## `brms` Model
+
+.panelset[
+
+.panel[.panel-name[Output]
+```{r}
+summary(m)
+```
+Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
+intervals der Posterior Verteilung zusammengefasst. 
+]
+
+.panel[.panel-name[Plot Output]
+```{r}
+plot(m)
+```
+]
+
+.panel[.panel-name[ Posterior Samples]
+```{r}
+library(tidybayes)
+m %>%
+  spread_draws(b_Intercept) %>% 
+  median_qi(.width = c(.50, .80, .95)) %>% 
+  kableExtra::kbl()
+```
+]
+
+
+.panel[.panel-name[Plot Credible Interval]
+```{r}
+m %>%
+  spread_draws(b_Intercept) %>%
+  ggplot(aes(x = b_Intercept)) +
+  stat_halfeye(.width = c(.50, .80, .95))
+```
+]]

@@ -42,9 +42,9 @@ navbar:
       menu:
         - text: "1. Einführung in Bayesianische Statistik"
           href: 01-intro-bayesian-stats.html
-        - text: "2. Parameterschätzung"
+        - text: "2. Bayesianische Statistik: Modelle"
           href: 02-bayesian-stats.html
-        - text: "2. Modelvergleiche"
+        - text: "3. Bayesianische Statistik: Modelvergleiche"
           href: 03-model-comparison.html
 
         # - text: "---"
@@ -53,7 +53,7 @@ navbar:
 #
     - text: "Slides"
       menu:
-        - text: "2. Parameterschätzung"
+        - text: "2. Bayesianische Statistik: Modelle"
           href: slides/02-bayesian-stats-slides.html
 #
 #
