@@ -8,18 +8,17 @@ date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["xaringan-themer.css", "custom.css", "footer.css"]
+    css: ["css/xaringan-themer.css", "css/slides-style.css", "css/header-footer.css"]
     nature:
-      # slideNumberFormat: "%current%"
+      highlightStyle: solarized-light # github
+      highlightLines: true
+      ratio: 16:10
+      countIncrementalSlides: false
       slideNumberFormat: |
         <div class="progress-bar-container">
           <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
           </div>
         </div>
-      highlightStyle: github
-      highlightLines: true
-      ratio: 16:10
-      countIncrementalSlides: true
 ---
 
 ```{r setup, include=FALSE, warning=FALSE}
@@ -40,10 +39,23 @@ library(rmarkdown)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
+# style_duo_accent(
+#   primary_color = "#4C566B",
+#   secondary_color = "#C16069",
+#   inverse_header_color = "#FFFFFF"
+# )
+
 style_duo_accent(
   primary_color = "#4C566B",
   secondary_color = "#C16069",
-  inverse_header_color = "#FFFFFF"
+  inverse_header_color = "#FFFFFF",
+  # primary_color      = "#0F4C81", # pantone classic blue
+  # secondary_color    = "#A2B8D4", # pantone cashmere blue
+  header_font_google = google_font("Raleway"),
+  text_font_google   = google_font("Raleway", "300", "300i"),
+  code_font_google   = google_font("Fira Code"),
+  # text_font_size     = "30px",
+  outfile            = "css/xaringan-themer.css"
 )
 
 xaringanExtra::use_tile_view()
@@ -88,24 +100,20 @@ $$P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
 
 
 
-.panelset[
-.panel[.panel-name[Daten]
 
 ```{r}
 wins <- 6
 games <- 9
 ```
-]
 
-.panel[.panel-name[Maximum Likelihood Schätzung]
+### Maximum Likelihood Schätzung
 
 ```{r}
 theta <- wins/games
 theta
 ```
-]
 
-.panel[.panel-name[Plot]
+---
 
 ```{r echo=FALSE}
 tibble(x = seq(from = 0, to = 1, by = .01)) %>% 
@@ -120,53 +128,38 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
   theme(panel.grid = element_blank(),
         legend.position = "none")
 ```
-]
-]
 
 ---
 
 ## Posterior durch Grid Approximation
 
-.panelset[
 
-.panel[.panel-name[Grid]
 ```{r}
 n_points <- 100
 theta_grid <- seq(from = 0 , to = 1 , length.out = n_points)
 ```
-]
 
-.panel[.panel-name[Likelihood]
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = theta_grid)
 
 ```
-]
 
-.panel[.panel-name[Prior]
 ```{r}
 prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 ```
-]
-
-]
 
 
 ---
 ## Posterior durch Grid Approximation
 
 
-.panelset[
 
-.panel[.panel-name[Posterior]
 ```{r}
 unstandardized_posterior <- likelihood * prior
 posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 ```
-]
 
-.panel[.panel-name[Plot (code)]
 ```{r echo=TRUE, eval=FALSE}
 d <- tibble(theta_grid, prior, likelihood, posterior)
 
@@ -183,9 +176,10 @@ d %>%
   theme_bw() +
   theme(legend.position = "none")
 ```
-]
 
-.panel[.panel-name[Plot]
+---
+## Posterior durch Grid Approximation
+
 ```{r echo=FALSE}
 d <- tibble(theta_grid, prior, likelihood, posterior)
 
@@ -202,8 +196,6 @@ d %>%
   theme_bw() +
   theme(legend.position = "none")
 ```
-]
-]
 
 ---
 ## Posterior zusammenfassen
@@ -212,9 +204,7 @@ d %>%
 
 Samples aus dem Posterior ziehen:
 
-.panelset[
 
-.panel[.panel-name[Samples ziehen]
 ```{r}
 n_samples <- 1e4
 set.seed(3) # wegen Reproduzierbarkeit
@@ -224,24 +214,21 @@ samples <-
   slice_sample(n = n_samples, weight_by = posterior, replace = TRUE) %>%
   mutate(sample_number = 1:n())
 ```
-]
 
-.panel[.panel-name[Grid-approximated Posterior]
-
-```{r echo=FALSE}
+---
+```{r echo=TRUE}
 d %>%
     paged_table(options = list(rows.print = 6))
 ```
-]
 
-.panel[.panel-name[Samples]
+---
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 samples %>%
     paged_table(options = list(rows.print = 6))
 ```
-]
-]
+
+    
 
 
 
@@ -250,9 +237,7 @@ samples %>%
 ## Posterior zusammenfassen
 
 
-.panelset[
 
-.panel[.panel-name[Samples visualisieren]
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>%
   ggplot(aes(x = sample_number, y = theta_grid)) +
@@ -260,95 +245,88 @@ samples %>%
   scale_y_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1)) +
   xlab("sample number")
 ```
-]
-.panel[.panel-name[Density ]
+
+---
+## Posterior zusammenfassen
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>% 
   ggplot(aes(x = theta_grid)) +
   geom_density(fill = "steelblue") +
   scale_x_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1))
 ```
-]]
 
 ---
 ## Intervalle mit definierten Endpunkten
 
-.panelset[
-
-.panel[.panel-name[Base R]
+### Posterior Approximation
 ```{r}
 sum(posterior[theta_grid > 0.5])
 ```
-]
 
-.panel[.panel-name[Posterior aufsummieren]
 ```{r}
-d %>% #<<
+d %>% 
   filter(theta_grid > .5) %>% 
-  summarise(sum = sum(posterior)) #<<
+  summarise(sum = sum(posterior)) 
 ```
-]
 
-.panel[.panel-name[Anzahl Samples zählen (1)]
+
+---
+
+## Intervalle mit definierten Endpunkten
+
+### Posterior Samples
+
 ```{r}
 samples %>% #<<
-  filter(theta_grid > .5) %>% 
+  filter(theta_grid > .5) %>% #<<
   summarise(sum = n() / n_samples) #<<
 ```
-]
 
-.panel[.panel-name[Anzahl Samples zählen (2)]
 ```{r}
 samples %>% 
   count(theta_grid > .5) %>% 
   mutate(probability = n / sum(n))
 ```
-]]
 
 ---
-### Intervalle mit definierter Masse
+## Intervalle mit definierter Masse
 
-.panelset[
+### Quantile
 
-.panel[.panel-name[Credible Interval]
 ```{r}
 quantile(samples$theta_grid, prob = c(.25, .75))
 ```
-]
 
-.panel[.panel-name[Median mit Quantilen 1]
 ```{r}
 library(tidybayes)
 median_qi(samples$theta_grid, .width = .5)
 ```
-]
 
-.panel[.panel-name[Median mit Quantilen 2]
+
 ```{r}
 library(tidybayes)
 median_qi(samples$theta_grid, .width = c(.5, .8, .99))
 ```
-]
+---
 
-.panel[.panel-name[Highest Posterior Density (HDPI)]
+### Highest Posterior Density (HPDI)
+
 ```{r}
 mode_hdi(samples$theta_grid, .width = .5)
 ```
-]]
 
----
-
-## Highest Posterior Density
-
-.panelset[
-
-.panel[.panel-name[Ohne zentrale Tendenz]
 ```{r}
 hdi(samples$theta_grid, .width = .5)
 ```
-]
 
-.panel[.panel-name[Quantile vs HPDI]
+---
+
+## Quantiles vs Highest Posterior Density
+
+
+
+
 ```{r echo = FALSE}
 library(patchwork)
 
@@ -380,8 +358,6 @@ p2 <-
 
 p1 | p2
 ```
-]
-]
 
 
 
@@ -389,9 +365,7 @@ p1 | p2
 
 ## Sampling: Simulation
 
-.panelset[
 
-.panel[.panel-name[Daten mit fixierten Parametern]
 ```{r echo = FALSE}
 set.seed(3)
 d <- tibble(draws = rbinom(1e4, size = 9, prob = .7))
@@ -407,9 +381,11 @@ d %>%
   coord_cartesian(xlim = c(0, 9)) +
   theme(panel.grid = element_blank())
 ```
-]
 
-.panel[.panel-name[Daten mit verschiedenen Parameterwerten]
+---
+
+## Sampling: Simulation
+
 ```{r echo = FALSE}
 n_draws <- 1e5
 
@@ -438,9 +414,10 @@ d %>%
   theme(panel.grid = element_blank()) +
   facet_grid(n ~ probability)
 ```
-]
 
-.panel[.panel-name[Prior Predictive Distribution]
+---
+## Prior Predictive Distribution
+
 ```{r echo = FALSE}
 n_samples <- 1e4
 n <- 100
@@ -471,9 +448,11 @@ samples %>%
                   ylim = c(0, 3000)) +
   theme(panel.grid = element_blank())
 ```
-]
 
-.panel[.panel-name[Posterior Predictive Distribution]
+
+---
+## Posterior Predictive Distribution
+
 ```{r echo = FALSE}
 n_samples <- 1e4
 
@@ -497,8 +476,6 @@ samples %>%
                   ylim = c(0, 3000)) +
   theme(panel.grid = element_blank())
 ```
-]
-]
 
 
 
@@ -536,9 +513,7 @@ Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen 
 
 .pull-right[
 
-.panelset[
 
-.panel[.panel-name[Daten generieren]
 ```{r}
 n <- 20
 
@@ -546,27 +521,28 @@ mu_sigma <- 5
 sigma <- 6
 
 set.seed(6)
-mu <- rnorm(n = 1, mean = 120, sd = mu_sigma)
+mu <- rnorm(n = 1, mean = 120, 
+            sd = mu_sigma)
 sigma <- runif(n = 1, 1, 10)
-y <- rnorm(n = n, mean = mu, sd = sigma) %>% round(2)
+y <- rnorm(n = n, mean = mu, 
+           sd = sigma) %>% 
+     round(2)
 ```
 ]
 
-.panel[.panel-name[Histogramm ]
+---
+
 ```{r echo = FALSE}
 hist(y, col = 'skyblue3', breaks = 10) 
 ```
-]
 
-]
-]
 
 ---
 
 ## Posterior Inferenz
 
 .pull-left[
-```{c++}
+```{C++}
 // The input data is a vector 'y' of length 'N'.
 data {
   int<lower=0> N;
@@ -613,33 +589,28 @@ fit <- brm(y ~ 1,
 
 ## `brms` Model
 
-.panelset[
 
-.panel[.panel-name[Load package]
 ```{r}
 library(brms)
 d <- tibble(y)
 ```
-]
 
-.panel[.panel-name[Welche Priors]
 ```{r}
 get_prior(y ~ 1,
           family = gaussian,
           data = d)
 ```
-]
+
+---
 
 
-.panel[.panel-name[Priors definieren]
 ```{r}
 priors <- set_prior("normal(120, 5)", class = "Intercept") +
   set_prior("cauchy(0, 1)", class = "sigma")
 ```
-]
 
 
-.panel[.panel-name[Fit Model]
+panel[.panel-name[Fit Model]
 ```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 m <- brm(y ~ 1,
            family = gaussian,
@@ -648,30 +619,26 @@ m <- brm(y ~ 1,
            cores = parallel::detectCores(),
            file = "model_1")
 ```
-]
-]
+
 
 ---
 
 ## `brms` Model
 
-.panelset[
-
-.panel[.panel-name[Output]
 ```{r}
 summary(m)
 ```
 Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
 intervals der Posterior Verteilung zusammengefasst. 
-]
 
-.panel[.panel-name[Plot Output]
+---
+
 ```{r}
 plot(m)
 ```
-]
 
-.panel[.panel-name[Posterior Samples]
+---
+
 ```{r}
 library(tidybayes)
 m %>%
@@ -679,14 +646,13 @@ m %>%
   median_qi(.width = c(.50, .80, .95)) %>% 
   kableExtra::kbl()
 ```
-]
+
+---
 
 
-.panel[.panel-name[Plot Credible Interval]
 ```{r}
 m %>%
   spread_draws(b_Intercept) %>%
   ggplot(aes(x = b_Intercept)) +
   stat_halfeye(.width = c(.50, .80, .95))
 ```
-]]
