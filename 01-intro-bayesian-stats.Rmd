@@ -640,15 +640,27 @@ stan_data <- list(
 
 Und benutzen die Funktion `stan()`, um die Posterior-Verteilung zu sampeln.
 
-```{r message=FALSE, warning=FALSE, results='hide', include=TRUE, echo=TRUE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE, results='hide'}
 fit <- stan(file = "binomial-model.stan",  # Stan program
             data = stan_data,    # named list of data
             chains = 4,          # number of Markov chains
             iter = 2000,         # total number of iterations per chain
             cores = 4)           # number of cores (could use one per chain)
-            
 ```
 
+```{r message=FALSE, warning=FALSE, include=FALSE, results='hide'}
+if (fs::file_exists("models/binomial-1.rds")) {
+  fit <- readRDS("models/binomial-1.rds")
+} else {
+  fit <- stan(file = "binomial-model.stan",  # Stan program
+            data = stan_data,    # named list of data
+            chains = 4,          # number of Markov chains
+            iter = 2000,         # total number of iterations per chain
+            cores = 4)           # number of cores (could use one per chain)
+  saveRDS(fit, file = "models/binomial-1.rds") 
+}
+    
+```
 
 ```{r}
 print(fit)
