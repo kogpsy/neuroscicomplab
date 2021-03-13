@@ -22,7 +22,7 @@ layout: true
   
 <div class="my-footer">
 <span>
-Dr. Andrew Ellis - <a href="https://rstd.io/design-ds-class" target="_blank">rstd.io/design-ds-class</a>
+Andrew Ellis - <a href="https://rstd.io/design-ds-class" target="_blank">rstd.io/design-ds-class</a>
 </span>
 </div> 
 
