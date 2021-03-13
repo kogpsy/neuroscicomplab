@@ -2434,7 +2434,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="style.css" type="text/css"/>
+  <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
 </head>
 
@@ -3445,7 +3445,7 @@ No Fancy Hat
     <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
 <p>Unter der Annahme, dass die beiden Gruppen dieselbe Standardabweichung haben, machen wir einen t-Test:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3763,7 +3763,7 @@ Figure 2: Maximum-Likelihood Schätzung
 <span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-27-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-17-1.png" width="624" /></p>
 </div>
 <p>Da wir jeden Wert für gleich wahrscheinlich hielten, hat unser Prior keinen Einfluss auf den Posterior.</p>
 <p>Wir können aber unser Vorwissen auch anders ausdrücken. Vielleicht halten wir es für möglich, dass A besser ist als B, aber wir glauben, es sei unmöglich, dass B besser ist. Dieser Glaube könnte durch folgenden Prior repräsentiert werden.</p>
@@ -3773,7 +3773,7 @@ Figure 2: Maximum-Likelihood Schätzung
 <span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior2</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-28-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
 </div>
 <p>Dies führt dazu, dass in unserem Posterior Werte <span class="math inline">\(&lt; 0.5\)</span> nicht möglich sind, weil wir dieses Vorwissen in unserem Prior spezifiziert hatten.</p>
 <p>Wir können aber auch abenteuerliche Priors benutzen, wie z.B. folgender: Wir glauben, dass <span class="math inline">\(0.5\)</span> der wahrscheinlichste Wert ist, mit einem exponentiellen Abfall auf beide Seiten.</p>
@@ -3783,7 +3783,7 @@ Figure 2: Maximum-Likelihood Schätzung
 <span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior3</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-19-1.png" width="624" /></p>
 </div>
 <h2 id="beta-verteilung">Beta Verteilung</h2>
 <p>Da wir aber nicht immer unsere Prior Verteilungen per Hand spezifieren können oder wollen, ist es oft ratsam, eine bekannte Wahrscheinlichkeitsverteilung zu benutzen. Diese muss einen Wertebereich haben, der für den zu schätzenden Parameter angemessen ist. In diesem Fall ist dies das Interval <span class="math inline">\(\left(0, 1\right)\)</span>.</p>
@@ -3833,7 +3833,7 @@ Figure 3: Beta Verteilungen
 <span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior4</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-31-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
 </div>
 <p>Wenn wir überzeugt wären, dass B besser ist, dann hätten wir vielleicht diesen Prior:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3842,7 +3842,7 @@ Figure 3: Beta Verteilungen
 <span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior5</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-32-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
 </div>
 <h2 id="einfluss-des-priors-auf-den-posterior">Einfluss des Priors auf den Posterior</h2>
 <p>Die obigen Beispiele illustrieren, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte <strong>non-informative</strong> Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.</p>
@@ -3934,21 +3934,21 @@ convergence, Rhat=1).</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://mc-stan.org/rstan/reference/stanfit-method-traceplot.html'>traceplot</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-39-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>bayesplot</span><span class='fu'>::</span><span class='fu'><a href='https://mc-stan.org/bayesplot/reference/MCMC-intervals.html'>mcmc_intervals</a></span><span class='op'>(</span><span class='va'>fit</span>, <span class='st'>"theta"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-40-1.png" width="576" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-30-1.png" width="576" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>bayesplot</span><span class='fu'>::</span><span class='fu'><a href='https://mc-stan.org/bayesplot/reference/MCMC-intervals.html'>mcmc_areas</a></span><span class='op'>(</span><span class='va'>fit</span>, <span class='st'>"theta"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-41-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-31-1.png" width="624" /></p>
 </div>
 <h2 id="brms">brms</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -3980,7 +3980,7 @@ convergence, Rhat=1).</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-45-1.png" width="576" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-35-1.png" width="576" /></p>
 </div>
 <h2 id="posterior-verteilungen-zusammenfassen">Posterior-Verteilungen zusammenfassen</h2>
 <p>Wir erhalten mit Bayesianischer Inferenz zwar Posterior-Verteilungen, aber oftmals wollen wir diese zusammen, damit wir eine Entscheidung fällen können.</p>
@@ -4096,7 +4096,7 @@ qi
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-48-1.png" width="624" /></p>
+<p><img src="01-intro-bayesian-stats_files/figure-html5/unnamed-chunk-38-1.png" width="624" /></p>
 </div>
 <div class="puzzle">
 <p>Was ist der Unterschied zwischen einem <strong>Konfidenzintervall</strong> und einem <strong>credible interval</strong>? Welches Intervall würden Sie verwenden, um eine Wahrscheinlichkeitsaussage über einen Parameter zu machen?</p>

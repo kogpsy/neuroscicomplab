@@ -7,7 +7,7 @@ description: |
   Neurowissenschaft im Computerlab
 include: ["slides/"]
 output_dir: "docs"
-theme: theme.css
+theme: css/theme.css
 creative_commons: CC BY
 # cookie_consent:
 #   style: simple
@@ -72,4 +72,4 @@ output:
   distill::distill_article:
     toc: true
     toc_float: true
-    css: style.css
+    css: css/style.css
