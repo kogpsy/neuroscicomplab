@@ -217,28 +217,47 @@ ul{
 
 /* Footer */
 div.my-footer {
-    border-top: 1px solid var(--classic-blue);
-    position: absolute;
-    bottom: 0px;
-    height: 35px;
-    width: 90%;
+  border-top: 1px solid var(--classic-blue);
+  position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 90%;
 }
+/* div.my-footer {
+  position: absolute;
+  bottom: 0;
+  height: 25px;
+  width: 90%;
+  text-align: right;
+} */
 div.my-footer span {
     font-size: 12pt;
     position: absolute;
-    color: #333333;
-    bottom: 10px;
+    color: #3b4252;
+    bottom: 5px;
 }
 div.my-footer a {
     font-size: 12pt;
-    color: #333333;
+    color: #3b4252;
 }
 
 
 /* Footnote */
 .footnote {
   position: absolute;
-  bottom: 1em;
+  bottom: 20px; /* 1em; */
   padding-right: 4em;
   font-size: 70%;
 }
+
+
+/* Footnote (actually header note -> top right)
+.footer {
+  color: black;
+  position: fixed;
+  top: 2%;
+  left: 0;
+  text-align: right;
+  width: 95%;
+} */
+
