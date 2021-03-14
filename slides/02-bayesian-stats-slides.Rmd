@@ -185,39 +185,48 @@ d %>%
 Samples aus dem Posterior ziehen:
 
 
+.panelset[
+.panel[.panel-name[N. Samples]
 ```{r}
 n_samples <- 1e4
 set.seed(3) # wegen Reproduzierbarkeit
-
-samples <-
-  d %>% 
-  slice_sample(n = n_samples, weight_by = posterior, replace = TRUE) %>%
-  mutate(sample_number = 1:n())
 ```
 
----
 ```{r echo=TRUE}
 d %>%
     paged_table(options = list(rows.print = 6))
 ```
 
----
+]
+.panel[.panel-name[Ziehen mit Zurücklegen]
+```{r}
+samples <-
+  d %>% 
+  slice_sample(n = n_samples, weight_by = posterior, replace = TRUE) %>%
+  mutate(sample_number = 1:n())
+```
+]
+
+.panel[.panel-name[Samples]
+
 
 ```{r echo=TRUE}
 samples %>%
     paged_table(options = list(rows.print = 6))
 ```
+]
+]
 
-    
 
 
 
 
 ---
+
 ## Posterior zusammenfassen
 
-
-
+.panelset[
+.panel[.panel-name[Markov Chain]
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>%
   ggplot(aes(x = sample_number, y = theta_grid)) +
@@ -225,18 +234,23 @@ samples %>%
   scale_y_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1)) +
   xlab("sample number")
 ```
+]
 
----
-## Posterior zusammenfassen
-
+.panel[.panel-name[Histogram/Density]
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>% 
   ggplot(aes(x = theta_grid)) +
   geom_density(fill = "steelblue") +
   scale_x_continuous("Erfolgswahrscheinlichkeit", limits = c(0, 1))
 ```
+]
+]
+
+
+
 
 ---
+
 ## Intervalle mit definierten Endpunkten
 
 ### Posterior Approximation
