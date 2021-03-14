@@ -125,12 +125,17 @@ prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 ## Posterior durch Grid Approximation
 
 
+.panelset[
+.panel[.panel-name[Posterior]
 
-```{r panelset = TRUE}
+```{r}
 unstandardized_posterior <- likelihood * prior
 posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 ```
 
+]
+
+.panel[.panel-name[Code für Plot]
 ```{r echo=TRUE, eval=FALSE}
 d <- tibble(theta_grid, prior, likelihood, posterior)
 
@@ -147,10 +152,9 @@ d %>%
   theme_bw() +
   theme(legend.position = "none")
 ```
+]
 
----
-
-## Posterior durch Grid Approximation
+.panel[.panel-name[Plot]
 
 ```{r echo=FALSE}
 d <- tibble(theta_grid, prior, likelihood, posterior)
@@ -168,8 +172,12 @@ d %>%
   theme_bw() +
   theme(legend.position = "none")
 ```
+]
+]
+
 
 ---
+
 ## Posterior zusammenfassen
 
 

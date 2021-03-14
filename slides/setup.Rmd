@@ -4,6 +4,7 @@
 knitr::opts_chunk$set(include = TRUE,
                       fig.width=9, fig.height=3.5, fig.retina=3,
                       out.width = "100%",
+                      dpi = 300,
                       cache = TRUE,
                       echo = TRUE,
                       message = FALSE, 
@@ -11,13 +12,18 @@ knitr::opts_chunk$set(include = TRUE,
                       fig.show = TRUE,
                       hiline = TRUE)
 options(htmltools.dir.version = FALSE)
-# figure height, width, dpi
-knitr::opts_chunk$set(echo = TRUE, 
-                      fig.width = 5, 
-                      fig.height = 3,
-                      dpi = 300)
 # fontawesome
-htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+# htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+
 # magick
 dev.off <- function(){
   invisible(grDevices::dev.off())

@@ -6,17 +6,12 @@
     <meta name="author" content="Andrew Ellis" />
     <meta name="date" content="2021-03-14" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view/tile-view.js"></script>
-    <link href="libs/panelset/panelset.css" rel="stylesheet" />
-    <script src="libs/panelset/panelset.js"></script>
     <script src="libs/clipboard/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
-    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
-    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
@@ -157,35 +152,18 @@ prior &lt;- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 ## Posterior durch Grid Approximation
 
 
+.panelset[
+.panel[.panel-name[Posterior]
 
-&lt;div class="panel"&gt;
-&lt;div class="panel-name"&gt;Code&lt;/div&gt;
 
 ```r
 unstandardized_posterior &lt;- likelihood * prior
-```
-
-&lt;/div&gt;
-
-&lt;div class="panel"&gt;
-&lt;div class="panel-name"&gt;Output&lt;/div&gt;
-
-&lt;div class="panel"&gt;
-&lt;div class="panel-name"&gt;Code&lt;/div&gt;
-
-```r
 posterior &lt;- unstandardized_posterior / sum(unstandardized_posterior)
 ```
 
-&lt;/div&gt;
+]
 
-&lt;div class="panel"&gt;
-&lt;div class="panel-name"&gt;Output&lt;/div&gt;
-
-
-
-&lt;/div&gt;
-
+.panel[.panel-name[Code für Plot]
 
 ```r
 d &lt;- tibble(theta_grid, prior, likelihood, posterior)
@@ -203,14 +181,17 @@ d %&gt;%
   theme_bw() +
   theme(legend.position = "none")
 ```
+]
 
----
-
-## Posterior durch Grid Approximation
+.panel[.panel-name[Plot]
 
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+]
+]
+
 
 ---
+
 ## Posterior zusammenfassen
 
 
