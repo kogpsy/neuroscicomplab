@@ -8,6 +8,15 @@
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <script src="libs/fabric/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
@@ -26,7 +35,7 @@ class: center, middle, inverse, title-slide
 # Bayesianische Statistik
 ## Teil 2<br/>Modelle
 ### Andrew Ellis
-### Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern
+### Methodenkurs Neurowissenschaft im Computerlab
 ### 2021-03-14
 
 ---
@@ -39,10 +48,10 @@ class: center, middle, inverse, title-slide
 
 layout: true
   
-&lt;!-- Home icon (right) --&gt;
+&lt;!-- Home icon --&gt;
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:black;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;&lt;/a&gt;
+&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:black;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;&lt;/a&gt; Methodenkurs Neurowissenschaft im Computerlab
 &lt;/span&gt;
 &lt;/div&gt;
 
@@ -117,6 +126,8 @@ theta
 
 ## Posterior durch Grid Approximation
 
+.panelset[
+.panel[.panel-name[Grid]
 
 
 ```r
@@ -124,18 +135,25 @@ n_points &lt;- 100
 theta_grid &lt;- seq(from = 0 , to = 1 , length.out = n_points)
 ```
 
+]
+
+.panel[.panel-name[Likelihood]
 
 ```r
 likelihood &lt;- dbinom(wins , size = games , prob = theta_grid)
 ```
+]
 
+.panel[.panel-name[Prior]
 
 ```r
 prior &lt;- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 ```
-
+]
+]
 
 ---
+
 ## Posterior durch Grid Approximation
 
 
@@ -187,6 +205,7 @@ d %&gt;%
 ```
 
 ---
+
 ## Posterior durch Grid Approximation
 
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;

@@ -3,7 +3,8 @@ title: "Bayesianische Statistik"
 session: 3
 subtitle: "Teil 2<br/>Modelle"
 author: "Andrew Ellis"
-institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
+# institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
+institute: "Methodenkurs Neurowissenschaft im Computerlab"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -94,24 +95,33 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
 
 ## Posterior durch Grid Approximation
 
+.panelset[
+.panel[.panel-name[Grid]
 
 ```{r}
 n_points <- 100
 theta_grid <- seq(from = 0 , to = 1 , length.out = n_points)
 ```
 
+]
+
+.panel[.panel-name[Likelihood]
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = theta_grid)
 
 ```
+]
 
+.panel[.panel-name[Prior]
 ```{r}
 prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 ```
-
+]
+]
 
 ---
+
 ## Posterior durch Grid Approximation
 
 
@@ -139,6 +149,7 @@ d %>%
 ```
 
 ---
+
 ## Posterior durch Grid Approximation
 
 ```{r echo=FALSE}

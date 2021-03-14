@@ -216,28 +216,28 @@ ul{
 }
 
 /* Footer */
-/* div.my-footer {
+div.my-footer {
   border-top: 1px solid var(--classic-blue);
   position: absolute;
-  bottom: 0px;
-  height: 35px;
+  bottom: 0;
+  height: 30px;
   width: 90%;
-} */
-div.my-footer {
+}
+/* div.my-footer {
   position: absolute;
   bottom: 0;
-  height: 35px;
+  height: 25px;
   width: 90%;
   text-align: right;
-}
+} */
 div.my-footer span {
-    font-size: 14pt;
+    font-size: 12pt;
     position: absolute;
     color: #3b4252;
-    bottom: 10px;
+    bottom: 5px;
 }
 div.my-footer a {
-    font-size: 14pt;
+    font-size: 12pt;
     color: #3b4252;
 }
 

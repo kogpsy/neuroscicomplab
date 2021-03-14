@@ -59,10 +59,10 @@ xaringanExtra::use_scribble()
 
 layout: true
   
-<!-- Home icon (right) -->
+<!-- Home icon -->
 <div class="my-footer">
 <span>
-<a href="https://kogpsy.github.io/neuroscicomplab" target="_blank">`r fontawesome::fa(name = "home", fill = "black")`</a>
+<a href="https://kogpsy.github.io/neuroscicomplab" target="_blank">`r fontawesome::fa(name = "home", fill = "black")`</a> Methodenkurs Neurowissenschaft im Computerlab
 </span>
 </div>
 
