@@ -410,6 +410,7 @@ d %>%
 ```
 
 ---
+
 ## Prior Predictive Distribution
 
 ```{r echo = FALSE}
@@ -445,6 +446,7 @@ samples %>%
 
 
 ---
+
 ## Posterior Predictive Distribution
 
 ```{r echo = FALSE}
@@ -478,7 +480,7 @@ samples %>%
 
 ---
 
-# Graphical model
+## Graphical model
 
 Grafische Darstellung des  <span style="color: var(--text-color)">Generativen Modells</span>:
 --
@@ -494,7 +496,7 @@ Grafische Darstellung des  <span style="color: var(--text-color)">Generativen Mo
 ---
 
 
-# Graphical model
+## Graphical model
 
 Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen Modells</span> mit normalverteilten Daten:
 --
@@ -533,7 +535,7 @@ hist(y, col = 'skyblue3', breaks = 10)
 
 ---
 
-## Posterior Inferenz
+## Posterior Inference
 
 .pull-left[
 ```{C++}
@@ -619,11 +621,23 @@ m <- brm(y ~ 1,
 
 ## `brms` Model
 
-```{r panelset = TRUE}
+.panelset[
+.panel[.panel-name[Summary]
+```{r eval=FALSE, include=TRUE}
 summary(m)
 ```
-Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
-intervals der Posterior Verteilung zusammengefasst. 
+]
+.panel[.panel-name[Output]
+```{r echo=FALSE}
+summary(m)
+```
+]
+]
+
+.footnote[ Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
+intervals der Posterior-Verteilung zusammengefasst. ]
+
+
 
 ---
 

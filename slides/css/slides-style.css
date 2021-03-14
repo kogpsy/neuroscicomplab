@@ -245,7 +245,7 @@ div.my-footer a {
 /* Footnote */
 .footnote {
   position: absolute;
-  bottom: 1em;
+  bottom: 20px; /* 1em; */
   padding-right: 4em;
   font-size: 70%;
 }

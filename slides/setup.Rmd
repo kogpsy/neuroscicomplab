@@ -1,35 +1,34 @@
 ```{r setup, include=FALSE}
-# R options
-
 knitr::opts_chunk$set(include = TRUE,
                       fig.width=9, fig.height=3.5, fig.retina=3,
                       out.width = "100%",
                       dpi = 300,
-                      cache = TRUE,
+                      cache = FALSE,
                       echo = TRUE,
                       message = FALSE, 
                       warning = FALSE,
                       fig.show = TRUE,
                       hiline = TRUE)
 options(htmltools.dir.version = FALSE)
-# fontawesome
-# htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
-htmltools::tagList(
-  xaringanExtra::use_clipboard(
-    button_text = "<i class=\"fa fa-clipboard\"></i>",
-    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
-  ),
-  rmarkdown::html_dependency_font_awesome()
-)
+# fontawesome
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+
+# htmltools::tagList(
+#   xaringanExtra::use_clipboard(
+#     button_text = "<i class=\"fa fa-clipboard\"></i>",
+#     success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+#     error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+#   ),
+#   rmarkdown::html_dependency_font_awesome()
+# )
 
 # magick
-dev.off <- function(){
-  invisible(grDevices::dev.off())
-}
+# dev.off <- function(){
+#   invisible(grDevices::dev.off())
+# }
 # set seed
-set.seed(324)
+# set.seed(324)
 ```
 
 ```{r xaringanthemer, include=FALSE}
