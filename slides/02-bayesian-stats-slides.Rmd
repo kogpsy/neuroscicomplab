@@ -8,9 +8,9 @@ date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["css/xaringan-themer.css", "css/slides-style.css", "css/header-footer.css"]
+    css: ["css/xaringan-themer.css", "css/slides-style.css"]
     nature:
-      highlightStyle: solarized-light # github
+      highlightStyle: github #solarized-light # github
       highlightLines: true
       ratio: 16:10
       countIncrementalSlides: false
@@ -21,62 +21,23 @@ output:
         </div>
 ---
 
-```{r setup, include=FALSE, warning=FALSE}
-knitr::opts_chunk$set(include = TRUE,
-                      fig.width=9, fig.height=3.5, fig.retina=3,
-                      out.width = "100%",
-                      cache = TRUE,
-                      echo = TRUE,
-                      message = FALSE, 
-                      warning = FALSE,
-                      fig.show = TRUE,
-                      hiline = TRUE)
-options(htmltools.dir.version = FALSE)
+```{r child = "setup.Rmd"}
+```
 
+```{r load-packages, include=FALSE, warning=FALSE}
 library(tidyverse)
 library(rmarkdown)
+library(countdown)
 ```
 
-```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer)
-# style_duo_accent(
-#   primary_color = "#4C566B",
-#   secondary_color = "#C16069",
-#   inverse_header_color = "#FFFFFF"
-# )
-
-style_duo_accent(
-  primary_color = "#4C566B",
-  secondary_color = "#C16069",
-  inverse_header_color = "#FFFFFF",
-  # primary_color      = "#0F4C81", # pantone classic blue
-  # secondary_color    = "#A2B8D4", # pantone cashmere blue
-  header_font_google = google_font("Raleway"),
-  text_font_google   = google_font("Raleway", "300", "300i"),
-  code_font_google   = google_font("Fira Code"),
-  # text_font_size     = "30px",
-  outfile            = "css/xaringan-themer.css"
-)
-
-xaringanExtra::use_tile_view()
-xaringanExtra::use_panelset()
-xaringanExtra::use_clipboard()
-xaringanExtra::use_extra_styles(
-  hover_code_line = TRUE,         #<<
-  mute_unhighlighted_code = TRUE  #<<
-)
-```
-
-layout: true
-.footer[[`r fontawesome::fa(name = "home", fill = "black")`](https://kogpsy.github.io/neuroscicomplab)]
-
----
+ 
 
 ## Letzte Sitzung:
 
 - Parameterschätzung: Wahrscheinlichkeitsparameter einer Binomialverteilung
 - Beta Verteilungen
 - Grid Approximation
+
 
 ---
 
@@ -155,7 +116,7 @@ prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 
 
-```{r}
+```{r panelset = TRUE}
 unstandardized_posterior <- likelihood * prior
 posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 ```
@@ -610,7 +571,7 @@ priors <- set_prior("normal(120, 5)", class = "Intercept") +
 ```
 
 
-panel[.panel-name[Fit Model]
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 m <- brm(y ~ 1,
            family = gaussian,
@@ -625,7 +586,7 @@ m <- brm(y ~ 1,
 
 ## `brms` Model
 
-```{r}
+```{r panelset = TRUE}
 summary(m)
 ```
 Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible

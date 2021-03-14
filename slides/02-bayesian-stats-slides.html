@@ -4,16 +4,20 @@
     <title>Bayesianische Statistik</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
-    <meta name="date" content="2021-03-12" />
+    <meta name="date" content="2021-03-14" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
     <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable/js/pagedtable.js"></script>
     <script src="libs/kePrint/kePrint.js"></script>
     <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="css/slides-style.css" type="text/css" />
-    <link rel="stylesheet" href="css/header-footer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -23,9 +27,10 @@ class: center, middle, inverse, title-slide
 ## Teil 2<br/>Modelle
 ### Andrew Ellis
 ### Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern
-### 2021-03-12
+### 2021-03-14
 
 ---
+
 
 
 
@@ -33,15 +38,35 @@ class: center, middle, inverse, title-slide
 
 
 layout: true
-.footer[[&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:black;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;](https://kogpsy.github.io/neuroscicomplab)]
+  
+&lt;!-- Home icon (right) --&gt;
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:black;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt;
 
+
+&lt;!-- Name (left) --&gt;
+&lt;!-- &lt;div class="my-footer"&gt; --&gt;
+&lt;!-- &lt;span&gt; --&gt;
+&lt;!-- Andrew Ellis - &lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;kogpsy.github.io/neuroscicomplab&lt;/a&gt; --&gt;
+&lt;!-- &lt;/span&gt; --&gt;
+&lt;!-- &lt;/div&gt; --&gt;
+
+&lt;!-- slide separator (for xaringan) --&gt;
 ---
+
+
+
+ 
 
 ## Letzte Sitzung:
 
 - Parameterschätzung: Wahrscheinlichkeitsparameter einer Binomialverteilung
 - Beta Verteilungen
 - Grid Approximation
+
 
 ---
 
@@ -86,7 +111,7 @@ theta
 
 ---
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
 
 ---
 
@@ -115,11 +140,33 @@ prior &lt;- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 
 
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Code&lt;/div&gt;
 
 ```r
 unstandardized_posterior &lt;- likelihood * prior
+```
+
+&lt;/div&gt;
+
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Output&lt;/div&gt;
+
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Code&lt;/div&gt;
+
+```r
 posterior &lt;- unstandardized_posterior / sum(unstandardized_posterior)
 ```
+
+&lt;/div&gt;
+
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Output&lt;/div&gt;
+
+
+
+&lt;/div&gt;
 
 
 ```r
@@ -142,7 +189,7 @@ d %&gt;%
 ---
 ## Posterior durch Grid Approximation
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
 
 ---
 ## Posterior zusammenfassen
@@ -200,12 +247,12 @@ samples %&gt;%
 
 
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
 
 ---
 ## Posterior zusammenfassen
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-15-1.png" width="100%" /&gt;
 
 ---
 ## Intervalle mit definierten Endpunkten
@@ -340,33 +387,33 @@ hdi(samples$theta_grid, .width = .5)
 
 
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-24-1.png" width="100%" /&gt;
-
-
-
----
-
-## Sampling: Simulation
-
-
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
 
+
+
 ---
 
 ## Sampling: Simulation
+
 
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-26-1.png" width="100%" /&gt;
 
 ---
-## Prior Predictive Distribution
+
+## Sampling: Simulation
 
 &lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
+
+---
+## Prior Predictive Distribution
+
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-28-1.png" width="100%" /&gt;
 
 
 ---
 ## Posterior Predictive Distribution
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-28-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-29-1.png" width="100%" /&gt;
 
 
 
@@ -424,7 +471,7 @@ y &lt;- rnorm(n = n, mean = mu,
 
 ---
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-30-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-31-1.png" width="100%" /&gt;
 
 
 ---
@@ -495,12 +542,9 @@ get_prior(y ~ 1,
 ```
 
 ```
-##                   prior     class coef group resp dpar nlpar
-##  student_t(3, 123, 4.4) Intercept                           
-##    student_t(3, 0, 4.4)     sigma                           
-##  bound  source
-##        default
-##        default
+##                   prior     class coef group resp dpar nlpar bound  source
+##  student_t(3, 123, 4.4) Intercept                                  default
+##    student_t(3, 0, 4.4)     sigma                                  default
 ```
 
 ---
@@ -513,7 +557,7 @@ priors &lt;- set_prior("normal(120, 5)", class = "Intercept") +
 ```
 
 
-panel[.panel-name[Fit Model]
+
 
 ```r
 m &lt;- brm(y ~ 1,
@@ -529,10 +573,17 @@ m &lt;- brm(y ~ 1,
 
 ## `brms` Model
 
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Code&lt;/div&gt;
 
 ```r
 summary(m)
 ```
+
+&lt;/div&gt;
+
+&lt;div class="panel"&gt;
+&lt;div class="panel-name"&gt;Output&lt;/div&gt;
 
 ```
 ##  Family: gaussian 
@@ -543,21 +594,21 @@ summary(m)
 ##          total post-warmup samples = 4000
 ## 
 ## Population-Level Effects: 
-##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-## Intercept   121.95      0.81   120.36   123.55 1.00     2605
-##           Tail_ESS
-## Intercept     2128
+##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept   121.95      0.81   120.36   123.55 1.00     2605     2128
 ## 
 ## Family Specific Parameters: 
-##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-## sigma     3.57      0.60     2.63     4.94 1.00     2482
-##       Tail_ESS
-## sigma     2468
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     3.57      0.60     2.63     4.94 1.00     2482     2468
 ## 
 ## Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
 ## and Tail_ESS are effective sample size measures, and Rhat is the potential
 ## scale reduction factor on split chains (at convergence, Rhat = 1).
 ```
+
+
+
+&lt;/div&gt;
 Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
 intervals der Posterior Verteilung zusammengefasst. 
 
@@ -568,7 +619,7 @@ intervals der Posterior Verteilung zusammengefasst.
 plot(m)
 ```
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-37-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-38-1.png" width="100%" /&gt;
 
 ---
 
@@ -631,12 +682,12 @@ m %&gt;%
   stat_halfeye(.width = c(.50, .80, .95))
 ```
 
-&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-39-1.png" width="100%" /&gt;
+&lt;img src="02-bayesian-stats-slides_files/figure-html/unnamed-chunk-40-1.png" width="100%" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "solarized-light",
+"highlightStyle": "github",
 "highlightLines": true,
 "ratio": "16:10",
 "countIncrementalSlides": false,
