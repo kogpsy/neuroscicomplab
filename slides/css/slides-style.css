@@ -212,7 +212,7 @@ ul{
 
 /* Code highlighting */
 .remark-code-line-highlighted {
-  background-color: var(--peach-quartz)
+  background-color: #ebcb8b /*var(--peach-quartz)*/
 }
 
 /* Footer */

@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/02-bayesian-stats.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -21,7 +21,6 @@ output:
       toc_depth: 2
       code_folding: false
 ---
-
 
 
 ```{r setup, include=FALSE}
