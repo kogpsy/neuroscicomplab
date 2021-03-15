@@ -514,7 +514,6 @@ Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen 
 n <- 20
 
 mu_sigma <- 5
-sigma <- 6
 
 set.seed(6)
 mu <- rnorm(n = 1, mean = 120, 

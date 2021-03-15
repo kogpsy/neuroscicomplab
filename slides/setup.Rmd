@@ -60,6 +60,9 @@ xaringanExtra::use_extra_styles(
   mute_unhighlighted_code = TRUE  #<<
 )
 xaringanExtra::use_scribble()
+xaringanExtra::use_search(show_icon = FALSE,
+                          position = "bottom-right",
+                          auto_search = TRUE)
 ```
 
 layout: true

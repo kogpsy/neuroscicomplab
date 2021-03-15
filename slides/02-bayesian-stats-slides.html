@@ -4,7 +4,7 @@
     <title>Bayesianische Statistik</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
-    <meta name="date" content="2021-03-14" />
+    <meta name="date" content="2021-03-15" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -21,6 +21,10 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/mark.js/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-right","caseSensitive":false,"showIcon":true,"autoSearch":true}) })</script>
     <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable/js/pagedtable.js"></script>
     <script src="libs/kePrint/kePrint.js"></script>
@@ -36,7 +40,7 @@ class: center, middle, inverse, title-slide
 ## Teil 2<br/>Modelle
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
-### 2021-03-14
+### 2021-03-15
 
 ---
 
@@ -479,7 +483,6 @@ Grafische Darstellung eines  &lt;span style="color: var(--text-color)"&gt;Genera
 n &lt;- 20
 
 mu_sigma &lt;- 5
-sigma &lt;- 6
 
 set.seed(6)
 mu &lt;- rnorm(n = 1, mean = 120, 
