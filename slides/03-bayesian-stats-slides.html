@@ -867,11 +867,11 @@ as_tibble(mm2) %&gt;%
 ]
 
 ---
+class: middle
 
 ## Graphical Model
 
-&lt;br&gt;
-&lt;br&gt;
+
 
 &lt;div class="figure"&gt;
 &lt;img src="images/two-group-iq-graphical-model.png" alt="Graphical Model für 2 Gruppen." width="20%" /&gt;
@@ -1226,7 +1226,7 @@ fits_IQ &lt;- grid %&gt;%
 preds_IQ &lt;- grid %&gt;%
     add_predicted_draws(fit_eqvar)
 
-pp_eqvar &lt;- TwoGroupIQ %&gt;%
+TwoGroupIQ %&gt;%
     ggplot(aes(x = IQ, y = Group)) +
     stat_halfeye(aes(x = .value),
                   scale = 0.7,
@@ -1246,7 +1246,7 @@ pp_eqvar &lt;- TwoGroupIQ %&gt;%
 ]
 .panel[.panel-name[Plot]
 
-
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-73-1.png" width="100%" /&gt;
 ]
 ]
 

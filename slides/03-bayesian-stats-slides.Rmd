@@ -719,11 +719,11 @@ as_tibble(mm2) %>%
 ]
 
 ---
+class: middle
 
 ## Graphical Model
 
-<br>
-<br>
+
 
 ```{r normal-graphical-model-2, echo = FALSE, out.width = "20%", fig.cap="Graphical Model für 2 Gruppen."}
 knitr::include_graphics("images/two-group-iq-graphical-model.png")
@@ -972,7 +972,7 @@ fits_IQ <- grid %>%
 preds_IQ <- grid %>%
     add_predicted_draws(fit_eqvar)
 
-pp_eqvar <- TwoGroupIQ %>%
+TwoGroupIQ %>%
     ggplot(aes(x = IQ, y = Group)) +
     stat_halfeye(aes(x = .value),
                   scale = 0.7,
@@ -1002,7 +1002,7 @@ fits_IQ <- grid %>%
 preds_IQ <- grid %>%
     add_predicted_draws(fit_eqvar)
 
-pp_eqvar <- TwoGroupIQ %>%
+TwoGroupIQ %>%
     ggplot(aes(x = IQ, y = Group)) +
     stat_halfeye(aes(x = .value),
                   scale = 0.7,
