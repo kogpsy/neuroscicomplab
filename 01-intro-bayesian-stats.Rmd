@@ -569,6 +569,7 @@ Wenn wir überzeugt wären, dass B besser ist, dann hätten wir vielleicht diese
 prior5 <- dbeta(x = p_grid, shape1 = 4, shape2 = 20)
 compute_posterior(likelihood, prior5)
 ```
+
 ## Einfluss des Priors auf den Posterior
 
 Die obigen Beispiele illustrieren, dass die Prior-Verteilung einen grossen Einfluss auf die Schätzung haben kann. Deshalb ist bei der Wahl der Prior Vorsichtig geboten; vor allem wenn es darum geht, Parameter in statistischen Modellen zu schätzen, wollen wir oft sogenannte **non-informative** Priors, welche keine nennenswerten Einfluss auf die Schätzung haben.

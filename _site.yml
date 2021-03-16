@@ -37,15 +37,16 @@ navbar:
         - text: "Übung 1"
           href: exercise-1.html
 
+
   right:
     - text: "Kapitel"
       menu:
         - text: "1. Einführung in Bayesianische Statistik"
           href: 01-intro-bayesian-stats.html
         - text: "2. Bayesianische Statistik: Von Grid Approximation zu Sampling"
-          href: 02-bayesian-stats.html
+          href: 02-bayesian-stats.html.tbd
         - text: "3. Bayesianische Statistik: Lineare Modelle mit `brms`"
-          href: 03-bayesian-stats.html
+          href: 03-bayesian-stats.html.tbd
         # - text: "3. Bayesianische Statistik: Modelvergleiche"
         #   href: 03-model-comparison.html
 
