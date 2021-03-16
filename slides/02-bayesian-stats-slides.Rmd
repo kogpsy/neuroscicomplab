@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 session: 3
-subtitle: "Teil 2<br/>Modelle"
+subtitle: "Teil 2<br/>Von Grid Approximation zu Sampling"
 author: "Andrew Ellis"
 # institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
 institute: "Methodenkurs Neurowissenschaft im Computerlab"
@@ -44,16 +44,16 @@ library(countdown)
 
 ## Bayes' Theorem
 
-$$P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)}$$
+$$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
 oder ohne Normalisierungskonstante: 
 
-$$P(\theta|Data) \propto P(Data|\theta) * P(\theta)$$
+$$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
 
 --
 
 ### Binomial Likelihood
 
-$$P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
+$$ P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
 
 
 ---

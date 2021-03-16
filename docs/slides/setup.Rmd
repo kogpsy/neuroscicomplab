@@ -40,8 +40,8 @@ library(xaringanthemer)
 # )
 
 style_duo_accent(
-  # primary_color = "#4C566B",
-  # secondary_color = "#C16069",
+  # primary_color = "#5e81ac", # "#4C566B",
+  # secondary_color = "#d08770",
   # inverse_header_color = "#FFFFFF",
   primary_color      = "#0F4C81", # pantone classic blue
   secondary_color    = "#A2B8D4", # pantone cashmere blue
