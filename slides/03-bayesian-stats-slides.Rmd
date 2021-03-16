@@ -167,7 +167,7 @@ Wir nehmen als Beispiel folgenden (fiktiven) Datensatz:
 
 
 
-Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat. WIQ sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat. 
+Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat. IQ Werte sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat. 
 ]
 
 Die Daten sind aus dem Buch Doing Bayesian Data Analysis; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.
@@ -397,6 +397,10 @@ prior_pred_1 <- d %>%
   geom_point(aes(x = IQ), alpha = 0.4,  data = d) +
   scale_color_brewer() +
   theme_tidybayes()
+```
+
+```{r echo=FALSE}
+prior_pred_1
 ```
 
 ---
