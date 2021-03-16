@@ -996,7 +996,7 @@ pp_eqvar <- TwoGroupIQ %>%
 ]
 .panel[.panel-name[Plot]
 
-```{r eval=TRUE, echo=FALSE}
+```{r echo=FALSE}
 grid <- TwoGroupIQ %>%
     modelr::data_grid(Group)
 
@@ -1006,7 +1006,7 @@ fits_IQ <- grid %>%
 preds_IQ <- grid %>%
     add_predicted_draws(fit_eqvar)
 
-pp_eqvar <- TwoGroupIQ %>%
+TwoGroupIQ %>%
     ggplot(aes(x = IQ, y = Group)) +
     stat_halfeye(aes(x = .value),
                   scale = 0.7,
@@ -1024,5 +1024,4 @@ pp_eqvar <- TwoGroupIQ %>%
 ```
 ]
 ]
-
 
