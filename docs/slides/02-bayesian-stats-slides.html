@@ -4,7 +4,7 @@
     <title>Bayesianische Statistik</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
-    <meta name="date" content="2021-03-15" />
+    <meta name="date" content="2021-03-16" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -37,10 +37,10 @@
 class: center, middle, inverse, title-slide
 
 # Bayesianische Statistik
-## Teil 2<br/>Modelle
+## Teil 2<br/>Von Grid Approximation zu Sampling
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
-### 2021-03-15
+### 2021-03-16
 
 ---
 
@@ -85,16 +85,16 @@ layout: true
 
 ## Bayes' Theorem
 
-`$$P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)}$$`
+$$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
 oder ohne Normalisierungskonstante: 
 
-`$$P(\theta|Data) \propto P(Data|\theta) * P(\theta)$$`
+$$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
 
 --
 
 ### Binomial Likelihood
 
-$$P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
+$$ P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
 
 
 ---
