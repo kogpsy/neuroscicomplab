@@ -193,7 +193,7 @@ Wir nehmen als Beispiel folgenden (fiktiven) Datensatz:
 
 
 
-Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat. WIQ sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat. 
+Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat. IQ Werte sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat. 
 ]
 
 Die Daten sind aus dem Buch Doing Bayesian Data Analysis; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.
@@ -461,6 +461,8 @@ prior_pred_1 &lt;- d %&gt;%
   theme_tidybayes()
 ```
 
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-23-1.png" width="100%" /&gt;
+
 ---
 
 ## Vom Posterior Sampeln
@@ -482,7 +484,7 @@ m1 &lt;- brm(IQ ~ 1,
 plot(m1)
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-24-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
 ]
 
 .panel[.panel-name[Summary]
@@ -526,7 +528,7 @@ library(patchwork)
 mcmc_plot(m1, pars = "b") / mcmc_plot(m1, pars = "sigma")
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-26-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
 
 
 ---
@@ -580,7 +582,7 @@ samples %&gt;%
 
 .panel[.panel-name[Plot]
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-30-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-31-1.png" width="100%" /&gt;
 ]
 ]
 ---
@@ -603,7 +605,7 @@ samples %&gt;%
 
 .panel[.panel-name[Density Plot: MW]
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-32-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-33-1.png" width="100%" /&gt;
 ]
 
 .panel[.panel-name[Density Plot Code: SD]
@@ -621,7 +623,7 @@ samples %&gt;%
 
 .panel[.panel-name[Density Plot: SD]
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-34-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-35-1.png" width="100%" /&gt;
 ]]
 
 
@@ -651,7 +653,7 @@ post_pred_1 &lt;- d %&gt;%
 post_pred_1
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-36-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-37-1.png" width="100%" /&gt;
 ]
 
 
@@ -669,7 +671,7 @@ cowplot::plot_grid(prior_pred_1,
                    nrow = 2)
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-37-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-38-1.png" width="100%" /&gt;
 
 
 
@@ -678,7 +680,7 @@ cowplot::plot_grid(prior_pred_1,
 
 ## Zwei Gruppen
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-38-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-39-1.png" width="100%" /&gt;
 
 ---
 
@@ -974,7 +976,7 @@ prior_pred_2 &lt;- TwoGroupIQ %&gt;%
   theme_tidybayes()
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-54-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-55-1.png" width="100%" /&gt;
 
 ---
 
@@ -1009,7 +1011,7 @@ prior_pred_3 &lt;- TwoGroupIQ %&gt;%
   theme_tidybayes()
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-58-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-59-1.png" width="100%" /&gt;
 
 ---
 
@@ -1102,7 +1104,7 @@ summary(m3)
 mcmc_plot(m2, "b_GroupSmartDrug")
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-63-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-64-1.png" width="100%" /&gt;
 
 
 ---
@@ -1112,7 +1114,7 @@ mcmc_plot(m2, "b_GroupSmartDrug")
 mcmc_plot(m3, "b")
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-64-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-65-1.png" width="100%" /&gt;
 
 
 ---
@@ -1166,7 +1168,7 @@ samples_m3 %&gt;%
   theme_tidybayes()
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-68-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-69-1.png" width="100%" /&gt;
 
 ---
 
@@ -1179,7 +1181,7 @@ samples_m3 %&gt;%
   theme_tidybayes()
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-69-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-70-1.png" width="100%" /&gt;
 
 ---
 
@@ -1206,7 +1208,7 @@ fit_eqvar %&gt;%
     theme_tidybayes()
 ```
 
-&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-71-1.png" width="100%" /&gt;
+&lt;img src="03-bayesian-stats-slides_files/figure-html/unnamed-chunk-72-1.png" width="100%" /&gt;
 
 
 ---
