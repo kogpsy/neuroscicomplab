@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 description: | 
-  Lineare Modelle mit `brms`.
+  Teil 3: Lineare Modelle mit brms.
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"
@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -25,32 +25,58 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(tidyverse)
 ```
 
 
-# Mittelwert und Standardabweichung einer Normalverteilung schätzen
+```{r load-packages, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(rmarkdown)
+```
 
+# Parameterschätzung mit Linearen Modellen 
 
-Wir haben 3 Datenpunkte mit den Werten $ y_1 = 85$ , $y_2 = 100$, und $y_3 = 115$. Wenn wir annehmen, dass diese Datenpunkte aus einer Normalverteilung kommen
+## Mittelwert und Standardabweichung einer Normalverteilung schätzen
+
+Wir haben 3 Datenpunkte, von denen wir annehmen können, dass sie aus einer Normalverteilung kommen.  Die drei Werte sind $y_1 = 85$, $y_2 = 100$, und $y_3 = 115$. 
+Die Wahrscheinlichkeit eines Datenpunktes is gegeben durch
 
 $$ p(y | \mu, \sigma) = \frac{1}{Z} exp \left(- \frac{1}{2} \frac{(y-\mu)^2}{\sigma^2}\right)  $$ 
-$Z = \sigma \sqrt{2\pi}$ ist eine Normalisierungskonstante. 
 
+$$ Z = \sigma \sqrt{2\pi} $$ ist eine Normalisierungskonstante. 
 
-Wir können so die Wahrscheinlichkeit eines Datenpunktes berechnen, wenn wir wissen, was wir für $\mu$ und $\sigma$ einsetzen wollen. Unter der Annahme, dass die drei Datenpunkte unabhängig sind, ist die Wahrscheinlichkeit der Daten das Produkt der Einzelwahrscheinlichkeit.
+Damit können wir die Wahrscheinlichkeit eines Datenpunktes berechnen, wenn wir die Parameter $\mu$ und $\sigma$ kennen. Unter der Annahme, dass die drei Datenpunkte unabhängig sind, ist die Wahrscheinlichkeit der Daten das Produkt der Einzelwahrscheinlichkeiten.
 
 Wie aber finden wir die beiden Parameter der Normalverteilung, $\mu$ und $\sigma$?
 
 
-```{r normal-graphical-model, echo = FALSE, out.width = "20%", fig.cap="Graphical Model für normalverteilte Daten."}
+## Graphical model
+ 
+Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen. Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.
+
+
+<aside>
+```{r normal-graphical-model, echo = FALSE, fig.cap="Graphical Model für normalverteilte Daten.", fig.width=2, fig.height=2, out.width = "50%"}
 knitr::include_graphics("images/normal-graphical-model-2.png")
 ```
+</aside>
 
 
-```{r message=FALSE, warning=FALSE, results='hide'}
+
+
+Die Variablen in diesem Modell sind: 
+
+
+$$ \mu \sim ???  $$
+$$  \sigma \sim ??? $$
+$$ y \sim N(\mu, \sigma) $$
+
+
+$y$ ist eine beobachtete Variable, und $\mu$ und $\sigma$ sind parameter, welche geschätzt werden müssen. Dies können wir mit der Maximum-Likelihood Methode machen, um Punktschätzungen zu erhalten. Der folgende Code illustriert, wie das ungefähr funktioniert. Wir suche eine Kombination von $\mu$ und $\sigma$, für welceh die Wahrscheinlichkeit am grössten ist, genau diese drei Dantepunkte zu beobachten. Anstatt alle möglichen Werte zu betrachten, wie in der Maximum-Likelihood Methode,  nehmen wir drei Beispielswerte für $\mu$, $87.8, 100$ und $112$, und drei Werte für $\sigma$, $7.35, 12.2$ und $18.4$. Wir erstellen dann die 9 möglichen Kombinationen dieser Werte, und benutzten ein Grid (von 50 bis 150) für die möglichen Datenpunkte.
+
+```{r}
 library(tidyverse)
 ```
-
 
 
 ```{r}
@@ -65,16 +91,13 @@ d1 <- crossing(y = seq(from = 50, to = 150, length.out = sequence_length),
                           labels = str_c("sigma==", c(7.35, 12.2, 18.4))))
 ```
 
+
+
+<aside>
+Dieser Code dient dazu, ein Theme für `ggplot` zu erstellen.
+</aside>
+
 ```{r}
-library(rmarkdown)
-
-d1 %>% 
-  paged_table(options = list(rows.print = 6))
-```
-
-
-
-```{r eval=FALSE, include=FALSE}
 theme_set(
   theme_bw() +
     theme(text = element_text(color = "white"),
@@ -90,9 +113,14 @@ theme_set(
           panel.background = element_rect(fill = "white",
                                           color = "white"),
           panel.grid = element_blank()))
+
 ```
 
-```{r}
+
+In Grafik \@ref(fig:maxlik) werden nun die 9 Kombinationen, und die 3 beobachteten Datenpunkte (in Rot) dargestellt. Die Paratemeter $\mu$ und $\sigma$ definieren jeweils eine Normalverteilung, und die gestrichelte Linie zeigt die Wahrscheinlichkeit eines Datenpunktes unter dieser Verteilung. Die Wahrscheinlichkeit der Daten ist gegeben durch das Produkt der Wahrscheinlichkeiten. Diejenigen Paramterwerte, welche die Wahrscheinlichkeit maximieren, "gewinnen". In diesem Beispiel wäre das die mittlere Verteilung.
+
+
+```{r maxlik, fig.cap = "Kombinationen von $\\mu$ und $\\sigma$ Parameterwerten."}
 d1 %>% 
   ggplot(aes(x = y)) +
   geom_ribbon(aes(ymin = 0, ymax = density),
@@ -113,15 +141,22 @@ d1 %>%
 
 
 
-## t-Test als Lineares Modell
-
-Wir nehmen als Beispiel folgenden (fiktiven) Datensatz [@kruschkeDoingBayesianData2015]. WIr haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat. Wir wissen, dass IQ so normiert sind, dass wir in der Bevölkerung einen Mittelwert von 100, und eine Standardabweichung von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat. 
-
+## Beispiel: t-Test
+Um die Parameter einer Normalverteilung mittels Markov Chain Monte Carlo Sampling Bayesian zu schätzen, nehmen wir ein Beispiel aus dem Buch Doing Bayesian Data Analysis [@kruschkeDoingBayesianData2015].
 
 
 
 
-Die Daten sind aus @kruschkeDoingBayesianData2015; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen:
+:::note
+Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat.
+IQ Werte sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100,
+und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die "Smart
+Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig
+haben wir auch eine Gruppe, welche ein Placebo konsumiert hat.
+:::
+
+Wir können die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.
+
 
 ```{r}
 smart = tibble(IQ = c(101,100,102,104,102,97,105,105,98,101,100,123,105,103,
@@ -134,20 +169,25 @@ placebo = tibble(IQ = c(99,101,100,101,102,100,97,101,104,101,102,102,100,105,
                         88,101,100,104,100,100,100,101,102,103,97,101,101,100,101,
                         99,101,100,100,101,100,99,101,100,102,99,100,99),
                  Group = "Placebo")
+```
 
+
+```{r}
 TwoGroupIQ <- bind_rows(smart, placebo) %>%
     mutate(Group = fct_relevel(as.factor(Group), "Placebo"))
 ```
 
+
+
+Mit diesen Daten könnten wir einen t-Test machen, um die Mittelwerte der beiden Gruppen zu vergleichen. Die Mittelwertem sowie die beiden Standardabweichungen, können wir so schätzen.
+
 <aside>
-Wenn wir einen Unterschied zwischen den beiden Gruppen testen wollen, können wir hier eine t- oder Welch-Test machen.
+Diese entsprechen den Maximum-Likelihood Schätzungen.
 </aside>
 
-```{r message=FALSE, warning=FALSE}
-library(kableExtra)
-```
-
 ```{r}
+library(kableExtra)
+
 TwoGroupIQ %>%
   group_by(Group) %>%
   summarise(mean = mean(IQ),
@@ -157,6 +197,25 @@ TwoGroupIQ %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+Die Smart Drug Gruppe hat einen leicht grösseren Mittelwert, aber auch eine grössere Standardabweichung, weshlab wir hier einen Welch-Test einem t-Test vorziehen würden.
+
+```{r}
+t.test(IQ ~ Group,
+       data = TwoGroupIQ)
+```
+
+<aside>
+Dieser Welch-Test zeigt keine signifikante Mittelwertsdifferenz, mit einem p-Wert von $0.1098$.
+</aside>
+
+Mit diesem nicht-signifikanten Welch-Test gibt es nun nicht viele Möglichkeiten, weiterzufahren. Slebstverständlich hätten wir die Power dieses Test erhöhen können, aber nachdem die Daten gesammelt wurden, ist diese Erkenntnis nicht sehr hilfreich.
+
+
+## Smart Drug Gruppe
+
+Wir ignorieren zunächst die Kontrollgruppe, und versuchen, die Parameter der Smart Drug Gruppe mit dem `brms` Package zu schätzen.
+
+Wir erstelln zuerst einen Subdatensatz:
 
 ```{r}
 d <- TwoGroupIQ %>% 
@@ -165,55 +224,46 @@ d <- TwoGroupIQ %>%
 ```
 
 
-```{r smart-drug}
+```{r}
 d %>% 
   ggplot(aes(x = IQ)) +
   geom_histogram(fill = "skyblue3", binwidth = 1) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) + 
+  theme_tidybayes()
 ```
 
 
 
+
+## Parameter schätzen mit brms
+
+Wir wollen nun einen Mittelwert, und eine Standardabweichung mit `brms` schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen.
+
+
+### Priors
 
 ```{r message=FALSE, warning=FALSE}
 library(brms)
 ```
 
 
-
-
-
 ```{r}
 priors <- get_prior(IQ ~ 1,
           data = d)
+```
+
+
+```{r}
 priors
 ```
 
 
+## Priors
 
-```{r}
-library(tidybayes)
-priors_df <- priors %>% 
-    parse_dist(prior)
-
-priors_df %>% 
-    ggplot(aes(y = class, dist = .dist, args = .args)) +
-    stat_dist_halfeye() +
-    facet_wrap(~class, scales = "free_x")
+### $\sigma$
 
 
-priors_df %>% 
-    mutate(class = case_when(coef == "" ~ class,
-                             coef == "Intercept" ~ "Intercept"))
-
-priors_df %>%  
-    ggplot(aes(y = class, dist = .dist, args = .args)) + 
-    stat_dist_halfeyeh() +
-    labs(title = "Prior distributions",
-         x = NULL)
-```
-
-```{r}
+```{r echo=TRUE, eval=FALSE}
 tibble(x = seq(from = 0, to = 10, by = .025)) %>% 
   mutate(d = dt(x, df = 3)) %>% 
   ggplot(aes(x = x, ymin = 0, ymax = d)) +
@@ -228,7 +278,27 @@ tibble(x = seq(from = 0, to = 10, by = .025)) %>%
 ```
 
 
-```{r}
+```{r echo=FALSE, eval=TRUE}
+tibble(x = seq(from = 0, to = 10, by = .025)) %>% 
+  mutate(d = dt(x, df = 3)) %>% 
+  ggplot(aes(x = x, ymin = 0, ymax = d)) +
+  geom_ribbon(fill = "skyblue3") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.05))) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
+  coord_cartesian(xlim = c(0, 8),
+                  ylim = c(0, 0.35)) +
+  xlab(expression(sigma)) +
+  labs(subtitle = "Half-student-t Distribution: Prior für Standardabweichung.") +
+  theme_bw(base_size = 14)
+```
+
+
+## Priors
+
+
+### $\mu$
+
+```{r echo=TRUE, eval=FALSE}
 tibble(x = seq(from = 0, to = 200, by = .025)) %>% 
   mutate(d = dnorm(x, mean = 102, sd = 3)) %>% 
   ggplot(aes(x = x, ymin = 0, ymax = d)) +
@@ -244,7 +314,23 @@ tibble(x = seq(from = 0, to = 200, by = .025)) %>%
 
 
 
+```{r echo=FALSE}
+tibble(x = seq(from = 0, to = 200, by = .025)) %>% 
+  mutate(d = dnorm(x, mean = 102, sd = 3)) %>% 
+  ggplot(aes(x = x, ymin = 0, ymax = d)) +
+  geom_ribbon(fill = "skyblue3") +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.05))) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
+  coord_cartesian(xlim = c(50, 150),
+                  ylim = c(0, 0.15)) +
+  xlab(expression(sigma)) +
+  labs(subtitle = "Normalverteilter Prior für Mittelwert") +
+  theme_bw(base_size = 14)
+```
 
+
+
+## Prior Predictive Distribution
 
 ```{r}
 m1_prior <- brm(IQ ~ 1,
@@ -255,7 +341,9 @@ m1_prior <- brm(IQ ~ 1,
 ```
 
 
-
+```{r}
+summary(m1_prior)
+```
 
 
 ```{r}
@@ -263,9 +351,9 @@ plot(m1_prior)
 ```
 
 
-
-
 ```{r}
+library(tidybayes)
+
 prior_pred_1 <- d %>%
   modelr::data_grid(Group) %>%
   add_predicted_draws(m1_prior) %>%
@@ -276,10 +364,12 @@ prior_pred_1 <- d %>%
   theme_tidybayes()
 ```
 
-
-```{r}
+```{r echo=FALSE}
 prior_pred_1
 ```
+
+## Vom Posterior Sampeln
+
 
 ```{r}
 m1 <- brm(IQ ~ 1,
@@ -290,10 +380,10 @@ m1 <- brm(IQ ~ 1,
 
 
 
-
 ```{r}
 plot(m1)
 ```
+
 
 
 ```{r}
@@ -301,10 +391,15 @@ print(m1)
 ```
 
 
+## Posterior Quantile Intervals
+
 ```{r}
 library(patchwork)
 mcmc_plot(m1, pars = "b") / mcmc_plot(m1, pars = "sigma")
 ```
+
+
+## Posterior Samples
 
 
 ```{r}
@@ -312,11 +407,15 @@ samples <- posterior_samples(m1) %>%
   transmute(mu = b_Intercept, sigma = sigma)
 ```
 
-
-
 ```{r}
 library(tidybayes)
 
+samples %>% 
+  select(mu) %>% 
+  median_qi(.width = c(.50, .80, .95, .99))
+```
+
+```{r echo=TRUE, eval = FALSE}
 samples %>% 
   select(mu) %>% 
   median_qi(.width = c(.50, .80, .95, .99)) %>% 
@@ -325,7 +424,21 @@ samples %>%
   ylab("") +
   theme_tidybayes()
 ```
-```{r}
+
+```{r echo=FALSE, eval = TRUE}
+samples %>% 
+  select(mu) %>% 
+  median_qi(.width = c(.50, .80, .95, .99)) %>% 
+  ggplot(aes(x = mu, xmin = .lower, xmax = .upper)) +
+  geom_pointinterval() +
+  ylab("") +
+  theme_tidybayes()
+```
+
+## Posterior Samples
+
+
+```{r echo=TRUE, eval = FALSE}
 samples %>% 
   select(mu) %>% 
   ggplot(aes(x = mu)) +
@@ -333,7 +446,27 @@ samples %>%
   theme_tidybayes()
 ```
 
-```{r}
+
+
+```{r echo=FALSE, eval = TRUE}
+samples %>% 
+  select(mu) %>% 
+  ggplot(aes(x = mu)) +
+  stat_halfeye() +
+  theme_tidybayes()
+```
+
+```{r echo=TRUE, eval = FALSE}
+samples %>% 
+  select(sigma) %>% 
+  ggplot(aes(x = sigma)) +
+  stat_halfeye(point_interval = mode_hdi) +
+  theme_tidybayes()
+```
+
+
+
+```{r echo=FALSE, eval = TRUE}
 samples %>% 
   select(sigma) %>% 
   ggplot(aes(x = sigma)) +
@@ -344,6 +477,7 @@ samples %>%
 
 
 
+## Posterior Predictive Distribution
 
 ```{r}
 post_pred_1 <- d %>%
@@ -356,12 +490,13 @@ post_pred_1 <- d %>%
   theme_tidybayes()
 ```
 
-
 ```{r}
 post_pred_1
 ```
 
 
+
+## Prior vs Posterior Predictive Distribution
 
 ```{r}
 cowplot::plot_grid(prior_pred_1, 
@@ -378,19 +513,19 @@ cowplot::plot_grid(prior_pred_1,
 
 ## Zwei Gruppen
 
-```{r echo = FALSE}
+```{r echo=FALSE}
 library(ggridges)
 library(patchwork)
 
-TwoGroupIQ %>%
-   ggplot(aes(x = IQ, fill = Group)) +
-      geom_dotplot(binwidth = 1) + facet_wrap(~Group) +
-      scale_fill_manual(values = c("#0288b7", "#a90010"), guide = FALSE) +
-      # scale_x_continuous(breaks = seq(1, 10, 1)) +
-      scale_y_continuous(breaks = NULL) +
-      labs(y = "Count", x = "IQ") +
-      facet_wrap(~ Group, nrow = 2) +
-      theme(panel.grid.major.x = element_blank())
+# TwoGroupIQ %>%
+#    ggplot(aes(x = IQ, fill = Group)) +
+#       geom_dotplot(binwidth = 1) + facet_wrap(~Group) +
+#       scale_fill_manual(values = c("#0288b7", "#a90010"), guide = FALSE) +
+#       # scale_x_continuous(breaks = seq(1, 10, 1)) +
+#       scale_y_continuous(breaks = NULL) +
+#       labs(y = "Count", x = "IQ") +
+#       facet_wrap(~ Group, nrow = 2) +
+#       theme(panel.grid.major.x = element_blank())
 
 p_iq_ridges <- TwoGroupIQ %>%
    ggplot(aes(x = IQ, y = fct_rev(Group), fill = Group)) +
@@ -413,51 +548,49 @@ p_iq_ridges +
 
 
 
+## t-Test als Allgemeines Lineares Modell
+
+Annahme: Varianzgleichheit 
 
 
-## t-Test as general linear model
+### Tradionelle Notation
 
-Assuming equal variances, we can write
+$$y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}$$
+$$\epsilon \sim N(0, \sigma^2)$$
 
-$$ Y = \alpha + \beta X + \epsilon$$
-$$ \epsilon \sim N(0, \sigma^2) $$
+### Probabilistische Notation
 
-where $X$ is indicates group membership.
+
+$$y_{ij} \sim N(\mu, \sigma^2)$$
+$$\mu_{ij} = \alpha + \beta x_{ij}$$
+
+
+$X_{ij}$ ist eine Indikatorvariable.
+
+
+
+## Ordinary Least Squares Schätzung
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 levels(TwoGroupIQ$Group)
 ```
 
 
-
-
-
-
-Using R's formula notation, we can write this as
+Mit R Formelnotation: 
 
 ```{r echo=TRUE}
 fit_ols <- lm(IQ ~ Group,
               data = TwoGroupIQ)
 ```
 
-<aside>
-The outcome `IQ` is modeled as a function of `Group`)
-</aside>
-
-
-More formally:
-
-$$ IQ = Placebo + \beta \cdot SmartDrug  + \epsilon$$
-
-$$ \epsilon \sim N(0, \sigma^2) $$
-
-
-The $\beta$ parameter therefore represents the difference between groups.
 
 ```{r echo=TRUE}
- summary(fit_ols)
+summary(fit_ols)
 ```
 
+
+
+## Dummy Coding in R
 
 ```{r}
 contrasts(TwoGroupIQ$Group)
@@ -473,6 +606,17 @@ as_tibble(mm1) %>%
   group_by(GroupSmartDrug) %>% 
   slice_sample(n= 3)
 ```
+
+
+## Dummy Coding in R
+
+
+```{r}
+as_tibble(mm1) %>% 
+  group_by(GroupSmartDrug) %>% 
+  slice_sample(n= 3)
+```
+
 ```{r}
 mm2 <- model.matrix(~ 0 + Group, data = TwoGroupIQ)
 as_tibble(mm2) %>% 
@@ -480,10 +624,7 @@ as_tibble(mm2) %>%
   slice_sample(n= 3)
 ```
 
-
-
-
-
+## Graphical Model
 
 
 ```{r normal-graphical-model-2, echo = FALSE, out.width = "20%", fig.cap="Graphical Model für 2 Gruppen."}
@@ -491,6 +632,9 @@ knitr::include_graphics("images/two-group-iq-graphical-model.png")
 ```
 
 
+
+
+## Get Priors
 
 ```{r}
 priors2 <- get_prior(IQ ~ 1 + Group,
@@ -502,10 +646,13 @@ priors2
 ```
 
 
+## Get Priors
+
 ```{r}
 priors3 <- get_prior(IQ ~ 0 + Group,
                      data = TwoGroupIQ)
 ```
+
 
 ```{r}
 priors3
@@ -514,7 +661,7 @@ priors3
 
 
 
-
+## Priors definieren und vom Prior Sampeln
 
 ```{r}
 priors2_b <- prior(normal(0, 2), class = b)
@@ -532,6 +679,7 @@ m2_prior <- brm(IQ ~ 1 + Group,
 
 
 
+
 ```{r}
 prior_pred_2 <- TwoGroupIQ %>%
   modelr::data_grid(Group) %>%
@@ -541,9 +689,16 @@ prior_pred_2 <- TwoGroupIQ %>%
   geom_point(aes(x = IQ), alpha = 0.4,  data = TwoGroupIQ) +
   scale_color_brewer() +
   theme_tidybayes()
+```
 
+
+```{r echo=FALSE}
 prior_pred_2
 ```
+
+
+## Priors definieren und vom Prior Sampeln
+
 
 ```{r}
 priors3_b <- prior(normal(100, 10), class = b)
@@ -558,7 +713,6 @@ m3_prior <- brm(IQ ~ 0 + Group,
 ```
 
 
-
 ```{r}
 prior_pred_3 <- TwoGroupIQ %>%
   modelr::data_grid(Group) %>%
@@ -568,10 +722,14 @@ prior_pred_3 <- TwoGroupIQ %>%
   geom_point(aes(x = IQ), alpha = 0.4,  data = TwoGroupIQ) +
   scale_color_brewer() +
   theme_tidybayes()
+```
 
+```{r echo=FALSE}
 prior_pred_3
 ```
 
+
+## Posterior Sampling
 
 ```{r}
 m2 <- brm(IQ ~ 1 + Group,
@@ -589,22 +747,34 @@ m3 <- brm(IQ ~ 0 + Group,
 ```
 
 
+## Summary 
+
 ```{r}
 summary(m2)
 ```
+
+
+## Summary 
 
 ```{r}
 summary(m3)
 ```
 
 
+
 ```{r}
 mcmc_plot(m2, "b_GroupSmartDrug")
 ```
 
+
+
 ```{r}
 mcmc_plot(m3, "b")
 ```
+
+
+## Get Posterior Samples
+
 ```{r}
 samples_m3 <- posterior_samples(m3) %>% 
     transmute(Placebo = b_GroupPlacebo, 
@@ -621,6 +791,7 @@ samples_m3 <- samples_m3 %>%
 
 
 
+## Get Posterior Samples
 
 
 ```{r}
@@ -629,6 +800,9 @@ samples_m3 %>%
   median_qi()
 ```
 
+
+
+
 ```{r}
 samples_m3 %>% 
   select(diff) %>% 
@@ -636,6 +810,7 @@ samples_m3 %>%
   stat_halfeye(point_interval = median_qi) +
   theme_tidybayes()
 ```
+
 
 ```{r}
 samples_m3 %>% 
@@ -646,12 +821,14 @@ samples_m3 %>%
 ```
 
 
+## Diesmal ohne eigene Priors
 
 ```{r}
 fit_eqvar <- brm(IQ ~ Group,
                  data = TwoGroupIQ,
                  file = here::here("models/fit_eqvar"))
 ```
+
 
 ```{r}
 fit_eqvar %>%
@@ -664,7 +841,11 @@ fit_eqvar %>%
     theme_tidybayes()
 ```
 
-```{r}
+
+
+
+
+```{r eval=FALSE, echo=TRUE}
 grid <- TwoGroupIQ %>%
     modelr::data_grid(Group)
 
@@ -689,8 +870,33 @@ pp_eqvar <- TwoGroupIQ %>%
     scale_color_brewer() +
 	labs(title = "Equal variance model predictions") +
   theme_tidybayes()
-
-pp_eqvar
 ```
 
 
+
+```{r echo=FALSE}
+grid <- TwoGroupIQ %>%
+    modelr::data_grid(Group)
+
+fits_IQ <- grid %>%
+    add_fitted_draws(fit_eqvar)
+
+preds_IQ <- grid %>%
+    add_predicted_draws(fit_eqvar)
+
+TwoGroupIQ %>%
+    ggplot(aes(x = IQ, y = Group)) +
+    stat_halfeye(aes(x = .value),
+                  scale = 0.7,
+                  position = position_nudge(y = 0.1),
+                  data = fits_IQ,
+                  .width = c(.66, .95, 0.99)) +
+    stat_interval(aes(x = .prediction),
+                   data = preds_IQ,
+                   .width = c(.66, .95, 0.99)) +
+    scale_x_continuous(limits = c(75, 125)) +
+    geom_point(data = TwoGroupIQ) +
+    scale_color_brewer() +
+	labs(title = "Equal variance model predictions") +
+  theme_tidybayes()
+```

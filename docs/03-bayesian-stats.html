@@ -88,7 +88,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>neuroscicomplab: Bayesianische Statistik</title>
 
-  <meta property="description" itemprop="description" content="Lineare Modelle mit `brms`."/>
+  <meta property="description" itemprop="description" content="Teil 3: Lineare Modelle mit brms."/>
 
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
 
@@ -100,18 +100,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="neuroscicomplab: Bayesianische Statistik"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Lineare Modelle mit `brms`."/>
+  <meta property="og:description" content="Teil 3: Lineare Modelle mit brms."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="neuroscicomplab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="neuroscicomplab: Bayesianische Statistik"/>
-  <meta property="twitter:description" content="Lineare Modelle mit `brms`."/>
+  <meta property="twitter:description" content="Teil 3: Lineare Modelle mit brms."/>
 
   <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
   <meta name="citation_title" content="neuroscicomplab: Bayesianische Statistik"/>
-  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html"/>
+  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html"/>
   <meta name="citation_fulltext_world_readable" content=""/>
   <meta name="citation_online_date" content="2021/03/22"/>
   <meta name="citation_publication_date" content="2021/03/22"/>
@@ -123,7 +123,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Bayesianische Statistik"]},{"type":"character","attributes":{},"value":["Lineare Modelle mit `brms`.\n"]},{"type":"character","attributes":{},"value":["2021-03-22"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Bayesianische Statistik"]},{"type":"character","attributes":{},"value":["Teil 3: Lineare Modelle mit brms.\n"]},{"type":"character","attributes":{},"value":["2021-03-22"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2379,8 +2379,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-  <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-  <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
   <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
@@ -2436,7 +2434,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Bayesianische Statistik","description":"Lineare Modelle mit `brms`.","authors":[{"author":"Andrew Ellis","authorURL":"https://github.com/awellis","affiliation":"Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern","affiliationURL":"https://www.kog.psy.unibe.ch","orcidID":"0000-0002-2788-936X"}],"publishedDate":"2021-03-22T00:00:00.000+00:00","citationText":"Ellis, 2021"}
+{"title":"Bayesianische Statistik","description":"Teil 3: Lineare Modelle mit brms.","authors":[{"author":"Andrew Ellis","authorURL":"https://github.com/awellis","affiliation":"Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern","affiliationURL":"https://www.kog.psy.unibe.ch","orcidID":"0000-0002-2788-936X"}],"publishedDate":"2021-03-22T00:00:00.000+00:00","citationText":"Ellis, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2483,7 +2481,7 @@ Kapitel
 <div class="nav-dropdown-content">
 <a href="01-intro-bayesian-stats.html">1. Einführung in Bayesianische Statistik</a>
 <a href="NA.tbd">2. Bayesianische Statistik: Von Grid Approximation zu Sampling</a>
-<a href="NA.tbd">3. Bayesianische Statistik: Lineare Modelle mit `brms`</a>
+<a href="03-bayesian-stats.html">3. Bayesianische Statistik: Lineare Modelle mit `brms`</a>
 </div>
 </div>
 <div class="nav-dropdown">
@@ -2512,7 +2510,7 @@ Slides
 <h1>Bayesianische Statistik</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Lineare Modelle mit <code>brms</code>.</p></p>
+<p><p>Teil 3: Lineare Modelle mit brms.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2527,28 +2525,64 @@ Slides
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#mittelwert-und-standardabweichung-einer-normalverteilung-schätzen">Mittelwert und Standardabweichung einer Normalverteilung schätzen</a>
+<li><a href="#parameterschätzung-mit-linearen-modellen">Parameterschätzung mit Linearen Modellen</a>
 <ul>
-<li><a href="#t-test-als-lineares-modell">t-Test als Lineares Modell</a></li>
+<li><a href="#mittelwert-und-standardabweichung-einer-normalverteilung-schätzen">Mittelwert und Standardabweichung einer Normalverteilung schätzen</a></li>
+<li><a href="#graphical-model">Graphical model</a></li>
+<li><a href="#beispiel-t-test">Beispiel: t-Test</a></li>
+<li><a href="#smart-drug-gruppe">Smart Drug Gruppe</a></li>
+<li><a href="#parameter-schätzen-mit-brms">Parameter schätzen mit brms</a></li>
+<li><a href="#priors-1">Priors</a></li>
+<li><a href="#priors-2">Priors</a></li>
+<li><a href="#prior-predictive-distribution">Prior Predictive Distribution</a></li>
+<li><a href="#vom-posterior-sampeln">Vom Posterior Sampeln</a></li>
+<li><a href="#posterior-quantile-intervals">Posterior Quantile Intervals</a></li>
+<li><a href="#posterior-samples">Posterior Samples</a></li>
+<li><a href="#posterior-samples-1">Posterior Samples</a></li>
+<li><a href="#posterior-predictive-distribution">Posterior Predictive Distribution</a></li>
+<li><a href="#prior-vs-posterior-predictive-distribution">Prior vs Posterior Predictive Distribution</a></li>
 <li><a href="#zwei-gruppen">Zwei Gruppen</a></li>
-<li><a href="#t-test-as-general-linear-model">t-Test as general linear model</a></li>
+<li><a href="#t-test-als-allgemeines-lineares-modell">t-Test als Allgemeines Lineares Modell</a></li>
+<li><a href="#ordinary-least-squares-schätzung">Ordinary Least Squares Schätzung</a></li>
+<li><a href="#dummy-coding-in-r">Dummy Coding in R</a></li>
+<li><a href="#dummy-coding-in-r-1">Dummy Coding in R</a></li>
+<li><a href="#graphical-model-1">Graphical Model</a></li>
+<li><a href="#get-priors">Get Priors</a></li>
+<li><a href="#get-priors-1">Get Priors</a></li>
+<li><a href="#priors-definieren-und-vom-prior-sampeln">Priors definieren und vom Prior Sampeln</a></li>
+<li><a href="#priors-definieren-und-vom-prior-sampeln-1">Priors definieren und vom Prior Sampeln</a></li>
+<li><a href="#posterior-sampling">Posterior Sampling</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#summary-1">Summary</a></li>
+<li><a href="#get-posterior-samples">Get Posterior Samples</a></li>
+<li><a href="#get-posterior-samples-1">Get Posterior Samples</a></li>
+<li><a href="#diesmal-ohne-eigene-priors">Diesmal ohne eigene Priors</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
-<h1 id="mittelwert-und-standardabweichung-einer-normalverteilung-schätzen">Mittelwert und Standardabweichung einer Normalverteilung schätzen</h1>
-<p>Wir haben 3 Datenpunkte mit den Werten $ y_1 = 85$ , <span class="math inline">\(y_2 = 100\)</span>, und <span class="math inline">\(y_3 = 115\)</span>. Wenn wir annehmen, dass diese Datenpunkte aus einer Normalverteilung kommen</p>
-<p><span class="math display">\[ p(y | \mu, \sigma) = \frac{1}{Z} exp \left(- \frac{1}{2} \frac{(y-\mu)^2}{\sigma^2}\right)  \]</span> <span class="math inline">\(Z = \sigma \sqrt{2\pi}\)</span> ist eine Normalisierungskonstante.</p>
-<p>Wir können so die Wahrscheinlichkeit eines Datenpunktes berechnen, wenn wir wissen, was wir für <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> einsetzen wollen. Unter der Annahme, dass die drei Datenpunkte unabhängig sind, ist die Wahrscheinlichkeit der Daten das Produkt der Einzelwahrscheinlichkeit.</p>
+<h1 id="parameterschätzung-mit-linearen-modellen">Parameterschätzung mit Linearen Modellen</h1>
+<h2 id="mittelwert-und-standardabweichung-einer-normalverteilung-schätzen">Mittelwert und Standardabweichung einer Normalverteilung schätzen</h2>
+<p>Wir haben 3 Datenpunkte, von denen wir annehmen können, dass sie aus einer Normalverteilung kommen. Die drei Werte sind <span class="math inline">\(y_1 = 85\)</span>, <span class="math inline">\(y_2 = 100\)</span>, und <span class="math inline">\(y_3 = 115\)</span>. Die Wahrscheinlichkeit eines Datenpunktes is gegeben durch</p>
+<p><span class="math display">\[ p(y | \mu, \sigma) = \frac{1}{Z} exp \left(- \frac{1}{2} \frac{(y-\mu)^2}{\sigma^2}\right)  \]</span></p>
+<p><span class="math display">\[ Z = \sigma \sqrt{2\pi} \]</span> ist eine Normalisierungskonstante.</p>
+<p>Damit können wir die Wahrscheinlichkeit eines Datenpunktes berechnen, wenn wir die Parameter <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> kennen. Unter der Annahme, dass die drei Datenpunkte unabhängig sind, ist die Wahrscheinlichkeit der Daten das Produkt der Einzelwahrscheinlichkeiten.</p>
 <p>Wie aber finden wir die beiden Parameter der Normalverteilung, <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span>?</p>
+<h2 id="graphical-model">Graphical model</h2>
+<p>Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen. Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.</p>
+<aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:normal-graphical-model"></span>
-<img src="images/normal-graphical-model-2.png" alt="Graphical Model für normalverteilte Daten." width="20%" />
+<img src="images/normal-graphical-model-2.png" alt="Graphical Model für normalverteilte Daten." width="50%" />
 <p class="caption">
 Figure 1: Graphical Model für normalverteilte Daten.
 </p>
 </div>
 </div>
+</aside>
+<p>Die Variablen in diesem Modell sind:</p>
+<p><span class="math display">\[ \mu \sim ???  \]</span> <span class="math display">\[  \sigma \sim ??? \]</span> <span class="math display">\[ y \sim N(\mu, \sigma) \]</span></p>
+<p><span class="math inline">\(y\)</span> ist eine beobachtete Variable, und <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> sind parameter, welche geschätzt werden müssen. Dies können wir mit der Maximum-Likelihood Methode machen, um Punktschätzungen zu erhalten. Der folgende Code illustriert, wie das ungefähr funktioniert. Wir suche eine Kombination von <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span>, für welceh die Wahrscheinlichkeit am grössten ist, genau diese drei Dantepunkte zu beobachten. Anstatt alle möglichen Werte zu betrachten, wie in der Maximum-Likelihood Methode, nehmen wir drei Beispielswerte für <span class="math inline">\(\mu\)</span>, <span class="math inline">\(87.8, 100\)</span> und <span class="math inline">\(112\)</span>, und drei Werte für <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(7.35, 12.2\)</span> und <span class="math inline">\(18.4\)</span>. Wir erstellen dann die 9 möglichen Kombinationen dieser Werte, und benutzten ein Grid (von 50 bis 150) für die möglichen Datenpunkte.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
@@ -2569,20 +2603,30 @@ Figure 1: Graphical Model für normalverteilte Daten.
 </code></pre>
 </div>
 </div>
+<aside>
+Dieser Code dient dazu, ein Theme für <code>ggplot</code> zu erstellen.
+</aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/rmarkdown'>rmarkdown</a></span><span class='op'>)</span>
-
-<span class='va'>d1</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/paged_table.html'>paged_table</a></span><span class='op'>(</span>options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>rows.print <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>theme_set</span><span class='op'>(</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>theme</span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          axis.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          axis.ticks <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          legend.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+          legend.box.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                               color <span class='op'>=</span> <span class='st'>"transparent"</span><span class='op'>)</span>,
+          legend.key <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                    color <span class='op'>=</span> <span class='st'>"transparent"</span><span class='op'>)</span>,
+          legend.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          legend.title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                          color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          panel.grid <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["mu"],"name":[2],"type":["fct"],"align":["left"]},{"label":["sigma"],"name":[3],"type":["fct"],"align":["left"]},{"label":["density"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"50.00000","2":"mu==87.8","3":"sigma==7.35","4":"9.801663e-08"},{"1":"50.00000","2":"mu==87.8","3":"sigma==12.2","4":"2.691360e-04"},{"1":"50.00000","2":"mu==87.8","3":"sigma==18.4","4":"2.628185e-03"},{"1":"50.00000","2":"mu==100","3":"sigma==7.35","4":"4.849498e-12"},{"1":"50.00000","2":"mu==100","3":"sigma==12.2","4":"7.365862e-06"},{"1":"50.00000","2":"mu==100","3":"sigma==18.4","4":"5.402941e-04"},{"1":"50.00000","2":"mu==112","3":"sigma==7.35","4":"1.920411e-17"},{"1":"50.00000","2":"mu==112","3":"sigma==12.2","4":"8.061591e-08"},{"1":"50.00000","2":"mu==112","3":"sigma==18.4","4":"7.423506e-05"},{"1":"51.01010","2":"mu==87.8","3":"sigma==7.35","4":"1.968555e-07"},{"1":"51.01010","2":"mu==87.8","3":"sigma==12.2","4":"3.466510e-04"},{"1":"51.01010","2":"mu==87.8","3":"sigma==18.4","4":"2.937515e-03"},{"1":"51.01010","2":"mu==100","3":"sigma==7.35","4":"1.223525e-11"},{"1":"51.01010","2":"mu==100","3":"sigma==12.2","4":"1.030628e-05"},{"1":"51.01010","2":"mu==100","3":"sigma==18.4","4":"6.262708e-04"},{"1":"51.01010","2":"mu==112","3":"sigma==7.35","4":"6.063932e-17"},{"1":"51.01010","2":"mu==112","3":"sigma==12.2","4":"1.223677e-07"},{"1":"51.01010","2":"mu==112","3":"sigma==18.4","4":"8.918456e-05"},{"1":"52.02020","2":"mu==87.8","3":"sigma==7.35","4":"3.879655e-07"},{"1":"52.02020","2":"mu==87.8","3":"sigma==12.2","4":"4.434412e-04"},{"1":"52.02020","2":"mu==87.8","3":"sigma==18.4","4":"3.273371e-03"},{"1":"52.02020","2":"mu==100","3":"sigma==7.35","4":"3.029190e-11"},{"1":"52.02020","2":"mu==100","3":"sigma==12.2","4":"1.432197e-05"},{"1":"52.02020","2":"mu==100","3":"sigma==18.4","4":"7.237445e-04"},{"1":"52.02020","2":"mu==112","3":"sigma==7.35","4":"1.878937e-16"},{"1":"52.02020","2":"mu==112","3":"sigma==12.2","4":"1.844744e-07"},{"1":"52.02020","2":"mu==112","3":"sigma==18.4","4":"1.068222e-04"},{"1":"53.03030","2":"mu==87.8","3":"sigma==7.35","4":"7.503021e-07"},{"1":"53.03030","2":"mu==87.8","3":"sigma==12.2","4":"5.633814e-04"},{"1":"53.03030","2":"mu==87.8","3":"sigma==18.4","4":"3.636652e-03"},{"1":"53.03030","2":"mu==100","3":"sigma==7.35","4":"7.359321e-11"},{"1":"53.03030","2":"mu==100","3":"sigma==12.2","4":"1.976636e-05"},{"1":"53.03030","2":"mu==100","3":"sigma==18.4","4":"8.338724e-04"},{"1":"53.03030","2":"mu==112","3":"sigma==7.35","4":"5.713044e-16"},{"1":"53.03030","2":"mu==112","3":"sigma==12.2","4":"2.762028e-07"},{"1":"53.03030","2":"mu==112","3":"sigma==18.4","4":"1.275630e-04"},{"1":"54.04040","2":"mu==87.8","3":"sigma==7.35","4":"1.423891e-06"},{"1":"54.04040","2":"mu==87.8","3":"sigma==12.2","4":"7.108728e-04"},{"1":"54.04040","2":"mu==87.8","3":"sigma==18.4","4":"4.028092e-03"},{"1":"54.04040","2":"mu==100","3":"sigma==7.35","4":"1.754473e-10"},{"1":"54.04040","2":"mu==100","3":"sigma==12.2","4":"2.709403e-05"},{"1":"54.04040","2":"mu==100","3":"sigma==18.4","4":"9.578667e-04"},{"1":"54.04040","2":"mu==112","3":"sigma==7.35","4":"1.704593e-15"},{"1":"54.04040","2":"mu==112","3":"sigma==12.2","4":"4.107172e-07"},{"1":"54.04040","2":"mu==112","3":"sigma==18.4","4":"1.518724e-04"},{"1":"55.05051","2":"mu==87.8","3":"sigma==7.35","4":"2.651644e-06"},{"1":"55.05051","2":"mu==87.8","3":"sigma==12.2","4":"8.908492e-04"},{"1":"55.05051","2":"mu==87.8","3":"sigma==18.4","4":"4.448240e-03"},{"1":"55.05051","2":"mu==100","3":"sigma==7.35","4":"4.104434e-10"},{"1":"55.05051","2":"mu==100","3":"sigma==12.2","4":"3.688446e-05"},{"1":"55.05051","2":"mu==100","3":"sigma==18.4","4":"1.096988e-03"},{"1":"55.05051","2":"mu==112","3":"sigma==7.35","4":"4.990813e-15"},{"1":"55.05051","2":"mu==112","3":"sigma==12.2","4":"6.065696e-07"},{"1":"55.05051","2":"mu==112","3":"sigma==18.4","4":"1.802703e-04"},{"1":"56.06061","2":"mu==87.8","3":"sigma==7.35","4":"4.845641e-06"},{"1":"56.06061","2":"mu==87.8","3":"sigma==12.2","4":"1.108765e-03"},{"1":"56.06061","2":"mu==87.8","3":"sigma==18.4","4":"4.897429e-03"},{"1":"56.06061","2":"mu==100","3":"sigma==7.35","4":"9.422311e-10"},{"1":"56.06061","2":"mu==100","3":"sigma==12.2","4":"4.986962e-05"},{"1":"56.06061","2":"mu==100","3":"sigma==18.4","4":"1.252534e-03"},{"1":"56.06061","2":"mu==112","3":"sigma==7.35","4":"1.433902e-14"},{"1":"56.06061","2":"mu==112","3":"sigma==12.2","4":"8.896954e-07"},{"1":"56.06061","2":"mu==112","3":"sigma==18.4","4":"2.133343e-04"},{"1":"57.07071","2":"mu==87.8","3":"sigma==7.35","4":"8.689301e-06"},{"1":"57.07071","2":"mu==87.8","3":"sigma==12.2","4":"1.370558e-03"},{"1":"57.07071","2":"mu==87.8","3":"sigma==18.4","4":"5.375753e-03"},{"1":"57.07071","2":"mu==100","3":"sigma==7.35","4":"2.122556e-09"},{"1":"57.07071","2":"mu==100","3":"sigma==12.2","4":"6.696558e-05"},{"1":"57.07071","2":"mu==100","3":"sigma==18.4","4":"1.425833e-03"},{"1":"57.07071","2":"mu==112","3":"sigma==7.35","4":"4.042644e-14"},{"1":"57.07071","2":"mu==112","3":"sigma==12.2","4":"1.296059e-06"},{"1":"57.07071","2":"mu==112","3":"sigma==18.4","4":"2.517031e-04"},{"1":"58.08081","2":"mu==87.8","3":"sigma==7.35","4":"1.529030e-05"},{"1":"58.08081","2":"mu==87.8","3":"sigma==12.2","4":"1.682590e-03"},{"1":"58.08081","2":"mu==87.8","3":"sigma==18.4","4":"5.883039e-03"},{"1":"58.08081","2":"mu==100","3":"sigma==7.35","4":"4.692007e-09"},{"1":"58.08081","2":"mu==100","3":"sigma==12.2","4":"8.930794e-05"},{"1":"58.08081","2":"mu==100","3":"sigma==18.4","4":"1.618225e-03"},{"1":"58.08081","2":"mu==112","3":"sigma==7.35","4":"1.118431e-13"},{"1":"58.08081","2":"mu==112","3":"sigma==12.2","4":"1.875130e-06"},{"1":"58.08081","2":"mu==112","3":"sigma==18.4","4":"2.960789e-04"},{"1":"59.09091","2":"mu==87.8","3":"sigma==7.35","4":"2.640250e-05"},{"1":"59.09091","2":"mu==87.8","3":"sigma==12.2","4":"2.051551e-03"},{"1":"59.09091","2":"mu==87.8","3":"sigma==18.4","4":"6.418821e-03"},{"1":"59.09091","2":"mu==100","3":"sigma==7.35","4":"1.017784e-08"},{"1":"59.09091","2":"mu==100","3":"sigma==12.2","4":"1.182909e-04"},{"1":"59.09091","2":"mu==100","3":"sigma==18.4","4":"1.831050e-03"},{"1":"59.09091","2":"mu==112","3":"sigma==7.35","4":"3.036340e-13"},{"1":"59.09091","2":"mu==112","3":"sigma==12.2","4":"2.694392e-06"},{"1":"59.09091","2":"mu==112","3":"sigma==18.4","4":"3.472303e-04"},{"1":"60.10101","2":"mu==87.8","3":"sigma==7.35","4":"4.473748e-05"},{"1":"60.10101","2":"mu==87.8","3":"sigma==12.2","4":"2.484328e-03"},{"1":"60.10101","2":"mu==87.8","3":"sigma==18.4","4":"6.982324e-03"},{"1":"60.10101","2":"mu==100","3":"sigma==7.35","4":"2.166459e-08"},{"1":"60.10101","2":"mu==100","3":"sigma==12.2","4":"1.556093e-04"},{"1":"60.10101","2":"mu==100","3":"sigma==18.4","4":"2.065632e-03"},{"1":"60.10101","2":"mu==112","3":"sigma==7.35","4":"8.088895e-13"},{"1":"60.10101","2":"mu==112","3":"sigma==12.2","4":"3.845147e-06"},{"1":"60.10101","2":"mu==112","3":"sigma==18.4","4":"4.059934e-04"},{"1":"61.11111","2":"mu==87.8","3":"sigma==7.35","4":"7.438676e-05"},{"1":"61.11111","2":"mu==87.8","3":"sigma==12.2","4":"2.987849e-03"},{"1":"61.11111","2":"mu==87.8","3":"sigma==18.4","4":"7.572441e-03"},{"1":"61.11111","2":"mu==100","3":"sigma==7.35","4":"4.525253e-08"},{"1":"61.11111","2":"mu==100","3":"sigma==12.2","4":"2.033025e-04"},{"1":"61.11111","2":"mu==100","3":"sigma==18.4","4":"2.323254e-03"},{"1":"61.11111","2":"mu==112","3":"sigma==7.35","4":"2.114588e-12"},{"1":"61.11111","2":"mu==112","3":"sigma==12.2","4":"5.449895e-06"},{"1":"61.11111","2":"mu==112","3":"sigma==18.4","4":"4.732727e-04"},{"1":"62.12121","2":"mu==87.8","3":"sigma==7.35","4":"1.213717e-04"},{"1":"62.12121","2":"mu==87.8","3":"sigma==12.2","4":"3.568873e-03"},{"1":"62.12121","2":"mu==87.8","3":"sigma==18.4","4":"8.187720e-03"},{"1":"62.12121","2":"mu==100","3":"sigma==7.35","4":"9.275403e-08"},{"1":"62.12121","2":"mu==100","3":"sigma==12.2","4":"2.637988e-04"},{"1":"62.12121","2":"mu==100","3":"sigma==18.4","4":"2.605144e-03"},{"1":"62.12121","2":"mu==112","3":"sigma==7.35","4":"5.424501e-12"},{"1":"62.12121","2":"mu==112","3":"sigma==12.2","4":"7.671603e-06"},{"1":"62.12121","2":"mu==112","3":"sigma==18.4","4":"5.500411e-04"},{"1":"63.13131","2":"mu==87.8","3":"sigma==7.35","4":"1.943287e-04"},{"1":"63.13131","2":"mu==87.8","3":"sigma==12.2","4":"4.233763e-03"},{"1":"63.13131","2":"mu==87.8","3":"sigma==18.4","4":"8.826353e-03"},{"1":"63.13131","2":"mu==100","3":"sigma==7.35","4":"1.865608e-07"},{"1":"63.13131","2":"mu==100","3":"sigma==12.2","4":"3.399583e-04"},{"1":"63.13131","2":"mu==100","3":"sigma==18.4","4":"2.912446e-03"},{"1":"63.13131","2":"mu==112","3":"sigma==7.35","4":"1.365499e-11"},{"1":"63.13131","2":"mu==112","3":"sigma==12.2","4":"1.072524e-05"},{"1":"63.13131","2":"mu==112","3":"sigma==18.4","4":"6.373383e-04"},{"1":"64.14141","2":"mu==87.8","3":"sigma==7.35","4":"3.053190e-04"},{"1":"64.14141","2":"mu==87.8","3":"sigma==12.2","4":"4.988212e-03"},{"1":"64.14141","2":"mu==87.8","3":"sigma==18.4","4":"9.486167e-03"},{"1":"64.14141","2":"mu==100","3":"sigma==7.35","4":"3.682186e-07"},{"1":"64.14141","2":"mu==100","3":"sigma==12.2","4":"4.351124e-04"},{"1":"64.14141","2":"mu==100","3":"sigma==18.4","4":"3.246199e-03"},{"1":"64.14141","2":"mu==112","3":"sigma==7.35","4":"3.373035e-11"},{"1":"64.14141","2":"mu==112","3":"sigma==12.2","4":"1.489193e-05"},{"1":"64.14141","2":"mu==112","3":"sigma==18.4","4":"7.362683e-04"},{"1":"65.15152","2":"mu==87.8","3":"sigma==7.35","4":"4.707264e-04"},{"1":"65.15152","2":"mu==87.8","3":"sigma==12.2","4":"5.836952e-03"},{"1":"65.15152","2":"mu==87.8","3":"sigma==18.4","4":"1.016463e-02"},{"1":"65.15152","2":"mu==100","3":"sigma==7.35","4":"7.131626e-07"},{"1":"65.15152","2":"mu==100","3":"sigma==12.2","4":"5.530956e-04"},{"1":"65.15152","2":"mu==100","3":"sigma==18.4","4":"3.607312e-03"},{"1":"65.15152","2":"mu==112","3":"sigma==7.35","4":"8.176132e-11"},{"1":"65.15152","2":"mu==112","3":"sigma==12.2","4":"2.053608e-05"},{"1":"65.15152","2":"mu==112","3":"sigma==18.4","4":"8.479951e-04"},{"1":"66.16162","2":"mu==87.8","3":"sigma==7.35","4":"7.121654e-04"},{"1":"66.16162","2":"mu==87.8","3":"sigma==12.2","4":"6.783444e-03"},{"1":"66.16162","2":"mu==87.8","3":"sigma==18.4","4":"1.085884e-02"},{"1":"66.16162","2":"mu==100","3":"sigma==7.35","4":"1.355405e-06"},{"1":"66.16162","2":"mu==100","3":"sigma==12.2","4":"6.982674e-04"},{"1":"66.16162","2":"mu==100","3":"sigma==18.4","4":"3.996533e-03"},{"1":"66.16162","2":"mu==112","3":"sigma==7.35","4":"1.944789e-10"},{"1":"66.16162","2":"mu==112","3":"sigma==12.2","4":"2.812595e-05"},{"1":"66.16162","2":"mu==112","3":"sigma==18.4","4":"9.737372e-04"},{"1":"67.17172","2":"mu==87.8","3":"sigma==7.35","4":"1.057282e-03"},{"1":"67.17172","2":"mu==87.8","3":"sigma==12.2","4":"7.829558e-03"},{"1":"67.17172","2":"mu==87.8","3":"sigma==18.4","4":"1.156555e-02"},{"1":"67.17172","2":"mu==100","3":"sigma==7.35","4":"2.527826e-06"},{"1":"67.17172","2":"mu==100","3":"sigma==12.2","4":"8.755204e-04"},{"1":"67.17172","2":"mu==100","3":"sigma==18.4","4":"4.414427e-03"},{"1":"67.17172","2":"mu==112","3":"sigma==7.35","4":"4.539362e-10"},{"1":"67.17172","2":"mu==112","3":"sigma==12.2","4":"3.825778e-05"},{"1":"67.17172","2":"mu==112","3":"sigma==18.4","4":"1.114760e-03"},{"1":"68.18182","2":"mu==87.8","3":"sigma==7.35","4":"1.540275e-03"},{"1":"68.18182","2":"mu==87.8","3":"sigma==12.2","4":"8.975262e-03"},{"1":"68.18182","2":"mu==87.8","3":"sigma==18.4","4":"1.228119e-02"},{"1":"68.18182","2":"mu==100","3":"sigma==7.35","4":"4.626185e-06"},{"1":"68.18182","2":"mu==100","3":"sigma==12.2","4":"1.090269e-03"},{"1":"68.18182","2":"mu==100","3":"sigma==18.4","4":"4.861344e-03"},{"1":"68.18182","2":"mu==112","3":"sigma==7.35","4":"1.039716e-09"},{"1":"68.18182","2":"mu==112","3":"sigma==12.2","4":"5.168388e-05"},{"1":"68.18182","2":"mu==112","3":"sigma==18.4","4":"1.272366e-03"},{"1":"69.19192","2":"mu==87.8","3":"sigma==7.35","4":"2.201930e-03"},{"1":"69.19192","2":"mu==87.8","3":"sigma==12.2","4":"1.021833e-02"},{"1":"69.19192","2":"mu==87.8","3":"sigma==18.4","4":"1.300187e-02"},{"1":"69.19192","2":"mu==100","3":"sigma==7.35","4":"8.307998e-06"},{"1":"69.19192","2":"mu==100","3":"sigma==12.2","4":"1.348416e-03"},{"1":"69.19192","2":"mu==100","3":"sigma==18.4","4":"5.337399e-03"},{"1":"69.19192","2":"mu==112","3":"sigma==7.35","4":"2.336858e-09"},{"1":"69.19192","2":"mu==112","3":"sigma==12.2","4":"6.934472e-05"},{"1":"69.19192","2":"mu==112","3":"sigma==18.4","4":"1.447885e-03"},{"1":"70.20202","2":"mu==87.8","3":"sigma==7.35","4":"3.088918e-03"},{"1":"70.20202","2":"mu==87.8","3":"sigma==12.2","4":"1.155409e-02"},{"1":"70.20202","2":"mu==87.8","3":"sigma==18.4","4":"1.372342e-02"},{"1":"70.20202","2":"mu==100","3":"sigma==7.35","4":"1.464089e-05"},{"1":"70.20202","2":"mu==100","3":"sigma==12.2","4":"1.656293e-03"},{"1":"70.20202","2":"mu==100","3":"sigma==18.4","4":"5.842438e-03"},{"1":"70.20202","2":"mu==112","3":"sigma==7.35","4":"5.154036e-09"},{"1":"70.20202","2":"mu==112","3":"sigma==12.2","4":"9.240482e-05"},{"1":"70.20202","2":"mu==112","3":"sigma==18.4","4":"1.642659e-03"},{"1":"71.21212","2":"mu==87.8","3":"sigma==7.35","4":"4.252134e-03"},{"1":"71.21212","2":"mu==87.8","3":"sigma==12.2","4":"1.297520e-02"},{"1":"71.21212","2":"mu==87.8","3":"sigma==18.4","4":"1.444143e-02"},{"1":"71.21212","2":"mu==100","3":"sigma==7.35","4":"2.531839e-05"},{"1":"71.21212","2":"mu==100","3":"sigma==12.2","4":"2.020567e-03"},{"1":"71.21212","2":"mu==100","3":"sigma==18.4","4":"6.376021e-03"},{"1":"71.21212","2":"mu==112","3":"sigma==7.35","4":"1.115476e-08"},{"1":"71.21212","2":"mu==112","3":"sigma==12.2","4":"1.222922e-04"},{"1":"71.21212","2":"mu==112","3":"sigma==18.4","4":"1.858026e-03"},{"1":"72.22222","2":"mu==87.8","3":"sigma==7.35","4":"5.743875e-03"},{"1":"72.22222","2":"mu==87.8","3":"sigma==12.2","4":"1.447157e-02"},{"1":"72.22222","2":"mu==87.8","3":"sigma==18.4","4":"1.515128e-02"},{"1":"72.22222","2":"mu==100","3":"sigma==7.35","4":"4.296377e-05"},{"1":"72.22222","2":"mu==100","3":"sigma==12.2","4":"2.448117e-03"},{"1":"72.22222","2":"mu==100","3":"sigma==18.4","4":"6.937397e-03"},{"1":"72.22222","2":"mu==112","3":"sigma==7.35","4":"2.369030e-08"},{"1":"72.22222","2":"mu==112","3":"sigma==12.2","4":"1.607406e-04"},{"1":"72.22222","2":"mu==112","3":"sigma==18.4","4":"2.095305e-03"},{"1":"73.23232","2":"mu==87.8","3":"sigma==7.35","4":"7.613787e-03"},{"1":"73.23232","2":"mu==87.8","3":"sigma==12.2","4":"1.603024e-02"},{"1":"73.23232","2":"mu==87.8","3":"sigma==18.4","4":"1.584818e-02"},{"1":"73.23232","2":"mu==100","3":"sigma==7.35","4":"7.154286e-05"},{"1":"73.23232","2":"mu==100","3":"sigma==12.2","4":"2.945873e-03"},{"1":"73.23232","2":"mu==100","3":"sigma==18.4","4":"7.525486e-03"},{"1":"73.23232","2":"mu==112","3":"sigma==7.35","4":"4.937177e-08"},{"1":"73.23232","2":"mu==112","3":"sigma==12.2","4":"2.098338e-04"},{"1":"73.23232","2":"mu==112","3":"sigma==18.4","4":"2.355776e-03"},{"1":"74.24242","2":"mu==87.8","3":"sigma==7.35","4":"9.903623e-03"},{"1":"74.24242","2":"mu==87.8","3":"sigma==12.2","4":"1.763548e-02"},{"1":"74.24242","2":"mu==87.8","3":"sigma==18.4","4":"1.652725e-02"},{"1":"74.24242","2":"mu==100","3":"sigma==7.35","4":"1.169036e-04"},{"1":"74.24242","2":"mu==100","3":"sigma==12.2","4":"3.520617e-03"},{"1":"74.24242","2":"mu==100","3":"sigma==18.4","4":"8.138863e-03"},{"1":"74.24242","2":"mu==112","3":"sigma==7.35","4":"1.009682e-07"},{"1":"74.24242","2":"mu==112","3":"sigma==12.2","4":"2.720497e-04"},{"1":"74.24242","2":"mu==112","3":"sigma==18.4","4":"2.640657e-03"},{"1":"75.25253","2":"mu==87.8","3":"sigma==7.35","4":"1.264111e-02"},{"1":"75.25253","2":"mu==87.8","3":"sigma==12.2","4":"1.926892e-02"},{"1":"75.25253","2":"mu==87.8","3":"sigma==18.4","4":"1.718356e-02"},{"1":"75.25253","2":"mu==100","3":"sigma==7.35","4":"1.874507e-04"},{"1":"75.25253","2":"mu==100","3":"sigma==12.2","4":"4.178750e-03"},{"1":"75.25253","2":"mu==100","3":"sigma==18.4","4":"8.775748e-03"},{"1":"75.25253","2":"mu==112","3":"sigma==7.35","4":"2.026225e-07"},{"1":"75.25253","2":"mu==112","3":"sigma==12.2","4":"3.503031e-04"},{"1":"75.25253","2":"mu==112","3":"sigma==18.4","4":"2.951080e-03"},{"1":"76.26263","2":"mu==87.8","3":"sigma==7.35","4":"1.583338e-02"},{"1":"76.26263","2":"mu==87.8","3":"sigma==12.2","4":"2.090983e-02"},{"1":"76.26263","2":"mu==87.8","3":"sigma==18.4","4":"1.781217e-02"},{"1":"76.26263","2":"mu==100","3":"sigma==7.35","4":"2.949469e-04"},{"1":"76.26263","2":"mu==100","3":"sigma==12.2","4":"4.926028e-03"},{"1":"76.26263","2":"mu==100","3":"sigma==18.4","4":"9.433996e-03"},{"1":"76.26263","2":"mu==112","3":"sigma==7.35","4":"3.990145e-07"},{"1":"76.26263","2":"mu==112","3":"sigma==12.2","4":"4.479840e-04"},{"1":"76.26263","2":"mu==112","3":"sigma==18.4","4":"3.288072e-03"},{"1":"77.27273","2":"mu==87.8","3":"sigma==7.35","4":"1.946077e-02"},{"1":"77.27273","2":"mu==87.8","3":"sigma==12.2","4":"2.253546e-02"},{"1":"77.27273","2":"mu==87.8","3":"sigma==18.4","4":"1.840822e-02"},{"1":"77.27273","2":"mu==100","3":"sigma==7.35","4":"4.554056e-04"},{"1":"77.27273","2":"mu==100","3":"sigma==12.2","4":"5.767271e-03"},{"1":"77.27273","2":"mu==100","3":"sigma==18.4","4":"1.011110e-02"},{"1":"77.27273","2":"mu==112","3":"sigma==7.35","4":"7.710584e-07"},{"1":"77.27273","2":"mu==112","3":"sigma==12.2","4":"5.689891e-04"},{"1":"77.27273","2":"mu==112","3":"sigma==18.4","4":"3.652521e-03"},{"1":"78.28283","2":"mu==87.8","3":"sigma==7.35","4":"2.347166e-02"},{"1":"78.28283","2":"mu==87.8","3":"sigma==12.2","4":"2.412156e-02"},{"1":"78.28283","2":"mu==87.8","3":"sigma==18.4","4":"1.896696e-02"},{"1":"78.28283","2":"mu==100","3":"sigma==7.35","4":"6.900022e-04"},{"1":"78.28283","2":"mu==100","3":"sigma==12.2","4":"6.706048e-03"},{"1":"78.28283","2":"mu==100","3":"sigma==18.4","4":"1.080419e-02"},{"1":"78.28283","2":"mu==112","3":"sigma==7.35","4":"1.462122e-06"},{"1":"78.28283","2":"mu==112","3":"sigma==12.2","4":"7.177419e-04"},{"1":"78.28283","2":"mu==112","3":"sigma==18.4","4":"4.045157e-03"},{"1":"79.29293","2":"mu==87.8","3":"sigma==7.35","4":"2.777956e-02"},{"1":"79.29293","2":"mu==87.8","3":"sigma==12.2","4":"2.564290e-02"},{"1":"79.29293","2":"mu==87.8","3":"sigma==18.4","4":"1.948386e-02"},{"1":"79.29293","2":"mu==100","3":"sigma==7.35","4":"1.025889e-03"},{"1":"79.29293","2":"mu==100","3":"sigma==12.2","4":"7.744366e-03"},{"1":"79.29293","2":"mu==100","3":"sigma==18.4","4":"1.151006e-02"},{"1":"79.29293","2":"mu==112","3":"sigma==7.35","4":"2.720679e-06"},{"1":"79.29293","2":"mu==112","3":"sigma==12.2","4":"8.991984e-04"},{"1":"79.29293","2":"mu==112","3":"sigma==18.4","4":"4.466520e-03"},{"1":"80.30303","2":"mu==87.8","3":"sigma==7.35","4":"3.226299e-02"},{"1":"80.30303","2":"mu==87.8","3":"sigma==12.2","4":"2.707395e-02"},{"1":"80.30303","2":"mu==87.8","3":"sigma==18.4","4":"1.995462e-02"},{"1":"80.30303","2":"mu==100","3":"sigma==7.35","4":"1.496744e-03"},{"1":"80.30303","2":"mu==100","3":"sigma==12.2","4":"8.882353e-03"},{"1":"80.30303","2":"mu==100","3":"sigma==18.4","4":"1.222514e-02"},{"1":"80.30303","2":"mu==112","3":"sigma==7.35","4":"4.967854e-06"},{"1":"80.30303","2":"mu==112","3":"sigma==12.2","4":"1.118834e-03"},{"1":"80.30303","2":"mu==112","3":"sigma==18.4","4":"4.916933e-03"},{"1":"81.31313","2":"mu==87.8","3":"sigma==7.35","4":"3.676896e-02"},{"1":"81.31313","2":"mu==87.8","3":"sigma==12.2","4":"2.838960e-02"},{"1":"81.31313","2":"mu==87.8","3":"sigma==18.4","4":"2.037526e-02"},{"1":"81.31313","2":"mu==100","3":"sigma==7.35","4":"2.142854e-03"},{"1":"81.31313","2":"mu==100","3":"sigma==12.2","4":"1.011796e-02"},{"1":"81.31313","2":"mu==100","3":"sigma==18.4","4":"1.294557e-02"},{"1":"81.31313","2":"mu==112","3":"sigma==7.35","4":"8.901393e-06"},{"1":"81.31313","2":"mu==112","3":"sigma==12.2","4":"1.382607e-03"},{"1":"81.31313","2":"mu==112","3":"sigma==18.4","4":"5.396479e-03"},{"1":"82.32323","2":"mu==87.8","3":"sigma==7.35","4":"4.112025e-02"},{"1":"82.32323","2":"mu==87.8","3":"sigma==12.2","4":"2.956580e-02"},{"1":"82.32323","2":"mu==87.8","3":"sigma==18.4","4":"2.074216e-02"},{"1":"82.32323","2":"mu==100","3":"sigma==7.35","4":"3.010476e-03"},{"1":"82.32323","2":"mu==100","3":"sigma==12.2","4":"1.144672e-02"},{"1":"82.32323","2":"mu==100","3":"sigma==18.4","4":"1.366721e-02"},{"1":"82.32323","2":"mu==112","3":"sigma==7.35","4":"1.565109e-05"},{"1":"82.32323","2":"mu==112","3":"sigma==12.2","4":"1.696894e-03"},{"1":"82.32323","2":"mu==112","3":"sigma==18.4","4":"5.904973e-03"},{"1":"83.33333","2":"mu==87.8","3":"sigma==7.35","4":"4.512610e-02"},{"1":"83.33333","2":"mu==87.8","3":"sigma==12.2","4":"3.058038e-02"},{"1":"83.33333","2":"mu==87.8","3":"sigma==18.4","4":"2.105212e-02"},{"1":"83.33333","2":"mu==100","3":"sigma==7.35","4":"4.150261e-03"},{"1":"83.33333","2":"mu==100","3":"sigma==12.2","4":"1.286150e-02"},{"1":"83.33333","2":"mu==100","3":"sigma==18.4","4":"1.438566e-02"},{"1":"83.33333","2":"mu==112","3":"sigma==7.35","4":"2.700406e-05"},{"1":"83.33333","2":"mu==112","3":"sigma==12.2","4":"2.068395e-03"},{"1":"83.33333","2":"mu==112","3":"sigma==18.4","4":"6.441937e-03"},{"1":"84.34343","2":"mu==87.8","3":"sigma==7.35","4":"4.859566e-02"},{"1":"84.34343","2":"mu==87.8","3":"sigma==12.2","4":"3.141370e-02"},{"1":"84.34343","2":"mu==87.8","3":"sigma==18.4","4":"2.130243e-02"},{"1":"84.34343","2":"mu==100","3":"sigma==7.35","4":"5.614528e-03"},{"1":"84.34343","2":"mu==100","3":"sigma==12.2","4":"1.435243e-02"},{"1":"84.34343","2":"mu==100","3":"sigma==18.4","4":"1.509631e-02"},{"1":"84.34343","2":"mu==112","3":"sigma==7.35","4":"4.572052e-05"},{"1":"84.34343","2":"mu==112","3":"sigma==12.2","4":"2.504005e-03"},{"1":"84.34343","2":"mu==112","3":"sigma==18.4","4":"7.006582e-03"},{"1":"85.35354","2":"mu==87.8","3":"sigma==7.35","4":"5.135288e-02"},{"1":"85.35354","2":"mu==87.8","3":"sigma==12.2","4":"3.204928e-02"},{"1":"85.35354","2":"mu==87.8","3":"sigma==18.4","4":"2.149084e-02"},{"1":"85.35354","2":"mu==100","3":"sigma==7.35","4":"7.453303e-03"},{"1":"85.35354","2":"mu==100","3":"sigma==12.2","4":"1.590677e-02"},{"1":"85.35354","2":"mu==100","3":"sigma==18.4","4":"1.579440e-02"},{"1":"85.35354","2":"mu==112","3":"sigma==7.35","4":"7.596102e-05"},{"1":"85.35354","2":"mu==112","3":"sigma==12.2","4":"3.010646e-03"},{"1":"85.35354","2":"mu==112","3":"sigma==18.4","4":"7.597788e-03"},{"1":"86.36364","2":"mu==87.8","3":"sigma==7.35","4":"5.325125e-02"},{"1":"86.36364","2":"mu==87.8","3":"sigma==12.2","4":"3.247433e-02"},{"1":"86.36364","2":"mu==87.8","3":"sigma==18.4","4":"2.161568e-02"},{"1":"86.36364","2":"mu==100","3":"sigma==7.35","4":"9.709167e-03"},{"1":"86.36364","2":"mu==100","3":"sigma==12.2","4":"1.750901e-02"},{"1":"86.36364","2":"mu==100","3":"sigma==18.4","4":"1.647504e-02"},{"1":"86.36364","2":"mu==112","3":"sigma==7.35","4":"1.238420e-04"},{"1":"86.36364","2":"mu==112","3":"sigma==12.2","4":"3.595069e-03"},{"1":"86.36364","2":"mu==112","3":"sigma==18.4","4":"8.214087e-03"},{"1":"87.37374","2":"mu==87.8","3":"sigma==7.35","4":"5.418666e-02"},{"1":"87.37374","2":"mu==87.8","3":"sigma==12.2","4":"3.268023e-02"},{"1":"87.37374","2":"mu==87.8","3":"sigma==18.4","4":"2.167583e-02"},{"1":"87.37374","2":"mu==100","3":"sigma==7.35","4":"1.241117e-02"},{"1":"87.37374","2":"mu==100","3":"sigma==12.2","4":"1.914097e-02"},{"1":"87.37374","2":"mu==100","3":"sigma==18.4","4":"1.713330e-02"},{"1":"87.37374","2":"mu==112","3":"sigma==7.35","4":"1.981267e-04"},{"1":"87.37374","2":"mu==112","3":"sigma==12.2","4":"4.263612e-03"},{"1":"87.37374","2":"mu==112","3":"sigma==18.4","4":"8.853656e-03"},{"1":"88.38384","2":"mu==87.8","3":"sigma==7.35","4":"5.410689e-02"},{"1":"88.38384","2":"mu==87.8","3":"sigma==12.2","4":"3.266276e-02"},{"1":"88.38384","2":"mu==87.8","3":"sigma==18.4","4":"2.167073e-02"},{"1":"88.38384","2":"mu==100","3":"sigma==7.35","4":"1.556830e-02"},{"1":"88.38384","2":"mu==100","3":"sigma==12.2","4":"2.078209e-02"},{"1":"88.38384","2":"mu==100","3":"sigma==18.4","4":"1.776425e-02"},{"1":"88.38384","2":"mu==112","3":"sigma==7.35","4":"3.110395e-04"},{"1":"88.38384","2":"mu==112","3":"sigma==12.2","4":"5.021933e-03"},{"1":"88.38384","2":"mu==112","3":"sigma==18.4","4":"9.514306e-03"},{"1":"89.39394","2":"mu==87.8","3":"sigma==7.35","4":"5.301642e-02"},{"1":"89.39394","2":"mu==87.8","3":"sigma==12.2","4":"3.242228e-02"},{"1":"89.39394","2":"mu==87.8","3":"sigma==18.4","4":"2.160045e-02"},{"1":"89.39394","2":"mu==100","3":"sigma==7.35","4":"1.916316e-02"},{"1":"89.39394","2":"mu==100","3":"sigma==12.2","4":"2.240976e-02"},{"1":"89.39394","2":"mu==100","3":"sigma==18.4","4":"1.836301e-02"},{"1":"89.39394","2":"mu==112","3":"sigma==7.35","4":"4.791657e-04"},{"1":"89.39394","2":"mu==112","3":"sigma==12.2","4":"5.874719e-03"},{"1":"89.39394","2":"mu==112","3":"sigma==18.4","4":"1.019349e-02"},{"1":"90.40404","2":"mu==87.8","3":"sigma==7.35","4":"5.097602e-02"},{"1":"90.40404","2":"mu==87.8","3":"sigma==12.2","4":"3.196371e-02"},{"1":"90.40404","2":"mu==87.8","3":"sigma==18.4","4":"2.146560e-02"},{"1":"90.40404","2":"mu==100","3":"sigma==7.35","4":"2.314680e-02"},{"1":"90.40404","2":"mu==100","3":"sigma==12.2","4":"2.399984e-02"},{"1":"90.40404","2":"mu==100","3":"sigma==18.4","4":"1.892483e-02"},{"1":"90.40404","2":"mu==112","3":"sigma==7.35","4":"7.243584e-04"},{"1":"90.40404","2":"mu==112","3":"sigma==12.2","4":"6.825370e-03"},{"1":"90.40404","2":"mu==112","3":"sigma==18.4","4":"1.088829e-02"},{"1":"91.41414","2":"mu==87.8","3":"sigma==7.35","4":"4.809711e-02"},{"1":"91.41414","2":"mu==87.8","3":"sigma==12.2","4":"3.129635e-02"},{"1":"91.41414","2":"mu==87.8","3":"sigma==18.4","4":"2.126740e-02"},{"1":"91.41414","2":"mu==100","3":"sigma==7.35","4":"2.743546e-02"},{"1":"91.41414","2":"mu==100","3":"sigma==12.2","4":"2.552715e-02"},{"1":"91.41414","2":"mu==100","3":"sigma==18.4","4":"1.944515e-02"},{"1":"91.41414","2":"mu==112","3":"sigma==7.35","4":"1.074531e-03"},{"1":"91.41414","2":"mu==112","3":"sigma==12.2","4":"7.875681e-03"},{"1":"91.41414","2":"mu==112","3":"sigma==18.4","4":"1.159545e-02"},{"1":"92.42424","2":"mu==87.8","3":"sigma==7.35","4":"4.453175e-02"},{"1":"92.42424","2":"mu==87.8","3":"sigma==12.2","4":"3.043358e-02"},{"1":"92.42424","2":"mu==87.8","3":"sigma==18.4","4":"2.100763e-02"},{"1":"92.42424","2":"mu==100","3":"sigma==7.35","4":"3.191032e-02"},{"1":"92.42424","2":"mu==100","3":"sigma==12.2","4":"2.696616e-02"},{"1":"92.42424","2":"mu==100","3":"sigma==18.4","4":"1.991966e-02"},{"1":"92.42424","2":"mu==112","3":"sigma==7.35","4":"1.564163e-03"},{"1":"92.42424","2":"mu==112","3":"sigma==12.2","4":"9.025536e-03"},{"1":"92.42424","2":"mu==112","3":"sigma==18.4","4":"1.231139e-02"},{"1":"93.43434","2":"mu==87.8","3":"sigma==7.35","4":"4.045928e-02"},{"1":"93.43434","2":"mu==87.8","3":"sigma==12.2","4":"2.939242e-02"},{"1":"93.43434","2":"mu==87.8","3":"sigma==18.4","4":"2.068859e-02"},{"1":"93.43434","2":"mu==100","3":"sigma==7.35","4":"3.642065e-02"},{"1":"93.43434","2":"mu==100","3":"sigma==12.2","4":"2.829169e-02"},{"1":"93.43434","2":"mu==100","3":"sigma==18.4","4":"2.034434e-02"},{"1":"93.43434","2":"mu==112","3":"sigma==7.35","4":"2.234306e-03"},{"1":"93.43434","2":"mu==112","3":"sigma==12.2","4":"1.027261e-02"},{"1":"93.43434","2":"mu==112","3":"sigma==18.4","4":"1.303219e-02"},{"1":"94.44444","2":"mu==87.8","3":"sigma==7.35","4":"3.607150e-02"},{"1":"94.44444","2":"mu==87.8","3":"sigma==12.2","4":"2.819294e-02"},{"1":"94.44444","2":"mu==87.8","3":"sigma==18.4","4":"2.031309e-02"},{"1":"94.44444","2":"mu==100","3":"sigma==7.35","4":"4.079077e-02"},{"1":"94.44444","2":"mu==100","3":"sigma==12.2","4":"2.947959e-02"},{"1":"94.44444","2":"mu==100","3":"sigma==18.4","4":"2.071555e-02"},{"1":"94.44444","2":"mu==112","3":"sigma==7.35","4":"3.131851e-03"},{"1":"94.44444","2":"mu==112","3":"sigma==12.2","4":"1.161212e-02"},{"1":"94.44444","2":"mu==112","3":"sigma==18.4","4":"1.375368e-02"},{"1":"95.45455","2":"mu==87.8","3":"sigma==7.35","4":"3.155788e-02"},{"1":"95.45455","2":"mu==87.8","3":"sigma==12.2","4":"2.685768e-02"},{"1":"95.45455","2":"mu==87.8","3":"sigma==18.4","4":"1.988439e-02"},{"1":"95.45455","2":"mu==100","3":"sigma==7.35","4":"4.483052e-02"},{"1":"95.45455","2":"mu==100","3":"sigma==12.2","4":"3.050753e-02"},{"1":"95.45455","2":"mu==100","3":"sigma==18.4","4":"2.103006e-02"},{"1":"95.45455","2":"mu==112","3":"sigma==7.35","4":"4.307815e-03"},{"1":"95.45455","2":"mu==112","3":"sigma==12.2","4":"1.303662e-02"},{"1":"95.45455","2":"mu==112","3":"sigma==18.4","4":"1.447144e-02"},{"1":"96.46465","2":"mu==87.8","3":"sigma==7.35","4":"2.709250e-02"},{"1":"96.46465","2":"mu==87.8","3":"sigma==12.2","4":"2.541086e-02"},{"1":"96.46465","2":"mu==87.8","3":"sigma==18.4","4":"1.940616e-02"},{"1":"96.46465","2":"mu==100","3":"sigma==7.35","4":"4.834852e-02"},{"1":"96.46465","2":"mu==100","3":"sigma==12.2","4":"3.135563e-02"},{"1":"96.46465","2":"mu==100","3":"sigma==18.4","4":"2.128510e-02"},{"1":"96.46465","2":"mu==112","3":"sigma==7.35","4":"5.814477e-03"},{"1":"96.46465","2":"mu==112","3":"sigma==12.2","4":"1.453588e-02"},{"1":"96.46465","2":"mu==112","3":"sigma==18.4","4":"1.518084e-02"},{"1":"97.47475","2":"mu==87.8","3":"sigma==7.35","4":"2.282380e-02"},{"1":"97.47475","2":"mu==87.8","3":"sigma==12.2","4":"2.387774e-02"},{"1":"97.47475","2":"mu==87.8","3":"sigma==18.4","4":"1.888244e-02"},{"1":"97.47475","2":"mu==100","3":"sigma==7.35","4":"5.116704e-02"},{"1":"97.47475","2":"mu==100","3":"sigma==12.2","4":"3.200713e-02"},{"1":"97.47475","2":"mu==100","3":"sigma==18.4","4":"2.147841e-02"},{"1":"97.47475","2":"mu==112","3":"sigma==7.35","4":"7.701261e-03"},{"1":"97.47475","2":"mu==112","3":"sigma==12.2","4":"1.609684e-02"},{"1":"97.47475","2":"mu==112","3":"sigma==18.4","4":"1.587709e-02"},{"1":"98.48485","2":"mu==87.8","3":"sigma==7.35","4":"1.886794e-02"},{"1":"98.48485","2":"mu==87.8","3":"sigma==12.2","4":"2.228384e-02"},{"1":"98.48485","2":"mu==87.8","3":"sigma==18.4","4":"1.831757e-02"},{"1":"98.48485","2":"mu==100","3":"sigma==7.35","4":"5.313676e-02"},{"1":"98.48485","2":"mu==100","3":"sigma==12.2","4":"3.244898e-02"},{"1":"98.48485","2":"mu==100","3":"sigma==18.4","4":"2.160826e-02"},{"1":"98.48485","2":"mu==112","3":"sigma==7.35","4":"1.000946e-02"},{"1":"98.48485","2":"mu==112","3":"sigma==12.2","4":"1.770366e-02"},{"1":"98.48485","2":"mu==112","3":"sigma==18.4","4":"1.655531e-02"},{"1":"99.49495","2":"mu==87.8","3":"sigma==7.35","4":"1.530589e-02"},{"1":"99.49495","2":"mu==87.8","3":"sigma==12.2","4":"2.065426e-02"},{"1":"99.49495","2":"mu==87.8","3":"sigma==18.4","4":"1.771613e-02"},{"1":"99.49495","2":"mu==100","3":"sigma==7.35","4":"5.414987e-02"},{"1":"99.49495","2":"mu==100","3":"sigma==12.2","4":"3.267218e-02"},{"1":"99.49495","2":"mu==100","3":"sigma==18.4","4":"2.167348e-02"},{"1":"99.49495","2":"mu==112","3":"sigma==7.35","4":"1.276607e-02"},{"1":"99.49495","2":"mu==112","3":"sigma==12.2","4":"1.933784e-02"},{"1":"99.49495","2":"mu==112","3":"sigma==18.4","4":"1.721055e-02"},{"1":"100.50505","2":"mu==87.8","3":"sigma==7.35","4":"1.218402e-02"},{"1":"100.50505","2":"mu==87.8","3":"sigma==12.2","4":"1.901306e-02"},{"1":"100.50505","2":"mu==87.8","3":"sigma==18.4","4":"1.708288e-02"},{"1":"100.50505","2":"mu==100","3":"sigma==7.35","4":"5.414987e-02"},{"1":"100.50505","2":"mu==100","3":"sigma==12.2","4":"3.267218e-02"},{"1":"100.50505","2":"mu==100","3":"sigma==18.4","4":"2.167348e-02"},{"1":"100.50505","2":"mu==112","3":"sigma==7.35","4":"1.597723e-02"},{"1":"100.50505","2":"mu==112","3":"sigma==12.2","4":"2.097858e-02"},{"1":"100.50505","2":"mu==112","3":"sigma==18.4","4":"1.783789e-02"},{"1":"101.51515","2":"mu==87.8","3":"sigma==7.35","4":"9.517435e-03"},{"1":"101.51515","2":"mu==87.8","3":"sigma==12.2","4":"1.738271e-02"},{"1":"101.51515","2":"mu==87.8","3":"sigma==18.4","4":"1.642269e-02"},{"1":"101.51515","2":"mu==100","3":"sigma==7.35","4":"5.313676e-02"},{"1":"101.51515","2":"mu==100","3":"sigma==12.2","4":"3.244898e-02"},{"1":"101.51515","2":"mu==100","3":"sigma==18.4","4":"2.160826e-02"},{"1":"101.51515","2":"mu==112","3":"sigma==7.35","4":"1.962199e-02"},{"1":"101.51515","2":"mu==112","3":"sigma==12.2","4":"2.260305e-02"},{"1":"101.51515","2":"mu==112","3":"sigma==18.4","4":"1.843247e-02"},{"1":"102.52525","2":"mu==87.8","3":"sigma==7.35","4":"7.295364e-03"},{"1":"102.52525","2":"mu==87.8","3":"sigma==12.2","4":"1.578359e-02"},{"1":"102.52525","2":"mu==87.8","3":"sigma==18.4","4":"1.574051e-02"},{"1":"102.52525","2":"mu==100","3":"sigma==7.35","4":"5.116704e-02"},{"1":"102.52525","2":"mu==100","3":"sigma==12.2","4":"3.200713e-02"},{"1":"102.52525","2":"mu==100","3":"sigma==18.4","4":"2.147841e-02"},{"1":"102.52525","2":"mu==112","3":"sigma==7.35","4":"2.364735e-02"},{"1":"102.52525","2":"mu==112","3":"sigma==12.2","4":"2.418693e-02"},{"1":"102.52525","2":"mu==112","3":"sigma==18.4","4":"1.898955e-02"},{"1":"103.53535","2":"mu==87.8","3":"sigma==7.35","4":"5.487464e-03"},{"1":"103.53535","2":"mu==87.8","3":"sigma==12.2","4":"1.423367e-02"},{"1":"103.53535","2":"mu==87.8","3":"sigma==18.4","4":"1.504127e-02"},{"1":"103.53535","2":"mu==100","3":"sigma==7.35","4":"4.834852e-02"},{"1":"103.53535","2":"mu==100","3":"sigma==12.2","4":"3.135563e-02"},{"1":"103.53535","2":"mu==100","3":"sigma==18.4","4":"2.128510e-02"},{"1":"103.53535","2":"mu==112","3":"sigma==7.35","4":"2.796530e-02"},{"1":"103.53535","2":"mu==112","3":"sigma==12.2","4":"2.570499e-02"},{"1":"103.53535","2":"mu==112","3":"sigma==18.4","4":"1.950459e-02"},{"1":"104.54545","2":"mu==87.8","3":"sigma==7.35","4":"4.050363e-03"},{"1":"104.54545","2":"mu==87.8","3":"sigma==12.2","4":"1.274827e-02"},{"1":"104.54545","2":"mu==87.8","3":"sigma==18.4","4":"1.432984e-02"},{"1":"104.54545","2":"mu==100","3":"sigma==7.35","4":"4.483052e-02"},{"1":"104.54545","2":"mu==100","3":"sigma==12.2","4":"3.050753e-02"},{"1":"104.54545","2":"mu==100","3":"sigma==18.4","4":"2.103006e-02"},{"1":"104.54545","2":"mu==112","3":"sigma==7.35","4":"3.245295e-02"},{"1":"104.54545","2":"mu==112","3":"sigma==12.2","4":"2.713171e-02"},{"1":"104.54545","2":"mu==112","3":"sigma==18.4","4":"1.997332e-02"},{"1":"105.55556","2":"mu==87.8","3":"sigma==7.35","4":"2.933688e-03"},{"1":"105.55556","2":"mu==87.8","3":"sigma==12.2","4":"1.133987e-02"},{"1":"105.55556","2":"mu==87.8","3":"sigma==18.4","4":"1.361098e-02"},{"1":"105.55556","2":"mu==100","3":"sigma==7.35","4":"4.079077e-02"},{"1":"105.55556","2":"mu==100","3":"sigma==12.2","4":"2.947959e-02"},{"1":"105.55556","2":"mu==100","3":"sigma==18.4","4":"2.071555e-02"},{"1":"105.55556","2":"mu==112","3":"sigma==7.35","4":"3.695613e-02"},{"1":"105.55556","2":"mu==112","3":"sigma==12.2","4":"2.844196e-02"},{"1":"105.55556","2":"mu==112","3":"sigma==18.4","4":"2.039177e-02"},{"1":"106.56566","2":"mu==87.8","3":"sigma==7.35","4":"2.085122e-03"},{"1":"106.56566","2":"mu==87.8","3":"sigma==12.2","4":"1.001816e-02"},{"1":"106.56566","2":"mu==87.8","3":"sigma==18.4","4":"1.288928e-02"},{"1":"106.56566","2":"mu==100","3":"sigma==7.35","4":"3.642065e-02"},{"1":"106.56566","2":"mu==100","3":"sigma==12.2","4":"2.829169e-02"},{"1":"106.56566","2":"mu==100","3":"sigma==18.4","4":"2.034434e-02"},{"1":"106.56566","2":"mu==112","3":"sigma==7.35","4":"4.129680e-02"},{"1":"106.56566","2":"mu==112","3":"sigma==12.2","4":"2.961181e-02"},{"1":"106.56566","2":"mu==112","3":"sigma==18.4","4":"2.075634e-02"},{"1":"107.57576","2":"mu==87.8","3":"sigma==7.35","4":"1.454276e-03"},{"1":"107.57576","2":"mu==87.8","3":"sigma==12.2","4":"8.790038e-03"},{"1":"107.57576","2":"mu==87.8","3":"sigma==18.4","4":"1.216912e-02"},{"1":"107.57576","2":"mu==100","3":"sigma==7.35","4":"3.191032e-02"},{"1":"107.57576","2":"mu==100","3":"sigma==12.2","4":"2.696616e-02"},{"1":"107.57576","2":"mu==100","3":"sigma==18.4","4":"1.991966e-02"},{"1":"107.57576","2":"mu==112","3":"sigma==7.35","4":"4.528392e-02"},{"1":"107.57576","2":"mu==112","3":"sigma==12.2","4":"3.061916e-02"},{"1":"107.57576","2":"mu==112","3":"sigma==18.4","4":"2.106385e-02"},{"1":"108.58586","2":"mu==87.8","3":"sigma==7.35","4":"9.953129e-04"},{"1":"108.58586","2":"mu==87.8","3":"sigma==12.2","4":"7.659783e-03"},{"1":"108.58586","2":"mu==87.8","3":"sigma==18.4","4":"1.145462e-02"},{"1":"108.58586","2":"mu==100","3":"sigma==7.35","4":"2.743546e-02"},{"1":"108.58586","2":"mu==100","3":"sigma==12.2","4":"2.552715e-02"},{"1":"108.58586","2":"mu==100","3":"sigma==18.4","4":"1.944515e-02"},{"1":"108.58586","2":"mu==112","3":"sigma==7.35","4":"4.872694e-02"},{"1":"108.58586","2":"mu==112","3":"sigma==12.2","4":"3.144448e-02"},{"1":"108.58586","2":"mu==112","3":"sigma==18.4","4":"2.131160e-02"},{"1":"109.59596","2":"mu==87.8","3":"sigma==7.35","4":"6.684518e-04"},{"1":"109.59596","2":"mu==87.8","3":"sigma==12.2","4":"6.629259e-03"},{"1":"109.59596","2":"mu==87.8","3":"sigma==18.4","4":"1.074963e-02"},{"1":"109.59596","2":"mu==100","3":"sigma==7.35","4":"2.314680e-02"},{"1":"109.59596","2":"mu==100","3":"sigma==12.2","4":"2.399984e-02"},{"1":"109.59596","2":"mu==100","3":"sigma==18.4","4":"1.892483e-02"},{"1":"109.59596","2":"mu==112","3":"sigma==7.35","4":"5.145078e-02"},{"1":"109.59596","2":"mu==112","3":"sigma==12.2","4":"3.207144e-02"},{"1":"109.59596","2":"mu==112","3":"sigma==18.4","4":"2.149737e-02"},{"1":"110.60606","2":"mu==87.8","3":"sigma==7.35","4":"4.405328e-04"},{"1":"110.60606","2":"mu==87.8","3":"sigma==12.2","4":"5.698184e-03"},{"1":"110.60606","2":"mu==87.8","3":"sigma==18.4","4":"1.005767e-02"},{"1":"110.60606","2":"mu==100","3":"sigma==7.35","4":"1.916316e-02"},{"1":"110.60606","2":"mu==100","3":"sigma==12.2","4":"2.240976e-02"},{"1":"110.60606","2":"mu==100","3":"sigma==18.4","4":"1.836301e-02"},{"1":"110.60606","2":"mu==112","3":"sigma==7.35","4":"5.331046e-02"},{"1":"110.60606","2":"mu==112","3":"sigma==12.2","4":"3.248744e-02"},{"1":"110.60606","2":"mu==112","3":"sigma==18.4","4":"2.161952e-02"},{"1":"111.61616","2":"mu==87.8","3":"sigma==7.35","4":"2.848945e-04"},{"1":"111.61616","2":"mu==87.8","3":"sigma==12.2","4":"4.864417e-03"},{"1":"111.61616","2":"mu==87.8","3":"sigma==18.4","4":"9.381940e-03"},{"1":"111.61616","2":"mu==100","3":"sigma==7.35","4":"1.556830e-02"},{"1":"111.61616","2":"mu==100","3":"sigma==12.2","4":"2.078209e-02"},{"1":"111.61616","2":"mu==100","3":"sigma==18.4","4":"1.776425e-02"},{"1":"111.61616","2":"mu==112","3":"sigma==7.35","4":"5.420390e-02"},{"1":"111.61616","2":"mu==112","3":"sigma==12.2","4":"3.268401e-02"},{"1":"111.61616","2":"mu==112","3":"sigma==18.4","4":"2.167693e-02"},{"1":"112.62626","2":"mu==87.8","3":"sigma==7.35","4":"1.807954e-04"},{"1":"112.62626","2":"mu==87.8","3":"sigma==12.2","4":"4.124279e-03"},{"1":"112.62626","2":"mu==87.8","3":"sigma==18.4","4":"8.725273e-03"},{"1":"112.62626","2":"mu==100","3":"sigma==7.35","4":"1.241117e-02"},{"1":"112.62626","2":"mu==100","3":"sigma==12.2","4":"1.914097e-02"},{"1":"112.62626","2":"mu==100","3":"sigma==18.4","4":"1.713330e-02"},{"1":"112.62626","2":"mu==112","3":"sigma==7.35","4":"5.408119e-02"},{"1":"112.62626","2":"mu==112","3":"sigma==12.2","4":"3.265713e-02"},{"1":"112.62626","2":"mu==112","3":"sigma==18.4","4":"2.166909e-02"},{"1":"113.63636","2":"mu==87.8","3":"sigma==7.35","4":"1.125870e-04"},{"1":"113.63636","2":"mu==87.8","3":"sigma==12.2","4":"3.472867e-03"},{"1":"113.63636","2":"mu==87.8","3":"sigma==18.4","4":"8.090149e-03"},{"1":"113.63636","2":"mu==100","3":"sigma==7.35","4":"9.709167e-03"},{"1":"113.63636","2":"mu==100","3":"sigma==12.2","4":"1.750901e-02"},{"1":"113.63636","2":"mu==100","3":"sigma==18.4","4":"1.647504e-02"},{"1":"113.63636","2":"mu==112","3":"sigma==7.35","4":"5.294922e-02"},{"1":"113.63636","2":"mu==112","3":"sigma==12.2","4":"3.240736e-02"},{"1":"113.63636","2":"mu==112","3":"sigma==18.4","4":"2.159607e-02"},{"1":"114.64646","2":"mu==87.8","3":"sigma==7.35","4":"6.879978e-05"},{"1":"114.64646","2":"mu==87.8","3":"sigma==12.2","4":"2.904365e-03"},{"1":"114.64646","2":"mu==87.8","3":"sigma==18.4","4":"7.478685e-03"},{"1":"114.64646","2":"mu==100","3":"sigma==7.35","4":"7.453303e-03"},{"1":"114.64646","2":"mu==100","3":"sigma==12.2","4":"1.590677e-02"},{"1":"114.64646","2":"mu==100","3":"sigma==18.4","4":"1.579440e-02"},{"1":"114.64646","2":"mu==112","3":"sigma==7.35","4":"5.087103e-02"},{"1":"114.64646","2":"mu==112","3":"sigma==12.2","4":"3.193980e-02"},{"1":"114.64646","2":"mu==112","3":"sigma==18.4","4":"2.145854e-02"},{"1":"115.65657","2":"mu==87.8","3":"sigma==7.35","4":"4.125564e-05"},{"1":"115.65657","2":"mu==87.8","3":"sigma==12.2","4":"2.412333e-03"},{"1":"115.65657","2":"mu==87.8","3":"sigma==18.4","4":"6.892633e-03"},{"1":"115.65657","2":"mu==100","3":"sigma==7.35","4":"5.614528e-03"},{"1":"115.65657","2":"mu==100","3":"sigma==12.2","4":"1.435243e-02"},{"1":"115.65657","2":"mu==100","3":"sigma==18.4","4":"1.509631e-02"},{"1":"115.65657","2":"mu==112","3":"sigma==7.35","4":"4.796000e-02"},{"1":"115.65657","2":"mu==112","3":"sigma==12.2","4":"3.126394e-02"},{"1":"115.65657","2":"mu==112","3":"sigma==18.4","4":"2.125772e-02"},{"1":"116.66667","2":"mu==87.8","3":"sigma==7.35","4":"2.427601e-05"},{"1":"116.66667","2":"mu==87.8","3":"sigma==12.2","4":"1.989968e-03"},{"1":"116.66667","2":"mu==87.8","3":"sigma==18.4","4":"6.333390e-03"},{"1":"116.66667","2":"mu==100","3":"sigma==7.35","4":"4.150261e-03"},{"1":"116.66667","2":"mu==100","3":"sigma==12.2","4":"1.286150e-02"},{"1":"116.66667","2":"mu==100","3":"sigma==18.4","4":"1.438566e-02"},{"1":"116.66667","2":"mu==112","3":"sigma==7.35","4":"4.436959e-02"},{"1":"116.66667","2":"mu==112","3":"sigma==12.2","4":"3.039331e-02"},{"1":"116.66667","2":"mu==112","3":"sigma==18.4","4":"2.099541e-02"},{"1":"117.67677","2":"mu==87.8","3":"sigma==7.35","4":"1.401744e-05"},{"1":"117.67677","2":"mu==87.8","3":"sigma==12.2","4":"1.630338e-03"},{"1":"117.67677","2":"mu==87.8","3":"sigma==18.4","4":"5.802011e-03"},{"1":"117.67677","2":"mu==100","3":"sigma==7.35","4":"3.010476e-03"},{"1":"117.67677","2":"mu==100","3":"sigma==12.2","4":"1.144672e-02"},{"1":"117.67677","2":"mu==100","3":"sigma==18.4","4":"1.366721e-02"},{"1":"117.67677","2":"mu==112","3":"sigma==7.35","4":"4.027998e-02"},{"1":"117.67677","2":"mu==112","3":"sigma==12.2","4":"2.934507e-02"},{"1":"117.67677","2":"mu==112","3":"sigma==18.4","4":"2.067394e-02"},{"1":"118.68687","2":"mu==87.8","3":"sigma==7.35","4":"7.942514e-06"},{"1":"118.68687","2":"mu==87.8","3":"sigma==12.2","4":"1.326577e-03"},{"1":"118.68687","2":"mu==87.8","3":"sigma==18.4","4":"5.299221e-03"},{"1":"118.68687","2":"mu==100","3":"sigma==7.35","4":"2.142854e-03"},{"1":"118.68687","2":"mu==100","3":"sigma==12.2","4":"1.011796e-02"},{"1":"118.68687","2":"mu==100","3":"sigma==18.4","4":"1.294557e-02"},{"1":"118.68687","2":"mu==112","3":"sigma==7.35","4":"3.588317e-02"},{"1":"118.68687","2":"mu==112","3":"sigma==12.2","4":"2.813943e-02"},{"1":"118.68687","2":"mu==112","3":"sigma==18.4","4":"2.029613e-02"},{"1":"119.69697","2":"mu==87.8","3":"sigma==7.35","4":"4.416160e-06"},{"1":"119.69697","2":"mu==87.8","3":"sigma==12.2","4":"1.072037e-03"},{"1":"119.69697","2":"mu==87.8","3":"sigma==18.4","4":"4.825437e-03"},{"1":"119.69697","2":"mu==100","3":"sigma==7.35","4":"1.496744e-03"},{"1":"119.69697","2":"mu==100","3":"sigma==12.2","4":"8.882353e-03"},{"1":"119.69697","2":"mu==100","3":"sigma==18.4","4":"1.222514e-02"},{"1":"119.69697","2":"mu==112","3":"sigma==7.35","4":"3.136822e-02"},{"1":"119.69697","2":"mu==112","3":"sigma==12.2","4":"2.679898e-02"},{"1":"119.69697","2":"mu==112","3":"sigma==18.4","4":"1.986527e-02"},{"1":"120.70707","2":"mu==87.8","3":"sigma==7.35","4":"2.409513e-06"},{"1":"120.70707","2":"mu==87.8","3":"sigma==12.2","4":"8.604195e-04"},{"1":"120.70707","2":"mu==87.8","3":"sigma==18.4","4":"4.380790e-03"},{"1":"120.70707","2":"mu==100","3":"sigma==7.35","4":"1.025889e-03"},{"1":"120.70707","2":"mu==100","3":"sigma==12.2","4":"7.744366e-03"},{"1":"120.70707","2":"mu==100","3":"sigma==18.4","4":"1.151006e-02"},{"1":"120.70707","2":"mu==112","3":"sigma==7.35","4":"2.690833e-02"},{"1":"120.70707","2":"mu==112","3":"sigma==12.2","4":"2.534803e-02"},{"1":"120.70707","2":"mu==112","3":"sigma==18.4","4":"1.938505e-02"},{"1":"121.71717","2":"mu==87.8","3":"sigma==7.35","4":"1.290064e-06"},{"1":"121.71717","2":"mu==87.8","3":"sigma==12.2","4":"6.858569e-04"},{"1":"121.71717","2":"mu==87.8","3":"sigma==18.4","4":"3.965149e-03"},{"1":"121.71717","2":"mu==100","3":"sigma==7.35","4":"6.900022e-04"},{"1":"121.71717","2":"mu==100","3":"sigma==12.2","4":"6.706048e-03"},{"1":"121.71717","2":"mu==100","3":"sigma==18.4","4":"1.080419e-02"},{"1":"121.71717","2":"mu==112","3":"sigma==7.35","4":"2.265067e-02"},{"1":"121.71717","2":"mu==112","3":"sigma==12.2","4":"2.381184e-02"},{"1":"121.71717","2":"mu==112","3":"sigma==18.4","4":"1.885951e-02"},{"1":"122.72727","2":"mu==87.8","3":"sigma==7.35","4":"6.777835e-07"},{"1":"122.72727","2":"mu==87.8","3":"sigma==12.2","4":"5.429749e-04"},{"1":"122.72727","2":"mu==87.8","3":"sigma==18.4","4":"3.578143e-03"},{"1":"122.72727","2":"mu==100","3":"sigma==7.35","4":"4.554056e-04"},{"1":"122.72727","2":"mu==100","3":"sigma==12.2","4":"5.767271e-03"},{"1":"122.72727","2":"mu==100","3":"sigma==18.4","4":"1.011110e-02"},{"1":"122.72727","2":"mu==112","3":"sigma==7.35","4":"1.870997e-02"},{"1":"122.72727","2":"mu==112","3":"sigma==12.2","4":"2.221594e-02"},{"1":"122.72727","2":"mu==112","3":"sigma==18.4","4":"1.829301e-02"},{"1":"123.73737","2":"mu==87.8","3":"sigma==7.35","4":"3.494366e-07"},{"1":"123.73737","2":"mu==87.8","3":"sigma==12.2","4":"4.269223e-04"},{"1":"123.73737","2":"mu==87.8","3":"sigma==18.4","4":"3.219193e-03"},{"1":"123.73737","2":"mu==100","3":"sigma==7.35","4":"2.949469e-04"},{"1":"123.73737","2":"mu==100","3":"sigma==12.2","4":"4.926028e-03"},{"1":"123.73737","2":"mu==100","3":"sigma==18.4","4":"9.433996e-03"},{"1":"123.73737","2":"mu==112","3":"sigma==7.35","4":"1.516571e-02"},{"1":"123.73737","2":"mu==112","3":"sigma==12.2","4":"2.058540e-02"},{"1":"123.73737","2":"mu==112","3":"sigma==18.4","4":"1.769014e-02"},{"1":"124.74747","2":"mu==87.8","3":"sigma==7.35","4":"1.767842e-07"},{"1":"124.74747","2":"mu==87.8","3":"sigma==12.2","4":"3.333810e-04"},{"1":"124.74747","2":"mu==87.8","3":"sigma==18.4","4":"2.887538e-03"},{"1":"124.74747","2":"mu==100","3":"sigma==7.35","4":"1.874507e-04"},{"1":"124.74747","2":"mu==100","3":"sigma==12.2","4":"4.178750e-03"},{"1":"124.74747","2":"mu==100","3":"sigma==18.4","4":"8.775748e-03"},{"1":"124.74747","2":"mu==112","3":"sigma==7.35","4":"1.206286e-02"},{"1":"124.74747","2":"mu==112","3":"sigma==12.2","4":"1.894422e-02"},{"1":"124.74747","2":"mu==112","3":"sigma==18.4","4":"1.705566e-02"},{"1":"125.75758","2":"mu==87.8","3":"sigma==7.35","4":"8.776390e-08"},{"1":"125.75758","2":"mu==87.8","3":"sigma==12.2","4":"2.585566e-04"},{"1":"125.75758","2":"mu==87.8","3":"sigma==18.4","4":"2.582257e-03"},{"1":"125.75758","2":"mu==100","3":"sigma==7.35","4":"1.169036e-04"},{"1":"125.75758","2":"mu==100","3":"sigma==12.2","4":"3.520617e-03"},{"1":"125.75758","2":"mu==100","3":"sigma==18.4","4":"8.138863e-03"},{"1":"125.75758","2":"mu==112","3":"sigma==7.35","4":"9.415319e-03"},{"1":"125.75758","2":"mu==112","3":"sigma==12.2","4":"1.731479e-02"},{"1":"125.75758","2":"mu==112","3":"sigma==18.4","4":"1.639445e-02"},{"1":"126.76768","2":"mu==87.8","3":"sigma==7.35","4":"4.275493e-08"},{"1":"126.76768","2":"mu==87.8","3":"sigma==12.2","4":"1.991560e-04"},{"1":"126.76768","2":"mu==87.8","3":"sigma==18.4","4":"2.302302e-03"},{"1":"126.76768","2":"mu==100","3":"sigma==7.35","4":"7.154286e-05"},{"1":"126.76768","2":"mu==100","3":"sigma==12.2","4":"2.945873e-03"},{"1":"126.76768","2":"mu==100","3":"sigma==18.4","4":"7.525486e-03"},{"1":"126.76768","2":"mu==112","3":"sigma==7.35","4":"7.211367e-03"},{"1":"126.76768","2":"mu==112","3":"sigma==12.2","4":"1.571739e-02"},{"1":"126.76768","2":"mu==112","3":"sigma==18.4","4":"1.571145e-02"},{"1":"127.77778","2":"mu==87.8","3":"sigma==7.35","4":"2.043874e-08"},{"1":"127.77778","2":"mu==87.8","3":"sigma==12.2","4":"1.523541e-04"},{"1":"127.77778","2":"mu==87.8","3":"sigma==18.4","4":"2.046522e-03"},{"1":"127.77778","2":"mu==100","3":"sigma==7.35","4":"4.296377e-05"},{"1":"127.77778","2":"mu==100","3":"sigma==12.2","4":"2.448117e-03"},{"1":"127.77778","2":"mu==100","3":"sigma==18.4","4":"6.937397e-03"},{"1":"127.77778","2":"mu==112","3":"sigma==7.35","4":"5.419982e-03"},{"1":"127.77778","2":"mu==112","3":"sigma==12.2","4":"1.416989e-02"},{"1":"127.77778","2":"mu==112","3":"sigma==18.4","4":"1.501160e-02"},{"1":"128.78788","2":"mu==87.8","3":"sigma==7.35","4":"9.587813e-09"},{"1":"128.78788","2":"mu==87.8","3":"sigma==12.2","4":"1.157544e-04"},{"1":"128.78788","2":"mu==87.8","3":"sigma==18.4","4":"1.813685e-03"},{"1":"128.78788","2":"mu==100","3":"sigma==7.35","4":"2.531839e-05"},{"1":"128.78788","2":"mu==100","3":"sigma==12.2","4":"2.020567e-03"},{"1":"128.78788","2":"mu==100","3":"sigma==18.4","4":"6.376021e-03"},{"1":"128.78788","2":"mu==112","3":"sigma==7.35","4":"3.997382e-03"},{"1":"128.78788","2":"mu==112","3":"sigma==12.2","4":"1.268749e-02"},{"1":"128.78788","2":"mu==112","3":"sigma==18.4","4":"1.429977e-02"},{"1":"129.79798","2":"mu==87.8","3":"sigma==7.35","4":"4.413495e-09"},{"1":"129.79798","2":"mu==87.8","3":"sigma==12.2","4":"8.734622e-05"},{"1":"129.79798","2":"mu==87.8","3":"sigma==18.4","4":"1.602501e-03"},{"1":"129.79798","2":"mu==100","3":"sigma==7.35","4":"1.464089e-05"},{"1":"129.79798","2":"mu==100","3":"sigma==12.2","4":"1.656293e-03"},{"1":"129.79798","2":"mu==100","3":"sigma==18.4","4":"5.842438e-03"},{"1":"129.79798","2":"mu==112","3":"sigma==7.35","4":"2.893018e-03"},{"1":"129.79798","2":"mu==112","3":"sigma==12.2","4":"1.128256e-02"},{"1":"129.79798","2":"mu==112","3":"sigma==18.4","4":"1.358070e-02"},{"1":"130.80808","2":"mu==87.8","3":"sigma==7.35","4":"1.993625e-09"},{"1":"130.80808","2":"mu==87.8","3":"sigma==12.2","4":"6.545962e-05"},{"1":"130.80808","2":"mu==87.8","3":"sigma==18.4","4":"1.411647e-03"},{"1":"130.80808","2":"mu==100","3":"sigma==7.35","4":"8.307998e-06"},{"1":"130.80808","2":"mu==100","3":"sigma==12.2","4":"1.348416e-03"},{"1":"130.80808","2":"mu==100","3":"sigma==18.4","4":"5.337399e-03"},{"1":"130.80808","2":"mu==112","3":"sigma==7.35","4":"2.054585e-03"},{"1":"130.80808","2":"mu==112","3":"sigma==12.2","4":"9.964658e-03"},{"1":"130.80808","2":"mu==112","3":"sigma==18.4","4":"1.285897e-02"},{"1":"131.81818","2":"mu==87.8","3":"sigma==7.35","4":"8.836938e-10"},{"1":"131.81818","2":"mu==87.8","3":"sigma==12.2","4":"4.872206e-05"},{"1":"131.81818","2":"mu==87.8","3":"sigma==18.4","4":"1.239781e-03"},{"1":"131.81818","2":"mu==100","3":"sigma==7.35","4":"4.626185e-06"},{"1":"131.81818","2":"mu==100","3":"sigma==12.2","4":"1.090269e-03"},{"1":"131.81818","2":"mu==100","3":"sigma==18.4","4":"4.861344e-03"},{"1":"131.81818","2":"mu==112","3":"sigma==7.35","4":"1.431841e-03"},{"1":"131.81818","2":"mu==112","3":"sigma==12.2","4":"8.740578e-03"},{"1":"131.81818","2":"mu==112","3":"sigma==18.4","4":"1.213897e-02"},{"1":"132.82828","2":"mu==87.8","3":"sigma==7.35","4":"3.843774e-10"},{"1":"132.82828","2":"mu==87.8","3":"sigma==12.2","4":"3.601644e-05"},{"1":"132.82828","2":"mu==87.8","3":"sigma==18.4","4":"1.085563e-03"},{"1":"132.82828","2":"mu==100","3":"sigma==7.35","4":"2.527826e-06"},{"1":"132.82828","2":"mu==100","3":"sigma==12.2","4":"8.755204e-04"},{"1":"132.82828","2":"mu==100","3":"sigma==18.4","4":"4.414427e-03"},{"1":"132.82828","2":"mu==112","3":"sigma==7.35","4":"9.791817e-04"},{"1":"132.82828","2":"mu==112","3":"sigma==12.2","4":"7.614489e-03"},{"1":"132.82828","2":"mu==112","3":"sigma==18.4","4":"1.142479e-02"},{"1":"133.83838","2":"mu==87.8","3":"sigma==7.35","4":"1.640633e-10"},{"1":"133.83838","2":"mu==87.8","3":"sigma==12.2","4":"2.644228e-05"},{"1":"133.83838","2":"mu==87.8","3":"sigma==18.4","4":"9.476678e-04"},{"1":"133.83838","2":"mu==100","3":"sigma==7.35","4":"1.355405e-06"},{"1":"133.83838","2":"mu==100","3":"sigma==12.2","4":"6.982674e-04"},{"1":"133.83838","2":"mu==100","3":"sigma==18.4","4":"3.996533e-03"},{"1":"133.83838","2":"mu==112","3":"sigma==7.35","4":"6.570967e-04"},{"1":"133.83838","2":"mu==112","3":"sigma==12.2","4":"6.588162e-03"},{"1":"133.83838","2":"mu==112","3":"sigma==18.4","4":"1.072028e-02"},{"1":"134.84848","2":"mu==87.8","3":"sigma==7.35","4":"6.871678e-11"},{"1":"134.84848","2":"mu==87.8","3":"sigma==12.2","4":"1.928057e-05"},{"1":"134.84848","2":"mu==87.8","3":"sigma==18.4","4":"8.247998e-04"},{"1":"134.84848","2":"mu==100","3":"sigma==7.35","4":"7.131626e-07"},{"1":"134.84848","2":"mu==100","3":"sigma==12.2","4":"5.530956e-04"},{"1":"134.84848","2":"mu==100","3":"sigma==18.4","4":"3.607312e-03"},{"1":"134.84848","2":"mu==112","3":"sigma==7.35","4":"4.327060e-04"},{"1":"134.84848","2":"mu==112","3":"sigma==12.2","4":"5.661229e-03"},{"1":"134.84848","2":"mu==112","3":"sigma==18.4","4":"1.002894e-02"},{"1":"135.85859","2":"mu==87.8","3":"sigma==7.35","4":"2.824306e-11"},{"1":"135.85859","2":"mu==87.8","3":"sigma==12.2","4":"1.396251e-05"},{"1":"135.85859","2":"mu==87.8","3":"sigma==18.4","4":"7.157018e-04"},{"1":"135.85859","2":"mu==100","3":"sigma==7.35","4":"3.682186e-07"},{"1":"135.85859","2":"mu==100","3":"sigma==12.2","4":"4.351124e-04"},{"1":"135.85859","2":"mu==100","3":"sigma==18.4","4":"3.246199e-03"},{"1":"135.85859","2":"mu==112","3":"sigma==7.35","4":"2.796109e-04"},{"1":"135.85859","2":"mu==112","3":"sigma==12.2","4":"4.831478e-03"},{"1":"135.85859","2":"mu==112","3":"sigma==18.4","4":"9.353958e-03"},{"1":"136.86869","2":"mu==87.8","3":"sigma==7.35","4":"1.139091e-11"},{"1":"136.86869","2":"mu==87.8","3":"sigma==12.2","4":"1.004223e-05"},{"1":"136.86869","2":"mu==87.8","3":"sigma==18.4","4":"6.191658e-04"},{"1":"136.86869","2":"mu==100","3":"sigma==7.35","4":"1.865608e-07"},{"1":"136.86869","2":"mu==100","3":"sigma==12.2","4":"3.399583e-04"},{"1":"136.86869","2":"mu==100","3":"sigma==18.4","4":"2.912446e-03"},{"1":"136.86869","2":"mu==112","3":"sigma==7.35","4":"1.773018e-04"},{"1":"136.86869","2":"mu==112","3":"sigma==12.2","4":"4.095173e-03"},{"1":"136.86869","2":"mu==112","3":"sigma==18.4","4":"8.698148e-03"},{"1":"137.87879","2":"mu==87.8","3":"sigma==7.35","4":"4.508193e-12"},{"1":"137.87879","2":"mu==87.8","3":"sigma==12.2","4":"7.173315e-06"},{"1":"137.87879","2":"mu==87.8","3":"sigma==18.4","4":"5.340389e-04"},{"1":"137.87879","2":"mu==100","3":"sigma==7.35","4":"9.275403e-08"},{"1":"137.87879","2":"mu==100","3":"sigma==12.2","4":"2.637988e-04"},{"1":"137.87879","2":"mu==100","3":"sigma==18.4","4":"2.605144e-03"},{"1":"137.87879","2":"mu==112","3":"sigma==7.35","4":"1.103239e-04"},{"1":"137.87879","2":"mu==112","3":"sigma==12.2","4":"3.447366e-03"},{"1":"137.87879","2":"mu==112","3":"sigma==18.4","4":"8.063978e-03"},{"1":"138.88889","2":"mu==87.8","3":"sigma==7.35","4":"1.750831e-12"},{"1":"138.88889","2":"mu==87.8","3":"sigma==12.2","4":"5.088999e-06"},{"1":"138.88889","2":"mu==87.8","3":"sigma==18.4","4":"4.592298e-04"},{"1":"138.88889","2":"mu==100","3":"sigma==7.35","4":"4.525253e-08"},{"1":"138.88889","2":"mu==100","3":"sigma==12.2","4":"2.033025e-04"},{"1":"138.88889","2":"mu==100","3":"sigma==18.4","4":"2.323254e-03"},{"1":"138.88889","2":"mu==112","3":"sigma==7.35","4":"6.736336e-05"},{"1":"138.88889","2":"mu==112","3":"sigma==12.2","4":"2.882208e-03"},{"1":"138.88889","2":"mu==112","3":"sigma==18.4","4":"7.453549e-03"},{"1":"139.89899","2":"mu==87.8","3":"sigma==7.35","4":"6.672426e-13"},{"1":"139.89899","2":"mu==87.8","3":"sigma==12.2","4":"3.585649e-06"},{"1":"139.89899","2":"mu==87.8","3":"sigma==18.4","4":"3.937118e-04"},{"1":"139.89899","2":"mu==100","3":"sigma==7.35","4":"2.166459e-08"},{"1":"139.89899","2":"mu==100","3":"sigma==12.2","4":"1.556093e-04"},{"1":"139.89899","2":"mu==100","3":"sigma==18.4","4":"2.065632e-03"},{"1":"139.89899","2":"mu==112","3":"sigma==7.35","4":"4.036226e-05"},{"1":"139.89899","2":"mu==112","3":"sigma==12.2","4":"2.393240e-03"},{"1":"139.89899","2":"mu==112","3":"sigma==18.4","4":"6.868597e-03"},{"1":"140.90909","2":"mu==87.8","3":"sigma==7.35","4":"2.495289e-13"},{"1":"140.90909","2":"mu==87.8","3":"sigma==12.2","4":"2.509147e-06"},{"1":"140.90909","2":"mu==87.8","3":"sigma==18.4","4":"3.365255e-04"},{"1":"140.90909","2":"mu==100","3":"sigma==7.35","4":"1.017784e-08"},{"1":"140.90909","2":"mu==100","3":"sigma==12.2","4":"1.182909e-04"},{"1":"140.90909","2":"mu==100","3":"sigma==18.4","4":"1.831050e-03"},{"1":"140.90909","2":"mu==112","3":"sigma==7.35","4":"2.373148e-05"},{"1":"140.90909","2":"mu==112","3":"sigma==12.2","4":"1.973649e-03"},{"1":"140.90909","2":"mu==112","3":"sigma==18.4","4":"6.310506e-03"},{"1":"141.91919","2":"mu==87.8","3":"sigma==7.35","4":"9.157049e-14"},{"1":"141.91919","2":"mu==87.8","3":"sigma==12.2","4":"1.743842e-06"},{"1":"141.91919","2":"mu==87.8","3":"sigma==18.4","4":"2.867799e-04"},{"1":"141.91919","2":"mu==100","3":"sigma==7.35","4":"4.692007e-09"},{"1":"141.91919","2":"mu==100","3":"sigma==12.2","4":"8.930794e-05"},{"1":"141.91919","2":"mu==100","3":"sigma==18.4","4":"1.618225e-03"},{"1":"141.91919","2":"mu==112","3":"sigma==7.35","4":"1.369216e-05"},{"1":"141.91919","2":"mu==112","3":"sigma==12.2","4":"1.616504e-03"},{"1":"141.91919","2":"mu==112","3":"sigma==18.4","4":"5.780315e-03"},{"1":"142.92929","2":"mu==87.8","3":"sigma==7.35","4":"3.297524e-14"},{"1":"142.92929","2":"mu==87.8","3":"sigma==12.2","4":"1.203681e-06"},{"1":"142.92929","2":"mu==87.8","3":"sigma==18.4","4":"2.436523e-04"},{"1":"142.92929","2":"mu==100","3":"sigma==7.35","4":"2.122556e-09"},{"1":"142.92929","2":"mu==100","3":"sigma==12.2","4":"6.696558e-05"},{"1":"142.92929","2":"mu==100","3":"sigma==18.4","4":"1.425833e-03"},{"1":"142.92929","2":"mu==112","3":"sigma==7.35","4":"7.752051e-06"},{"1":"142.92929","2":"mu==112","3":"sigma==12.2","4":"1.314941e-03"},{"1":"142.92929","2":"mu==112","3":"sigma==18.4","4":"5.278736e-03"},{"1":"143.93939","2":"mu==87.8","3":"sigma==7.35","4":"1.165247e-14"},{"1":"143.93939","2":"mu==87.8","3":"sigma==12.2","4":"8.251603e-07"},{"1":"143.93939","2":"mu==87.8","3":"sigma==18.4","4":"2.063876e-04"},{"1":"143.93939","2":"mu==100","3":"sigma==7.35","4":"9.422311e-10"},{"1":"143.93939","2":"mu==100","3":"sigma==12.2","4":"4.986962e-05"},{"1":"143.93939","2":"mu==100","3":"sigma==18.4","4":"1.252534e-03"},{"1":"143.93939","2":"mu==112","3":"sigma==7.35","4":"4.306842e-06"},{"1":"143.93939","2":"mu==112","3":"sigma==12.2","4":"1.062328e-03"},{"1":"143.93939","2":"mu==112","3":"sigma==18.4","4":"4.806176e-03"},{"1":"144.94949","2":"mu==87.8","3":"sigma==7.35","4":"4.040597e-15"},{"1":"144.94949","2":"mu==87.8","3":"sigma==12.2","4":"5.618083e-07"},{"1":"144.94949","2":"mu==87.8","3":"sigma==18.4","4":"1.742962e-04"},{"1":"144.94949","2":"mu==100","3":"sigma==7.35","4":"4.104434e-10"},{"1":"144.94949","2":"mu==100","3":"sigma==12.2","4":"3.688446e-05"},{"1":"144.94949","2":"mu==100","3":"sigma==18.4","4":"1.096988e-03"},{"1":"144.94949","2":"mu==112","3":"sigma==7.35","4":"2.348004e-06"},{"1":"144.94949","2":"mu==112","3":"sigma==12.2","4":"8.523817e-04"},{"1":"144.94949","2":"mu==112","3":"sigma==18.4","4":"4.362752e-03"},{"1":"145.95960","2":"mu==87.8","3":"sigma==7.35","4":"1.374899e-15"},{"1":"145.95960","2":"mu==87.8","3":"sigma==12.2","4":"3.798927e-07"},{"1":"145.95960","2":"mu==87.8","3":"sigma==18.4","4":"1.467518e-04"},{"1":"145.95960","2":"mu==100","3":"sigma==7.35","4":"1.754473e-10"},{"1":"145.95960","2":"mu==100","3":"sigma==12.2","4":"2.709403e-05"},{"1":"145.95960","2":"mu==100","3":"sigma==18.4","4":"9.578667e-04"},{"1":"145.95960","2":"mu==112","3":"sigma==7.35","4":"1.256135e-06"},{"1":"145.95960","2":"mu==112","3":"sigma==12.2","4":"6.792543e-04"},{"1":"145.95960","2":"mu==112","3":"sigma==18.4","4":"3.948322e-03"},{"1":"146.96970","2":"mu==87.8","3":"sigma==7.35","4":"4.590856e-16"},{"1":"146.96970","2":"mu==87.8","3":"sigma==12.2","4":"2.551271e-07"},{"1":"146.96970","2":"mu==87.8","3":"sigma==18.4","4":"1.231885e-04"},{"1":"146.96970","2":"mu==100","3":"sigma==7.35","4":"7.359321e-11"},{"1":"146.96970","2":"mu==100","3":"sigma==12.2","4":"1.976636e-05"},{"1":"146.96970","2":"mu==100","3":"sigma==18.4","4":"8.338724e-04"},{"1":"146.96970","2":"mu==112","3":"sigma==7.35","4":"6.594345e-07"},{"1":"146.96970","2":"mu==112","3":"sigma==12.2","4":"5.375929e-04"},{"1":"146.96970","2":"mu==112","3":"sigma==18.4","4":"3.562507e-03"},{"1":"147.97980","2":"mu==87.8","3":"sigma==7.35","4":"1.504230e-16"},{"1":"147.97980","2":"mu==87.8","3":"sigma==12.2","4":"1.701669e-07"},{"1":"147.97980","2":"mu==87.8","3":"sigma==18.4","4":"1.030974e-04"},{"1":"147.97980","2":"mu==100","3":"sigma==7.35","4":"3.029190e-11"},{"1":"147.97980","2":"mu==100","3":"sigma==12.2","4":"1.432197e-05"},{"1":"147.97980","2":"mu==100","3":"sigma==18.4","4":"7.237445e-04"},{"1":"147.97980","2":"mu==112","3":"sigma==7.35","4":"3.397070e-07"},{"1":"147.97980","2":"mu==112","3":"sigma==12.2","4":"4.225689e-04"},{"1":"147.97980","2":"mu==112","3":"sigma==18.4","4":"3.204721e-03"},{"1":"148.98990","2":"mu==87.8","3":"sigma==7.35","4":"4.836512e-17"},{"1":"148.98990","2":"mu==87.8","3":"sigma==12.2","4":"1.127240e-07"},{"1":"148.98990","2":"mu==87.8","3":"sigma==18.4","4":"8.602345e-05"},{"1":"148.98990","2":"mu==100","3":"sigma==7.35","4":"1.223525e-11"},{"1":"148.98990","2":"mu==100","3":"sigma==12.2","4":"1.030628e-05"},{"1":"148.98990","2":"mu==100","3":"sigma==18.4","4":"6.262708e-04"},{"1":"148.98990","2":"mu==112","3":"sigma==7.35","4":"1.717256e-07"},{"1":"148.98990","2":"mu==112","3":"sigma==12.2","4":"3.298865e-04"},{"1":"148.98990","2":"mu==112","3":"sigma==18.4","4":"2.874192e-03"},{"1":"150.00000","2":"mu==87.8","3":"sigma==7.35","4":"1.525977e-17"},{"1":"150.00000","2":"mu==87.8","3":"sigma==12.2","4":"7.416191e-08"},{"1":"150.00000","2":"mu==87.8","3":"sigma==18.4","4":"7.156111e-05"},{"1":"150.00000","2":"mu==100","3":"sigma==7.35","4":"4.849498e-12"},{"1":"150.00000","2":"mu==100","3":"sigma==12.2","4":"7.365862e-06"},{"1":"150.00000","2":"mu==100","3":"sigma==18.4","4":"5.402941e-04"},{"1":"150.00000","2":"mu==112","3":"sigma==7.35","4":"8.518499e-08"},{"1":"150.00000","2":"mu==112","3":"sigma==12.2","4":"2.557728e-04"},{"1":"150.00000","2":"mu==112","3":"sigma==18.4","4":"2.569997e-03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[6],"max":[6]},"pages":{}}}
-  </script>
 </div>
-</div>
+<p>In Grafik <a href="#fig:maxlik">2</a> werden nun die 9 Kombinationen, und die 3 beobachteten Datenpunkte (in Rot) dargestellt. Die Paratemeter <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> definieren jeweils eine Normalverteilung, und die gestrichelte Linie zeigt die Wahrscheinlichkeit eines Datenpunktes unter dieser Verteilung. Die Wahrscheinlichkeit der Daten ist gegeben durch das Produkt der Wahrscheinlichkeiten. Diejenigen Paramterwerte, welche die Wahrscheinlichkeit maximieren, “gewinnen.” In diesem Beispiel wäre das die mittlere Verteilung.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d1</span> <span class='op'>%&gt;%</span> 
@@ -2603,11 +2647,19 @@ Figure 1: Graphical Model für normalverteilte Daten.
   <span class='fu'>theme</span><span class='op'>(</span>panel.grid <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+<div class="figure"><span id="fig:maxlik"></span>
+<img src="03-bayesian-stats_files/figure-html5/maxlik-1.png" alt="Kombinationen von $\mu$ und $\sigma$ Parameterwerten." width="624" />
+<p class="caption">
+Figure 2: Kombinationen von <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> Parameterwerten.
+</p>
 </div>
-<h2 id="t-test-als-lineares-modell">t-Test als Lineares Modell</h2>
-<p>Wir nehmen als Beispiel folgenden (fiktiven) Datensatz <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span>. WIr haben IQ Scores einer Stichprobe, welche eine “Smart Drug” konsumiert hat. Wir wissen, dass IQ so normiert sind, dass wir in der Bevölkerung einen Mittelwert von 100, und eine Standardabweichung von 15 haben. Nun wollen wir wissen, ob und wie sich die “Smart Drug” Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat.</p>
-<p>Die Daten sind aus <span class="citation" data-cites="kruschkeDoingBayesianData2015"><a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke</a> (<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">2015</a>)</span>; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen:</p>
+</div>
+<h2 id="beispiel-t-test">Beispiel: t-Test</h2>
+<p>Um die Parameter einer Normalverteilung mittels Markov Chain Monte Carlo Sampling Bayesian zu schätzen, nehmen wir ein Beispiel aus dem Buch Doing Bayesian Data Analysis <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span>.</p>
+<div class="note">
+<p>Wir haben IQ Scores einer Stichprobe, welche eine “Smart Drug” konsumiert hat. IQ Werte sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die “Smart Drug” Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat.</p>
+</div>
+<p>Wir können die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>smart</span> <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>IQ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>104</span>,<span class='fl'>102</span>,<span class='fl'>97</span>,<span class='fl'>105</span>,<span class='fl'>105</span>,<span class='fl'>98</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>123</span>,<span class='fl'>105</span>,<span class='fl'>103</span>,
@@ -2620,24 +2672,25 @@ Figure 1: Graphical Model für normalverteilte Daten.
                         <span class='fl'>88</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>104</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>103</span>,<span class='fl'>97</span>,<span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,
                         <span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>99</span>,<span class='fl'>100</span>,<span class='fl'>99</span><span class='op'>)</span>,
                  Group <span class='op'>=</span> <span class='st'>"Placebo"</span><span class='op'>)</span>
-
-<span class='va'>TwoGroupIQ</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>smart</span>, <span class='va'>placebo</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TwoGroupIQ</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>smart</span>, <span class='va'>placebo</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>mutate</span><span class='op'>(</span>Group <span class='op'>=</span> <span class='fu'>fct_relevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span>, <span class='st'>"Placebo"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<p>Mit diesen Daten könnten wir einen t-Test machen, um die Mittelwerte der beiden Gruppen zu vergleichen. Die Mittelwertem sowie die beiden Standardabweichungen, können wir so schätzen.</p>
 <aside>
-Wenn wir einen Unterschied zwischen den beiden Gruppen testen wollen, können wir hier eine t- oder Welch-Test machen.
+Diese entsprechen den Maximum-Likelihood Schätzungen.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+
+<span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>summarise</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>IQ</span><span class='op'>)</span>,
             sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>IQ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -2686,6 +2739,32 @@ SmartDrug
 </tbody>
 </table>
 </div>
+<p>Die Smart Drug Gruppe hat einen leicht grösseren Mittelwert, aber auch eine grössere Standardabweichung, weshlab wir hier einen Welch-Test einem t-Test vorziehen würden.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+       data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  IQ by Group
+t = -1.6222, df = 63.039, p-value = 0.1098
+alternative hypothesis: true difference in means between group Placebo and group SmartDrug is not equal to 0
+95 percent confidence interval:
+ -3.4766863  0.3611848
+sample estimates:
+  mean in group Placebo mean in group SmartDrug 
+               100.3571                101.9149 </code></pre>
+</div>
+<aside>
+Dieser Welch-Test zeigt keine signifikante Mittelwertsdifferenz, mit einem p-Wert von <span class="math inline">\(0.1098\)</span>.
+</aside>
+<p>Mit diesem nicht-signifikanten Welch-Test gibt es nun nicht viele Möglichkeiten, weiterzufahren. Slebstverständlich hätten wir die Power dieses Test erhöhen können, aber nachdem die Daten gesammelt wurden, ist diese Erkenntnis nicht sehr hilfreich.</p>
+<h2 id="smart-drug-gruppe">Smart Drug Gruppe</h2>
+<p>Wir ignorieren zunächst die Kontrollgruppe, und versuchen, die Parameter der Smart Drug Gruppe mit dem <code>brms</code> Package zu schätzen.</p>
+<p>Wir erstelln zuerst einen Subdatensatz:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span> 
@@ -2699,11 +2778,15 @@ SmartDrug
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_histogram</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"skyblue3"</span>, binwidth <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_tidybayes</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/smart-drug-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
+<h2 id="parameter-schätzen-mit-brms">Parameter schätzen mit brms</h2>
+<p>Wir wollen nun einen Mittelwert, und eine Standardabweichung mit <code>brms</code> schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen.</p>
+<h3 id="priors">Priors</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/paul-buerkner/brms'>brms</a></span><span class='op'>)</span>
@@ -2714,7 +2797,12 @@ SmartDrug
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
           data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
-<span class='va'>priors</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span>
 </code></pre>
 </div>
 <pre><code>                prior     class coef group resp dpar nlpar bound
@@ -2724,41 +2812,8 @@ SmartDrug
  default
  default</code></pre>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://mjskay.github.io/tidybayes/'>tidybayes</a></span><span class='op'>)</span>
-<span class='va'>priors_df</span> <span class='op'>&lt;-</span> <span class='va'>priors</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/parse_dist.html'>parse_dist</a></span><span class='op'>(</span><span class='va'>prior</span><span class='op'>)</span>
-
-<span class='va'>priors_df</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span>, dist <span class='op'>=</span> <span class='va'>.dist</span>, args <span class='op'>=</span> <span class='va'>.args</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_dist_slabinterval.html'>stat_dist_halfeye</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>class</span>, scales <span class='op'>=</span> <span class='st'>"free_x"</span><span class='op'>)</span>
-</code></pre>
-</div>
-<img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-12-1.png" width="624" />
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors_df</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>mutate</span><span class='op'>(</span>class <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span><span class='va'>coef</span> <span class='op'>==</span> <span class='st'>""</span> <span class='op'>~</span> <span class='va'>class</span>,
-                             <span class='va'>coef</span> <span class='op'>==</span> <span class='st'>"Intercept"</span> <span class='op'>~</span> <span class='st'>"Intercept"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                 prior     class coef group resp dpar nlpar bound
-1 student_t(3, 102, 3) Intercept                                 
-2   student_t(3, 0, 3)     sigma                                 
-   source     .dist     .args
-1 default student_t 3, 102, 3
-2 default student_t   3, 0, 3</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors_df</span> <span class='op'>%&gt;%</span>  
-    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>class</span>, dist <span class='op'>=</span> <span class='va'>.dist</span>, args <span class='op'>=</span> <span class='va'>.args</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
-    <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/tidybayes-deprecated.html'>stat_dist_halfeyeh</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Prior distributions"</span>,
-         x <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-12-2.png" width="624" /></p>
-</div>
+<h2 id="priors-1">Priors</h2>
+<h3 id="sigma"><span class="math inline">\(\sigma\)</span></h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>, to <span class='op'>=</span> <span class='fl'>10</span>, by <span class='op'>=</span> <span class='fl'>.025</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2774,8 +2829,12 @@ SmartDrug
   <span class='fu'>theme_bw</span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+</div>
+<h2 id="priors-2">Priors</h2>
+<h3 id="mu"><span class="math inline">\(\mu\)</span></h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>, to <span class='op'>=</span> <span class='fl'>200</span>, by <span class='op'>=</span> <span class='fl'>.025</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2791,8 +2850,11 @@ SmartDrug
   <span class='fu'>theme_bw</span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<h2 id="prior-predictive-distribution">Prior Predictive Distribution</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
@@ -2805,14 +2867,40 @@ SmartDrug
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 1 
+   Data: d (Number of observations: 47) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept   101.95      6.20    92.34   111.71 1.00     2048     1510
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     3.75     17.71     0.10    12.94 1.00     1757     1199
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior_pred_1</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-19-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://mjskay.github.io/tidybayes/'>tidybayes</a></span><span class='op'>)</span>
+
+<span class='va'>prior_pred_1</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span>
   <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Group</span>, x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2824,12 +2912,9 @@ SmartDrug
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior_pred_1</span>
-</code></pre>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
-</div>
+<h2 id="vom-posterior-sampeln">Vom Posterior Sampeln</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
@@ -2844,7 +2929,7 @@ SmartDrug
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-20-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-23-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2870,17 +2955,19 @@ Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
+<h2 id="posterior-quantile-intervals">Posterior Quantile Intervals</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>
-<span class='fu'>mcmc_plot</span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'>mcmc_plot</span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"sigma"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"sigma"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-25-1.png" width="624" /></p>
 </div>
+<h2 id="posterior-samples">Posterior Samples</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'>posterior_samples</span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>transmute</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='va'>b_Intercept</span>, sigma <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2891,6 +2978,19 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 
 <span class='va'>samples</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>mu</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>        mu    .lower   .upper .width .point .interval
+1 101.9132 101.36505 102.4841   0.50 median        qi
+2 101.9132 100.86039 102.9730   0.80 median        qi
+3 101.9132 100.30502 103.5255   0.95 median        qi
+4 101.9132  99.71696 104.1686   0.99 median        qi</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>mu</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mu</span>, xmin <span class='op'>=</span> <span class='va'>.lower</span>, xmax <span class='op'>=</span> <span class='va'>.upper</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/geom_pointinterval.html'>geom_pointinterval</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2898,8 +2998,11 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-24-1.png" width="624" /></p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
+</div>
+<h2 id="posterior-samples-1">Posterior Samples</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
@@ -2909,7 +3012,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-25-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-31-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2920,8 +3025,11 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-26-1.png" width="624" /></p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
+</div>
+<h2 id="posterior-predictive-distribution">Posterior Predictive Distribution</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>post_pred_1</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span>
@@ -2940,8 +3048,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>post_pred_1</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-28-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-35-1.png" width="624" /></p>
 </div>
+<h2 id="prior-vs-posterior-predictive-distribution">Prior vs Posterior Predictive Distribution</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>cowplot</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span><span class='va'>prior_pred_1</span>, 
@@ -2952,16 +3061,20 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
                    nrow <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-36-1.png" width="624" /></p>
 </div>
 <h2 id="zwei-gruppen">Zwei Gruppen</h2>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-30-1.png" width="624" /><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-30-2.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-37-1.png" width="624" /></p>
 </div>
-<h2 id="t-test-as-general-linear-model">t-Test as general linear model</h2>
-<p>Assuming equal variances, we can write</p>
-<p><span class="math display">\[ Y = \alpha + \beta X + \epsilon\]</span> <span class="math display">\[ \epsilon \sim N(0, \sigma^2) \]</span></p>
-<p>where <span class="math inline">\(X\)</span> is indicates group membership.</p>
+<h2 id="t-test-als-allgemeines-lineares-modell">t-Test als Allgemeines Lineares Modell</h2>
+<p>Annahme: Varianzgleichheit</p>
+<h3 id="tradionelle-notation">Tradionelle Notation</h3>
+<p><span class="math display">\[y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}\]</span> <span class="math display">\[\epsilon \sim N(0, \sigma^2)\]</span></p>
+<h3 id="probabilistische-notation">Probabilistische Notation</h3>
+<p><span class="math display">\[y_{ij} \sim N(\mu, \sigma^2)\]</span> <span class="math display">\[\mu_{ij} = \alpha + \beta x_{ij}\]</span></p>
+<p><span class="math inline">\(X_{ij}\)</span> ist eine Indikatorvariable.</p>
+<h2 id="ordinary-least-squares-schätzung">Ordinary Least Squares Schätzung</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>TwoGroupIQ</span><span class='op'>$</span><span class='va'>Group</span><span class='op'>)</span>
@@ -2969,7 +3082,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <pre><code>[1] &quot;Placebo&quot;   &quot;SmartDrug&quot;</code></pre>
 </div>
-<p>Using R’s formula notation, we can write this as</p>
+<p>Mit R Formelnotation:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_ols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
@@ -2977,16 +3090,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </code></pre>
 </div>
 </div>
-<aside>
-The outcome <code>IQ</code> is modeled as a function of <code>Group</code>)
-</aside>
-<p>More formally:</p>
-<p><span class="math display">\[ IQ = Placebo + \beta \cdot SmartDrug  + \epsilon\]</span></p>
-<p><span class="math display">\[ \epsilon \sim N(0, \sigma^2) \]</span></p>
-<p>The <span class="math inline">\(\beta\)</span> parameter therefore represents the difference between groups.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_ols</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_ols</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -3008,6 +3114,7 @@ Residual standard error: 4.707 on 87 degrees of freedom
 Multiple R-squared:  0.02717,   Adjusted R-squared:  0.01599 
 F-statistic:  2.43 on 1 and 87 DF,  p-value: 0.1227</code></pre>
 </div>
+<h2 id="dummy-coding-in-r">Dummy Coding in R</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>TwoGroupIQ</span><span class='op'>$</span><span class='va'>Group</span><span class='op'>)</span>
@@ -3049,6 +3156,25 @@ SmartDrug         1</code></pre>
 5             1              1
 6             1              1</code></pre>
 </div>
+<h2 id="dummy-coding-in-r-1">Dummy Coding in R</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>mm1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice_sample</span><span class='op'>(</span>n<span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 2
+# Groups:   GroupSmartDrug [2]
+  `(Intercept)` GroupSmartDrug
+          &lt;dbl&gt;          &lt;dbl&gt;
+1             1              0
+2             1              0
+3             1              0
+4             1              1
+5             1              1
+6             1              1</code></pre>
+</div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>, data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
@@ -3068,17 +3194,19 @@ SmartDrug         1</code></pre>
 5            0              1
 6            0              1</code></pre>
 </div>
+<h2 id="graphical-model-1">Graphical Model</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:normal-graphical-model-2"></span>
 <img src="images/two-group-iq-graphical-model.png" alt="Graphical Model für 2 Gruppen." width="20%" />
 <p class="caption">
-Figure 2: Graphical Model für 2 Gruppen.
+Figure 3: Graphical Model für 2 Gruppen.
 </p>
 </div>
 </div>
+<h2 id="get-priors">Get Priors</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2</span> <span class='op'>&lt;-</span> <span class='fu'>get_prior</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
                      data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -3099,9 +3227,10 @@ Figure 2: Graphical Model für 2 Gruppen.
                   default
                   default</code></pre>
 </div>
+<h2 id="get-priors-1">Get Priors</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3</span> <span class='op'>&lt;-</span> <span class='fu'>get_prior</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
                      data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -3122,15 +3251,16 @@ Figure 2: Graphical Model für 2 Gruppen.
        (vectorized)
             default</code></pre>
 </div>
+<h2 id="priors-definieren-und-vom-prior-sampeln">Priors definieren und vom Prior Sampeln</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2_b</span> <span class='op'>&lt;-</span> <span class='fu'>prior</span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2_prior</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
           prior <span class='op'>=</span> <span class='va'>priors2_b</span>,
           data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
           sample_prior <span class='op'>=</span> <span class='st'>"only"</span>,
@@ -3148,21 +3278,22 @@ Figure 2: Graphical Model für 2 Gruppen.
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>prior_pred_2</span>
-</code></pre>
-</div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-44-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3_b</span> <span class='op'>&lt;-</span> <span class='fu'>prior</span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>10</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-53-1.png" width="624" /></p>
+</div>
+<h2 id="priors-definieren-und-vom-prior-sampeln-1">Priors definieren und vom Prior Sampeln</h2>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3_prior</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>10</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
           prior <span class='op'>=</span> <span class='va'>priors3_b</span>,
           data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
           sample_prior <span class='op'>=</span> <span class='st'>"only"</span>,
@@ -3180,15 +3311,16 @@ Figure 2: Graphical Model für 2 Gruppen.
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>prior_pred_3</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-47-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-57-1.png" width="624" /></p>
+</div>
+<h2 id="posterior-sampling">Posterior Sampling</h2>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
           prior <span class='op'>=</span> <span class='va'>priors2_b</span>,
           data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
           file <span class='op'>=</span> <span class='st'>"models/twogroupiq-2"</span><span class='op'>)</span>
@@ -3197,13 +3329,14 @@ Figure 2: Graphical Model für 2 Gruppen.
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
           prior <span class='op'>=</span> <span class='va'>priors3_b</span>,
           data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
           file <span class='op'>=</span> <span class='st'>"models/twogroupiq-3"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<h2 id="summary">Summary</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span>
@@ -3232,6 +3365,7 @@ Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
+<h2 id="summary-1">Summary</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span>
@@ -3262,21 +3396,22 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>mcmc_plot</span><span class='op'>(</span><span class='va'>m2</span>, <span class='st'>"b_GroupSmartDrug"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m2</span>, <span class='st'>"b_GroupSmartDrug"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-52-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-62-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>mcmc_plot</span><span class='op'>(</span><span class='va'>m3</span>, <span class='st'>"b"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m3</span>, <span class='st'>"b"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-53-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-63-1.png" width="624" /></p>
 </div>
+<h2 id="get-posterior-samples">Get Posterior Samples</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>&lt;-</span> <span class='fu'>posterior_samples</span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
     <span class='fu'>transmute</span><span class='op'>(</span>Placebo <span class='op'>=</span> <span class='va'>b_GroupPlacebo</span>, 
               SmartDrug <span class='op'>=</span> <span class='va'>b_GroupSmartDrug</span>,
               sigma <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span>
@@ -3291,6 +3426,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </code></pre>
 </div>
 </div>
+<h2 id="get-posterior-samples-1">Get Posterior Samples</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>%&gt;%</span> 
@@ -3310,7 +3446,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-57-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-67-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3321,11 +3457,12 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-58-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-68-1.png" width="624" /></p>
 </div>
+<h2 id="diesmal-ohne-eigene-priors">Diesmal ohne eigene Priors</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_eqvar</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_eqvar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
                  data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
                  file <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"models/fit_eqvar"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
@@ -3334,16 +3471,16 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_eqvar</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>gather_draws</span><span class='op'>(</span><span class='va'>b_GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/spread_draws.html'>gather_draws</a></span><span class='op'>(</span><span class='va'>b_GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>.variable</span>, x <span class='op'>=</span> <span class='va'>.value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>stat_halfeye</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"Steelblue4"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"Steelblue4"</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, color <span class='op'>=</span> <span class='st'>"white"</span>, linetype <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'>ylab</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'>xlab</span><span class='op'>(</span><span class='st'>"Estimated difference"</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>theme_tidybayes</span><span class='op'>(</span><span class='op'>)</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-60-1.png" width="624" /></p>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-70-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3371,13 +3508,13 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
     <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Equal variance model predictions"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>pp_eqvar</span>
 </code></pre>
 </div>
-<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-61-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-72-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-kruschkeDoingBayesianData2015" class="csl-entry" role="doc-biblioentry">
 Kruschke, John. 2015. <em>Doing Bayesian Data Analysis (Second Edition)</em>. <span>Boston</span>: <span>Academic Press</span>.
@@ -3412,12 +3549,12 @@ Kruschke, John. 2015. <em>Doing Bayesian Data Analysis (Second Edition)</em>. <s
 <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/kogpsy/neuroscicomplab">https://github.com/kogpsy/neuroscicomplab</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 <h3 id="citation">Citation</h3>
 <p>For attribution, please cite this work as</p>
-<pre class="citation-appendix short">Ellis (2021, March 22). neuroscicomplab: Bayesianische Statistik. Retrieved from https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html</pre>
+<pre class="citation-appendix short">Ellis (2021, March 22). neuroscicomplab: Bayesianische Statistik. Retrieved from https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html</pre>
 <p>BibTeX citation</p>
 <pre class="citation-appendix long">@misc{ellis2021bayesianische,
   author = {Ellis, Andrew},
   title = {neuroscicomplab: Bayesianische Statistik},
-  url = {https://kogpsy.github.io/neuroscicomplab/01-intro-bayesian-stats.html},
+  url = {https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html},
   year = {2021}
 }</pre>
 </div>

@@ -382,16 +382,18 @@ samples %>%
 
 Grafische Darstellung des  <span style="color: var(--text-color)">Generativen Modells</span>:
 
-
-```{r binomial-graphical-model, fig.cap="Graphical Model für binomialverteilte Daten."}
+<aside>
+```{r binomial-graphical-model, echo=FALSE, fig.cap="Graphical Model für binomialverteilte Daten."}
 knitr::include_graphics("images/binomial-graphical-model.png")
 ```
+</aside>
 
 
-```{r bernoulli-graphical-model, fig.cap="Graphical Model für bernoulliverteilte Daten."}
+<aside>
+```{r bernoulli-graphical-model, echo=FALSE, fig.cap="Graphical Model für bernoulliverteilte Daten."}
 knitr::include_graphics("images/bernoulli-graphical-model.png")
 ```
-
+</aside>
 
 
 ## Gaussian model
@@ -399,9 +401,11 @@ knitr::include_graphics("images/bernoulli-graphical-model.png")
 Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen Modells</span> mit normalverteilten Daten:
 
 
-```{r normal-graphical-model, fig.cap="Graphical Model für normalverteilte Daten."}
+<aside>
+```{r normal-graphical-model, echo=FALSE, fig.cap="Graphical Model für normalverteilte Daten."}
 knitr::include_graphics("images/normal-graphical-model.png")
 ```
+</aside>
 
 \@ref(fig:normal-graphical-model)
 
