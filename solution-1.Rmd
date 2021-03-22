@@ -116,11 +116,14 @@ Der $\theta$-Wert, für den diese Wahrscheinlichkeit am grössten ist, ist die M
 
 Sie können diese Wahrscheinlichkeit so graphisch darstellen.
 
+
 ```{r eval=FALSE, include=TRUE}
 tibble(theta_grid, likelihood) %>% 
   ggplot(aes(x = theta_grid, y = likelihood)) +
   geom_line()
 ```
+
+
 ## Aufgabe 2
 
 > Wenn Sie kein Vorwissen über die bisherigen Testresultate des Schülers hätten: Was würden Sie als Schätzung der Fähigkeit des Schülers benutzen?
@@ -134,12 +137,16 @@ Wenn wir nur den aktuellen Test haben, können wir entweder diese Maximum-Likeli
 ### Maximum-Likelihood Schätzung
 
 Wir suchen zuerst die grösste Wahrscheinlichkeit:
+
+
 ```{r}
 maxlik <- max(likelihood)
 ```
 
 
 Und suchen dann den Wert im `theta_grid`, für welchen die Wahrscheinlichkeit der grössten Wahrscheinlichkeit entspricht.
+
+
 ```{r}
 theta_maxlik <- theta_grid[likelihood == maxlik]
 theta_maxlik
