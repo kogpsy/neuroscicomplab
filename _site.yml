@@ -39,6 +39,8 @@ navbar:
           href: exercise-1.html
         - text: "Übung 1: Lösung"
           href: solution-1.html
+        - text: "Übung 2"
+          href: exercise-2.htm
 
 
   right:
@@ -50,8 +52,8 @@ navbar:
           href: 02-bayesian-stats.html
         - text: "3. Bayesianische Statistik: Lineare Modelle mit `brms`"
           href: 03-bayesian-stats.html
-        # - text: "3. Bayesianische Statistik: Modelvergleiche"
-        #   href: 03-model-comparison.html
+        - text: "4. Bayesianische Statistik: Hierarchische Modelle mit `brms`"
+          href: 04-bayesian-stats.html
 
         # - text: "---"
         # - text: "Parameter Estimation"
@@ -63,6 +65,8 @@ navbar:
           href: slides/02-bayesian-stats-slides.html
         - text: "3. Bayesianische Statistik: Lineare Modelle mit `brms`"
           href: slides/03-bayesian-stats-slides.html
+        - text: "4. Bayesianische Statistik: Hierarchische Modelle mit `brms`"
+          href: slides/04-bayesian-stats-slides.html
 #
 #
 #     - text: "Cognitive Models"

@@ -1,0 +1,61 @@
+---
+title: "Bayesianische Statistik"
+session: 3
+subtitle: "Teil 4 <br/> Hierarchische Modelle mit brms"
+author: "Andrew Ellis"
+# institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
+institute: "Methodenkurs Neurowissenschaft im Computerlab"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["css/xaringan-themer.css", "css/slides-style.css"]
+    nature:
+      highlightStyle: github #solarized-light # github
+      highlightLines: true
+      ratio: 16:10
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r load-packages, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(rmarkdown)
+library(countdown)
+```
+
+
+
+## Hierarchische Modelle
+
+<!-- library(lmerTest) -->
+<!-- options(contrasts=c('contr.sum', 'contr.poly')) -->
+<!-- anova(lmer(y ~ x + (1|subj),data=myDat),ddf="Kenward-Roger") -->
+
+<!-- library(afex) -->
+<!-- mixed(y ~ x + (1|subj), type=3,method="KR",data=myDat)  -->
+
+
+- Bisher: zwei unabhängige Gruppen
+- Was ist mit Messwiederholung?
+
+
+```{r}
+treat  = rep(c('treat', 'control'), each = 5)
+pre = c(20, 10,60, 20, 10, 50, 10, 40, 20, 10)
+post = c(70, 50,90, 60, 50, 20, 10, 30, 50, 10)
+
+df = data.frame(id = factor(1:10), treat, pre, post)
+change = post-pre
+
+dflong = tidyr::gather(df, key=time, value=score, pre:post) %>% arrange(id)
+head(df)
+```
+
