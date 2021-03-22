@@ -283,7 +283,10 @@ Die Wahrscheinlichkeit, mehr als 8 Fragen richtig zu beantworten, ist
            prob = prior_ncorrect/prior_nquestions)
 ```
 
+
 oder 
+
+
 ```{r}
 pbinom(q = ncorrect-1, 
        size = nquestions, 
@@ -313,3 +316,13 @@ sum(dbinom(x = 9:10,
 ```
 
 
+### Bemerkung 
+
+Einige von Ihnen haben versucht, den Posterior zusammenzufassen, z.B. so:
+
+
+```{r}
+sum(posterior[theta_grid > 0.9])
+```
+
+Dies ist natürlich möglich, beantwortet aber eine andere Frage, und zwar: Was ist die Posterior Wahrscheinlichkeit von $\theta$, gegeben unsere Prior Beliefs und das Testresultat? Die Frage in Aufgabe 6 lautete aber: Was ist die Wahrscheinlichkeit, gegeben der Fähigkeit des Schülers, dass er 9 oder 10 Fragen richtig beantwortet?  Das wäre die Frage, die wir uns stellen, wenn wir frequentistische Statistik machen---die Frage nach der Wahrscheinlichkeit der Parameter dürfen wir uns dann gar nicht stellen.

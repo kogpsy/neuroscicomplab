@@ -284,6 +284,7 @@ samples %>%
 ```
 
 ---
+
 ## Intervalle mit definierter Masse
 
 ### Quantile
