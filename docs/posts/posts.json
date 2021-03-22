@@ -10,10 +10,12 @@
       }
     ],
     "date": "2021-03-22",
-    "categories": [],
+    "categories": [
+      "uebungen"
+    ],
     "contents": "\nDie Lösung finden Sie im Menu: Übungen > Übung 1: Lösung.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-22T09:26:44+01:00",
+    "last_modified": "2021-03-22T22:27:16+01:00",
     "input_file": {}
   },
   {

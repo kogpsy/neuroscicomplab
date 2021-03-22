@@ -237,33 +237,42 @@ d %>%
 
 ## Parameter schätzen mit brms
 
-Wir wollen nun einen Mittelwert, und eine Standardabweichung mit `brms` schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen.
-
+Wir wollen nun einen Mittelwert, und eine Standardabweichung mit `brms` schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen. Für dieses Modell kennen wir bereits die Parameter, die wir schätzen müssen, aber in späteren Kapiteln werden wir es mir komplexeren Modellen zu tun haben, bei denen es nicht so offensichtilich ist. 
 
 ### Priors
+
+Glücklicherweise bietet `brms` uns hier sehr viel Hilfe. Für die meisten Fälle können wir uns sogar darauf verlassen, dass die _Default_ Priors genügen, so dass wir nicht einmal selber Priors definieren müssten. Es ist aber besser, wenn wir lernen, selber Prior Verteilungen zu definieren. In `brms` gibt es eine Funktion, `get_prior()`, mit welcher wir herausfinden können, welche Parameter Prior Verteilungen brauchen, und was die Defaults sind.
+
 
 ```{r message=FALSE, warning=FALSE}
 library(brms)
 ```
 
+Diese Funktion nimmt als Argumente eine Formel, welche ein Regressionmodell spezifiert, und einen Dataframe. Alle weiteren Argumente sind optional. INdiesem Fall lautet unser Formel `IQ ~ 1`, was soviel bedeutet, wie: wir sagen den Erwartungswert vom IQ voraus, mit einem Achsenabschnitt (Intercept). Dieser Achsenabschnitt entspricht einem Parameter, den wir schätzen, und dieder Parameter wiederum entspricht dem Mittelwert $\mu$. Der andere Parameter, $\sigma$, wird hier nicht explizit erwähnt---dies ist ein sogennanter _nuisance_ Parameter; disen müssen wir schätzen, interessieren uns aber nicht besonders dafür. 
 
 ```{r}
 priors <- get_prior(IQ ~ 1,
           data = d)
-```
-
-
-```{r}
 priors
 ```
 
 
-## Priors
-
-### $\sigma$
 
 
-```{r echo=TRUE, eval=FALSE}
+#### Standardabweichung
+
+Für den Parameter $\sigma$ erhalten wir folgenden Vorschlag: eine `student_t(3, 0, 3)` Verteilung. Die ist ein t-Verteilung mit drei Parametern. Die Parameter zwei und drei mit den Werten 0 und 3 sind die beiden _location_ und _scale_ Parameter, ähnlich dem Mittelwert und der Standardabweichung einer Normalverteilung. Der erste Parameter, $\nu$, hat hier den Wert 3. Dieser Parameter wird oft als Normalitätsparameter bezeichnet---wenn $\nu \to \infty$ geht die t-Verteilung in eine Normalverteilung über. Grafik \@ref(fig:tdist) zeigt diese t-Verteilung. Sie drückt aus, dass wir Werte zwischen 0 und ca. 4 für die Standardabweichung erwarten. 
+
+
+Was hier verschwiegen wird, ist dass Stan nur die positive Hälfte der t-Verteilung als Prior nimmt, denn der Parameter $\sigma$ muss positiv sein.  Folglich muss der Wertebereich der Verteilung $(0, \infty]$ sein. Wir haben es hier also mit einer halben t-Verteilung zu tun.
+
+
+<aside>
+Wir können überprüfen, dass `brms` $\sigma$ so definiert, in dem wir uns den generierten Stan Code anschauen. Dies ist mit der Funktion `make_stancode(IQ ~ 1, data = d)` möglich.
+</aside>
+
+
+```{r tdist, fig.cap = "Prior für $\\sigma$."}
 tibble(x = seq(from = 0, to = 10, by = .025)) %>% 
   mutate(d = dt(x, df = 3)) %>% 
   ggplot(aes(x = x, ymin = 0, ymax = d)) +
@@ -278,27 +287,13 @@ tibble(x = seq(from = 0, to = 10, by = .025)) %>%
 ```
 
 
-```{r echo=FALSE, eval=TRUE}
-tibble(x = seq(from = 0, to = 10, by = .025)) %>% 
-  mutate(d = dt(x, df = 3)) %>% 
-  ggplot(aes(x = x, ymin = 0, ymax = d)) +
-  geom_ribbon(fill = "skyblue3") +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.05))) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
-  coord_cartesian(xlim = c(0, 8),
-                  ylim = c(0, 0.35)) +
-  xlab(expression(sigma)) +
-  labs(subtitle = "Half-student-t Distribution: Prior für Standardabweichung.") +
-  theme_bw(base_size = 14)
-```
+
+#### Mittelwert
+
+Für $\mu$ erhalten wir ebenfalls eine t-Verteilung, ` student_t(3, 102, 3)`. Diese hat ebenfalls einen Normalitätsparameter $\nu$ von 3, aber setzt die Location und Scale Parameter bei 102 und 3 (102 entspricht ungefähr dem Mittelwert). Grafik \@ref(fig:normaldist) yiegt diese Verteilung.
 
 
-## Priors
-
-
-### $\mu$
-
-```{r echo=TRUE, eval=FALSE}
+```{r normaldist, fig.cap = "Prior für $\\mu$."}
 tibble(x = seq(from = 0, to = 200, by = .025)) %>% 
   mutate(d = dnorm(x, mean = 102, sd = 3)) %>% 
   ggplot(aes(x = x, ymin = 0, ymax = d)) +
@@ -307,30 +302,16 @@ tibble(x = seq(from = 0, to = 200, by = .025)) %>%
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
   coord_cartesian(xlim = c(50, 150),
                   ylim = c(0, 0.15)) +
-  xlab(expression(sigma)) +
+  xlab(expression(mu)) +
   labs(subtitle = "Normalverteilter Prior für Mittelwert") +
   theme_bw(base_size = 14)
 ```
 
 
 
-```{r echo=FALSE}
-tibble(x = seq(from = 0, to = 200, by = .025)) %>% 
-  mutate(d = dnorm(x, mean = 102, sd = 3)) %>% 
-  ggplot(aes(x = x, ymin = 0, ymax = d)) +
-  geom_ribbon(fill = "skyblue3") +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.05))) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
-  coord_cartesian(xlim = c(50, 150),
-                  ylim = c(0, 0.15)) +
-  xlab(expression(sigma)) +
-  labs(subtitle = "Normalverteilter Prior für Mittelwert") +
-  theme_bw(base_size = 14)
-```
 
 
-
-## Prior Predictive Distribution
+### Prior Predictive Distribution
 
 ```{r}
 m1_prior <- brm(IQ ~ 1,
@@ -362,13 +343,13 @@ prior_pred_1 <- d %>%
   geom_point(aes(x = IQ), alpha = 0.4,  data = d) +
   scale_color_brewer() +
   theme_tidybayes()
-```
 
-```{r echo=FALSE}
 prior_pred_1
 ```
 
-## Vom Posterior Sampeln
+
+
+### Die Posterior Verteilung durch Sampling approximieren
 
 
 ```{r}
@@ -391,21 +372,25 @@ print(m1)
 ```
 
 
-## Posterior Quantile Intervals
+### Posterior Quantile Intervals
 
 ```{r}
-library(patchwork)
-mcmc_plot(m1, pars = "b") / mcmc_plot(m1, pars = "sigma")
+mcmc_plot(m1, pars = "b_") 
+```
+```{r}
+mcmc_plot(m1, pars = "sigma")
 ```
 
 
-## Posterior Samples
+### Posterior Samples extrahieren
 
 
 ```{r}
 samples <- posterior_samples(m1) %>% 
   transmute(mu = b_Intercept, sigma = sigma)
 ```
+
+
 
 ```{r}
 library(tidybayes)
@@ -415,7 +400,8 @@ samples %>%
   median_qi(.width = c(.50, .80, .95, .99))
 ```
 
-```{r echo=TRUE, eval = FALSE}
+
+```{r echo=TRUE}
 samples %>% 
   select(mu) %>% 
   median_qi(.width = c(.50, .80, .95, .99)) %>% 
@@ -425,20 +411,9 @@ samples %>%
   theme_tidybayes()
 ```
 
-```{r echo=FALSE, eval = TRUE}
-samples %>% 
-  select(mu) %>% 
-  median_qi(.width = c(.50, .80, .95, .99)) %>% 
-  ggplot(aes(x = mu, xmin = .lower, xmax = .upper)) +
-  geom_pointinterval() +
-  ylab("") +
-  theme_tidybayes()
-```
-
-## Posterior Samples
 
 
-```{r echo=TRUE, eval = FALSE}
+```{r echo=TRUE}
 samples %>% 
   select(mu) %>% 
   ggplot(aes(x = mu)) +
@@ -448,15 +423,9 @@ samples %>%
 
 
 
-```{r echo=FALSE, eval = TRUE}
-samples %>% 
-  select(mu) %>% 
-  ggplot(aes(x = mu)) +
-  stat_halfeye() +
-  theme_tidybayes()
-```
 
-```{r echo=TRUE, eval = FALSE}
+
+```{r echo=TRUE}
 samples %>% 
   select(sigma) %>% 
   ggplot(aes(x = sigma)) +
@@ -466,18 +435,7 @@ samples %>%
 
 
 
-```{r echo=FALSE, eval = TRUE}
-samples %>% 
-  select(sigma) %>% 
-  ggplot(aes(x = sigma)) +
-  stat_halfeye(point_interval = mode_hdi) +
-  theme_tidybayes()
-```
-
-
-
-
-## Posterior Predictive Distribution
+### Posterior Predictive Distribution
 
 ```{r}
 post_pred_1 <- d %>%
@@ -488,17 +446,20 @@ post_pred_1 <- d %>%
   geom_point(aes(x = IQ), alpha = 0.4,  data = d) +
   scale_color_brewer() +
   theme_tidybayes()
-```
 
-```{r}
 post_pred_1
 ```
 
 
 
-## Prior vs Posterior Predictive Distribution
+
+
+### Prior vs Posterior Predictive Distribution
 
 ```{r}
+# cowplot fall nötig installieren
+if (!("cowplot" %in% installed.packages())) {install.packages("cowplot")}
+
 cowplot::plot_grid(prior_pred_1, 
                    post_pred_1, 
                    labels = c('Prior predictive', 'Posterior predictive'), 
@@ -513,49 +474,36 @@ cowplot::plot_grid(prior_pred_1,
 
 ## Zwei Gruppen
 
-```{r echo=FALSE}
-library(ggridges)
-library(patchwork)
-
-# TwoGroupIQ %>%
-#    ggplot(aes(x = IQ, fill = Group)) +
-#       geom_dotplot(binwidth = 1) + facet_wrap(~Group) +
-#       scale_fill_manual(values = c("#0288b7", "#a90010"), guide = FALSE) +
-#       # scale_x_continuous(breaks = seq(1, 10, 1)) +
-#       scale_y_continuous(breaks = NULL) +
-#       labs(y = "Count", x = "IQ") +
-#       facet_wrap(~ Group, nrow = 2) +
-#       theme(panel.grid.major.x = element_blank())
-
-p_iq_ridges <- TwoGroupIQ %>%
-   ggplot(aes(x = IQ, y = fct_rev(Group), fill = Group)) +
-     stat_density_ridges(quantile_lines = TRUE,
-                       quantiles = 2,
-                       scale = 3, color = "white") +
+```{r}
+TwoGroupIQ %>%
+   ggplot(aes(x = IQ, fill = Group)) +
+      geom_dotplot(binwidth = 1) + 
       scale_fill_manual(values = c("#0288b7", "#a90010"), guide = FALSE) +
-      scale_x_continuous(breaks = seq(0, 10, 2)) +
-      labs(x = "IQ", y = NULL,
-         subtitle = "White line shows median rating")
-
-
-
-p_iq_ridges +
-  plot_annotation(title = "IQ difference",
-                  subtitle = "Smart drug vs placebo",
-                  theme = theme(plot.title = element_text(face = "bold",
+      scale_y_continuous(breaks = NULL) +
+      labs(y = "Count", x = "IQ") +
+      facet_wrap(~ Group, nrow = 2) +
+      plot_annotation(title = "IQ difference",
+                      subtitle = "Smart drug vs placebo",
+                      theme = theme(plot.title = element_text(face = "bold",
                                                           size = rel(1.5))))
 ```
 
 
 
+
 ## t-Test als Allgemeines Lineares Modell
 
-Annahme: Varianzgleichheit 
+Wir nehmen hier zunächst an, dass die beiden Gruppen dieselbe Varainz haben (Varianzgleichheit), obwohl wir vermuten, dass dies nicht der Fall ist.
+
+<aside>
+Diese Annahme wäre nicht nötig; wir könnten problemlos für beide Gruppen eine eigene Standardabweichung schätzen.
+</aside>
 
 
 ### Tradionelle Notation
 
 $$y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}$$
+
 $$\epsilon \sim N(0, \sigma^2)$$
 
 ### Probabilistische Notation
@@ -627,10 +575,11 @@ as_tibble(mm2) %>%
 ## Graphical Model
 
 
+<aside>
 ```{r normal-graphical-model-2, echo = FALSE, out.width = "20%", fig.cap="Graphical Model für 2 Gruppen."}
 knitr::include_graphics("images/two-group-iq-graphical-model.png")
 ```
-
+</aside>
 
 
 
@@ -644,6 +593,7 @@ priors2 <- get_prior(IQ ~ 1 + Group,
 ```{r}
 priors2
 ```
+
 
 
 ## Get Priors
