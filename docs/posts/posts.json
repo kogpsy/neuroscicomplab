@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-03-22-solution-1/",
+    "title": "Lösung zur Übung 1",
+    "description": "Die Lösung zur ersten Übung finden Sie unter Übungen.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-03-22",
+    "categories": [],
+    "contents": "\nDie Lösung finden Sie im Menu: Übungen > Übung 1: Lösung.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-03-22T09:26:44+01:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-04-uebung-1/",
     "title": "Übung 1",
     "description": "Die erste Übung ist online.",

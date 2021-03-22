@@ -116,11 +116,14 @@ Der $\theta$-Wert, für den diese Wahrscheinlichkeit am grössten ist, ist die M
 
 Sie können diese Wahrscheinlichkeit so graphisch darstellen.
 
+
 ```{r eval=FALSE, include=TRUE}
 tibble(theta_grid, likelihood) %>% 
   ggplot(aes(x = theta_grid, y = likelihood)) +
   geom_line()
 ```
+
+
 ## Aufgabe 2
 
 > Wenn Sie kein Vorwissen über die bisherigen Testresultate des Schülers hätten: Was würden Sie als Schätzung der Fähigkeit des Schülers benutzen?
@@ -134,12 +137,16 @@ Wenn wir nur den aktuellen Test haben, können wir entweder diese Maximum-Likeli
 ### Maximum-Likelihood Schätzung
 
 Wir suchen zuerst die grösste Wahrscheinlichkeit:
+
+
 ```{r}
 maxlik <- max(likelihood)
 ```
 
 
 Und suchen dann den Wert im `theta_grid`, für welchen die Wahrscheinlichkeit der grössten Wahrscheinlichkeit entspricht.
+
+
 ```{r}
 theta_maxlik <- theta_grid[likelihood == maxlik]
 theta_maxlik
@@ -276,7 +283,10 @@ Die Wahrscheinlichkeit, mehr als 8 Fragen richtig zu beantworten, ist
            prob = prior_ncorrect/prior_nquestions)
 ```
 
+
 oder 
+
+
 ```{r}
 pbinom(q = ncorrect-1, 
        size = nquestions, 
@@ -306,3 +316,13 @@ sum(dbinom(x = 9:10,
 ```
 
 
+### Bemerkung 
+
+Einige von Ihnen haben versucht, den Posterior zusammenzufassen, z.B. so:
+
+
+```{r}
+sum(posterior[theta_grid > 0.9])
+```
+
+Dies ist natürlich möglich, beantwortet aber eine andere Frage, und zwar: Was ist die Posterior Wahrscheinlichkeit von $\theta$, gegeben unsere Prior Beliefs und das Testresultat? Die Frage in Aufgabe 6 lautete aber: Was ist die Wahrscheinlichkeit, gegeben der Fähigkeit des Schülers, dass er 9 oder 10 Fragen richtig beantwortet?  Das wäre die Frage, die wir uns stellen, wenn wir frequentistische Statistik machen---die Frage nach der Wahrscheinlichkeit der Parameter dürfen wir uns dann gar nicht stellen.
