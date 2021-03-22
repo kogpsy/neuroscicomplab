@@ -2529,15 +2529,12 @@ Slides
 <ul>
 <li><a href="#mittelwert-und-standardabweichung-einer-normalverteilung-schätzen">Mittelwert und Standardabweichung einer Normalverteilung schätzen</a></li>
 <li><a href="#graphical-model">Graphical model</a></li>
-<li><a href="#beispiel-t-test-als-lineares-modell">Beispiel: t-Test als Lineares Modell</a></li>
+<li><a href="#beispiel-t-test">Beispiel: t-Test</a></li>
 <li><a href="#smart-drug-gruppe">Smart Drug Gruppe</a></li>
 <li><a href="#parameter-schätzen-mit-brms">Parameter schätzen mit brms</a></li>
 <li><a href="#priors-1">Priors</a></li>
 <li><a href="#priors-2">Priors</a></li>
 <li><a href="#prior-predictive-distribution">Prior Predictive Distribution</a></li>
-<li><a href="#prior-predictive-distribution-1">Prior Predictive Distribution</a></li>
-<li><a href="#prior-predictive-distribution-2">Prior Predictive Distribution</a></li>
-<li><a href="#prior-predictive-distribution-3">Prior Predictive Distribution</a></li>
 <li><a href="#vom-posterior-sampeln">Vom Posterior Sampeln</a></li>
 <li><a href="#posterior-quantile-intervals">Posterior Quantile Intervals</a></li>
 <li><a href="#posterior-samples">Posterior Samples</a></li>
@@ -2572,63 +2569,952 @@ Slides
 <p>Damit können wir die Wahrscheinlichkeit eines Datenpunktes berechnen, wenn wir die Parameter <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> kennen. Unter der Annahme, dass die drei Datenpunkte unabhängig sind, ist die Wahrscheinlichkeit der Daten das Produkt der Einzelwahrscheinlichkeiten.</p>
 <p>Wie aber finden wir die beiden Parameter der Normalverteilung, <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span>?</p>
 <h2 id="graphical-model">Graphical model</h2>
-<p>Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen.</p>
+<p>Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen. Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.</p>
 <aside>
-Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:normal-graphical-model"></span>
+<img src="images/normal-graphical-model-2.png" alt="Graphical Model für normalverteilte Daten." width="50%" />
+<p class="caption">
+Figure 1: Graphical Model für normalverteilte Daten.
+</p>
+</div>
+</div>
 </aside>
 <p>Die Variablen in diesem Modell sind:</p>
 <p><span class="math display">\[ \mu \sim ???  \]</span> <span class="math display">\[  \sigma \sim ??? \]</span> <span class="math display">\[ y \sim N(\mu, \sigma) \]</span></p>
-<h2 id="beispiel-t-test-als-lineares-modell">Beispiel: t-Test als Lineares Modell</h2>
+<p><span class="math inline">\(y\)</span> ist eine beobachtete Variable, und <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> sind parameter, welche geschätzt werden müssen. Dies können wir mit der Maximum-Likelihood Methode machen, um Punktschätzungen zu erhalten. Der folgende Code illustriert, wie das ungefähr funktioniert. Wir suche eine Kombination von <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span>, für welceh die Wahrscheinlichkeit am grössten ist, genau diese drei Dantepunkte zu beobachten. Anstatt alle möglichen Werte zu betrachten, wie in der Maximum-Likelihood Methode, nehmen wir drei Beispielswerte für <span class="math inline">\(\mu\)</span>, <span class="math inline">\(87.8, 100\)</span> und <span class="math inline">\(112\)</span>, und drei Werte für <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(7.35, 12.2\)</span> und <span class="math inline">\(18.4\)</span>. Wir erstellen dann die 9 möglichen Kombinationen dieser Werte, und benutzten ein Grid (von 50 bis 150) für die möglichen Datenpunkte.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sequence_length</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
+
+<span class='va'>d1</span> <span class='op'>&lt;-</span> <span class='fu'>crossing</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>50</span>, to <span class='op'>=</span> <span class='fl'>150</span>, length.out <span class='op'>=</span> <span class='va'>sequence_length</span><span class='op'>)</span>,
+              mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>87.8</span>, <span class='fl'>100</span>, <span class='fl'>112</span><span class='op'>)</span>,
+              sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7.35</span>, <span class='fl'>12.2</span>, <span class='fl'>18.4</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>mutate</span><span class='op'>(</span>density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span><span class='op'>(</span><span class='va'>y</span>, mean <span class='op'>=</span> <span class='va'>mu</span>, sd <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span>,
+           mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mu</span>, labels <span class='op'>=</span> <span class='fu'>str_c</span><span class='op'>(</span><span class='st'>"mu=="</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>87.8</span>, <span class='fl'>100</span>, <span class='fl'>112</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+           sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>sigma</span>, 
+                          labels <span class='op'>=</span> <span class='fu'>str_c</span><span class='op'>(</span><span class='st'>"sigma=="</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7.35</span>, <span class='fl'>12.2</span>, <span class='fl'>18.4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<aside>
+Dieser Code dient dazu, ein Theme für <code>ggplot</code> zu erstellen.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>theme_set</span><span class='op'>(</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>theme</span><span class='op'>(</span>text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          axis.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          axis.ticks <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          legend.background <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+          legend.box.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                               color <span class='op'>=</span> <span class='st'>"transparent"</span><span class='op'>)</span>,
+          legend.key <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                    color <span class='op'>=</span> <span class='st'>"transparent"</span><span class='op'>)</span>,
+          legend.text <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          legend.title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>,
+          panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"white"</span>,
+                                          color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>,
+          panel.grid <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>In Grafik <a href="#fig:maxlik">2</a> werden nun die 9 Kombinationen, und die 3 beobachteten Datenpunkte (in Rot) dargestellt. Die Paratemeter <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> definieren jeweils eine Normalverteilung, und die gestrichelte Linie zeigt die Wahrscheinlichkeit eines Datenpunktes unter dieser Verteilung. Die Wahrscheinlichkeit der Daten ist gegeben durch das Produkt der Wahrscheinlichkeiten. Diejenigen Paramterwerte, welche die Wahrscheinlichkeit maximieren, “gewinnen.” In diesem Beispiel wäre das die mittlere Verteilung.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d1</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='fl'>0</span>, ymax <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>,
+              fill <span class='op'>=</span> <span class='st'>"steelblue"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>85</span>, <span class='fl'>100</span>, <span class='fl'>115</span><span class='op'>)</span>, 
+             linetype <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>85</span>, <span class='fl'>100</span>, <span class='fl'>115</span><span class='op'>)</span><span class='op'>)</span>,
+             <span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>0.002</span><span class='op'>)</span>,
+             size <span class='op'>=</span> <span class='fl'>2</span>, color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_y_continuous</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>italic</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>italic</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>*</span><span class='st'>"|"</span><span class='op'>*</span><span class='va'>mu</span><span class='op'>*</span><span class='st'>", "</span><span class='op'>*</span><span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span>, 
+                     expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>, breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Welche Normalverteilung?"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60</span>, <span class='fl'>140</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_grid</span><span class='op'>(</span><span class='va'>sigma</span> <span class='op'>~</span> <span class='va'>mu</span>, labeller <span class='op'>=</span> <span class='va'>label_parsed</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>panel.grid <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure"><span id="fig:maxlik"></span>
+<img src="03-bayesian-stats_files/figure-html5/maxlik-1.png" alt="Kombinationen von $\mu$ und $\sigma$ Parameterwerten." width="624" />
+<p class="caption">
+Figure 2: Kombinationen von <span class="math inline">\(\mu\)</span> und <span class="math inline">\(\sigma\)</span> Parameterwerten.
+</p>
+</div>
+</div>
+<h2 id="beispiel-t-test">Beispiel: t-Test</h2>
+<p>Um die Parameter einer Normalverteilung mittels Markov Chain Monte Carlo Sampling Bayesian zu schätzen, nehmen wir ein Beispiel aus dem Buch Doing Bayesian Data Analysis <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span>.</p>
 <div class="note">
 <p>Wir haben IQ Scores einer Stichprobe, welche eine “Smart Drug” konsumiert hat. IQ Werte sind so normiert, dass wir in der Bevölkerung einen Mittelwert von 100, und eine SD von 15 haben. Nun wollen wir wissen, ob und wie sich die “Smart Drug” Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig haben wir auch eine Gruppe, welche ein Placebo konsumiert hat.</p>
 </div>
-<p>Die Daten sind aus dem Buch Doing Bayesian Data Analysis <span class="citation" data-cites="kruschkeDoingBayesianData2015">(<a href="#ref-kruschkeDoingBayesianData2015" role="doc-biblioref">Kruschke 2015</a>)</span>; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.</p>
+<p>Wir können die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>smart</span> <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>IQ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>104</span>,<span class='fl'>102</span>,<span class='fl'>97</span>,<span class='fl'>105</span>,<span class='fl'>105</span>,<span class='fl'>98</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>123</span>,<span class='fl'>105</span>,<span class='fl'>103</span>,
+                      <span class='fl'>100</span>,<span class='fl'>95</span>,<span class='fl'>102</span>,<span class='fl'>106</span>,<span class='fl'>109</span>,<span class='fl'>102</span>,<span class='fl'>82</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,
+                      <span class='fl'>103</span>,<span class='fl'>103</span>,<span class='fl'>97</span>,<span class='fl'>97</span>,<span class='fl'>103</span>,<span class='fl'>101</span>,<span class='fl'>97</span>,<span class='fl'>104</span>,<span class='fl'>96</span>,<span class='fl'>103</span>,<span class='fl'>124</span>,<span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,
+                      <span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>104</span>,<span class='fl'>100</span>,<span class='fl'>101</span><span class='op'>)</span>,
+               Group <span class='op'>=</span> <span class='st'>"SmartDrug"</span><span class='op'>)</span>
+
+<span class='va'>placebo</span> <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>IQ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>97</span>,<span class='fl'>101</span>,<span class='fl'>104</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>105</span>,
+                        <span class='fl'>88</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>104</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>103</span>,<span class='fl'>97</span>,<span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,
+                        <span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>99</span>,<span class='fl'>100</span>,<span class='fl'>99</span><span class='op'>)</span>,
+                 Group <span class='op'>=</span> <span class='st'>"Placebo"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TwoGroupIQ</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>smart</span>, <span class='va'>placebo</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>mutate</span><span class='op'>(</span>Group <span class='op'>=</span> <span class='fu'>fct_relevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span>, <span class='st'>"Placebo"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Mit diesen Daten könnten wir einen t-Test machen, um die Mittelwerte der beiden Gruppen zu vergleichen. Die Mittelwertem sowie die beiden Standardabweichungen, können wir so schätzen.</p>
 <aside>
-Kruschke, John. Doing Bayesian Data Analysis (2nd Ed.). Boston: Academic Press, 2015.
+Diese entsprechen den Maximum-Likelihood Schätzungen.
 </aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
+
+<span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>summarise</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>IQ</span><span class='op'>)</span>,
+            sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>IQ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mutate</span><span class='op'>(</span><span class='fu'>across</span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.numeric</span><span class='op'>)</span>, <span class='va'>round</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"striped"</span>, <span class='st'>"hover"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Group
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Placebo
+</td>
+<td style="text-align:right;">
+100.36
+</td>
+<td style="text-align:right;">
+2.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SmartDrug
+</td>
+<td style="text-align:right;">
+101.91
+</td>
+<td style="text-align:right;">
+6.02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Die Smart Drug Gruppe hat einen leicht grösseren Mittelwert, aber auch eine grössere Standardabweichung, weshlab wir hier einen Welch-Test einem t-Test vorziehen würden.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+       data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  IQ by Group
+t = -1.6222, df = 63.039, p-value = 0.1098
+alternative hypothesis: true difference in means between group Placebo and group SmartDrug is not equal to 0
+95 percent confidence interval:
+ -3.4766863  0.3611848
+sample estimates:
+  mean in group Placebo mean in group SmartDrug 
+               100.3571                101.9149 </code></pre>
+</div>
+<aside>
+Dieser Welch-Test zeigt keine signifikante Mittelwertsdifferenz, mit einem p-Wert von <span class="math inline">\(0.1098\)</span>.
+</aside>
+<p>Mit diesem nicht-signifikanten Welch-Test gibt es nun nicht viele Möglichkeiten, weiterzufahren. Slebstverständlich hätten wir die Power dieses Test erhöhen können, aber nachdem die Daten gesammelt wurden, ist diese Erkenntnis nicht sehr hilfreich.</p>
 <h2 id="smart-drug-gruppe">Smart Drug Gruppe</h2>
+<p>Wir ignorieren zunächst die Kontrollgruppe, und versuchen, die Parameter der Smart Drug Gruppe mit dem <code>brms</code> Package zu schätzen.</p>
+<p>Wir erstelln zuerst einen Subdatensatz:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Group</span> <span class='op'>==</span> <span class='st'>"SmartDrug"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>Group <span class='op'>=</span> <span class='fu'>fct_drop</span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_histogram</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"skyblue3"</span>, binwidth <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_tidybayes</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
 <h2 id="parameter-schätzen-mit-brms">Parameter schätzen mit brms</h2>
+<p>Wir wollen nun einen Mittelwert, und eine Standardabweichung mit <code>brms</code> schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen.</p>
 <h3 id="priors">Priors</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/paul-buerkner/brms'>brms</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
+          data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span>
+</code></pre>
+</div>
+<pre><code>                prior     class coef group resp dpar nlpar bound
+ student_t(3, 102, 3) Intercept                                 
+   student_t(3, 0, 3)     sigma                                 
+  source
+ default
+ default</code></pre>
+</div>
 <h2 id="priors-1">Priors</h2>
 <h3 id="sigma"><span class="math inline">\(\sigma\)</span></h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>, to <span class='op'>=</span> <span class='fl'>10</span>, by <span class='op'>=</span> <span class='fl'>.025</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>d <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>dt</a></span><span class='op'>(</span><span class='va'>x</span>, df <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, ymin <span class='op'>=</span> <span class='fl'>0</span>, ymax <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_ribbon</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"skyblue3"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>, breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>8</span><span class='op'>)</span>,
+                  ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.35</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>xlab</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>subtitle <span class='op'>=</span> <span class='st'>"Half-student-t Distribution: Prior für Standardabweichung."</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+</div>
 <h2 id="priors-2">Priors</h2>
 <h3 id="mu"><span class="math inline">\(\mu\)</span></h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>0</span>, to <span class='op'>=</span> <span class='fl'>200</span>, by <span class='op'>=</span> <span class='fl'>.025</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>d <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span><span class='op'>(</span><span class='va'>x</span>, mean <span class='op'>=</span> <span class='fl'>102</span>, sd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, ymin <span class='op'>=</span> <span class='fl'>0</span>, ymax <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_ribbon</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"skyblue3"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>expand <span class='op'>=</span> <span class='fu'>expansion</span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>, breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>150</span><span class='op'>)</span>,
+                  ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.15</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>xlab</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>subtitle <span class='op'>=</span> <span class='st'>"Normalverteilter Prior für Mittelwert"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
 <h2 id="prior-predictive-distribution">Prior Predictive Distribution</h2>
-<h2 id="prior-predictive-distribution-1">Prior Predictive Distribution</h2>
-<h2 id="prior-predictive-distribution-2">Prior Predictive Distribution</h2>
-<h2 id="prior-predictive-distribution-3">Prior Predictive Distribution</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
+          prior <span class='op'>=</span> <span class='va'>priors</span>,
+          data <span class='op'>=</span> <span class='va'>d</span>,
+          sample_prior <span class='op'>=</span> <span class='st'>"only"</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-prior-1"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 1 
+   Data: d (Number of observations: 47) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept   101.95      6.20    92.34   111.71 1.00     2048     1510
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     3.75     17.71     0.10    12.94 1.00     1757     1199
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-19-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://mjskay.github.io/tidybayes/'>tidybayes</a></span><span class='op'>)</span>
+
+<span class='va'>prior_pred_1</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>m1_prior</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Group</span>, x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_interval.html'>stat_interval</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-21-1.png" width="624" /></p>
+</div>
 <h2 id="vom-posterior-sampeln">Vom Posterior Sampeln</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span>,
+          prior <span class='op'>=</span> <span class='va'>priors</span>,
+          data <span class='op'>=</span> <span class='va'>d</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-1"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-23-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 1 
+   Data: d (Number of observations: 47) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept   101.92      0.83   100.31   103.53 1.00     3134     2075
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     6.04      0.64     4.96     7.47 1.00     3060     2458
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
 <h2 id="posterior-quantile-intervals">Posterior Quantile Intervals</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m1</span>, pars <span class='op'>=</span> <span class='st'>"sigma"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-25-1.png" width="624" /></p>
+</div>
 <h2 id="posterior-samples">Posterior Samples</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>transmute</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='va'>b_Intercept</span>, sigma <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://mjskay.github.io/tidybayes/'>tidybayes</a></span><span class='op'>)</span>
+
+<span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>mu</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>        mu    .lower   .upper .width .point .interval
+1 101.9132 101.36505 102.4841   0.50 median        qi
+2 101.9132 100.86039 102.9730   0.80 median        qi
+3 101.9132 100.30502 103.5255   0.95 median        qi
+4 101.9132  99.71696 104.1686   0.99 median        qi</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>mu</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mu</span>, xmin <span class='op'>=</span> <span class='va'>.lower</span>, xmax <span class='op'>=</span> <span class='va'>.upper</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/geom_pointinterval.html'>geom_pointinterval</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>ylab</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
+</div>
 <h2 id="posterior-samples-1">Posterior Samples</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>mu</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>mu</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-31-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>sigma</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>point_interval <span class='op'>=</span> <span class='va'>mode_hdi</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
+</div>
 <h2 id="posterior-predictive-distribution">Posterior Predictive Distribution</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>post_pred_1</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Group</span>, x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_interval.html'>stat_interval</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>post_pred_1</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-35-1.png" width="624" /></p>
+</div>
 <h2 id="prior-vs-posterior-predictive-distribution">Prior vs Posterior Predictive Distribution</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>cowplot</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span><span class='va'>prior_pred_1</span>, 
+                   <span class='va'>post_pred_1</span>, 
+                   labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Prior predictive'</span>, <span class='st'>'Posterior predictive'</span><span class='op'>)</span>, 
+                   label_size <span class='op'>=</span> <span class='fl'>12</span>,
+                   align <span class='op'>=</span> <span class='st'>"h"</span>,
+                   nrow <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-36-1.png" width="624" /></p>
+</div>
 <h2 id="zwei-gruppen">Zwei Gruppen</h2>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-37-1.png" width="624" /></p>
+</div>
 <h2 id="t-test-als-allgemeines-lineares-modell">t-Test als Allgemeines Lineares Modell</h2>
-<ul>
-<li>Annahme: Varianzgleichheit</li>
-</ul>
+<p>Annahme: Varianzgleichheit</p>
 <h3 id="tradionelle-notation">Tradionelle Notation</h3>
-<p><span class="math display">\[y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}\]</span> <span class="math display">\[\epsilon \sim N(0, \sigma^2)\]</span> –</p>
+<p><span class="math display">\[y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}\]</span> <span class="math display">\[\epsilon \sim N(0, \sigma^2)\]</span></p>
 <h3 id="probabilistische-notation">Probabilistische Notation</h3>
 <p><span class="math display">\[y_{ij} \sim N(\mu, \sigma^2)\]</span> <span class="math display">\[\mu_{ij} = \alpha + \beta x_{ij}\]</span></p>
 <p><span class="math inline">\(X_{ij}\)</span> ist eine Indikatorvariable.</p>
 <h2 id="ordinary-least-squares-schätzung">Ordinary Least Squares Schätzung</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>TwoGroupIQ</span><span class='op'>$</span><span class='va'>Group</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Placebo&quot;   &quot;SmartDrug&quot;</code></pre>
+</div>
 <p>Mit R Formelnotation:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_ols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+              data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_ols</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = IQ ~ Group, data = TwoGroupIQ)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.9149  -0.9149   0.0851   1.0851  22.0851 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    100.3571     0.7263 138.184   &lt;2e-16 ***
+GroupSmartDrug   1.5578     0.9994   1.559    0.123    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 4.707 on 87 degrees of freedom
+Multiple R-squared:  0.02717,   Adjusted R-squared:  0.01599 
+F-statistic:  2.43 on 1 and 87 DF,  p-value: 0.1227</code></pre>
+</div>
 <h2 id="dummy-coding-in-r">Dummy Coding in R</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>TwoGroupIQ</span><span class='op'>$</span><span class='va'>Group</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>          SmartDrug
+Placebo           0
+SmartDrug         1</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>Group</span>, data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mm1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  (Intercept) GroupSmartDrug
+1           1              1
+2           1              1
+3           1              1
+4           1              1
+5           1              1
+6           1              1</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>mm1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice_sample</span><span class='op'>(</span>n<span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 2
+# Groups:   GroupSmartDrug [2]
+  `(Intercept)` GroupSmartDrug
+          &lt;dbl&gt;          &lt;dbl&gt;
+1             1              0
+2             1              0
+3             1              0
+4             1              1
+5             1              1
+6             1              1</code></pre>
+</div>
 <h2 id="dummy-coding-in-r-1">Dummy Coding in R</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>mm1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice_sample</span><span class='op'>(</span>n<span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 2
+# Groups:   GroupSmartDrug [2]
+  `(Intercept)` GroupSmartDrug
+          &lt;dbl&gt;          &lt;dbl&gt;
+1             1              0
+2             1              0
+3             1              0
+4             1              1
+5             1              1
+6             1              1</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>, data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+<span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>mm2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>slice_sample</span><span class='op'>(</span>n<span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 2
+# Groups:   GroupSmartDrug [2]
+  GroupPlacebo GroupSmartDrug
+         &lt;dbl&gt;          &lt;dbl&gt;
+1            1              0
+2            1              0
+3            1              0
+4            0              1
+5            0              1
+6            0              1</code></pre>
+</div>
 <h2 id="graphical-model-1">Graphical Model</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:normal-graphical-model-2"></span>
+<img src="images/two-group-iq-graphical-model.png" alt="Graphical Model für 2 Gruppen." width="20%" />
+<p class="caption">
+Figure 3: Graphical Model für 2 Gruppen.
+</p>
+</div>
+</div>
 <h2 id="get-priors">Get Priors</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+                     data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2</span>
+</code></pre>
+</div>
+<pre><code>                  prior     class           coef group resp dpar
+                 (flat)         b                               
+                 (flat)         b GroupSmartDrug                
+ student_t(3, 101, 2.5) Intercept                               
+   student_t(3, 0, 2.5)     sigma                               
+ nlpar bound       source
+                  default
+             (vectorized)
+                  default
+                  default</code></pre>
+</div>
 <h2 id="get-priors-1">Get Priors</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+                     data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3</span>
+</code></pre>
+</div>
+<pre><code>                prior class           coef group resp dpar nlpar
+               (flat)     b                                     
+               (flat)     b   GroupPlacebo                      
+               (flat)     b GroupSmartDrug                      
+ student_t(3, 0, 2.5) sigma                                     
+ bound       source
+            default
+       (vectorized)
+       (vectorized)
+            default</code></pre>
+</div>
 <h2 id="priors-definieren-und-vom-prior-sampeln">Priors definieren und vom Prior Sampeln</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors2_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>2</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+          prior <span class='op'>=</span> <span class='va'>priors2_b</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+          sample_prior <span class='op'>=</span> <span class='st'>"only"</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-prior-2"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior_pred_2</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>m2_prior</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Group</span>, x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_interval.html'>stat_interval</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-53-1.png" width="624" /></p>
+</div>
 <h2 id="priors-definieren-und-vom-prior-sampeln-1">Priors definieren und vom Prior Sampeln</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors3_b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>10</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3_prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+          prior <span class='op'>=</span> <span class='va'>priors3_b</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+          sample_prior <span class='op'>=</span> <span class='st'>"only"</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-prior-3"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior_pred_3</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>m3_prior</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Group</span>, x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_interval.html'>stat_interval</a></span><span class='op'>(</span>.width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.50</span>, <span class='fl'>.80</span>, <span class='fl'>.95</span>, <span class='fl'>.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.4</span>,  data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-57-1.png" width="624" /></p>
+</div>
 <h2 id="posterior-sampling">Posterior Sampling</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span>,
+          prior <span class='op'>=</span> <span class='va'>priors2_b</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-2"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Group</span>,
+          prior <span class='op'>=</span> <span class='va'>priors3_b</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+          file <span class='op'>=</span> <span class='st'>"models/twogroupiq-3"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
 <h2 id="summary">Summary</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 1 + Group 
+   Data: TwoGroupIQ (Number of observations: 89) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept        100.51      0.69    99.18   101.90 1.00     3735
+GroupSmartDrug     1.23      0.88    -0.49     2.95 1.00     3633
+               Tail_ESS
+Intercept          2921
+GroupSmartDrug     3160
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     4.72      0.36     4.09     5.52 1.00     3002     2088
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
 <h2 id="summary-1">Summary</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 0 + Group 
+   Data: TwoGroupIQ (Number of observations: 89) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+GroupPlacebo     100.35      0.73    98.95   101.75 1.00     3914
+GroupSmartDrug   101.92      0.69   100.62   103.28 1.00     4057
+               Tail_ESS
+GroupPlacebo       3163
+GroupSmartDrug     2954
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     4.71      0.36     4.07     5.45 1.00     3342     2697
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m2</span>, <span class='st'>"b_GroupSmartDrug"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-62-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>m3</span>, <span class='st'>"b"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-63-1.png" width="624" /></p>
+</div>
 <h2 id="get-posterior-samples">Get Posterior Samples</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m3</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>transmute</span><span class='op'>(</span>Placebo <span class='op'>=</span> <span class='va'>b_GroupPlacebo</span>, 
+              SmartDrug <span class='op'>=</span> <span class='va'>b_GroupSmartDrug</span>,
+              sigma <span class='op'>=</span> <span class='va'>sigma</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>&lt;-</span> <span class='va'>samples_m3</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>diff <span class='op'>=</span> <span class='va'>SmartDrug</span> <span class='op'>-</span> <span class='va'>Placebo</span>,
+         effect_size <span class='op'>=</span> <span class='va'>diff</span><span class='op'>/</span><span class='va'>sigma</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
 <h2 id="get-posterior-samples-1">Get Posterior Samples</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>diff</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     diff     .lower   .upper .width .point .interval
+1 1.57189 -0.3887631 3.521777   0.95 median        qi</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>diff</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>diff</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>point_interval <span class='op'>=</span> <span class='va'>median_qi</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-67-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_m3</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>effect_size</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>effect_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>point_interval <span class='op'>=</span> <span class='va'>median_qi</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-68-1.png" width="624" /></p>
+</div>
 <h2 id="diesmal-ohne-eigene-priors">Diesmal ohne eigene Priors</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_eqvar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+                 data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+                 file <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"models/fit_eqvar"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit_eqvar</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/spread_draws.html'>gather_draws</a></span><span class='op'>(</span><span class='va'>b_GroupSmartDrug</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>.variable</span>, x <span class='op'>=</span> <span class='va'>.value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"Steelblue4"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, color <span class='op'>=</span> <span class='st'>"white"</span>, linetype <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>ylab</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>xlab</span><span class='op'>(</span><span class='st'>"Estimated difference"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-70-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>modelr</span><span class='fu'>::</span><span class='fu'><a href='https://modelr.tidyverse.org/reference/data_grid.html'>data_grid</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span>
+
+<span class='va'>fits_IQ</span> <span class='op'>&lt;-</span> <span class='va'>grid</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_fitted_draws</a></span><span class='op'>(</span><span class='va'>fit_eqvar</span><span class='op'>)</span>
+
+<span class='va'>preds_IQ</span> <span class='op'>&lt;-</span> <span class='va'>grid</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/add_predicted_draws.html'>add_predicted_draws</a></span><span class='op'>(</span><span class='va'>fit_eqvar</span><span class='op'>)</span>
+
+<span class='va'>pp_eqvar</span> <span class='op'>&lt;-</span> <span class='va'>TwoGroupIQ</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>IQ</span>, y <span class='op'>=</span> <span class='va'>Group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_sample_slabinterval.html'>stat_halfeye</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>.value</span><span class='op'>)</span>,
+                  scale <span class='op'>=</span> <span class='fl'>0.7</span>,
+                  position <span class='op'>=</span> <span class='fu'>position_nudge</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>,
+                  data <span class='op'>=</span> <span class='va'>fits_IQ</span>,
+                  .width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.66</span>, <span class='fl'>.95</span>, <span class='fl'>0.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/stat_interval.html'>stat_interval</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>.prediction</span><span class='op'>)</span>,
+                   data <span class='op'>=</span> <span class='va'>preds_IQ</span>,
+                   .width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.66</span>, <span class='fl'>.95</span>, <span class='fl'>0.99</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_x_continuous</span><span class='op'>(</span>limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>75</span>, <span class='fl'>125</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_point</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_color_brewer</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Equal variance model predictions"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="03-bayesian-stats_files/figure-html5/unnamed-chunk-72-1.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-kruschkeDoingBayesianData2015" class="csl-entry" role="doc-biblioentry">
 Kruschke, John. 2015. <em>Doing Bayesian Data Analysis (Second Edition)</em>. <span>Boston</span>: <span>Academic Press</span>.

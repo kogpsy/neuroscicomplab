@@ -1,5 +1,5 @@
 ---
-title: "Übung 1"
+title: "Übung 1: Lösung"
 description: |
   Schätzen des Parameters $\theta$ einer Binomialverteilung.
 date: "`r Sys.Date()`"
@@ -27,14 +27,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Aufgabenstellung
-
-:::exercise
-Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-1.Rmd* oder *Matrikelnummer_Nachname_uebung-1.R*, z. B. *15-172-874_Nachname_uebung-1.Rmd*.
-:::
-
-:::note
-Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
-:::
 
 Sie verabreichen einen Test, der aus 10 Fragen besteht. Die Fragen sind etwa gleich schwierig, und Sie sind sich sicher, dass die Fragen weder zu leicht noch zu schwierig für Ihre Schüler sind. Beim Betrachten der Resultate fällt Ihnen das Ergebnis eines Schülers besonders auf.
 

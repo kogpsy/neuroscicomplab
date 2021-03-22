@@ -24,7 +24,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache = TRUE, include = FALSE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 library(tidyverse)
 ```
 
@@ -52,15 +52,17 @@ Wie aber finden wir die beiden Parameter der Normalverteilung, $\mu$ und $\sigma
 
 ## Graphical model
  
-Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen.
+Wir können wir schon im letzten Kapitel das Problem als Graphical Model darstellen. Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.
+
 
 <aside>
-Dies hilft, das Problm zu veranschaulichen; vor allem wenn wir komplexere Probleme betrachten, kann dies hilfreich sein.
-</aside>
-
-```{r normal-graphical-model, echo = FALSE, out.width = "50%", fig.cap="Graphical Model für normalverteilte Daten."}
+```{r normal-graphical-model, echo = FALSE, fig.cap="Graphical Model für normalverteilte Daten.", fig.width=2, fig.height=2, out.width = "50%"}
 knitr::include_graphics("images/normal-graphical-model-2.png")
 ```
+</aside>
+
+
+
 
 Die Variablen in diesem Modell sind: 
 
@@ -70,10 +72,13 @@ $$  \sigma \sim ??? $$
 $$ y \sim N(\mu, \sigma) $$
 
 
+$y$ ist eine beobachtete Variable, und $\mu$ und $\sigma$ sind parameter, welche geschätzt werden müssen. Dies können wir mit der Maximum-Likelihood Methode machen, um Punktschätzungen zu erhalten. Der folgende Code illustriert, wie das ungefähr funktioniert. Wir suche eine Kombination von $\mu$ und $\sigma$, für welceh die Wahrscheinlichkeit am grössten ist, genau diese drei Dantepunkte zu beobachten. Anstatt alle möglichen Werte zu betrachten, wie in der Maximum-Likelihood Methode,  nehmen wir drei Beispielswerte für $\mu$, $87.8, 100$ und $112$, und drei Werte für $\sigma$, $7.35, 12.2$ und $18.4$. Wir erstellen dann die 9 möglichen Kombinationen dieser Werte, und benutzten ein Grid (von 50 bis 150) für die möglichen Datenpunkte.
 
-```{r message=FALSE, warning=FALSE, results='hide'}
+```{r}
 library(tidyverse)
 ```
+
+
 ```{r}
 sequence_length <- 100
 
@@ -86,6 +91,11 @@ d1 <- crossing(y = seq(from = 50, to = 150, length.out = sequence_length),
                           labels = str_c("sigma==", c(7.35, 12.2, 18.4))))
 ```
 
+
+
+<aside>
+Dieser Code dient dazu, ein Theme für `ggplot` zu erstellen.
+</aside>
 
 ```{r}
 theme_set(
@@ -107,7 +117,10 @@ theme_set(
 ```
 
 
-```{r echo=TRUE, eval=FALSE}
+In Grafik \@ref(fig:maxlik) werden nun die 9 Kombinationen, und die 3 beobachteten Datenpunkte (in Rot) dargestellt. Die Paratemeter $\mu$ und $\sigma$ definieren jeweils eine Normalverteilung, und die gestrichelte Linie zeigt die Wahrscheinlichkeit eines Datenpunktes unter dieser Verteilung. Die Wahrscheinlichkeit der Daten ist gegeben durch das Produkt der Wahrscheinlichkeiten. Diejenigen Paramterwerte, welche die Wahrscheinlichkeit maximieren, "gewinnen". In diesem Beispiel wäre das die mittlere Verteilung.
+
+
+```{r maxlik, fig.cap = "Kombinationen von $\\mu$ und $\\sigma$ Parameterwerten."}
 d1 %>% 
   ggplot(aes(x = y)) +
   geom_ribbon(aes(ymin = 0, ymax = density),
@@ -126,26 +139,13 @@ d1 %>%
   theme(panel.grid = element_blank())
 ```
 
-```{r echo=FALSE, eval=TRUE}
-d1 %>% 
-  ggplot(aes(x = y)) +
-  geom_ribbon(aes(ymin = 0, ymax = density),
-              fill = "steelblue") +
-  geom_vline(xintercept = c(85, 100, 115), 
-             linetype = 3, color = "white") +
-  geom_point(data = tibble(y = c(85, 100, 115)),
-             aes(y = 0.002),
-             size = 2, color = "red") +
-  scale_y_continuous(expression(italic(p)(italic(y)*"|"*mu*", "*sigma)), 
-                     expand = expansion(mult = c(0, 0.05)), breaks = NULL) +
-  ggtitle("Welche Normalverteilung?") +
-  coord_cartesian(xlim = c(60, 140)) +
-  facet_grid(sigma ~ mu, labeller = label_parsed) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
-```
 
-## Beispiel: t-Test als Lineares Modell
+
+## Beispiel: t-Test
+Um die Parameter einer Normalverteilung mittels Markov Chain Monte Carlo Sampling Bayesian zu schätzen, nehmen wir ein Beispiel aus dem Buch Doing Bayesian Data Analysis [@kruschkeDoingBayesianData2015].
+
+
+
 
 :::note
 Wir haben IQ Scores einer Stichprobe, welche eine "Smart Drug" konsumiert hat.
@@ -155,12 +155,7 @@ Drug" Gruppe von von diesem erwarteten Mittelwert unterscheidet. Gleichzeitig
 haben wir auch eine Gruppe, welche ein Placebo konsumiert hat.
 :::
 
-Die Daten sind aus dem Buch Doing Bayesian Data Analysis [@kruschkeDoingBayesianData2015]; wir können hier einfach die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.
-
-<aside>
-Kruschke, John. Doing Bayesian Data Analysis (2nd Ed.). Boston: Academic Press, 2015.
-</aside>
-
+Wir können die Daten von Hand eingeben, und zu einem Dataframe zusammenfügen.
 
 
 ```{r}
@@ -183,6 +178,13 @@ TwoGroupIQ <- bind_rows(smart, placebo) %>%
 ```
 
 
+
+Mit diesen Daten könnten wir einen t-Test machen, um die Mittelwerte der beiden Gruppen zu vergleichen. Die Mittelwertem sowie die beiden Standardabweichungen, können wir so schätzen.
+
+<aside>
+Diese entsprechen den Maximum-Likelihood Schätzungen.
+</aside>
+
 ```{r}
 library(kableExtra)
 
@@ -195,9 +197,25 @@ TwoGroupIQ %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+Die Smart Drug Gruppe hat einen leicht grösseren Mittelwert, aber auch eine grössere Standardabweichung, weshlab wir hier einen Welch-Test einem t-Test vorziehen würden.
+
+```{r}
+t.test(IQ ~ Group,
+       data = TwoGroupIQ)
+```
+
+<aside>
+Dieser Welch-Test zeigt keine signifikante Mittelwertsdifferenz, mit einem p-Wert von $0.1098$.
+</aside>
+
+Mit diesem nicht-signifikanten Welch-Test gibt es nun nicht viele Möglichkeiten, weiterzufahren. Slebstverständlich hätten wir die Power dieses Test erhöhen können, aber nachdem die Daten gesammelt wurden, ist diese Erkenntnis nicht sehr hilfreich.
+
 
 ## Smart Drug Gruppe
 
+Wir ignorieren zunächst die Kontrollgruppe, und versuchen, die Parameter der Smart Drug Gruppe mit dem `brms` Package zu schätzen.
+
+Wir erstelln zuerst einen Subdatensatz:
 
 ```{r}
 d <- TwoGroupIQ %>% 
@@ -206,7 +224,7 @@ d <- TwoGroupIQ %>%
 ```
 
 
-```{r eval=FALSE, echo=TRUE}
+```{r}
 d %>% 
   ggplot(aes(x = IQ)) +
   geom_histogram(fill = "skyblue3", binwidth = 1) +
@@ -214,16 +232,13 @@ d %>%
   theme_tidybayes()
 ```
 
-```{r smart-drug, echo=FALSE}
-d %>% 
-  ggplot(aes(x = IQ)) +
-  geom_histogram(fill = "skyblue3", binwidth = 1) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
-```
 
 
 
 ## Parameter schätzen mit brms
+
+Wir wollen nun einen Mittelwert, und eine Standardabweichung mit `brms` schätzen. Bevor wir anfangen, überlegen wir uns zuerst, welche Prior Verteilungen denn überhaupt in Frage kommen.
+
 
 ### Priors
 
@@ -280,6 +295,7 @@ tibble(x = seq(from = 0, to = 10, by = .025)) %>%
 
 ## Priors
 
+
 ### $\mu$
 
 ```{r echo=TRUE, eval=FALSE}
@@ -295,6 +311,7 @@ tibble(x = seq(from = 0, to = 200, by = .025)) %>%
   labs(subtitle = "Normalverteilter Prior für Mittelwert") +
   theme_bw(base_size = 14)
 ```
+
 
 
 ```{r echo=FALSE}
@@ -323,19 +340,16 @@ m1_prior <- brm(IQ ~ 1,
           file = "models/twogroupiq-prior-1")
 ```
 
-## Prior Predictive Distribution
 
 ```{r}
 summary(m1_prior)
 ```
 
-## Prior Predictive Distribution
 
 ```{r}
 plot(m1_prior)
 ```
 
-## Prior Predictive Distribution
 
 ```{r}
 library(tidybayes)
@@ -536,14 +550,13 @@ p_iq_ridges +
 
 ## t-Test als Allgemeines Lineares Modell
 
-- Annahme: Varianzgleichheit 
+Annahme: Varianzgleichheit 
 
 
 ### Tradionelle Notation
 
 $$y_{ij} = \alpha + \beta x_{ij} + \epsilon_{ij}$$
 $$\epsilon \sim N(0, \sigma^2)$$
---
 
 ### Probabilistische Notation
 
@@ -640,6 +653,7 @@ priors3 <- get_prior(IQ ~ 0 + Group,
                      data = TwoGroupIQ)
 ```
 
+
 ```{r}
 priors3
 ```
@@ -676,6 +690,7 @@ prior_pred_2 <- TwoGroupIQ %>%
   scale_color_brewer() +
   theme_tidybayes()
 ```
+
 
 ```{r echo=FALSE}
 prior_pred_2
@@ -856,6 +871,7 @@ pp_eqvar <- TwoGroupIQ %>%
 	labs(title = "Equal variance model predictions") +
   theme_tidybayes()
 ```
+
 
 
 ```{r echo=FALSE}
