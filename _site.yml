@@ -36,6 +36,8 @@ navbar:
       menu:
         - text: "Übung 1"
           href: exercise-1.html
+        - text: "Lösung zur Übung 1"
+          href: solution-1.html
 
 
   right:
