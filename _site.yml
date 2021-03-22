@@ -5,7 +5,8 @@ repository_url: https://github.com/kogpsy/neuroscicomplab
 source_url: https://github.com/kogpsy/neuroscicomplab
 description: |
   Neurowissenschaft im Computerlab
-include: ["slides/"]
+include: ["slides/", "data/"]
+exclude: ["_do_not_build/"]
 output_dir: "docs"
 theme: css/theme.css
 creative_commons: CC BY
@@ -48,7 +49,7 @@ navbar:
         - text: "2. Bayesianische Statistik: Von Grid Approximation zu Sampling"
           href: NA.tbd
         - text: "3. Bayesianische Statistik: Lineare Modelle mit `brms`"
-          href: NA.tbd
+          href: 03-bayesian-stats.html
         # - text: "3. Bayesianische Statistik: Modelvergleiche"
         #   href: 03-model-comparison.html
 
