@@ -153,7 +153,19 @@ ggplot(dat, aes(sub_cond, dv, color = stim_version)) +
 
 
 ```{r}
- write_csv(dat, file = "stroop-1.csv")
+write_csv(dat, file = "stroop-1.csv")
+```
+
+
+#### Create simple data set
+```{r}
+d <- dat %>% 
+  filter(sub_cond == "easy")
+  
+d %>% 
+  select(sub_id, stim_id, stim_version, rt) %>% 
+  mutate(rt = round(rt, 0)) %>% 
+  write_csv(file = "stroop-easy.csv")
 ```
 
 
