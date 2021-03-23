@@ -43,14 +43,15 @@ library(countdown)
 <!-- mixed(y ~ x + (1|subj), type=3,method="KR",data=myDat)  -->
 
 
-Bisher: zwei unabhängige Gruppen
+In dieser Sitzung behandeln wir messwiederholte Daten.  Dabei stellen wir uns vor allem die Frage:
 
-Was ist mit Messwiederholung?
+
+Wie können wir Messwiederholung als lineares Modell formulieren?
 
 
 --
 
-Wir fangen mit einem simplen Beispiel an.
+Wir fangen mit einem simplen Beispiel an, und untersuchen im zweiten Teil ein etwas komplexeres experimentelles Design.
 
 ---
 
@@ -61,7 +62,7 @@ class: middle
 ]
 .pull-right-wide[
   .larger[
-  Mittelwert schätzen
+  Mittelwerte schätzen
   ]
 ]
 
