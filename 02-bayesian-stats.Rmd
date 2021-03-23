@@ -22,35 +22,28 @@ output:
       code_folding: false
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 
+In der Forschung und Diagnostik interessieren uns oft Eigenschaften eines Prozesses oder einer Person, welche wir nicht direkt messen können. Deshalb werden Testverfahren und Experimente angewendet um diese latenten Variablen messbar zu machen. Mit statistischen Verfahren wird dann versucht aus den gemessenen Daten Informationen über die interessierende Eigenschaft zu erhalten. 
 
-# Zusammenfassung: Letzte Sitzung
+Uns kann beispielsweise die Aufmerksamkeitsleistung interessieren, welche wir mit einem Testverfahren für Aufmerksamkeit zu messen versuchen. Eine Neurowissenschaftlerin, welche sich für den Prozess von Aufmerksamkeit interessiert, würde versuchen die Aufmerksamkeitsleistung von vielen Leuten unter verschiedenen Bedingungen zu messen um zu untersuchen, durch was Aufmerksamkeit beeinflusst wird.  Ein klinischer Neuropsychologe hingegen hätte vielleicht das Ziel festzustellen, ob die Aufmerksamkeitsleistung einer Person von der Norm abweicht, beispielsweise weil sie durch einen Unfall eine Kopfverletzung erlitten hat. Beide messen Daten und beide ziehen aus den gemessenen Daten Rückschlüsse auf eine unterliegende Eigenschaft eines Prozesses oder einer Person. 
 
-
-- Parameterschätzung: Wahrscheinlichkeitsparameter einer Binomialverteilung
-- Beta Verteilungen
-- Grid Approximation
-
-## Bayes' Theorem
-
-$$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
-oder ohne Normalisierungskonstante: 
-
-$$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
-
-
+Wie das gemacht werden kann wird nachfolgend mit dem in Kapitel 1 eingeführten Beispiel [Link] der beiden Spielerinnen erklärt.
 
 
 ## Parameterschätzung: Parameter einer Binomialverteilung
 
+Wenn eine Spielerin A gegen Spielerin B spielt und 6 von 9 Spielen gewinnt, kann gefragt werden, ob Spielerin A besser ist als Spielerin B, also ob Spielerin A die höhere Wahrscheinlichkeit hat, das nächste Spiel zu gewinnen als Spielerin B. Wir interessieren uns für die Wahrscheinlichkeitsverteilung von einer latenten Eigenschaft, hier aufgeschrieben als Parameter  $\theta$. Da wir $\theta$ nicht direkt messen können, möchten wir es aufgrund der bisher gemessenen Daten schätzen. In unserem Beispiel ist $\theta$ ein Parameter einer Binomialverteilung:
+
 Die Binomial Likelihood ist gegeben durch
 
 $$ P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
+
+ 
+Wir haben folgende Daten beobachtet:
 
 ```{r}
 wins <- 6
@@ -60,10 +53,17 @@ games <- 9
 
 ### Maximum Likelihood Schätzung
 
+
+Die Maximum Likelihood Schätzung ergibt eine Punktschätzung des Parameters $\theta$. Dies ist der Parameterwert unter dem die beobachteten Daten am wahrscheinlichsten entstanden sind. Der grosse Nachteil einer Punktschätzung ist es, dass wir keine Wahrscheinlichkeitsverteilung erhalten. Es gäbe auch noch viele andere Parameterwerte, die dieses Ergebnis von 6 Siegen in 9 Spielen hervorbringen könnten, diese werden bei der Punktschätzung nicht beachtet. 
+
 ```{r}
 theta <- wins/games
 theta
 ```
+
+Wenn man ganz viele Male diese Spiele wiederholen würde, dann würde man diese Messung am wahrscheinlichsten reproduzieren können, wenn man für $\theta$ den Wert `r theta` einsetzt. 
+
+Um das zu veranschaulichen plotten wir die Wahrscheinlichkeit von 6 Siegen in 9 Spielen für alle Werte welche $\theta$ annehmen könnte. Diese Werte liegen zwischen 0 und 1, da wir von einer Wahrscheinlichkeit sprechen.
 
 ```{r}
 library(tidyverse)
@@ -83,11 +83,42 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
         legend.position = "none")
 ```
 
+Die Punktschätzung von $\theta$ wird mit der schwarzen gestrichelten Linie dargestellt. Doch eigentlich wissen wir mehr: Betrachtet man die hellblaue Fläche wird deutlich, dass auch etwas kleinere oder grössere Werte als die Punktschätzung mit grosser Wahrscheinlichkeit diese Daten hervorgebracht haben könnten. 
+
+## Bayes' Theorem
+
+In der Bayesianischen Statisik schaut man sich deshalb nicht nur eine Punktschätzung an, sondern die Wahrscheinlichkeitsverteilung von  $\theta$ unter den gemessenen Daten. Diese ergibt sich - wie im Bayes' Theorem formuliert - aus dem Produkt der Wahrscheinlichkeit der Daten unter den möglichen $\theta$ Werten und der Wahrscheinlichkeit von den  $\theta$ Werten normalisiert an der Wahrscheinlichkeit der Daten. Hier ist wichtig, dass wir eben eine Verteilung betrachten, also die Wahrscheinlichkeiten für ganz viele verschiedene Werte von  $\theta$.
+
+$$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
+oder ohne Normalisierungskonstante: 
+
+$$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
+
+
+## Grid Approximation
+
+Um diese Wahrscheinlichkeitsverteilung zu berechnen gibt es verschiedene Methoden. Eine davon ist die *grid approximation*. Diese ist rechnerisch sehr aufwändig und deshalb für komplizierte Modelle nicht geeignet. Die *grid approximation* zeigt aber anschaulich auf, wie wir eine Wahrscheinlichkeitsverteilung von $\theta$ schätzen können. Hierfür werden drei Schritte benötigt.
+
+1. Erstellen einer *grid*-Variable
+
+Wir erstellen eine Variable, welche eine eingeschränkte Menge an möglichen $\theta$-Werten beinhaltet. Anders ausgedrückt: Zwischen 0 und 1 gibt es unendlich viele Werte, wir schränken uns mit unserem *grid* auf eine begrenzte Zahl an Werten ein. Hier definieren wir unsere *grid*-Variable als 100 Punkte die gleichabständig zwischen 0 und 1 liegen.
+
 
 ```{r}
 n_points <- 100
 theta_grid <- seq(from = 0 , to = 1 , length.out = n_points)
 ```
+
+2. Definieren der Prior Verteilung
+
+Wir entscheiden uns für einen Prior, den wir für sinnvoll halten. Hier nehmen wir einen recht uninformativen Prior. Das bedeutet, dieser Prior enthält keine starken Vorannahmen, ob Spielerin A besser ist als Spielerin B. 
+
+```{r}
+prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
+
+```
+
+2. Errechnen der Posterior Verteilung aus Prior und Likelihood
 
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = theta_grid)
@@ -120,6 +151,11 @@ d %>%
 
 
 # Posterior Verteilungen zusammenfassen
+
+Statt einer Punktschätzung haben wir nun eine Wahrscheinlichkeitsverteilung des Parameters $\theta$. Nun möchten wir diese Verteilung nicht nur plotten können, sondern auch beschreiben. Eine Verteilung kann mit verschiedenen Angaben beschrieben werden. [LINK Kapitel 1].
+
+
+ 
 Samples aus dem Posterior ziehen:
 
 
