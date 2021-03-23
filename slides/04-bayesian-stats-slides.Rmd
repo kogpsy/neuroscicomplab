@@ -229,6 +229,7 @@ get_prior(IQ ~ 1 + (1 | Person),
 
 
 ---
+
 ## Partial pooling
 
 
@@ -361,7 +362,7 @@ person_effects %>%
 
 ---
 
-## Verlgeich mit No Pooling: Shrinkage
+## Vergleich mit No Pooling: Shrinkage
 
 .panelset[
 .panel[.panel-name[Plot Code]
@@ -371,11 +372,15 @@ col <- viridis::viridis(3, begin = 0.2, end = 0.8)
 
 person_effects %>% 
   ggplot(aes(mu, Person, fill = Person)) +
-  stat_halfeye() +
-  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "red", size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], size = 1) +
-   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], size = 1) +
+  stat_halfeye(alpha = 0.6) +
+  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "#ECCC87", 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], 
+             size = 1) +
+   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], 
+              size = 1) +
   scale_fill_viridis_d(begin = 0.2, end = 0.8) +
   labs(x = expression("Personen-spezifische Mittelwerte"),
        y = "Personen") +
@@ -391,11 +396,15 @@ col <- viridis::viridis(3, begin = 0.2, end = 0.8)
 
 person_effects %>% 
   ggplot(aes(mu, Person, fill = Person)) +
-  stat_halfeye() +
-  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "red", size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], size = 1) +
-   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], size = 1) +
+  stat_halfeye(alpha = 0.6) +
+  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "#ECCC87", 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], 
+             size = 1) +
+   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], 
+              size = 1) +
   scale_fill_viridis_d(begin = 0.2, end = 0.8) +
   labs(x = expression("Personen-spezifische Mittelwerte"),
        y = "Personen") +
@@ -673,6 +682,7 @@ priors
 
 ]
 ]
+
 ---
 
 
@@ -680,6 +690,12 @@ priors
 m2 <- brm(score ~ treat*time + (1 | id),
           data = d,
           file =  "models/04-treat-time") 
+```
+
+---
+
+```{r}
+summary(m2)
 ```
 
 

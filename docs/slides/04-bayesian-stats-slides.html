@@ -257,7 +257,7 @@ Wie würden Sie diese Daten analysieren?
 
 ]
 
-<div class="countdown" id="timer_6059a449" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6059a90d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -370,6 +370,7 @@ get_prior(IQ ~ 1 + (1 | Person),
 
 
 ---
+
 ## Partial pooling
 
 
@@ -583,7 +584,7 @@ person_effects %&gt;%
 
 ---
 
-## Verlgeich mit No Pooling: Shrinkage
+## Vergleich mit No Pooling: Shrinkage
 
 .panelset[
 .panel[.panel-name[Plot Code]
@@ -594,11 +595,15 @@ col &lt;- viridis::viridis(3, begin = 0.2, end = 0.8)
 
 person_effects %&gt;% 
   ggplot(aes(mu, Person, fill = Person)) +
-  stat_halfeye() +
-  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "red", size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], size = 1) +
-   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], size = 1) +
+  stat_halfeye(alpha = 0.6) +
+  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "#ECCC87", 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], 
+             size = 1) +
+   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], 
+              size = 1) +
   scale_fill_viridis_d(begin = 0.2, end = 0.8) +
   labs(x = expression("Personen-spezifische Mittelwerte"),
        y = "Personen") +
@@ -746,7 +751,7 @@ Wie würden Sie diese Daten analysieren?
 - Welche Methode(n) würden Sie hier anwenden?
 ]
 
-<div class="countdown" id="timer_6059a550" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6059a9dc" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1057,6 +1062,7 @@ priors
 
 ]
 ]
+
 ---
 
 
@@ -1065,6 +1071,42 @@ priors
 m2 &lt;- brm(score ~ treat*time + (1 | id),
           data = d,
           file =  "models/04-treat-time") 
+```
+
+---
+
+
+```r
+summary(m2)
+```
+
+```
+##  Family: gaussian 
+##   Links: mu = identity; sigma = identity 
+## Formula: score ~ treat * time + (1 | id) 
+##    Data: d (Number of observations: 20) 
+## Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+##          total post-warmup samples = 4000
+## 
+## Group-Level Effects: 
+## ~id (Number of levels: 10) 
+##               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sd(Intercept)    13.91      6.42     1.61    28.05 1.01      541      723
+## 
+## Population-Level Effects: 
+##                     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept              25.29      9.25     6.15    42.92 1.00     1465     1161
+## treattreat             -2.18     13.19   -26.89    24.74 1.00     1581     1587
+## timepost               -1.99      9.07   -21.02    16.25 1.00     2575     2477
+## treattreat:timepost    42.10     12.97    16.21    68.76 1.00     2479     2398
+## 
+## Family Specific Parameters: 
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma    13.62      3.86     8.07    22.97 1.00      686     1507
+## 
+## Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).
 ```
 
 
@@ -1076,7 +1118,7 @@ m2 %&gt;%
   mcmc_plot("b_")
 ```
 
-&lt;img src="04-bayesian-stats-slides_files/figure-html/unnamed-chunk-46-1.png" width="100%" /&gt;
+&lt;img src="04-bayesian-stats-slides_files/figure-html/unnamed-chunk-47-1.png" width="100%" /&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
