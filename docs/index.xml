@@ -7,7 +7,16 @@
     <description>Neurowissenschaft im Computerlab
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 22 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Übung 2</title>
+      <dc:creator>Andrew Ellis</dc:creator>
+      <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-25-uebung-2</link>
+      <description>Die zweite Übung ist online.</description>
+      <category>uebungen</category>
+      <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-25-uebung-2</guid>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Lösung zur Übung 1</title>
       <dc:creator>Andrew Ellis</dc:creator>
