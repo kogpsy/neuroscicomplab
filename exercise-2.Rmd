@@ -177,7 +177,7 @@ nback1 %>%
 
 
 
-## Frequentisische Analyse
+## Frequentistische Analyse
 
 :::exercise
 Mit welcher Methode würden Sie diese Daten analysieren? Beschreiben Sie Ihre Wahl in 1-2 Sätzen und führen Sie einen Test durch. Was können Sie damit aussagen?
