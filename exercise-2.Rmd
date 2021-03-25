@@ -357,7 +357,6 @@ Stellen Sie die mittleren RTs für jede Bedingung aggregiert über Personen graf
 :::
 
 
-
 Sie brauchen wahrscheinlich folgenden Code:
 
 
