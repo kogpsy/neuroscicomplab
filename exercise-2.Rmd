@@ -224,6 +224,7 @@ get_prior(rt ~ ___,
 ```
 
 
+
 ```{r message=FALSE, warning=FALSE, eval=TRUE, include=FALSE}
 library(brms)
 m1 <- brm(rt ~ group,
@@ -243,6 +244,12 @@ Schätzen Sie nun die Parameter Ihres Modells.
 :::
 
 
+```{r message=FALSE, warning=FALSE, eval=FALSE, include=TRUE}
+library(brms)
+m1 <- brm(___ ~ ___,
+          data = nback1,
+          file = "nback1")
+```
 
 :::puzzle
 Optionale Aufgabe: fassen Sie die Posterior Verteilung des/der relevanten Parameter(s) mit Hilfe der Funtion `mean_qi()` im `tidybayes` Packages zusammen.
@@ -434,10 +441,6 @@ m_mle <- lmer(rt ~ load + (1 | id),
 
 Wir wollen nun die **population-level** Effects mit `brms` schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel `~ 0 + load`. 
 
-```{r eval=FALSE, include=FALSE}
-nback2 <- nback2 %>% 
-  mutate(rt = rt/1000)
-```
 
 
 Wir erhalten folgende Default Priors:
@@ -495,7 +498,7 @@ m2 <- brm(rt ~ 0 + load + (1 | id),
 :::
 
 <aside>
-Falls die `Rhat` Werte über $1.01$ liegen, ist das ein Hinweis darauf, dass das Modell falsch speyifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
+Falls die `Rhat` Werte über $1.01$ liegen, ist das ein Hinweis darauf, dass das Modell falsch spezifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
 </aside>
 
 Falls Sie die Verteilung der Differenz wollen, können Sie entweder das Modell so parametrisieren: `~ 1 + load + (1 | id)`, oder die Differenz nachträglich für jede Iteration berechnen. Dies können Sie so machen.

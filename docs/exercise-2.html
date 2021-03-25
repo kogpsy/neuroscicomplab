@@ -2788,6 +2788,12 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <li>Fassen Sie die relevanten Parameter in 1-2 Sätzen zusammen. Je nachdem, wie Sie die Formel spezifiert haben, erhalten Sie die beiden Mittelwerte, oder einen Differenzen Parameter. Was bedeuten die Parameter?</li>
 </ul>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(___ <span class="sc">~</span> ___,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> nback1,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">&quot;nback1&quot;</span>)</span></code></pre></div>
+</div>
 <div class="puzzle">
 <p>Optionale Aufgabe: fassen Sie die Posterior Verteilung des/der relevanten Parameter(s) mit Hilfe der Funtion <code>mean_qi()</code> im <code>tidybayes</code> Packages zusammen.</p>
 </div>
@@ -2798,8 +2804,8 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <p>Stellen Sie die Posterior Verteilung(en) grafisch dar. Sie können dies entweder mit der Funktion <code>mcmc_plots()</code> im <code>brms</code> Package, oder (optional) mit dem <code>tidybayes</code> Package machen. Eine Anleitung für das <code>tidybayes</code> Package finden Sie im <a href="https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html#posterior-samples-extrahieren">3. Kapitel</a> des Skripts.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(___)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(___)</span></code></pre></div>
 </div>
 <h2 id="diskussion">Diskussion</h2>
 <div class="exercise">
@@ -2900,7 +2906,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
   <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-23-1.png" width="624" /></p>
 </div>
 <aside>
 Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darstellen. Diese lassen wir hier der Einfachheit halber weg.
@@ -2976,7 +2982,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
 <p>Überprüfen Sie, ob die <code>Rhat</code> Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungsparameter grafisch dar, z.B. mit <code>mcmc_plot()</code>.</p>
 </div>
 <aside>
-Falls die <code>Rhat</code> Werte über <span class="math inline">\(1.01\)</span> liegen, ist das ein Hinweis darauf, dass das Modell falsch speyifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
+Falls die <code>Rhat</code> Werte über <span class="math inline">\(1.01\)</span> liegen, ist das ein Hinweis darauf, dass das Modell falsch spezifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
 </aside>
 <p>Falls Sie die Verteilung der Differenz wollen, können Sie entweder das Modell so parametrisieren: <code>~ 1 + load + (1 | id)</code>, oder die Differenz nachträglich für jede Iteration berechnen. Dies können Sie so machen.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3022,7 +3028,7 @@ Falls die <code>Rhat</code> Werte über <span class="math inline">\(1.01\)</span
 <li>Welche Aussagen dürfen Sie <strong>nicht</strong> machen?</li>
 </ul>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-meuleReportingInterpretingWorking2017" class="csl-entry" role="doc-biblioentry">
 Meule, Adrian. 2017. <span>“Reporting and <span>Interpreting Working Memory Performance</span> in n-Back <span>Tasks</span>.”</span> <em>Frontiers in Psychology</em> 8. <a href="https://doi.org/10.3389/fpsyg.2017.00352">https://doi.org/10.3389/fpsyg.2017.00352</a>.
