@@ -46,7 +46,7 @@ Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File gekni
 
 # Aufgabe 1
 
-In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei $21$ Kindern mit einer ADHS Diagnose untersucht wurde. Gleichzeitig wurde dersellbe Task mit einer Kontrollgruppe ($n=30$) durchgeführt. Die behavioralen Resultate wurde parallel zu einer fMRI Untersuchung erhoben, damit im Antwortverhalten der Kinder ein Unterschied zur Kontrollgruppe gezeigt werden konnte.
+In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei $21$ Kindern mit einer ADHS Diagnose untersucht wurde. Gleichzeitig wurde derselbe Task mit einer Kontrollgruppe ($n=30$) durchgeführt. Die behavioralen Resultate wurde parallel zu einer fMRI Untersuchung erhoben, damit im Antwortverhalten der Kinder ein Unterschied zur Kontrollgruppe gezeigt werden konnte.
 
 Bei einem N-Back Test wird den Versuchspersonen eine Serie von Stimuli dargeboten (z.B. Buchstaben), und man muss mit einem Tastendruck reagieren, wenn der aktuelle Stimulus gleich dem N-letzten Stimulus war.
 
@@ -83,17 +83,21 @@ glimpse(nback1)
 ```
 
 :::exercise
-Konverieren Sie die Gruppierungsvariable `group` zu einem Faktor:
+Konvertieren Sie die Gruppierungsvariable `group` zu einem Faktor:
 :::
 
+```{r eval=TRUE, include=FALSE}
+nback1 <- nback1 %>% 
+  mutate(group = as_factor(group))
+```
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 nback1 <- nback1 %>% 
   mutate(group = as_factor(group))
 ```
 
 
-Veräandern Sie die Reihenfolgen der Faktorstufen:
+Verändern Sie die Reihenfolgen der Faktorstufen:
 
 ```{r}
 levels(nback1$group)

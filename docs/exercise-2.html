@@ -2666,7 +2666,7 @@ Slides
 <p>Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.</p>
 </div>
 <h1 id="aufgabe-1">Aufgabe 1</h1>
-<p>In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei <span class="math inline">\(21\)</span> Kindern mit einer ADHS Diagnose untersucht wurde. Gleichzeitig wurde dersellbe Task mit einer Kontrollgruppe (<span class="math inline">\(n=30\)</span>) durchgeführt. Die behavioralen Resultate wurde parallel zu einer fMRI Untersuchung erhoben, damit im Antwortverhalten der Kinder ein Unterschied zur Kontrollgruppe gezeigt werden konnte.</p>
+<p>In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei <span class="math inline">\(21\)</span> Kindern mit einer ADHS Diagnose untersucht wurde. Gleichzeitig wurde derselbe Task mit einer Kontrollgruppe (<span class="math inline">\(n=30\)</span>) durchgeführt. Die behavioralen Resultate wurde parallel zu einer fMRI Untersuchung erhoben, damit im Antwortverhalten der Kinder ein Unterschied zur Kontrollgruppe gezeigt werden konnte.</p>
 <p>Bei einem N-Back Test wird den Versuchspersonen eine Serie von Stimuli dargeboten (z.B. Buchstaben), und man muss mit einem Tastendruck reagieren, wenn der aktuelle Stimulus gleich dem N-letzten Stimulus war.</p>
 <div class="note">
 <p>Hier sehen Sie ein Beispiel für einen <strong>3-Back Test</strong>. Bei den gelb markierten Buchstaben muss die Versuchsperson reagieren.</p>
@@ -2697,7 +2697,7 @@ $ rt    &lt;dbl&gt; 1.0267571, 2.0671470, 1.6728257, 1.0355146, 1.0310874,…
 $ group &lt;chr&gt; &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;…</code></pre>
 </div>
 <div class="exercise">
-<p>Konverieren Sie die Gruppierungsvariable <code>group</code> zu einem Faktor:</p>
+<p>Konvertieren Sie die Gruppierungsvariable <code>group</code> zu einem Faktor:</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2706,7 +2706,7 @@ $ group &lt;chr&gt; &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;
 </code></pre>
 </div>
 </div>
-<p>Veräandern Sie die Reihenfolgen der Faktorstufen:</p>
+<p>Verändern Sie die Reihenfolgen der Faktorstufen:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>nback1</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
@@ -2752,7 +2752,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 <p>Sie sollte ungefähr solche Grafiken erhalten:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <p>Vielleicht hilft Ihnen folgender Code Block:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2895,7 +2895,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
   <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-23-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-24-1.png" width="624" /></p>
 </div>
 <aside>
 Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darstellen. Diese lassen wir hier der Einfachheit halber weg.
@@ -3008,7 +3008,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-32-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
 </div>
 <h2 id="diskussion-1">Diskussion</h2>
 <div class="exercise">
