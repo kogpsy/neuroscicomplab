@@ -1,7 +1,7 @@
 ---
-title: "Übung 1"
+title: "Übung 2"
 description: |
-  Schätzen des Parameters $\theta$ einer Binomialverteilung.
+  Parameterschätzung einer Normalverteilung, Posterior zusammenfassen.
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"
@@ -27,15 +27,60 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-# Aufgabenstellung
+
 
 :::exercise
 Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-1.Rmd* oder *Matrikelnummer_Nachname_uebung-1.R*, z. B. *15-172-874_Nachname_uebung-1.Rmd*.
+
+Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
 :::
 
 :::note
-Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
+
+hahah
 :::
+
+# Aufgabenstellung
+
+
+- graphical model
+- Modell aufschreiben und schätzen
+- Posterior zusammenfassen
+- welche Aussagen kann man machen?
+- Welche Aussagen kann man nicht machen?
+
+
+
+## Aufgabe 1
+
+In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei gesunden Erwachsenen unter verschiedenen Cognitive Loads untersucht wurde. Bei einem N-Back Test wird den Versuchspersonen eine Serie von Stimuli dargeboten (z.B. Buchstaben), und man muss mit einem Tastendruck reagieren, wenn der aktuelle Stimulus gleich dem N-letzten Stimulus war.
+
+:::example
+Hier sehen Sie ein Beispiel für einen **3-Back Test**. Bei den gelb markierten Buchstaben muss die Versuchsperson reagieren. 
+
+
+<br>
+T A A F <mark>A</mark> G H R Y Z <mark>R</mark> V D ...
+:::
+
+
+<aside>
+Mehr Information zu N-Back Tasks finden Sie auf [Wikipedia](https://en.wikipedia.org/wiki/N-back).
+</aside>
+
+Ziel dieser Studie war es, die Rolle des Präfrontalen Cortex mittels fMRI zu untersuchen.
+
+Bei diesem Task untersuchen wir die Reaktionszeiten der Versuchspersonen bei korrekten Antworten. 
+
+Die Resultate des N-Back Tests
+
+```{r}
+
+```
+
+
+
+
 
 Wir laden die Daten:
 
