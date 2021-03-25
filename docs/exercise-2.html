@@ -2733,6 +2733,7 @@ $ rt    &lt;dbl&gt; 1.0267571, 2.0671470, 1.6728257, 1.0355146, 1.0310874,…
 $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</code></pre>
 </div>
 <div class="exercise">
+<p>Aufgabe 1</p>
 <p>Berechnen Sie Mittelwerte und SD pro Gruppe.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2743,6 +2744,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 <h2 id="daten-visualisieren">Daten visualisieren</h2>
 <div class="exercise">
+<p>Aufgabe 2</p>
 <p>Stellen Sie die Daten mit grafisch dar, zum Beispiel mit Histogrammen, Boxplots oder Violin Plots.</p>
 </div>
 <p>Sie sollte ungefähr solche Grafiken erhalten:</p>
@@ -2767,6 +2769,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <h2 id="bayesianische-analyse">Bayesianische Analyse</h2>
 <p>Wir wollen nun die beiden Gruppenmittelwerte Bayesianisch schätzen. Sie haben zwei Möglichkeiten kennengelernt, die Formel zu spezifieren.</p>
 <div class="exercise">
+<p>Aufgabe 3</p>
 <p>Entscheiden Sie sich für eine der beiden, und schätzen sie die Mittelwerte mit brms. Schauen Sie sich vorher mit der Funktion <code>get_prior</code> die Default Prior Verteilungen an. Wenn sie wollen, können Sie anstelle der Defaults eigene Priors spezifieren. Falls Sie das tun, begründen Sie kurz Ihre Wahl.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2776,6 +2779,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> nback1)</span></code></pre></div>
 </div>
 <div class="exercise">
+<p>Aufgabe 4</p>
 <p>Schätzen Sie nun die Parameter Ihres Modells.</p>
 <ul>
 <li>Schauen sich sich mit <code>summary</code> den Output an.</li>
@@ -2789,6 +2793,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <h2 id="grafische-darstellung">Grafische Darstellung</h2>
 <p>Anstatt sich nur eine Tabelle anzuschauen, ist es hilfreich, die Verteilungen grafisch darzustellen.</p>
 <div class="exercise">
+<p>Aufgabe 5</p>
 <p>Stellen Sie die Posterior Verteilung(en) grafisch dar. Sie können dies entweder mit der Funktion <code>mcmc_plots()</code> im <code>brms</code> Package, oder (optional) mit dem <code>tidybayes</code> Package machen. Eine Anleitung für das <code>tidybayes</code> Package finden Sie im <a href="https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html#posterior-samples-extrahieren">3. Kapitel</a> des Skripts.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2797,6 +2802,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 <h2 id="diskussion">Diskussion</h2>
 <div class="exercise">
+<p>Aufgabe 6</p>
 <ul>
 <li>Wie können Sie die Resultate der Analyse interpretieren?</li>
 <li>Was können Sie aussagen?</li>
@@ -2859,15 +2865,18 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 </div>
 <div class="exercise">
+<p>Aufgabe 7</p>
 <p>Fassen Sie die Daten mit Mittelwert, Standardabweichung und Standardfehler pro Person pro Bedingung zusammen.</p>
 </div>
 <div class="exercise">
+<p>Aufgabe 8</p>
 <p>Sie haben die Kennzahlen für jede Person berechnet. Meistens wollen wir aber nicht nur die Effekte der experimentellen Manipulationen für Individuen, sondern für die ganze Gruppe.</p>
 <p>Berechnen Sie die mittlere RT für die beiden Bedingungen, aggregiert über Personen. Wie würden Sie vorgehen? Überlegen Sie sich, was die Vor- und Nachteile eines solches Vorgehens sind, und beschreiben Sie sie kurz.</p>
 </div>
 <h2 id="daten-visualisieren-1">Daten visualisieren</h2>
 <p>Auch hier ist es sinnvoll, die Daten zuerst grafisch darzustellen.</p>
 <div class="exercise">
+<p>Aufgabe 9</p>
 <p>Stellen Sie die mittleren RTs für jede Bedingung aggregiert über Personen grafisch dar.</p>
 </div>
 <p>Sie brauchen wahrscheinlich folgenden Code:</p>
@@ -2897,6 +2906,7 @@ Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darst
 </aside>
 <h2 id="frequentistische-analyse-1">Frequentistische Analyse</h2>
 <div class="exercise">
+<p>Aufgabe 10</p>
 <p>Überlegen Sie sich, wie Sie diesen Datensatz frequentistisch analysieren könnten. Beschreiben Sie in 1-2 Sätzen, was Sie tun würden, und welche Aussagen Sie damit machen könnten.</p>
 </div>
 <h2 id="bayesianische-analyse-1">Bayesianische Analyse</h2>
@@ -2961,6 +2971,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
 </div>
 <h2 id="posterior-zusammenfassen-und-grafische-darstellung">Posterior zusammenfassen und Grafische Darstellung</h2>
 <div class="exercise">
+<p>Aufgabe 11</p>
 <p>Überprüfen Sie, ob die <code>Rhat</code> Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungen grafisch dar <code>mcmc_plot()</code>.</p>
 </div>
 <aside>
@@ -3003,6 +3014,7 @@ Falls die <code>Rhat</code> Werte über <span class="math inline">\(1.01\)</span
 </div>
 <h2 id="diskussion-1">Diskussion</h2>
 <div class="exercise">
+<p>Aufgabe 12</p>
 <ul>
 <li>Wie können Sie die Resultate der Analyse interpretieren?</li>
 <li>Was können Sie aussagen?</li>
