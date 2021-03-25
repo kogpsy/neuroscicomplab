@@ -40,7 +40,7 @@ navbar:
         - text: "Übung 1: Lösung"
           href: solution-1.html
         - text: "Übung 2"
-          href: exercise-2.htm
+          href: exercise-2.html
 
 
   right:

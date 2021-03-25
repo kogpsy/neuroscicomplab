@@ -47,7 +47,7 @@ div.exercise {
   background-size: 70px;
   background-repeat: no-repeat;
   background-position: 15px center;
-  min-height: 120px;
+  min-height: 40px;
   color: #000000;
   background-color: #ebcb8b;
   border: dashed 5px #ffffff;
@@ -60,7 +60,7 @@ div.note {
   background-size: 70px;
   background-repeat: no-repeat;
   background-position: 15px center;
-  min-height: 120px;
+  min-height: 40px;
   color: #000000;
   background-color: #e5e9f0;
   border: dashed 5px #ffffff;
@@ -89,7 +89,7 @@ div.fyi {
 }
 
 div.exercise {
-  background-image: url("../images/fontawesome/solid/exclamation-triangle.svg");
+  background-image: url("../images/fontawesome/solid/code.svg");
 }
 
 div.note {
