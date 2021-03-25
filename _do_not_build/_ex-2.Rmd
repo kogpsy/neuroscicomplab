@@ -409,11 +409,11 @@ m_mle <- lmer(rt ~ load + (1 | id),
 
 ## Bayesianische Analyse
 
-Wir wollen nun die **population-level** Effects mit `brms` schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel `~ 0 + load`. 
+Wir wollen nun die **population-level** Effects mit `brms` schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel `~ 0 + load`. Bevor wir anfangen, ändern wir die `rt` Variable von Millisekunden zu Sekunden:
 
-```{r eval=FALSE, include=FALSE}
+```{r}
 d <- d %>% 
-  mutate(rt = rt/1000)
+  mutate(rt = rt*1000)
 ```
 
 

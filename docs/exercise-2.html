@@ -2907,14 +2907,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <p>Überlegen Sie sich, wie Sie diesen Datensatz frequentistisch analysieren könnten. Beschreiben Sie in 1-2 Sätzen, was Sie tun würden, und welche Aussagen Sie damit machen könnten.</p>
 </div>
 <h2 id="bayesianische-analyse-1">Bayesianische Analyse</h2>
-<p>Wir wollen nun die <strong>population-level</strong> Effects mit <code>brms</code> schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel <code>~ 0 + load</code>. Bevor wir anfangen, ändern wir die <code>rt</code> Variable von Millisekunden zu Sekunden:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>d</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='va'>rt</span><span class='op'>*</span><span class='fl'>1000</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
+<p>Wir wollen nun die <strong>population-level</strong> Effects mit <code>brms</code> schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel <code>~ 0 + load</code>.</p>
 <p>Wir erhalten folgende Default Priors:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2922,14 +2915,14 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
           data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                    prior class      coef group resp dpar nlpar bound
-                   (flat)     b                                      
-                   (flat)     b    loadhi                            
-                   (flat)     b    loadlo                            
- student_t(3, 0, 94145.1)    sd                                      
- student_t(3, 0, 94145.1)    sd              id                      
- student_t(3, 0, 94145.1)    sd Intercept    id                      
- student_t(3, 0, 94145.1) sigma                                      
+<pre><code>                 prior class      coef group resp dpar nlpar bound
+                (flat)     b                                      
+                (flat)     b    loadhi                            
+                (flat)     b    loadlo                            
+ student_t(3, 0, 94.1)    sd                                      
+ student_t(3, 0, 94.1)    sd              id                      
+ student_t(3, 0, 94.1)    sd Intercept    id                      
+ student_t(3, 0, 94.1) sigma                                      
        source
       default
  (vectorized)
@@ -2946,7 +2939,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <span class='va'>grandmean</span>
 </code></pre>
 </div>
-<pre><code>[1] 822398</code></pre>
+<pre><code>[1] 822</code></pre>
 </div>
 <p>Priors können mit <code>set_prior()</code> oder einfach nur <code>prior()</code> definiert werden.</p>
 <aside>
@@ -2998,7 +2991,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
 </code></pre>
 </div>
 <pre><code>      diff   .lower   .upper .width .point .interval
-1 48.46044 46.46567 50.46551   0.95 median        qi</code></pre>
+1 48.45823 46.38105 50.47858   0.95 median        qi</code></pre>
 </div>
 <p>und grafisch darstellen.</p>
 <div class="layout-chunk" data-layout="l-body">
