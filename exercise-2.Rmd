@@ -114,8 +114,10 @@ Einen kurzen Blick auf die Daten werfen:
 ```{r}
 glimpse(nback1)
 ```
-Berechnen Sie Mittelwerte und SD pro Gruppe:
 
+:::exercise
+Berechnen Sie Mittelwerte und SD pro Gruppe.    
+:::
 
 ```{r include = FALSE}
 nback1 %>% 
