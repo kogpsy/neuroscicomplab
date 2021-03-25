@@ -478,7 +478,7 @@ Das Modell ist nicht ideal---Sie werden in den nachfolgenden Sitzungen erfahren,
 m2 <- brm(rt ~ 0 + load + (1 | id),
           prior = priors,
           data = nback2,
-          file = "nback2.rds")
+          file = "nback2")
 ```
 
 
