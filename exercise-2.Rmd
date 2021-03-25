@@ -82,19 +82,15 @@ nback1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/mai
 glimpse(nback1)
 ```
 
-:::exercise
+
 Konvertieren Sie die Gruppierungsvariable `group` zu einem Faktor:
-:::
 
-```{r eval=TRUE, include=FALSE}
+
+```{}
 nback1 <- nback1 %>% 
   mutate(group = as_factor(group))
 ```
 
-```{r eval=FALSE, include=TRUE}
-nback1 <- nback1 %>% 
-  mutate(group = as_factor(group))
-```
 
 
 Verändern Sie die Reihenfolgen der Faktorstufen:

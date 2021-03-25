@@ -2696,23 +2696,16 @@ Columns: 2
 $ rt    &lt;dbl&gt; 1.0267571, 2.0671470, 1.6728257, 1.0355146, 1.0310874,…
 $ group &lt;chr&gt; &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;…</code></pre>
 </div>
-<div class="exercise">
 <p>Konvertieren Sie die Gruppierungsvariable <code>group</code> zu einem Faktor:</p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nback1</span> <span class='op'>&lt;-</span> <span class='va'>nback1</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>group <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>group</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
+<pre><code>nback1 &lt;- nback1 %&gt;% 
+  mutate(group = as_factor(group))</code></pre>
 <p>Verändern Sie die Reihenfolgen der Faktorstufen:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>nback1</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;adhd&quot;    &quot;control&quot;</code></pre>
+<pre><code>NULL</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2741,10 +2734,10 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 <p>Berechnen Sie Mittelwerte und SD pro Gruppe:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nback1 <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(___,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="sc">---</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>nback1 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(___,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="sc">---</span>)</span></code></pre></div>
 </div>
 <h2 id="daten-visualisieren">Daten visualisieren</h2>
 <div class="exercise">
@@ -2752,7 +2745,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 </div>
 <p>Sie sollte ungefähr solche Grafiken erhalten:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <p>Vielleicht hilft Ihnen folgender Code Block:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2775,10 +2768,10 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <p>Entscheiden Sie sich für eine der beiden, und schätzen sie die Mittelwerte mit brms. Schauen Sie sich vorher mit der Funktion <code>get_prior</code> die Default Prior Verteilungen an. Wenn sie wollen, können Sie anstelle der Defaults eigene Priors spezifieren. Falls Sie das tun, begründen Sie kurz Ihre Wahl.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">get_prior</span>(rt <span class="sc">~</span> ___,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> nback1)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">get_prior</span>(rt <span class="sc">~</span> ___,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> nback1)</span></code></pre></div>
 </div>
 <div class="exercise">
 <p>Schätzen Sie nun die Parameter Ihres Modells.</p>
@@ -2797,8 +2790,8 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
 <p>Stellen Sie die Posterior Verteilung(en) grafisch dar. Sie können dies entweder mit der Funktion <code>mcmc_plots()</code> im <code>brms</code> Package, oder (optional) mit dem <code>tidybayes</code> Package machen. Eine Anleitung für das <code>tidybayes</code> Package finden Sie im <a href="https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html#posterior-samples-extrahieren">3. Kapitel</a> des Skripts.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(___)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(___)</span></code></pre></div>
 </div>
 <h2 id="diskussion">Diskussion</h2>
 <div class="exercise">
@@ -2895,7 +2888,7 @@ $ group &lt;fct&gt; adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, adhd, …</c
   <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-24-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-22-1.png" width="624" /></p>
 </div>
 <aside>
 Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darstellen. Diese lassen wir hier der Einfachheit halber weg.
@@ -3001,7 +2994,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
   <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/theme_ggdist.html'>theme_tidybayes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="exercise-2_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
+<p><img src="exercise-2_files/figure-html5/unnamed-chunk-31-1.png" width="624" /></p>
 </div>
 <h2 id="diskussion-1">Diskussion</h2>
 <div class="exercise">
@@ -3011,7 +3004,7 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
 <li>Welche Aussagen dürfen Sie <strong>nicht</strong> machen?</li>
 </ul>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-meuleReportingInterpretingWorking2017" class="csl-entry" role="doc-biblioentry">
 Meule, Adrian. 2017. <span>“Reporting and <span>Interpreting Working Memory Performance</span> in n-Back <span>Tasks</span>.”</span> <em>Frontiers in Psychology</em> 8. <a href="https://doi.org/10.3389/fpsyg.2017.00352">https://doi.org/10.3389/fpsyg.2017.00352</a>.
