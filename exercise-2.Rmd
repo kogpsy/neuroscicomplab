@@ -357,9 +357,9 @@ Stellen Sie die mittleren RTs für jede Bedingung aggregiert über Personen graf
 :::
 
 
-:::note
+
 Sie brauchen wahrscheinlich folgenden Code:
-:::
+
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 aggregated <- d %>% 
@@ -385,9 +385,9 @@ aggregated %>%
   theme_bw()
 ```
 
-:::note
+<aside>
 Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darstellen. Diese lassen wir hier der Einfachheit halber weg.
-:::
+</aside>
 
 
 ## Frequentistische Analyse
