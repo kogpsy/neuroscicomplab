@@ -116,7 +116,7 @@ glimpse(nback1)
 ```
 
 :::exercise
-Aufgabe 1
+**Aufgabe 1.1**
 
 Berechnen Sie Mittelwerte und SD pro Gruppe.    
 :::
@@ -141,7 +141,7 @@ nback1 %>%
 ## Daten visualisieren
 
 :::exercise
-Aufgabe 2
+**Aufgabe 1.2**
 
 Stellen Sie die Daten mit grafisch dar, zum Beispiel mit Histogrammen, Boxplots oder Violin Plots.
 :::
@@ -186,6 +186,8 @@ nback1 %>%
 ## Frequentistische Analyse
 
 :::exercise
+**Aufgabe 1.3**
+
 Mit welcher Methode würden Sie diese Daten analysieren? Beschreiben Sie Ihre Wahl in 1-2 Sätzen und führen Sie einen Test durch. Was können Sie damit aussagen?
 :::
 
@@ -206,7 +208,7 @@ Wir wollen nun die beiden Gruppenmittelwerte Bayesianisch schätzen. Sie haben z
 
 
 :::exercise
-Aufgabe 3
+**Aufgabe 1.4**
 
 Entscheiden Sie sich für eine der beiden, und schätzen sie die Mittelwerte mit brms. Schauen Sie sich vorher mit der Funktion `get_prior` die Default Prior Verteilungen an. Wenn sie wollen, können Sie anstelle der Defaults eigene Priors spezifieren. Falls Sie das tun, begründen Sie kurz Ihre Wahl.
 :::
@@ -226,12 +228,12 @@ get_prior(rt ~ ___,
 library(brms)
 m1 <- brm(rt ~ group,
           data = nback1,
-          file = "models/nback1")
+          file = "nback1")
 ```
 
 
 :::exercise
-Aufgabe 4
+**Aufgabe 1.5**
 
 Schätzen Sie nun die Parameter Ihres Modells.
 
@@ -256,7 +258,7 @@ Anstatt sich nur eine Tabelle anzuschauen, ist es hilfreich, die Verteilungen gr
 
 
 :::exercise
-Aufgabe 5
+**Aufgabe 1.6**
 
 Stellen Sie die Posterior Verteilung(en) grafisch dar. Sie können dies entweder mit der Funktion `mcmc_plots()` im `brms` Package, oder (optional) mit dem `tidybayes` Package machen. Eine Anleitung für das `tidybayes` Package finden Sie im [3. Kapitel](https://kogpsy.github.io/neuroscicomplab/03-bayesian-stats.html#posterior-samples-extrahieren) des Skripts.
 :::
@@ -273,7 +275,7 @@ m1 %>%
 ## Diskussion
 
 :::exercise
-Aufgabe 6
+**Aufgabe 1.7**
 
 - Wie können Sie die Resultate der Analyse interpretieren? 
 - Was können Sie aussagen? 
@@ -340,7 +342,7 @@ se <- function(x) sd(x)/sqrt(length(x))
 
 
 :::exercise
-Aufgabe 7
+**Aufgabe 2.1**
 
 Fassen Sie die Daten mit Mittelwert, Standardabweichung und Standardfehler pro Person pro Bedingung zusammen.
 :::
@@ -355,7 +357,7 @@ nback2 %>%
 ```
 
 :::exercise
-Aufgabe 8
+**Aufgabe 2.2**
 
 Sie haben die Kennzahlen für jede Person berechnet. Meistens wollen wir aber nicht nur die Effekte der experimentellen Manipulationen für Individuen, sondern für die ganze Gruppe.
 
@@ -371,7 +373,7 @@ Berechnen Sie die mittlere RT für die beiden Bedingungen, aggregiert über Pers
 Auch hier ist es sinnvoll, die Daten zuerst grafisch darzustellen. 
 
 :::exercise
-Aufgabe 9
+**Aufgabe 2.3**
 
 Stellen Sie die mittleren RTs für jede Bedingung aggregiert über Personen grafisch dar.
 :::
@@ -412,7 +414,7 @@ Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darst
 ## Frequentistische Analyse
 
 :::exercise
-Aufgabe 10
+**Aufgabe 2.4**
 
 Überlegen Sie sich, wie Sie diesen Datensatz frequentistisch analysieren könnten. Beschreiben Sie in 1-2 Sätzen, was Sie tun würden, und welche Aussagen Sie damit machen könnten.
 :::
@@ -445,7 +447,7 @@ get_prior(rt ~ 0 + load + (1 | id),
           data = nback2)
 ```
 
-Die beiden flachen Priors der Parameter `loadhi` unf `loadlo` wollen wir nun durch eigene Priors ersetzen. Wir nehmen hier einfach Normalverteilungen, mit einem Mittelwert, der dem Gesamtmittelwert entspricht, und einer etwas arbiträr gewählten Standardabweichung von $10$.
+Die beiden flachen Priors der Parameter `loadhi` und `loadlo` wollen wir nun durch eigene Priors ersetzen. Wir nehmen hier einfach Normalverteilungen, mit einem Mittelwert, der dem Gesamtmittelwert entspricht, und einer etwas arbiträr gewählten Standardabweichung von $10$.
 
 ```{r}
 grandmean <- round(mean(nback2$rt), 0)
@@ -476,7 +478,7 @@ Das Modell ist nicht ideal---Sie werden in den nachfolgenden Sitzungen erfahren,
 m2 <- brm(rt ~ 0 + load + (1 | id),
           prior = priors,
           data = nback2,
-          file = "models/nback2.rds")
+          file = "nback2.rds")
 ```
 
 
@@ -487,9 +489,9 @@ m2 <- brm(rt ~ 0 + load + (1 | id),
 
 
 :::exercise
-Aufgabe 11
+**Aufgabe 2.5**
 
-Überprüfen Sie, ob die `Rhat` Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungen grafisch dar `mcmc_plot()`.
+Überprüfen Sie, ob die `Rhat` Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungsparameter grafisch dar, z.B. mit `mcmc_plot()`.
 :::
 
 <aside>
@@ -531,7 +533,7 @@ samples_m2 %>%
 ## Diskussion
 
 :::exercise
-Aufgabe 12
+**Aufgabe 2.6**
 
 - Wie können Sie die Resultate der Analyse interpretieren? 
 - Was können Sie aussagen? 
