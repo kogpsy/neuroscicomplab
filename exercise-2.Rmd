@@ -75,7 +75,7 @@ Laden Sie zuerst die Daten:
 ```{r}
 library(tidyverse)
 
-nback1 <- read_csv("data/adhd-nback.csv")
+nback1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/adhd-nback.csv")
 ```
 
 ```{r}
@@ -177,7 +177,7 @@ nback1 %>%
 
 
 
-## Frequentisische Analyse
+## Frequentistische Analyse
 
 :::exercise
 Mit welcher Methode würden Sie diese Daten analysieren? Beschreiben Sie Ihre Wahl in 1-2 Sätzen und führen Sie einen Test durch. Was können Sie damit aussagen?
@@ -283,7 +283,7 @@ Wir laden die Daten:
 library(tidyverse)
 library(rmarkdown)
 
-d <- read_csv("data/cognitive-load-nback.csv") %>% 
+d <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/cognitive-load-nback.csv") %>% 
   mutate(across(-rt, as_factor))
 d %>% paged_table()
 ```
@@ -357,9 +357,9 @@ Stellen Sie die mittleren RTs für jede Bedingung aggregiert über Personen graf
 :::
 
 
-:::note
+
 Sie brauchen wahrscheinlich folgenden Code:
-:::
+
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 aggregated <- d %>% 
@@ -385,9 +385,9 @@ aggregated %>%
   theme_bw()
 ```
 
-:::note
+<aside>
 Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darstellen. Diese lassen wir hier der Einfachheit halber weg.
-:::
+</aside>
 
 
 ## Frequentistische Analyse

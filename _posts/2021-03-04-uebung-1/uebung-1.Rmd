@@ -22,7 +22,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Die Übung finden Sie im Menu: [Übungen > Übung 1](https://kogpsy.github.io/neuroscicomplab/exercises/exercise-1.html). 
+Die Übung finden Sie im Menu: [Übungen > Übung 1](https://kogpsy.github.io/neuroscicomplab/exercise-1.html). 
 
 Sie haben für diese Übung eine Woche Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 11. März um 00:00 Uhr**, in den Order für Übung 1 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-1.Rmd* oder *Matrikelnummer_Nachname_uebung-1.R*, z. B. *15-172-874_Nachname_uebung-1.Rmd*.
 
