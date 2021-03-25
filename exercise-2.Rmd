@@ -75,7 +75,7 @@ Laden Sie zuerst die Daten:
 ```{r}
 library(tidyverse)
 
-nback1 <- read_csv("data/adhd-nback.csv")
+nback1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/adhd-nback.csv")
 ```
 
 ```{r}
@@ -283,7 +283,7 @@ Wir laden die Daten:
 library(tidyverse)
 library(rmarkdown)
 
-d <- read_csv("data/cognitive-load-nback.csv") %>% 
+d <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/cognitive-load-nback.csv") %>% 
   mutate(across(-rt, as_factor))
 d %>% paged_table()
 ```
