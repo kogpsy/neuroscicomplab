@@ -43,14 +43,15 @@ library(countdown)
 <!-- mixed(y ~ x + (1|subj), type=3,method="KR",data=myDat)  -->
 
 
-Bisher: zwei unabhängige Gruppen
+In dieser Sitzung behandeln wir messwiederholte Daten.  Dabei stellen wir uns vor allem die Frage:
 
-Was ist mit Messwiederholung?
+
+Wie können wir Messwiederholung als lineares Modell formulieren?
 
 
 --
 
-Wir fangen mit einem simplen Beispiel an.
+Wir fangen mit einem simplen Beispiel an, und untersuchen im zweiten Teil ein etwas komplexeres experimentelles Design.
 
 ---
 
@@ -61,7 +62,7 @@ class: middle
 ]
 .pull-right-wide[
   .larger[
-  Mittelwert schätzen
+  Mittelwerte schätzen
   ]
 ]
 
@@ -228,6 +229,7 @@ get_prior(IQ ~ 1 + (1 | Person),
 
 
 ---
+
 ## Partial pooling
 
 
@@ -360,7 +362,7 @@ person_effects %>%
 
 ---
 
-## Verlgeich mit No Pooling: Shrinkage
+## Vergleich mit No Pooling: Shrinkage
 
 .panelset[
 .panel[.panel-name[Plot Code]
@@ -370,11 +372,15 @@ col <- viridis::viridis(3, begin = 0.2, end = 0.8)
 
 person_effects %>% 
   ggplot(aes(mu, Person, fill = Person)) +
-  stat_halfeye() +
-  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "red", size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], size = 1) +
-   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], size = 1) +
+  stat_halfeye(alpha = 0.6) +
+  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "#ECCC87", 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], 
+             size = 1) +
+   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], 
+              size = 1) +
   scale_fill_viridis_d(begin = 0.2, end = 0.8) +
   labs(x = expression("Personen-spezifische Mittelwerte"),
        y = "Personen") +
@@ -390,11 +396,15 @@ col <- viridis::viridis(3, begin = 0.2, end = 0.8)
 
 person_effects %>% 
   ggplot(aes(mu, Person, fill = Person)) +
-  stat_halfeye() +
-  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "red", size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], size = 1) +
-  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], size = 1) +
-   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], size = 1) +
+  stat_halfeye(alpha = 0.6) +
+  geom_vline(xintercept = fixef(m_part_pool)[1, 1], color = "#ECCC87", 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[1, 1], color = col[1], 
+             size = 1) +
+  geom_vline(xintercept = fixef(m_no_pool)[2, 1], color = col[2], 
+             size = 1) +
+   geom_vline(xintercept = fixef(m_no_pool)[3, 1], color = col[3], 
+              size = 1) +
   scale_fill_viridis_d(begin = 0.2, end = 0.8) +
   labs(x = expression("Personen-spezifische Mittelwerte"),
        y = "Personen") +
@@ -432,17 +442,17 @@ class: middle
 ```{r}
 library(tidyverse)
 
-treat  = rep(c('treat', 'control'), each = 5)
+intervention <- rep(c('treat', 'control'), each = 5)
 pre <- c(20, 10, 60, 20, 10, 50, 10, 40, 20, 10)
 post <- c(70, 50, 90, 60, 50, 20, 10, 30, 50, 10)
 ```
 
 ```{r}
 dwide <- tibble(id = factor(1:10), 
-            treat, pre, post) %>% 
+            intervention, pre, post) %>% 
   mutate(diff = post - pre,
          id = as_factor(id), 
-         treat =  factor(treat, levels = c("control", "treat")))
+         intervention =  factor(intervention, levels = c("control", "treat")))
 ```
 ]
 .panel[.panel-name[Dataframe]
@@ -454,6 +464,7 @@ dwide %>%
 ]]
 
 ---
+
 ```{r}
 d <- dwide %>% 
   select(-diff) %>% 
@@ -487,12 +498,13 @@ mit 2 Messungen pro Person.
 
 ```{r}
 d %>% 
-  group_by(id, treat) %>% 
+  group_by(id, intervention) %>% 
   count() %>% 
   rmarkdown::paged_table()
 ```
 ]
 ]
+
 ---
 
 .discussion[
@@ -527,7 +539,7 @@ se <- function(x) sd(x)/sqrt(length(x))
 
 ```{r}
 d %>% 
-  group_by(treat, time) %>% 
+  group_by(intervention, time) %>% 
   summarise(mean = mean(score),
             sd = sd(score),
             se = se(score))
@@ -539,7 +551,7 @@ d %>%
 
 ```{r}
 dwide %>% 
-  group_by(treat) %>% 
+  group_by(intervention) %>% 
   summarise(mean = mean(diff),
             sd = sd(diff),
             se = se(diff))
@@ -555,7 +567,7 @@ dwide %>%
 
 ```{r echo=TRUE, eval=FALSE}
 d %>% 
-  ggplot(aes(time, score, color = treat)) +
+  ggplot(aes(time, score, color = intervention)) +
   geom_line(aes(group = id), linetype = 1, size = 1) +
   geom_point(size = 4) +
   scale_color_viridis_d(end = 0.8) +
@@ -568,7 +580,7 @@ d %>%
 
 ```{r echo=FALSE}
 d %>% 
-  ggplot(aes(time, score, color = treat)) +
+  ggplot(aes(time, score, color = intervention)) +
   geom_line(aes(group = id), linetype = 1, size = 1) +
   geom_point(size = 4) +
   scale_color_viridis_d(end = 0.8) +
@@ -585,7 +597,7 @@ d %>%
 ## t-Test
 
 ```{r}
-t.test(diff ~ treat,
+t.test(diff ~ intervention,
        data = dwide, 
        var.equal = TRUE)
 ```
@@ -602,7 +614,7 @@ t.test(diff ~ treat,
 
 ```{r}
 library(lme4)
-lme_model <- lmer(score ~ treat * time + (1|id), 
+lme_model <- lmer(score ~ intervention * time + (1|id), 
                   data = d)
 ```
 
@@ -619,7 +631,7 @@ lme_model %>%
 
 ```{r}
 library(afex)
-mixed(score ~ treat * time + (1|id), 
+mixed(score ~ intervention * time + (1|id), 
       type = 3, method = "KR",
       data = d)
 ```
@@ -630,7 +642,7 @@ mixed(score ~ treat * time + (1|id),
 ## Was geschieht hier genau?
 
 ```{r}
-mm <- model.matrix(~ treat * time,
+mm <- model.matrix(~ intervention * time,
              data = d)
 head(mm)
 ```
@@ -644,7 +656,7 @@ Eigentlich ganz einfach:
 - Wir sagen den Mittelwert der abhängingen Variable `score` mit einem linearen Modell vorher.
 
 - Im linearen Modell zerlegen wir den Mittelwert in
- + fixed effects: `treat * time`
+ + fixed effects: `intervention * time`
  + random effects (eine Abweichung für jede Person): `(1 | id)`
 
 ---
@@ -659,7 +671,7 @@ Eigentlich ganz einfach:
 ```{r}
 library(brms)
 
-priors <- get_prior(score ~ treat*time,
+priors <- get_prior(score ~ intervention*time,
           data = d)
 
 ```
@@ -672,13 +684,20 @@ priors
 
 ]
 ]
+
 ---
 
 
 ```{r}
-m2 <- brm(score ~ treat*time + (1 | id),
+m2 <- brm(score ~ intervention*time + (1 | id),
           data = d,
           file =  "models/04-treat-time") 
+```
+
+---
+
+```{r}
+summary(m2)
 ```
 
 

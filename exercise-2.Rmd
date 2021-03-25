@@ -1,7 +1,7 @@
 ---
 title: "Übung 2"
 description: |
-  Parameterschätzung einer Normalverteilung, Posterior zusammenfassen.
+  Parameterschätzung, Posterior zusammenfassen, und lineare Modelle.
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"
@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-1.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-2.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -21,6 +21,8 @@ output:
       toc_depth: 2
       code_folding: false
 ---
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
