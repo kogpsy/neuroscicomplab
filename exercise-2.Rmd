@@ -283,9 +283,9 @@ Wir laden die Daten:
 library(tidyverse)
 library(rmarkdown)
 
-d <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/cognitive-load-nback.csv") %>% 
+nback2 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/cognitive-load-nback.csv") %>% 
   mutate(across(-rt, as_factor))
-d %>% paged_table()
+nback2 %>% paged_table()
 ```
 
 
@@ -295,7 +295,7 @@ Wir haben 20 Personen
 
 
 ```{r}
-d %>% 
+nback2 %>% 
   summarize(n_subjects = n_distinct(id))
 ```
 
@@ -305,7 +305,7 @@ d %>%
 mit 60 Trials pro Person pro Bedingung. Für jeden Trial haben wir die Reaktionszeit in Millisekunden.
 
 ```{r}
-d %>% 
+nback2 %>% 
   group_by(id, load) %>% 
   count() %>% 
   rmarkdown::paged_table()
@@ -333,7 +333,7 @@ Fassen Sie die Daten mit Mittelwert, Standardabweichung und Standardfehler pro P
 ```{r eval=FALSE, include=FALSE}
 funs <- list(mean = mean, sd = sd, se = se)
 
-d %>% 
+nback2 %>% 
   group_by(id, load) %>% 
   summarise(across(rt, funs))
 ```
@@ -361,7 +361,7 @@ Sie brauchen wahrscheinlich folgenden Code:
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-aggregated <- d %>% 
+aggregated <- nback2 %>% 
   group_by(id, load) %>% 
   summarise(rt = mean(rt)) %>% 
   group_by(load) %>% 
@@ -369,7 +369,7 @@ aggregated <- d %>%
 ```
 
 ```{r eval=FALSE, include=TRUE}
-aggregated <- d %>% 
+aggregated <- nback2 %>% 
   group_by(id, load) %>% 
   summarise(rt = mean(rt)) %>% 
   group_by(load) %>% 
@@ -400,7 +400,7 @@ Normalerweise würden wir in einer solchen Grafik unbedingt Standardfehler darst
 library(lme4)
 
 m_mle <- lmer(rt ~ load + (1 | id),
-           data = d)
+           data = nback2)
 ```
 
 
@@ -411,7 +411,7 @@ m_mle <- lmer(rt ~ load + (1 | id),
 Wir wollen nun die **population-level** Effects mit `brms` schätzen, und zwar die Mittelwerte der beiden Cognitive Load Bedingungen. Dafür benutzen wir die Formel `~ 0 + load`. 
 
 ```{r eval=FALSE, include=FALSE}
-d <- d %>% 
+nback2 <- nback2 %>% 
   mutate(rt = rt/1000)
 ```
 
@@ -420,13 +420,13 @@ Wir erhalten folgende Default Priors:
 
 ```{r}
 get_prior(rt ~ 0 + load + (1 | id),
-          data = d)
+          data = nback2)
 ```
 
 Die beiden flachen Priors der Parameter `loadhi` unf `loadlo` wollen wir nun durch eigene Priors ersetzen. Wir nehmen hier einfach Normalverteilungen, mit einem Mittelwert, der dem Gesamtmittelwert entspricht, und einer etwas arbiträr gewählten Standardabweichung von $10$.
 
 ```{r}
-grandmean <- round(mean(d$rt), 0)
+grandmean <- round(mean(nback2$rt), 0)
 grandmean
 ```
 
@@ -453,7 +453,7 @@ Das Modell ist nicht ideal---Sie werden in den nachfolgenden Sitzungen erfahren,
 ```{r}
 m2 <- brm(rt ~ 0 + load + (1 | id),
           prior = priors,
-          data = d,
+          data = nback2,
           file = "models/nback2.rds")
 ```
 
