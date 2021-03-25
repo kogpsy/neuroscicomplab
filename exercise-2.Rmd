@@ -470,7 +470,9 @@ m2 <- brm(rt ~ 0 + load + (1 | id),
 Überprüfen Sie, ob die `Rhat` Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungen grafisch dar `mcmc_plot()`.
 :::
 
-
+<aside>
+Falls die `Rhat` Werte über $1.01$ liegen, ist das ein Hinweis darauf, dass das Modell falsch speyifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
+</aside>
 
 Falls Sie die Verteilung der Differenz wollen, können Sie entweder das Modell so parametrisieren: `~ 1 + load + (1 | id)`, oder die Differenz nachträglich für jede Iteration berechnen. Dies können Sie so machen.
 

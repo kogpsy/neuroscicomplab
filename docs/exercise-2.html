@@ -2963,6 +2963,9 @@ Das Modell ist nicht ideal—Sie werden in den nachfolgenden Sitzungen erfahren,
 <div class="exercise">
 <p>Überprüfen Sie, ob die <code>Rhat</code> Werte in Ordnung sind. Falls ja, fassen Sie die Posterior Verteilung der wichtigen Parameter zusammen. Stellen Sie die Posterior Verteilungen der beiden Bedingungen grafisch dar <code>mcmc_plot()</code>.</p>
 </div>
+<aside>
+Falls die <code>Rhat</code> Werte über <span class="math inline">\(1.01\)</span> liegen, ist das ein Hinweis darauf, dass das Modell falsch speyifiert wurde. In diesem Fall kann man die Prior Verteilungen anpassen, oder Parameter des Sampling Algorithmus ändern. Wir werden später mehr darüber erfahren.
+</aside>
 <p>Falls Sie die Verteilung der Differenz wollen, können Sie entweder das Modell so parametrisieren: <code>~ 1 + load + (1 | id)</code>, oder die Differenz nachträglich für jede Iteration berechnen. Dies können Sie so machen.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
