@@ -269,7 +269,7 @@ Komplexität hängt unter anderem ab von:
 
 ## Prior Verteilungen
 
-Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Paramterraums, in denen die Lieklihood niedrig ist.
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Lieklihood niedrig ist.
 
 
 ```{r include=FALSE}
@@ -321,7 +321,7 @@ compute_posterior(likelihood, prior)
 .panel[.panel-name[Opiniated Prior (besser)]
 
 ```{r}
-prior <- dbeta(x = p_grid, shape1 = 30, shape2 = 48)
+prior <- dbeta(x = p_grid, shape1 = 48, shape2 = 30)
 compute_posterior(likelihood, prior)
 ```
 ]
@@ -372,10 +372,7 @@ $p(y)$ kann rausgekürzt werden.
 --
 
 
-
-
-$$ \frac{p(\mathcal{M}_1 | y) = P(y | \mathcal{M}_1) p(\mathcal{M}_1)} {p(\mathcal{M}_2 | y) = P(y | \mathcal{M}_2) p(\mathcal{M}_2)} $$
-
+$$\underbrace{\frac{p(\mathcal{M}_1 | y)} {p(\mathcal{M}_2 | y)}}_\text{Posterior odds} = \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)} \cdot \underbrace{ \frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}}_\text{Prior odds}$$
 
 --
 
@@ -386,15 +383,17 @@ $\frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}$ sind die  **prior odds**, und $\frac
 
 ---
 
-Wir interessieren uns für das Verhältnis der Marginal Likelihoods:
+
+Nehmen wir an, die Prior Odds seine $1$, dann interessiert uns nur das Verhältnis der Marginal Likelihoods:
 
 $$ \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)} $$
 
-Dieser Term ist der **Bayes factor**: das ist der Term, mit dem die Prior Odds multipliziert werden, und gibt an, unter welchem Modell die Daten wahrscheinlicher sind.
-
 --
 
-Nehmen wir an, die Prior Odds seine $1$, dann interessiert uns nur der Bayes factor:
+Dieser Term ist der **Bayes factor**: der Term, mit dem die Prior Odds multipliziert werden. Er gibt an, unter welchem Modell die Daten wahrscheinlicher sind.
+
+
+Wir schreiben $BF_{12}$ - dies ist der Bayes factor für Modell 1 vs Modell 2.
 
 $$ BF_{12} = \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)}$$
 
@@ -405,7 +404,7 @@ $BF_{12}$ gibt an, in welchem Ausmass die Daten $\mathcal{M}_1$ bevorzugen, rela
 
 -- 
 
-Beiepiel: $BF_{12} = 5$ heisst: die Daten sind unter Modell 1 5 Mal wahrscheinlicher als unter Modell 2 
+Beispiel: $BF_{12} = 5$ heisst: die Daten sind unter Modell 1 5 Mal wahrscheinlicher als unter Modell 2 
 
 
 
@@ -437,36 +436,107 @@ Beiepiel: $BF_{12} = 5$ heisst: die Daten sind unter Modell 1 5 Mal wahrscheinli
     + Bridge sampling mit `brms`: schwieriger zu implementieren, aber für viele Modelle möglich.
 
 
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[2]
+]
+.pull-right-wide[
+  .larger[
+  Anwendung: Binomial Model
+  ]
+]
+
+
 ---
 
 
+## Savage-Dickey Density Ratio
+
+
+Wenn wir zwei genestete Modell vergleichen, wie z.B. ein Modell 1 mit einem frei geschätzten Parameter, und ein Nullmodell 
+vergleichen, gibt es eine einfache Methode.
+
+
+Unter dem Nullmodell (Nullhypothese): $H_0: \theta = \theta_0$
+
+Unter Modell 1: $H_0: \theta \neq \theta_0$
+
+--
+
+Nun braucht der Parameter $\theta$ unter Modell 1 eine Verteilung, z.B. $\theta \sim \text{Beta}(1, 1)$
+
+--
+
+Der Savage-Dickey Density Ratio Trick: wir betrachten nur Modell 1, und dividieren die Posterior Verteilung durch die Prior Verteilung an der Stelle $\theta_0$.
+
+.footnote[
+Beim Nullmodell ist der Parameter auf den Wert 0 fixiert.
+]
+
+
+---
+
+## Savage-Dickey Density Ratio
+
+Wir schauen uns ein Beispiel aus Wagenmakers (2010) an:
+
+
+Sie beobachten, dass jemand 9 Fragen von 10 richtig beantwortet. 
+
 ```{r}
-d <- data.frame(s = 9, k = 10)
+d <- tibble(s = 9, k = 10)
 ```
 
 
-```{r, echo = 1}
+Unsere Frage: was ist die Wahrscheinlichkeit, dass das mit Glück ( $\theta = 0.5$ ) passiert ist?
+
+
+
+.footnote[
+Wagenmakers, Eric-Jan, Tom Lodewyckx, Himanshu Kuriyal, and Raoul Grasman. “Bayesian Hypothesis Testing for Psychologists: A Tutorial on the Savage–Dickey Method.” Cognitive Psychology 60, no. 3 (May 1, 2010): 158–89. https://doi.org/10.1016/j.cogpsych.2009.12.001.
+]
+
+---
+
+
+.panelset[
+.panel[.panel-name[Prior]
+```{r echo=FALSE}
 pd <- tibble(
   x = seq(0, 1, by = .01),
   Prior = dbeta(x, 1, 1)
 )
 ggplot(pd, aes(x, Prior)) +
-  geom_line() +
+  geom_line(size = 1.5) +
   coord_cartesian(xlim = 0:1, ylim = c(0, 6), expand = 0.01) +
   labs(y = "Density", x = bquote(theta))
 ```
+]
 
 
----
+.panel[.panel-name[Posterior]
 
-```{r preview = TRUE, echo = 1}
-pd$Posterior <- dbeta(pd$x, 9+1, 1+1)
-pdw <- gather(pd, key = Type, value = density, Prior:Posterior)
-ggplot(pdw, aes(x, density, col = Type)) +
-  geom_line() +
+```{r echo=FALSE, preview=TRUE}
+pd <- pd %>% 
+  mutate(Posterior = dbeta(x, 9+1, 1+1))
+
+pdw <- pd %>% 
+  pivot_longer(names_to = "Type", 
+               values_to = "density", 
+               Prior:Posterior)
+pdw %>% 
+  ggplot(aes(x, density, col = Type)) +
+  geom_line(size = 1.5) +
   scale_x_continuous(expand = expansion(0.01)) +
-  labs(y = "Density") +
-  annotate("point", x = c(.5, .5), y = c(pdw$density[pdw$x == .5])) +
+  scale_color_viridis_d(end = 0.8) +
+  labs(y = "Density", x = bquote(theta)) +
+  annotate("point", x = c(.5, .5), 
+           y = c(pdw$density[pdw$x == .5]),
+           size = 4) +
   annotate("label",
     x = c(.5, .5),
     y = pdw$density[pdw$x == .5],
@@ -475,7 +545,7 @@ ggplot(pdw, aes(x, density, col = Type)) +
   )
 ```
 
----
+
 
 ```{r echo = FALSE}
 filter(pd, x == .5) %>%
@@ -483,84 +553,278 @@ filter(pd, x == .5) %>%
     BF01 = Posterior / Prior,
     BF10 = 1 / BF01
   ) %>%
-  kable(caption = "Bayes Factors for first example.", digits = 3) %>% 
+  kable(caption = "Bayes Factors.", digits = 3) %>% 
   kable_styling(full_width = FALSE)
 ```
+]
+]
 
 
 ---
+
+## Savage-Dickey Density Ratio 
+
+
+.panelset[
+.panel[.panel-name[Formula]
+
 
 ```{r message=FALSE, warning=FALSE}
 library(brms)
 
-m0 <- bf(
+m1_formula <- bf(
   s | trials(k) ~ 0 + Intercept,
-  family = binomial(link = "identity")
-)
+  family = binomial(link = "identity"))
 ```
 
+]
+
+.panel[.panel-name[Get Priors]
 
 ```{r, message = F}
-get_prior(m0, data = d)
+get_prior(m1_formula, 
+          data = d)
 ```
-
+]
+.panel[.panel-name[Set Priors]
 
 ```{r}
-Prior <- set_prior("beta(1, 1)", class = "b", lb = 0, ub = 1)
+priors <- set_prior("beta(1, 1)", 
+                   class = "b", 
+                   lb = 0, ub = 1)
 ```
 
+]
+
+.panel[.panel-name[Posterior]
 
 ```{r, results='hide'}
-m <- brm(
-  formula = m0,
-  prior = Prior,
-  data = d,
-  sample_prior = TRUE,
-  iter = 1e4,
-  cores = 4,
-  file = "models/05-m1"
-)
+m1 <- brm(m1_formula,
+         prior = priors,
+         data = d,
+         sample_prior = TRUE, #<<
+         file = "models/05-m1")
 ```
 
----
-
+]
+.panel[.panel-name[Summary]
 
 ```{r}
-summary(m)
+summary(m1)
 ```
+
+]
+]
+
+---
+
+## Posterior summary
+
+```{r}
+
+m1 %>% 
+  mcmc_plot(c("b_Intercept", "prior_b"))
+```
+
+
+
 
 
 
 ---
 
+## Prior und Posterior
 
-
+.pull-left[
 ```{r echo = 1}
-samples <- posterior_samples(m, "b")
+samples <- m1 %>% 
+  posterior_samples("b")
+
 head(samples) %>% 
   kable(digits = 2, caption = "Six first rows of posterior samples.") %>% 
   kable_styling(full_width = FALSE)
-gather(samples, Type, value) %>%
-  ggplot(aes(value, col = Type)) +
-  geom_density() +
-  labs(x = bquote(theta), y = "Density") +
-  geom_vline(xintercept = .89) # Vertical line at .89
+
 ```
 
+]
+
+.pull-right[
+
+```{r}
+samples %>% 
+  pivot_longer(everything(), 
+               names_to = "Type", 
+               values_to = "value") %>%
+  ggplot(aes(value, color = Type)) +
+  geom_density(size = 1.5) +
+  scale_color_viridis_d(end = 0.8) +
+  labs(x = bquote(theta), y = "Density") +
+  geom_vline(xintercept = .9) 
+```
+
+]
 
 ---
 
+## Savage-Dickey Density Ratio 
+
+### Mit `brms`
+
+
 ```{r echo = -1}
 options(width = 120)
-h <- hypothesis(m, "Intercept = 0.5")
+
+h <- m1 %>% 
+  hypothesis("Intercept = 0.5")
+
 print(h, digits = 4)
 ```
 
 
 ---
 
-
+## Savage-Dickey Density Ratio 
 
 ```{r}
 plot(h)
 ```
+
+
+
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[3]
+]
+.pull-right-wide[
+  .larger[
+  Anwendung: Normalverteilung
+  ]
+]
+
+
+---
+
+## Bayes Factor für Vergleich von zwei Mittelwerten
+
+```{r}
+smart = tibble(IQ = c(101,100,102,104,102,97,105,105,98,101,100,123,105,103,
+                      100,95,102,106,109,102,82,102,100,102,102,101,102,102,
+                      103,103,97,97,103,101,97,104,96,103,124,101,101,100,
+                      101,101,104,100,101),
+               Group = "SmartDrug")
+
+placebo = tibble(IQ = c(99,101,100,101,102,100,97,101,104,101,102,102,100,105,
+                        88,101,100,104,100,100,100,101,102,103,97,101,101,100,101,
+                        99,101,100,100,101,100,99,101,100,102,99,100,99),
+                 Group = "Placebo")
+
+TwoGroupIQ <- bind_rows(smart, placebo)  %>%
+    mutate(Group = fct_relevel(as.factor(Group), "Placebo"))
+```
+
+
+---
+
+```{r}
+t.test(IQ ~ Group,
+       data = TwoGroupIQ)
+```
+
+
+---
+
+.panelset[
+.panel[.panel-name[Formula]
+
+```{r}
+m2_formula <- bf(IQ ~ 1 + Group)
+```
+
+]
+
+.panel[.panel-name[Get Priors]
+
+
+```{r}
+get_prior(m2_formula,
+          data = TwoGroupIQ)
+```
+]
+
+.panel[.panel-name[Set Priors]
+
+```{r}
+priors = c(set_prior("normal(0, 1)",
+                    class = "b", coef = "GroupSmartDrug"))
+```
+
+]
+
+.panel[.panel-name[Posterior]
+
+```{r}
+m2 <- brm(m2_formula,
+          prior = priors,
+          data = TwoGroupIQ,
+          cores = parallel::detectCores(),
+          sample_prior = TRUE,
+          file = here::here("models/05-m2-iq-bf"))
+```
+
+
+]
+
+.panel[.panel-name[Summary]
+
+```{r}
+summary(m2)
+```
+]
+]
+
+---
+
+```{r}
+m2 %>% 
+  mcmc_plot("GroupSmartDrug")
+```
+
+---
+
+
+```{r}
+BF <- hypothesis(m2,
+                hypothesis = 'GroupSmartDrug = 0')
+
+BF
+```
+
+
+
+```{r}
+1/BF$hypothesis$Evid.Ratio
+```
+
+
+
+---
+
+.your-turn[
+Speichern Sie den Dataframe mit der Funktion `write_csv()` `TwoGroupIQ` als `CSV` File.
+
+```{r eval=FALSE, include=TRUE}
+write_csv(TwoGroupIQ, file = "SmartDrug.csv")
+```
+
+Laden Sie [JASP](https://jasp-stats.org/download/) herunter, und öffnen Sie das gespeicherte CSV File.
+
+Führen Sie in JASP einen **Bayesian t-Test** durch. 
+
+- Warum erhalten Sie nicht denselben Bayes Factor wie JASP?
+- Probieren Sie verschiedene Prior Verteilungen aus.
+- Versuchen Sie, das Ergebnis in Worten zusammenzufassen. Was sagt der Bayes Factor aus?
+]
