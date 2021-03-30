@@ -6,7 +6,7 @@ source_url: https://github.com/kogpsy/neuroscicomplab
 description: |
   Neurowissenschaft im Computerlab
 include: ["slides/", "data/"]
-exclude: ["_do_not_build/"]
+exclude: ["_do_not_build/", "jasp"]
 output_dir: "docs"
 theme: css/theme.css
 creative_commons: CC BY
@@ -54,11 +54,10 @@ navbar:
           href: 03-bayesian-stats.html
         - text: "4. Bayesianische Statistik: Hierarchische Modelle mit `brms`"
           href: 04-bayesian-stats.html
+        - text: "5. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
+          href: 05-bayesian-stats.html
 
-        # - text: "---"
-        # - text: "Parameter Estimation"
-        #   href: "parameter-estimation.html"
-#
+
     - text: "Slides"
       menu:
         - text: "2. Bayesianische Statistik: Von Grid Approximation zu Sampling"
@@ -67,6 +66,8 @@ navbar:
           href: slides/03-bayesian-stats-slides.html
         - text: "4. Bayesianische Statistik: Hierarchische Modelle mit `brms`"
           href: slides/04-bayesian-stats-slides.html
+        - text: "5. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
+          href: slides/05-bayesian-stats-slides.html
 #
 #
 #     - text: "Cognitive Models"

@@ -199,7 +199,7 @@ ul{
   background-color: var(--cornhusk-30);
 }
 .your-turn:before{
-  content: "Your turn!";
+  content: "Übung";
   font-size: 150%;
   font-weight: bold;
   color: var(--stucco);
