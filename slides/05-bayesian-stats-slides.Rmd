@@ -251,18 +251,22 @@ Bei der Berechnung der Marginal Likelihood muss über alle unter dem Modell mög
 
 ## Komplexität
 
-- Marginal Likelihood wir auch __Model Evidence__ genannt. Sie hängt davon ab, welche Vorhersagen ein Model machen kann (warum?).
+- Marginal Likelihood wird auch __Model Evidence__ genannt. Sie hängt davon ab, welche Vorhersagen ein Model machen kann (warum?).
 
 - Ein Modell, welches viele Vorhersagen machen kann, ist ein __komplexes__ Modell. Die meisten Vorhersagen werden aber falsch sein (warum?).
 
+--
 
 Komplexität hängt unter anderem ab von:
 
---
 
 - Anzahl Parameter im Modell
 
 - Prior Verteilungen der Parameter
+
+--
+
+Bei frequentistischen Modellen spielt nur die Anzahl Parameter eine Rolle.
 
 
 ---
