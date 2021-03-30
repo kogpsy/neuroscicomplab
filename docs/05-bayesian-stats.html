@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
   <meta name="citation_title" content="neuroscicomplab: Bayesianische Statistik"/>
-  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/04-bayesian-stats.html"/>
+  <meta name="citation_fulltext_html_url" content="https://kogpsy.github.io/neuroscicomplab/05-bayesian-stats.html"/>
   <meta name="citation_fulltext_world_readable" content=""/>
   <meta name="citation_online_date" content="2021/03/30"/>
   <meta name="citation_publication_date" content="2021/03/30"/>
@@ -119,10 +119,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="citation_author_institution" content="Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"/>
   <!--/radix_placeholder_meta_tags-->
   
+  <meta name="citation_reference" content="citation_title=Bayesian hypothesis testing for psychologists: A tutorial on the Savage–Dickey method;citation_publication_date=2010;citation_volume=60;citation_doi=10.1016/j.cogpsych.2009.12.001;citation_issn=0010-0285;citation_author=Eric-Jan Wagenmakers;citation_author=Tom Lodewyckx;citation_author=Himanshu Kuriyal;citation_author=Raoul Grasman"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Bayesianische Statistik"]},{"type":"character","attributes":{},"value":["Teil 5: Hypothesentests & Modellvergleiche.\n"]},{"type":"character","attributes":{},"value":["2021-03-30"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/04-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Bayesianische Statistik"]},{"type":"character","attributes":{},"value":["Teil 5: Hypothesentests & Modellvergleiche.\n"]},{"type":"character","attributes":{},"value":["2021-03-30"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/05-bayesian-stats.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2378,6 +2379,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2633,7 +2636,658 @@ Slides
 </div>
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#einführung">Einführung</a></li>
+<li><a href="#mögliche-methoden">Mögliche Methoden</a></li>
+<li><a href="#bayesianische-modellvergleiche">Bayesianische Modellvergleiche</a></li>
+<li><a href="#bayes-factor">Bayes factor</a></li>
+<li><a href="#komplexität">Komplexität</a></li>
+<li><a href="#prior-verteilungen">Prior Verteilungen</a></li>
+<li><a href="#ockhams-razor">Ockham’s Razor</a></li>
+<li><a href="#modellvergleich">Modellvergleich</a></li>
+<li><a href="#klassifizierung">Klassifizierung</a></li>
+<li><a href="#bayes-factor-1">Bayes Factor</a></li>
+<li><a href="#savage-dickey-density-ratio">Savage-Dickey Density Ratio</a></li>
+<li><a href="#savage-dickey-density-ratio-1">Savage-Dickey Density Ratio</a></li>
+<li><a href="#savage-dickey-density-ratio-2">Savage-Dickey Density Ratio</a></li>
+<li><a href="#posterior-summary">Posterior summary</a></li>
+<li><a href="#prior-und-posterior">Prior und Posterior</a></li>
+<li><a href="#savage-dickey-density-ratio-3">Savage-Dickey Density Ratio</a></li>
+<li><a href="#savage-dickey-density-ratio-4">Savage-Dickey Density Ratio</a></li>
+<li><a href="#bayes-factor-für-vergleich-von-zwei-mittelwerten">Bayes Factor für Vergleich von zwei Mittelwerten</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/rmarkdown'>rmarkdown</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="einführung">Einführung</h2>
+<p>Bisher haben wir:</p>
+<ul>
+<li>Parameter geschätzt
+<ul>
+<li>Binomial (Bernoulli) Modell</li>
+<li>Lineare Modelle mit kategorialem Prädiktor</li>
+</ul></li>
+<li>Posterior Verteilung(en) zusammengefasst
+<ul>
+<li>Credible Intervals</li>
+<li>Highest Posterior Density Intervals</li>
+</ul></li>
+</ul>
+<p>Wir würden gerne Aussagen über die Wahrscheinlichkeiten von Modellen machen:</p>
+<ul>
+<li>z.B. Modell 1 (M1) erklärt die Daten besser als Modell 2 (M2).</li>
+<li>M1 ist wahrscheinlicher als M2</li>
+</ul>
+<p>Solche Aussagen sind <strong>Modellvergleiche</strong>.</p>
+<div class="exercise">
+<p>Welche Methoden kennen Sie, um Modelle zu vergleichen?</p>
+<ul>
+<li>Diskutieren Sie anhand dieses Beispiels, wie Sie die Hypothese testen können, dass die Intervention einen Effekt hat.</li>
+</ul>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='va'>intervention</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'treat'</span>, <span class='st'>'control'</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>pre</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>60</span>, <span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>10</span>, <span class='fl'>40</span>, <span class='fl'>20</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>post</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70</span>, <span class='fl'>50</span>, <span class='fl'>90</span>, <span class='fl'>60</span>, <span class='fl'>50</span>, <span class='fl'>20</span>, <span class='fl'>10</span>, <span class='fl'>30</span>, <span class='fl'>50</span>, <span class='fl'>10</span><span class='op'>)</span>
+
+<span class='va'>dwide</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>, 
+            <span class='va'>intervention</span>, <span class='va'>pre</span>, <span class='va'>post</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>diff <span class='op'>=</span> <span class='va'>post</span> <span class='op'>-</span> <span class='va'>pre</span>,
+         id <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>, 
+         intervention <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>intervention</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"control"</span>, <span class='st'>"treat"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='va'>dwide</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>diff</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_longer</span><span class='op'>(</span>cols <span class='op'>=</span> <span class='va'>pre</span><span class='op'>:</span><span class='va'>post</span>, names_to <span class='op'>=</span> <span class='st'>"time"</span>, values_to <span class='op'>=</span> <span class='st'>"score"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>time <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>time</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Wir haben hier einen within (messwiederholten) Faktor (<code>time</code>), und einen between Faktor (<code>intervention</code>).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>score</span>, color <span class='op'>=</span> <span class='va'>intervention</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>id</span><span class='op'>)</span>, linetype <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_viridis_d</span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<h2 id="mögliche-methoden">Mögliche Methoden</h2>
+<ul>
+<li>Hypothesentest, z.B.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>diff</span> <span class='op'>~</span> <span class='va'>intervention</span>,
+       data <span class='op'>=</span> <span class='va'>dwide</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'>lmer</span><span class='op'>(</span><span class='va'>score</span> <span class='op'>~</span> <span class='va'>intervention</span> <span class='op'>+</span> <span class='va'>time</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>id</span><span class='op'>)</span>, 
+                  data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
+<span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>lmer</span><span class='op'>(</span><span class='va'>score</span> <span class='op'>~</span> <span class='va'>intervention</span> <span class='op'>*</span> <span class='va'>time</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>id</span><span class='op'>)</span>, 
+                  data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Modellvergleiche</p>
+<ul>
+<li><p>Varianzaufklärung</p></li>
+<li><p>Informationskriterien</p></li>
+<li><p>Kreuzvalidierung</p></li>
+</ul></li>
+</ul>
+<p>Wir lernen nun Methoden kennen, um mit Bayesianischen Modellen Modellvergleiche durchzuführen.</p>
+<h2 id="bayesianische-modellvergleiche">Bayesianische Modellvergleiche</h2>
+<p>Wir unterscheiden 3 verschiedene Methoden</p>
+<ol type="1">
+<li><p>Bayes Factors</p></li>
+<li><p>Out of sample predictive accuracy:</p></li>
+</ol>
+<blockquote>
+<p>Approximate leave-one-out cross validation (LOO)</p>
+</blockquote>
+<blockquote>
+<p>Informationskriterien: widely application information criterion (WAIC)</p>
+</blockquote>
+<ol start="3" type="1">
+<li>Posterior predictive checking: &gt; Konstruktion einer Teststatistik und Vergleich der aktuellen Daten mit generierten Daten aus der Posterior Predictive Distribution.</li>
+</ol>
+<p>Heute schauen wir uns die erste Methode (Bayes Factors) an. Diese sind unter Statistikern sehr umstritten. Psychologen wollen Hypothesen testen (Evidenz für/gegen Hypothesen), während in anderen Bereichen dies weniger verbreitet ist.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/Bayesian-workflow-1.png" width="1162" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/Bayesian-workflow-2.png" width="80%" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/Bayesian-workflow-3.png" width="80%" /></p>
+</div>
+<h2 id="bayes-factor">Bayes factor</h2>
+<p>Bayes’ Theorem, mit expliziter Abhängigkeit der Parameter <span class="math inline">\(\mathbf{\theta}\)</span> vom Modells <span class="math inline">\(\mathcal{M}\)</span>:</p>
+<p><span class="math display">\[ p(\theta | y, \mathcal{M}) = \frac{p(y|\theta, \mathcal{M}) p(\theta | \mathcal{M})}{p(y | \mathcal{M})}\]</span></p>
+<p><span class="math inline">\(\mathcal{M}\)</span> bezieht sich auf ein bestimmtes Modell.</p>
+<p><span class="math inline">\(p(y | \mathcal{M})\)</span> ist die Wahrscheinlichkeit der Daten (marginal likelihood), über alle möglichen Parameterwerte des Modells <span class="math inline">\(\mathcal{M}\)</span> integriert. Wir haben sie anfangs als Normierungskonstante bezeichnet.</p>
+<p><span class="math display">\[ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} \]</span></p>
+<p><span class="math display">\[ P(\theta|Data) \propto P(Data|\theta) * P(\theta) \]</span></p>
+<p><span class="math display">\[ p(y | \mathcal{M}) = \int_{\theta}{p(y | \theta, \mathcal{M}) p(\theta|\mathcal{M})d\theta} \]</span> Bei der Berechnung der Marginal Likelihood muss über alle unter dem Modell möglichen Werte von <span class="math inline">\(\theta\)</span> gemittelt werden.</p>
+<h2 id="komplexität">Komplexität</h2>
+<ul>
+<li><p>Marginal Likelihood wird auch <strong>Model Evidence</strong> genannt. Sie hängt davon ab, welche Vorhersagen ein Model machen kann (warum?).</p></li>
+<li><p>Ein Modell, welches viele Vorhersagen machen kann, ist ein <strong>komplexes</strong> Modell. Die meisten Vorhersagen werden aber falsch sein (warum?).</p></li>
+</ul>
+<p>Komplexität hängt unter anderem ab von:</p>
+<ul>
+<li><p>Anzahl Parameter im Modell</p></li>
+<li><p>Prior Verteilungen der Parameter</p></li>
+</ul>
+<p>Bei frequentistischen Modellen spielt nur die Anzahl Parameter eine Rolle.</p>
+<h2 id="prior-verteilungen">Prior Verteilungen</h2>
+<p>Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Lieklihood niedrig ist.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>p_grid</span>, shape1 <span class='op'>=</span> <span class='fl'>1</span>, shape2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>p_grid</span>, shape1 <span class='op'>=</span> <span class='fl'>20</span>, shape2 <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>p_grid</span>, shape1 <span class='op'>=</span> <span class='fl'>2</span>, shape2 <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span>
+<span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>prior</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>p_grid</span>, shape1 <span class='op'>=</span> <span class='fl'>48</span>, shape2 <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='fu'>compute_posterior</span><span class='op'>(</span><span class='va'>likelihood</span>, <span class='va'>prior</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
+</div>
+<h2 id="ockhams-razor">Ockham’s Razor</h2>
+<ul>
+<li><p>Komplexe Modelle haben eine niedrigere Marginal Likelihood.</p></li>
+<li><p>Wenn wir bei einem Vergleich mehrerer Modelle diejenigen Modelle mit höherer Marginal Likelihood bevorzugen, wenden wir das <strong>Prinzip der Sparsamkeit</strong> an.</p></li>
+</ul>
+<p>Wir schreiben Bayes Theorem mit expliziten Modellen M1 und M2</p>
+<p><span class="math display">\[ p(\mathcal{M}_1 | y) = \frac{P(y | \mathcal{M}_1) p(\mathcal{M}_1)}{p(y)} \]</span></p>
+<p>und</p>
+<p><span class="math display">\[ p(\mathcal{M}_2 | y) = \frac{P(y | \mathcal{M}_2) p(\mathcal{M}_2)}{p(y)} \]</span></p>
+<p>Für Model <span class="math inline">\(\mathcal{M_m}\)</span> ist die Posterior Wahrscheinlichkeit des Modells proportional zum Produkt der Marginal Likelihood und der A Priori Wahrscheinlichkeit.</p>
+<h2 id="modellvergleich">Modellvergleich</h2>
+<p>Verhältnis der Modellwahrscheinlichkeiten:</p>
+<p><span class="math display">\[ \frac{p(\mathcal{M}_1 | y) = \frac{P(y | \mathcal{M}_1) p(\mathcal{M}_1)}{p(y)}} {p(\mathcal{M}_2 | y) = \frac{P(y | \mathcal{M}_2) p(\mathcal{M}_2)}{p(y)}} \]</span></p>
+<p><span class="math inline">\(p(y)\)</span> kann rausgekürzt werden.</p>
+<p><span class="math display">\[\underbrace{\frac{p(\mathcal{M}_1 | y)} {p(\mathcal{M}_2 | y)}}_\text{Posterior odds} = \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)} \cdot \underbrace{ \frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}}_\text{Prior odds}\]</span></p>
+<p><span class="math inline">\(\frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}\)</span> sind die <strong>prior odds</strong>, und <span class="math inline">\(\frac{p(\mathcal{M}_1 | y)}{p(\mathcal{M}_2 | y)}\)</span> sind die <strong>posterior odds</strong>.</p>
+<p>Nehmen wir an, die Prior Odds seine <span class="math inline">\(1\)</span>, dann interessiert uns nur das Verhältnis der Marginal Likelihoods:</p>
+<p><span class="math display">\[ \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)} \]</span></p>
+<p>Dieser Term ist der <strong>Bayes factor</strong>: der Term, mit dem die Prior Odds multipliziert werden. Er gibt an, unter welchem Modell die Daten wahrscheinlicher sind.</p>
+<p>Wir schreiben <span class="math inline">\(BF_{12}\)</span> - dies ist der Bayes factor für Modell 1 vs Modell 2.</p>
+<p><span class="math display">\[ BF_{12} = \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)}\]</span></p>
+<p><span class="math inline">\(BF_{12}\)</span> gibt an, in welchem Ausmass die Daten <span class="math inline">\(\mathcal{M}_1\)</span> bevorzugen, relativ zu <span class="math inline">\(\mathcal{M}_2\)</span>.</p>
+<p>Beispiel: <span class="math inline">\(BF_{12} = 5\)</span> heisst: die Daten sind unter Modell 1 5 Mal wahrscheinlicher als unter Modell 2</p>
+<h2 id="klassifizierung">Klassifizierung</h2>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/bf-classification.png" width="80%" /></p>
+</div>
+<h2 id="bayes-factor-1">Bayes Factor</h2>
+<ul>
+<li><p>Sehr stark abhängig von den Prior Verteilungen der Parameter.</p></li>
+<li><p>Ist nur für sehr simple Modelle einfach zu berechnen/schätzen.</p></li>
+<li><p>Schätzmethoden</p>
+<ul>
+<li><p>Savage-Dickey Density Ratio mit <code>Stan</code>/<code>brms</code></p></li>
+<li><p>Package <a href="https://cran.r-project.org/web/packages/BayesFactor/vignettes/manual.html">BayesFactor</a> (nur für allgemeine lineare Modelle)</p></li>
+<li><p><a href="https://jasp-stats.org/">JASP</a>: IM Prinzip ein GUI für <code>BayesFactor</code></p></li>
+<li><p>Bridge sampling mit <code>brms</code>: schwieriger zu implementieren, aber für viele Modelle möglich.</p></li>
+</ul></li>
+</ul>
+<h2 id="savage-dickey-density-ratio">Savage-Dickey Density Ratio</h2>
+<p>Wenn wir zwei genestete Modell vergleichen, wie z.B. ein Modell 1 mit einem frei geschätzten Parameter, und ein Nullmodell vergleichen, gibt es eine einfache Methode.</p>
+<p>Unter dem Nullmodell (Nullhypothese): <span class="math inline">\(H_0: \theta = \theta_0\)</span></p>
+<p>Unter Modell 1: <span class="math inline">\(H_0: \theta \neq \theta_0\)</span></p>
+<p>Nun braucht der Parameter <span class="math inline">\(\theta\)</span> unter Modell 1 eine Verteilung, z.B. <span class="math inline">\(\theta \sim \text{Beta}(1, 1)\)</span></p>
+<p>Der Savage-Dickey Density Ratio Trick: wir betrachten nur Modell 1, und dividieren die Posterior Verteilung durch die Prior Verteilung an der Stelle <span class="math inline">\(\theta_0\)</span>.</p>
+<aside>
+Beim Nullmodell ist der Parameter auf den Wert 0 fixiert.
+</aside>
+<h2 id="savage-dickey-density-ratio-1">Savage-Dickey Density Ratio</h2>
+<p>Wir schauen uns ein Beispiel aus <span class="citation" data-cites="wagenmakersBayesianHypothesisTesting2010a"><a href="#ref-wagenmakersBayesianHypothesisTesting2010a" role="doc-biblioref">Wagenmakers et al.</a> (<a href="#ref-wagenmakersBayesianHypothesisTesting2010a" role="doc-biblioref">2010</a>)</span> an:</p>
+<p>Sie beobachten, dass jemand 9 Fragen von 10 richtig beantwortet.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>s <span class='op'>=</span> <span class='fl'>9</span>, k <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Unsere Frage: was ist die Wahrscheinlichkeit, dass das mit Glück ( <span class="math inline">\(\theta = 0.5\)</span> ) passiert ist?</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-17-1.png" width="624" data-distill-preview=1 /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-18">Table 1: </span>Bayes Factors.
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+Prior
+</th>
+<th style="text-align:right;">
+Posterior
+</th>
+<th style="text-align:right;">
+BF01
+</th>
+<th style="text-align:right;">
+BF10
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.107
+</td>
+<td style="text-align:right;">
+0.107
+</td>
+<td style="text-align:right;">
+9.309
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="savage-dickey-density-ratio-2">Savage-Dickey Density Ratio</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/paul-buerkner/brms'>brms</a></span><span class='op'>)</span>
+
+<span class='va'>m1_formula</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brmsformula.html'>bf</a></span><span class='op'>(</span>
+  <span class='va'>s</span> <span class='op'>|</span> <span class='fu'>trials</span><span class='op'>(</span><span class='va'>k</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>Intercept</span>,
+  family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span><span class='op'>(</span>link <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>m1_formula</span>, 
+          data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  prior class      coef group resp dpar nlpar bound       source
+ (flat)     b                                            default
+ (flat)     b Intercept                             (vectorized)</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>set_prior</a></span><span class='op'>(</span><span class='st'>"beta(1, 1)"</span>, 
+                   class <span class='op'>=</span> <span class='st'>"b"</span>, 
+                   lb <span class='op'>=</span> <span class='fl'>0</span>, ub <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>m1_formula</span>,
+         prior <span class='op'>=</span> <span class='va'>priors</span>,
+         data <span class='op'>=</span> <span class='va'>d</span>,
+         sample_prior <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='co'>#&lt;&lt;</span>
+         file <span class='op'>=</span> <span class='st'>"models/05-m1"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: binomial 
+  Links: mu = identity 
+Formula: s | trials(k) ~ 0 + Intercept 
+   Data: d (Number of observations: 1) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept     0.83      0.10     0.58     0.97 1.00     1492     1345
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<h2 id="posterior-summary">Posterior summary</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b_Intercept"</span>, <span class='st'>"prior_b"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-24-1.png" width="624" /></p>
+</div>
+<h2 id="prior-und-posterior">Prior und Posterior</h2>
+.pull-left[
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='va'>m1</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='st'>"b"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-25">Table 2: </span>Six first rows of posterior samples.
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+b_Intercept
+</th>
+<th style="text-align:right;">
+prior_b
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>, 
+               names_to <span class='op'>=</span> <span class='st'>"Type"</span>, 
+               values_to <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>value</span>, color <span class='op'>=</span> <span class='va'>Type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_density</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_viridis_d</span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/bquote.html'>bquote</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='st'>"Density"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-26-1.png" width="624" /></p>
+</div>
+<h2 id="savage-dickey-density-ratio-3">Savage-Dickey Density Ratio</h2>
+<h3 id="mit-brms">Mit <code>brms</code></h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>h</span> <span class='op'>&lt;-</span> <span class='va'>m1</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/brms/man/hypothesis.brmsfit.html'>hypothesis</a></span><span class='op'>(</span><span class='st'>"Intercept = 0.5"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>h</span>, digits <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Hypothesis Tests for class b:
+             Hypothesis Estimate Est.Error CI.Lower CI.Upper Evid.Ratio Post.Prob Star
+1 (Intercept)-(0.5) = 0   0.3275    0.1048   0.0767   0.4721     0.1028    0.0932    *
+---
+&#39;CI&#39;: 90%-CI for one-sided and 95%-CI for two-sided hypotheses.
+&#39;*&#39;: For one-sided hypotheses, the posterior probability exceeds 95%;
+for two-sided hypotheses, the value tested against lies outside the 95%-CI.
+Posterior probabilities of point hypotheses assume equal prior probabilities.</code></pre>
+</div>
+<h2 id="savage-dickey-density-ratio-4">Savage-Dickey Density Ratio</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-28-1.png" width="624" /></p>
+</div>
+<h2 id="bayes-factor-für-vergleich-von-zwei-mittelwerten">Bayes Factor für Vergleich von zwei Mittelwerten</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>smart</span> <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>IQ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>104</span>,<span class='fl'>102</span>,<span class='fl'>97</span>,<span class='fl'>105</span>,<span class='fl'>105</span>,<span class='fl'>98</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>123</span>,<span class='fl'>105</span>,<span class='fl'>103</span>,
+                      <span class='fl'>100</span>,<span class='fl'>95</span>,<span class='fl'>102</span>,<span class='fl'>106</span>,<span class='fl'>109</span>,<span class='fl'>102</span>,<span class='fl'>82</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,
+                      <span class='fl'>103</span>,<span class='fl'>103</span>,<span class='fl'>97</span>,<span class='fl'>97</span>,<span class='fl'>103</span>,<span class='fl'>101</span>,<span class='fl'>97</span>,<span class='fl'>104</span>,<span class='fl'>96</span>,<span class='fl'>103</span>,<span class='fl'>124</span>,<span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,
+                      <span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>104</span>,<span class='fl'>100</span>,<span class='fl'>101</span><span class='op'>)</span>,
+               Group <span class='op'>=</span> <span class='st'>"SmartDrug"</span><span class='op'>)</span>
+
+<span class='va'>placebo</span> <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>IQ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>97</span>,<span class='fl'>101</span>,<span class='fl'>104</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>102</span>,<span class='fl'>100</span>,<span class='fl'>105</span>,
+                        <span class='fl'>88</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>104</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>102</span>,<span class='fl'>103</span>,<span class='fl'>97</span>,<span class='fl'>101</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,
+                        <span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>99</span>,<span class='fl'>101</span>,<span class='fl'>100</span>,<span class='fl'>102</span>,<span class='fl'>99</span>,<span class='fl'>100</span>,<span class='fl'>99</span><span class='op'>)</span>,
+                 Group <span class='op'>=</span> <span class='st'>"Placebo"</span><span class='op'>)</span>
+
+<span class='va'>TwoGroupIQ</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>smart</span>, <span class='va'>placebo</span><span class='op'>)</span>  <span class='op'>%&gt;%</span>
+    <span class='fu'>mutate</span><span class='op'>(</span>Group <span class='op'>=</span> <span class='fu'>fct_relevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>Group</span><span class='op'>)</span>, <span class='st'>"Placebo"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='va'>Group</span>,
+       data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  IQ by Group
+t = -1.6222, df = 63.039, p-value = 0.1098
+alternative hypothesis: true difference in means between group Placebo and group SmartDrug is not equal to 0
+95 percent confidence interval:
+ -3.4766863  0.3611848
+sample estimates:
+  mean in group Placebo mean in group SmartDrug 
+               100.3571                101.9149 </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2_formula</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brmsformula.html'>bf</a></span><span class='op'>(</span><span class='va'>IQ</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>Group</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>m2_formula</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>                  prior     class           coef group resp dpar
+                 (flat)         b                               
+                 (flat)         b GroupSmartDrug                
+ student_t(3, 101, 2.5) Intercept                               
+   student_t(3, 0, 2.5)     sigma                               
+ nlpar bound       source
+                  default
+             (vectorized)
+                  default
+                  default</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>set_prior</a></span><span class='op'>(</span><span class='st'>"normal(0, 1)"</span>,
+                    class <span class='op'>=</span> <span class='st'>"b"</span>, coef <span class='op'>=</span> <span class='st'>"GroupSmartDrug"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>m2_formula</span>,
+          prior <span class='op'>=</span> <span class='va'>priors</span>,
+          data <span class='op'>=</span> <span class='va'>TwoGroupIQ</span>,
+          cores <span class='op'>=</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/detectCores.html'>detectCores</a></span><span class='op'>(</span><span class='op'>)</span>,
+          sample_prior <span class='op'>=</span> <span class='cn'>TRUE</span>,
+          file <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"models/05-m2-iq-bf"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: IQ ~ 1 + Group 
+   Data: TwoGroupIQ (Number of observations: 89) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept        100.76      0.61    99.58   101.96 1.00     4374
+GroupSmartDrug     0.76      0.71    -0.64     2.17 1.00     4267
+               Tail_ESS
+Intercept          2977
+GroupSmartDrug     3012
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     4.72      0.36     4.11     5.48 1.00     3654     2814
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m2</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='st'>"GroupSmartDrug"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="05-bayesian-stats_files/figure-html5/unnamed-chunk-36-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>BF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/hypothesis.brmsfit.html'>hypothesis</a></span><span class='op'>(</span><span class='va'>m2</span>,
+                hypothesis <span class='op'>=</span> <span class='st'>'GroupSmartDrug = 0'</span><span class='op'>)</span>
+
+<span class='va'>BF</span>
+</code></pre>
+</div>
+<pre><code>Hypothesis Tests for class b:
+            Hypothesis Estimate Est.Error CI.Lower CI.Upper
+1 (GroupSmartDrug) = 0     0.76      0.71    -0.64     2.17
+  Evid.Ratio Post.Prob Star
+1       0.81      0.45     
+---
+&#39;CI&#39;: 90%-CI for one-sided and 95%-CI for two-sided hypotheses.
+&#39;*&#39;: For one-sided hypotheses, the posterior probability exceeds 95%;
+for two-sided hypotheses, the value tested against lies outside the 95%-CI.
+Posterior probabilities of point hypotheses assume equal prior probabilities.</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fl'>1</span><span class='op'>/</span><span class='va'>BF</span><span class='op'>$</span><span class='va'>hypothesis</span><span class='op'>$</span><span class='va'>Evid.Ratio</span>
+</code></pre>
+</div>
+<pre><code>[1] 1.23144</code></pre>
+</div>
+<div class="exercise">
+<p>Speichern Sie den Dataframe mit der Funktion <code>write_csv()</code> <code>TwoGroupIQ</code> als <code>CSV</code> File.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>TwoGroupIQ</span>, file <span class='op'>=</span> <span class='st'>"SmartDrug.csv"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Laden Sie <a href="https://jasp-stats.org/download/">JASP</a> herunter, und öffnen Sie das gespeicherte CSV File.</p>
+<p>Führen Sie in JASP einen <strong>Bayesian t-Test</strong> durch.</p>
+<ul>
+<li>Warum erhalten Sie nicht denselben Bayes Factor wie JASP?</li>
+<li>Probieren Sie verschiedene Prior Verteilungen aus.</li>
+<li>Versuchen Sie, das Ergebnis in Worten zusammenzufassen. Was sagt der Bayes Factor aus?</li>
+</ul>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-wagenmakersBayesianHypothesisTesting2010a" class="csl-entry" role="doc-biblioentry">
+Wagenmakers, Eric-Jan, Tom Lodewyckx, Himanshu Kuriyal, and Raoul Grasman. 2010. <span>“Bayesian Hypothesis Testing for Psychologists: <span>A</span> Tutorial on the <span>Savage</span>–<span>Dickey</span> Method.”</span> <em>Cognitive Psychology</em> 60 (3): 158–89. <a href="https://doi.org/10.1016/j.cogpsych.2009.12.001">https://doi.org/10.1016/j.cogpsych.2009.12.001</a>.
+</div>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2641,6 +3295,15 @@ Slides
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
@@ -2654,12 +3317,12 @@ Slides
 <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/kogpsy/neuroscicomplab">https://github.com/kogpsy/neuroscicomplab</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 <h3 id="citation">Citation</h3>
 <p>For attribution, please cite this work as</p>
-<pre class="citation-appendix short">Ellis (2021, March 30). neuroscicomplab: Bayesianische Statistik. Retrieved from https://kogpsy.github.io/neuroscicomplab/04-bayesian-stats.html</pre>
+<pre class="citation-appendix short">Ellis (2021, March 30). neuroscicomplab: Bayesianische Statistik. Retrieved from https://kogpsy.github.io/neuroscicomplab/05-bayesian-stats.html</pre>
 <p>BibTeX citation</p>
 <pre class="citation-appendix long">@misc{ellis2021bayesianische,
   author = {Ellis, Andrew},
   title = {neuroscicomplab: Bayesianische Statistik},
-  url = {https://kogpsy.github.io/neuroscicomplab/04-bayesian-stats.html},
+  url = {https://kogpsy.github.io/neuroscicomplab/05-bayesian-stats.html},
   year = {2021}
 }</pre>
 </div>
