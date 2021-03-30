@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Bayesianische Statistik</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Andrew Ellis" />
+    <meta name="date" content="2021-03-30" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <script src="libs/mark.js/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-right","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/slides-style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Bayesianische Statistik
+## Teil 5 <br/> Modellvergleiche &amp; Hypothesentests
+### Andrew Ellis
+### Methodenkurs Neurowissenschaft im Computerlab
+### 2021-03-30
+
+---
+
+
+
+
+
+
+
+layout: true
+  
+&lt;!-- Home icon --&gt;
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:#0F4C81;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;&lt;/a&gt; Methodenkurs Neurowissenschaft im Computerlab
+&lt;/span&gt;
+&lt;/div&gt;
+
+
+&lt;!-- Name (left) --&gt;
+&lt;!-- &lt;div class="my-footer"&gt; --&gt;
+&lt;!-- &lt;span&gt; --&gt;
+&lt;!-- Andrew Ellis - &lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;kogpsy.github.io/neuroscicomplab&lt;/a&gt; --&gt;
+&lt;!-- &lt;/span&gt; --&gt;
+&lt;!-- &lt;/div&gt; --&gt;
+
+&lt;!-- slide separator (for xaringan) --&gt;
+---
+
+
+
+
+
+
+## Einführung
+
+
+.pull-left[
+Bisher haben wir:
+
+- Parameter geschätzt
+    + Binomial (Bernoulli) Modell
+    + Lineare Modelle mit kategorialem Prädiktor
+- Posterior Verteilung(en) zusammengefasst
+    + Credible Intervals
+    + Highest Posterior Density Intervals
+
+]
+
+--
+
+.pull-right[
+Wir würden gerne Aussagen über die Wahrscheinlichkeiten von Modellen machen:
+
+- z.B. Modell 1 (M1) erklärt die Daten besser als Modell 2 (M2).
+- M1 ist wahrscheinlicher als M2
+
+Solche Aussagen sind **Modellvergleiche**.
+]
+
+
+
+
+
+---
+
+.pull-left[
+.discussion[
+Welche Methoden kennen Sie, um Modelle zu vergleichen?
+
+
+- Diskutieren Sie anhand dieses Beispiels, wie Sie die Hypothese testen können, dass die Intervention einen Effekt hat.
+]
+]
+
+.pull-right[
+
+
+
+
+Wir haben hier einen within (messwiederholten) Faktor (`time`), und einen between Faktor (`intervention`). 
+
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+
+]
+
+<div class="countdown" id="timer_60628cdf" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+## Mögliche Methoden
+
+- Hypothesentest, z.B.
+
+.pull-left[
+
+```r
+t.test(diff ~ intervention,
+       data = dwide)
+```
+]
+.pull-right[
+
+```r
+m1 &lt;- lmer(score ~ intervention + time + (1|id), 
+                  data = d)
+m2 &lt;- lmer(score ~ intervention * time + (1|id), 
+                  data = d)
+```
+
+]
+
+- Modellvergleiche
+
+    - Varianzaufklärung
+
+    - Informationskriterien
+
+    - Kreuzvalidierung
+
+--
+
+Wir lernen nun Methoden kennen, um mit Bayesianischen Modellen Modellvergleiche durchzuführen.
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[1]
+]
+.pull-right-wide[
+  .larger[
+  Theorie
+  ]
+]
+
+
+---
+
+## Bayesianische Modellvergleiche
+
+Wir unterscheiden 3 verschiedene Methoden
+
+1) Bayes Factors
+
+2) Out of sample predictive accuracy:
+
+&gt; Approximate leave-one-out cross validation (LOO)
+
+&gt; Informationskriterien: widely application information criterion (WAIC)
+    
+3) Posterior predictive checking:
+  &gt; Konstruktion einer Teststatistik und Vergleich der aktuellen Daten mit generierten Daten aus der Posterior Predictive Distribution.
+
+--
+
+Heute schauen wir uns die erste Methode (Bayes Factors) an. Diese sind unter Statistikern sehr umstritten. Psychologen wollen Hypothesen testen (Evidenz für/gegen Hypothesen), während in anderen Bereichen dies weniger verbreitet ist.
+
+---
+
+.panelset[
+.panel[.panel-name[Bayesian workflow]
+
+&lt;img src="images/Bayesian-workflow-1.png" width="100%" /&gt;
+
+]
+
+.panel[.panel-name[Posterior evaluation]
+
+&lt;img src="images/Bayesian-workflow-2.png" width="80%" /&gt;
+
+]
+
+.panel[.panel-name[Model comparison]
+
+&lt;img src="images/Bayesian-workflow-3.png" width="80%" /&gt;
+
+]
+]
+
+---
+
+## Bayes factor
+
+Bayes' Theorem, mit expliziter Abhängigkeit der Parameter `\(\mathbf{\theta}\)`  vom Modells `\(\mathcal{M}\)`:
+
+
+$$ p(\theta | y, \mathcal{M}) = \frac{p(y|\theta, \mathcal{M}) p(\theta | \mathcal{M})}{p(y | \mathcal{M})}$$
+
+`\(\mathcal{M}\)` bezieht sich auf ein bestimmtes Modell. 
+
+--
+
+`\(p(y | \mathcal{M})\)` ist die Wahrscheinlichkeit der Daten (marginal likelihood), über alle möglichen Parameterwerte des Modells `\(\mathcal{M}\)` integriert. Wir haben sie anfangs als Normierungskonstante bezeichnet.
+
+--
+
+.panelset[
+.panel[.panel-name[Bayes Theorem]
+
+$$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
+]
+.panel[.panel-name[Bayes Theorem ohne Konstante]
+$$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
+]
+.panel[.panel-name[Marginal likelihood]
+
+$$ p(y | \mathcal{M}) = \int_{\theta}{p(y | \theta, \mathcal{M}) p(\theta|\mathcal{M})d\theta} $$
+Bei der Berechnung der Marginal Likelihood muss über alle unter dem Modell möglichen Werte von `\(\theta\)` gemittelt werden.
+
+]
+]
+
+---
+
+## Komplexität
+
+- Marginal Likelihood wir auch __Model Evidence__ genannt. Sie hängt davon ab, welche Vorhersagen ein Model machen kann (warum?).
+
+- Ein Modell, welches viele Vorhersagen machen kann, ist ein __komplexes__ Modell. Die meisten Vorhersagen werden aber falsch sein (warum?).
+
+
+Komplexität hängt unter anderem ab von:
+
+--
+
+- Anzahl Parameter im Modell
+
+- Prior Verteilungen der Parameter
+
+
+---
+
+## Prior Verteilungen
+
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Paramterraums, in denen die Lieklihood niedrig ist.
+
+
+
+
+
+
+.panelset[
+.panel[.panel-name[Uniformer Prior]
+
+```r
+prior &lt;- dbeta(x = p_grid, shape1 = 1, shape2 = 1)
+compute_posterior(likelihood, prior)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;
+]
+
+.panel[.panel-name[Informativer Prior]
+
+
+```r
+prior &lt;- dbeta(x = p_grid, shape1 = 20, shape2 = 20)
+compute_posterior(likelihood, prior)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-12-1.png" width="100%" /&gt;
+]
+
+.panel[.panel-name[Opiniated Prior (falsch)]
+
+
+```r
+prior &lt;- dbeta(x = p_grid, shape1 = 2, shape2 = 40)
+compute_posterior(likelihood, prior)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
+]
+
+.panel[.panel-name[Opiniated Prior (besser)]
+
+
+```r
+prior &lt;- dbeta(x = p_grid, shape1 = 30, shape2 = 48)
+compute_posterior(likelihood, prior)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
+]
+]
+
+---
+
+## Ockham's Razor
+
+- Komplexe Modelle haben eine niedrigere Marginal Likelihood.
+
+- Wenn wir bei einem Vergleich mehrerer Modelle diejenigen Modelle mit höherer Marginal Likelihood bevorzugen, wenden wir das __Prinzip der Sparsamkeit__ an.
+
+
+--
+
+
+
+Wir schreiben Bayes Theorem mit expliziten Modellen M1 und M2
+
+
+$$ p(\mathcal{M}_1 | y) = \frac{P(y | \mathcal{M}_1) p(\mathcal{M}_1)}{p(y)} $$
+
+und
+
+$$ p(\mathcal{M}_2 | y) = \frac{P(y | \mathcal{M}_2) p(\mathcal{M}_2)}{p(y)} $$
+
+
+--
+
+Für Model `\(\mathcal{M_m}\)` ist die Posterior Wahrscheinlichkeit des Modells proportional zum Produkt der Marginal Likelihood und der A Priori Wahrscheinlichkeit.
+
+
+---
+
+## Modellvergleich
+
+
+Verhältnis der Modellwahrscheinlichkeiten:
+
+$$ \frac{p(\mathcal{M}_1 | y) = \frac{P(y | \mathcal{M}_1) p(\mathcal{M}_1)}{p(y)}} {p(\mathcal{M}_2 | y) = \frac{P(y | \mathcal{M}_2) p(\mathcal{M}_2)}{p(y)}} $$
+
+--
+
+`\(p(y)\)` kann rausgekürzt werden.
+
+
+--
+
+
+
+
+$$ \frac{p(\mathcal{M}_1 | y) = P(y | \mathcal{M}_1) p(\mathcal{M}_1)} {p(\mathcal{M}_2 | y) = P(y | \mathcal{M}_2) p(\mathcal{M}_2)} $$
+
+
+--
+
+&lt;br&gt;
+
+`\(\frac{p(\mathcal{M}_1)}{p(\mathcal{M}_2)}\)` sind die  **prior odds**, und `\(\frac{p(\mathcal{M}_1 | y)}{p(\mathcal{M}_2 | y)}\)` sind die **posterior odds**.
+
+
+---
+
+Wir interessieren uns für das Verhältnis der Marginal Likelihoods:
+
+$$ \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)} $$
+
+Dieser Term ist der **Bayes factor**: das ist der Term, mit dem die Prior Odds multipliziert werden, und gibt an, unter welchem Modell die Daten wahrscheinlicher sind.
+
+--
+
+Nehmen wir an, die Prior Odds seine `\(1\)`, dann interessiert uns nur der Bayes factor:
+
+$$ BF_{12} = \frac{P(y | \mathcal{M}_1)}{P(y | \mathcal{M}_2)}$$
+
+--
+
+
+`\(BF_{12}\)` gibt an, in welchem Ausmass die Daten `\(\mathcal{M}_1\)` bevorzugen, relativ zu `\(\mathcal{M}_2\)`.
+
+-- 
+
+Beiepiel: `\(BF_{12} = 5\)` heisst: die Daten sind unter Modell 1 5 Mal wahrscheinlicher als unter Modell 2 
+
+
+
+
+---
+
+## Klassifizierung
+
+&lt;img src="images/bf-classification.png" width="80%" /&gt;
+
+
+---
+
+## Bayes Factor
+
+- Sehr stark abhängig von den Prior Verteilungen der Parameter.
+
+- Ist nur für sehr simple Modelle einfach zu berechnen/schätzen.
+
+- Schätzmethoden
+    + Savage-Dickey Density Ratio mit `Stan`/`brms`
+    
+    + Package [BayesFactor](https://cran.r-project.org/web/packages/BayesFactor/vignettes/manual.html) (nur für allgemeine lineare Modelle)
+    
+    + [JASP](https://jasp-stats.org/): IM Prinzip ein GUI für `BayesFactor`
+    
+    + Bridge sampling mit `brms`: schwieriger zu implementieren, aber für viele Modelle möglich.
+
+
+---
+
+
+
+```r
+d &lt;- data.frame(s = 9, k = 10)
+```
+
+
+
+```r
+pd &lt;- tibble(
+  x = seq(0, 1, by = .01),
+  Prior = dbeta(x, 1, 1)
+)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-17-1.png" width="100%" /&gt;
+
+
+---
+
+
+```r
+pd$Posterior &lt;- dbeta(pd$x, 9+1, 1+1)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
+
+---
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Bayes Factors for first example.&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; x &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Prior &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Posterior &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; BF01 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; BF10 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.107 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.107 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.309 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+
+```r
+library(brms)
+
+m0 &lt;- bf(
+  s | trials(k) ~ 0 + Intercept,
+  family = binomial(link = "identity")
+)
+```
+
+
+
+```r
+get_prior(m0, data = d)
+```
+
+```
+##   prior class      coef group resp dpar nlpar bound       source
+##  (flat)     b                                            default
+##  (flat)     b Intercept                             (vectorized)
+```
+
+
+
+```r
+Prior &lt;- set_prior("beta(1, 1)", class = "b", lb = 0, ub = 1)
+```
+
+
+
+```r
+m &lt;- brm(
+  formula = m0,
+  prior = Prior,
+  data = d,
+  sample_prior = TRUE,
+  iter = 1e4,
+  cores = 4,
+  file = "models/05-m1"
+)
+```
+
+---
+
+
+
+```r
+summary(m)
+```
+
+```
+##  Family: binomial 
+##   Links: mu = identity 
+## Formula: s | trials(k) ~ 0 + Intercept 
+##    Data: d (Number of observations: 1) 
+## Samples: 4 chains, each with iter = 10000; warmup = 5000; thin = 1;
+##          total post-warmup samples = 20000
+## 
+## Population-Level Effects: 
+##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept     0.83      0.10     0.59     0.98 1.00     5917     6497
+## 
+## Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).
+```
+
+
+
+---
+
+
+
+
+```r
+samples &lt;- posterior_samples(m, "b")
+```
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Six first rows of posterior samples.&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; b_Intercept &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; prior_b &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.34 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.91 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.63 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-25-1.png" width="100%" /&gt;
+
+
+---
+
+
+```r
+h &lt;- hypothesis(m, "Intercept = 0.5")
+print(h, digits = 4)
+```
+
+```
+## Hypothesis Tests for class b:
+##              Hypothesis Estimate Est.Error CI.Lower CI.Upper Evid.Ratio Post.Prob Star
+## 1 (Intercept)-(0.5) = 0   0.3335    0.1042   0.0873   0.4775     0.1276    0.1131    *
+## ---
+## 'CI': 90%-CI for one-sided and 95%-CI for two-sided hypotheses.
+## '*': For one-sided hypotheses, the posterior probability exceeds 95%;
+## for two-sided hypotheses, the value tested against lies outside the 95%-CI.
+## Posterior probabilities of point hypotheses assume equal prior probabilities.
+```
+
+
+---
+
+
+
+
+```r
+plot(h)
+```
+
+&lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-27-1.png" width="100%" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:10",
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

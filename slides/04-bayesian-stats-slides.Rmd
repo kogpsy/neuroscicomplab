@@ -512,7 +512,7 @@ Wie würden Sie diese Daten analysieren?
 
 
 - Die Daten sind messwiederholt. Jede Person gibt zu 2 Zeitpunkten eine Antwort.
-- Wir haben einen `between-subjects` Faktor: `treat`
+- Wir haben einen `between-subjects` Faktor: `intervention`
 
 
 - Welche Frage könnte hier interessant sein?
