@@ -4,7 +4,7 @@
     <title>Bayesianische Statistik</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
-    <meta name="date" content="2021-03-30" />
+    <meta name="date" content="2021-04-06" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -40,7 +40,7 @@ class: center, middle, inverse, title-slide
 ## Teil 5 <br/> Modellvergleiche &amp; Hypothesentests
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
-### 2021-03-30
+### 2021-04-06
 
 ---
 
@@ -55,7 +55,7 @@ layout: true
 &lt;!-- Home icon --&gt;
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:#0F4C81;position:relative;"&gt;&lt;path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/&gt;&lt;/svg&gt;&lt;/a&gt; Methodenkurs Neurowissenschaft im Computerlab
+&lt;a href="https://kogpsy.github.io/neuroscicomplab" target="_blank"&gt;<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-right:0.2em;font-size:inherit;fill:#0F4C81;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>&lt;/a&gt; Methodenkurs Neurowissenschaft im Computerlab
 &lt;/span&gt;
 &lt;/div&gt;
 
@@ -129,7 +129,7 @@ Wir haben hier einen within (messwiederholten) Faktor (`time`), und einen betwee
 
 ]
 
-<div class="countdown" id="timer_6062df96" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_606c159f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -285,18 +285,36 @@ Bei frequentistischen Modellen spielt nur die Anzahl Parameter eine Rolle.
 
 ## Prior Verteilungen
 
-Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Lieklihood niedrig ist.
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Likelihood niedrig ist.
 
 
 
+```r
+n_points &lt;- 100
+theta_grid &lt;- seq(from=0, to=1 , length.out = n_points)
+likelihood &lt;- dbinom(6, size = 9, prob = theta_grid)
 
+compute_posterior = function(likelihood, prior){
+  unstandardized_posterior &lt;- likelihood * prior
+  posterior &lt;- unstandardized_posterior / sum(unstandardized_posterior)
+  par(mfrow=c(1, 3))
+  plot(theta_grid , prior, type="l", main="Prior", col = "dodgerblue3", lwd = 2)
+  plot(theta_grid , likelihood, type="l", main="Likelihood", col = "firebrick3", lwd = 2)
+  plot(theta_grid , posterior , type="l", main="Posterior", col = "darkorchid3", lwd = 2)
+}
+```
 
+---
+
+## Prior Verteilungen
+
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Likelihood niedrig ist.
 
 .panelset[
 .panel[.panel-name[Uniformer Prior]
 
 ```r
-prior &lt;- dbeta(x = p_grid, shape1 = 1, shape2 = 1)
+prior &lt;- dbeta(x = theta_grid, shape1 = 1, shape2 = 1)
 compute_posterior(likelihood, prior)
 ```
 
@@ -307,7 +325,7 @@ compute_posterior(likelihood, prior)
 
 
 ```r
-prior &lt;- dbeta(x = p_grid, shape1 = 20, shape2 = 20)
+prior &lt;- dbeta(x = theta_grid, shape1 = 20, shape2 = 20)
 compute_posterior(likelihood, prior)
 ```
 
@@ -318,7 +336,7 @@ compute_posterior(likelihood, prior)
 
 
 ```r
-prior &lt;- dbeta(x = p_grid, shape1 = 2, shape2 = 40)
+prior &lt;- dbeta(x = theta_grid, shape1 = 2, shape2 = 40)
 compute_posterior(likelihood, prior)
 ```
 
@@ -329,13 +347,14 @@ compute_posterior(likelihood, prior)
 
 
 ```r
-prior &lt;- dbeta(x = p_grid, shape1 = 48, shape2 = 30)
+prior &lt;- dbeta(x = theta_grid, shape1 = 48, shape2 = 30)
 compute_posterior(likelihood, prior)
 ```
 
 &lt;img src="05-bayesian-stats-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
 ]
 ]
+
 
 ---
 
