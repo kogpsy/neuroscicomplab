@@ -273,35 +273,34 @@ Bei frequentistischen Modellen spielt nur die Anzahl Parameter eine Rolle.
 
 ## Prior Verteilungen
 
-Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Lieklihood niedrig ist.
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Likelihood niedrig ist.
 
 
-```{r include=FALSE}
+```{r}
 n_points <- 100
-p_grid <- seq( from=0 , to=1 , length.out = n_points )
-likelihood <- dbinom(6 , size = 9 , prob = p_grid)
-
+theta_grid <- seq(from=0, to=1 , length.out = n_points)
+likelihood <- dbinom(6, size = 9, prob = theta_grid)
 
 compute_posterior = function(likelihood, prior){
-  # compute product of likelihood and prior
   unstandardized_posterior <- likelihood * prior
-  
-  # standardize the posterior, so it sums to 1
   posterior <- unstandardized_posterior / sum(unstandardized_posterior)
-  
   par(mfrow=c(1, 3))
-  plot(p_grid , prior, type="l", main="Prior", col = "dodgerblue3", lwd = 2)
-  plot(p_grid , likelihood, type="l", main="Likelihood", col = "firebrick3", lwd = 2)
-  plot(p_grid , posterior , type="l", main="Posterior", col = "darkorchid3", lwd = 2)
+  plot(theta_grid , prior, type="l", main="Prior", col = "dodgerblue3", lwd = 2)
+  plot(theta_grid , likelihood, type="l", main="Likelihood", col = "firebrick3", lwd = 2)
+  plot(theta_grid , posterior , type="l", main="Posterior", col = "darkorchid3", lwd = 2)
 }
 ```
 
+---
 
+## Prior Verteilungen
+
+Uninformative Priors machen viele Vorhersagen, vor allem in Gegenden des Parameterraums, in denen die Likelihood niedrig ist.
 
 .panelset[
 .panel[.panel-name[Uniformer Prior]
 ```{r}
-prior <- dbeta(x = p_grid, shape1 = 1, shape2 = 1)
+prior <- dbeta(x = theta_grid, shape1 = 1, shape2 = 1)
 compute_posterior(likelihood, prior)
 ```
 ]
@@ -309,7 +308,7 @@ compute_posterior(likelihood, prior)
 .panel[.panel-name[Informativer Prior]
 
 ```{r}
-prior <- dbeta(x = p_grid, shape1 = 20, shape2 = 20)
+prior <- dbeta(x = theta_grid, shape1 = 20, shape2 = 20)
 compute_posterior(likelihood, prior)
 ```
 ]
@@ -317,7 +316,7 @@ compute_posterior(likelihood, prior)
 .panel[.panel-name[Opiniated Prior (falsch)]
 
 ```{r}
-prior <- dbeta(x = p_grid, shape1 = 2, shape2 = 40)
+prior <- dbeta(x = theta_grid, shape1 = 2, shape2 = 40)
 compute_posterior(likelihood, prior)
 ```
 ]
@@ -325,11 +324,12 @@ compute_posterior(likelihood, prior)
 .panel[.panel-name[Opiniated Prior (besser)]
 
 ```{r}
-prior <- dbeta(x = p_grid, shape1 = 48, shape2 = 30)
+prior <- dbeta(x = theta_grid, shape1 = 48, shape2 = 30)
 compute_posterior(likelihood, prior)
 ```
 ]
 ]
+
 
 ---
 
