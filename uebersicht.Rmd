@@ -32,7 +32,7 @@ In diesem Kurs geht es um den behavioralen/kognitiven Teil dieses Forschungsgebi
 
 @wilsonTenSimpleRules2019a geben eine sehr gute Einführung in die Prinzipen der Modellierung, obschon das Paper nicht ganz so "simple" ist, wie der Titel verspricht. 
 
-Bevor wir zu den kognitiven Modellen kommen, werden wir uns im ersten Teil des Kurses mit Bayesianischer Inferenz beschäftigen, und mit Bayesianischer Datenanalyse. Dies ist nicht mit Bayesianischen Models of Cognition zu verwechslen---Bayesianische Models of Cognition sind Modelle vmenschlichen Verhaltens, oder der Funktionsweise von Gehirnen, während Bayesianische (oder auch frequentistische) Datenanalyse dazu benutzt wird, die Parameter solcher Modelle zu schätzen.
+Bevor wir zu den kognitiven Modellen kommen, werden wir uns im ersten Teil des Kurses mit Bayesianischer Inferenz beschäftigen, und mit Bayesianischer Datenanalyse. Dies ist nicht mit Bayesianischen Models of Cognition zu verwechslen---Bayesianische Models of Cognition sind Modelle menschlichen Verhaltens, oder der Funktionsweise von Gehirnen, während Bayesianische (oder auch frequentistische) Datenanalyse dazu benutzt wird, die Parameter solcher Modelle zu schätzen.
 
 Bayesianische Datenanalyse bietet gegenüber der frequentistischen Statistik viele Vorteile, erfordert aber auch ein Umdenken. Wir werden lernen, wie wir statistische Modelle als lineare Modelle formulieren können, entweder als allgemeine lineare Modelle (ALM), oder verallgemeinerte lineare Modelle (generalized linear models, GLM). Als nächtes folgen dann Multilevel Modelle, mit denen wir häufig verwendete Daten, wie binäre Antworten, oder Reaktionszeiten untersuchen können.
 
