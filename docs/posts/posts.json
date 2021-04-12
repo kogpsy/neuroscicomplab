@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-04-09-solution-2/",
+    "title": "Lösung zur Übung 2",
+    "description": "Die Lösung zur zweiten Übung finden Sie unter Übungen.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-04-09",
+    "categories": [
+      "uebungen"
+    ],
+    "contents": "\nDie Lösung finden Sie im Menu: Übungen > Übung 2: Lösung.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-04-09T10:22:33+02:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-03-25-uebung-2/",
     "title": "Übung 2",
     "description": "Die zweite Übung ist online.",

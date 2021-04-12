@@ -32,19 +32,6 @@ library(tidyverse)
 
 
 
-:::exercise
-
-Die Aufgaben, die Sie bearbeiten sollen, finden Sie in einem gelben Kasten. Optionale Aufgaben sind in orangen Kästen.
-
-Sie haben für diese Übung 10 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Sonntag, 4. April um 00:00 Uhr**, in den Order für Übung 2 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-2.Rmd* oder *Matrikelnummer_Nachname_uebung-2.R*, z. B. *15-172-874_Nachname_uebung-2.Rmd*.
-
-Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
-:::
-
-
-
-
-
 # Aufgabe 1
 
 In der ersten Aufgabe untersuchen Sie einen Datensatz einer Studie, bei der die Arbeitsgedächtnisleitung mittels eines N-Back Tasks bei $21$ Kindern mit einer ADHS Diagnose untersucht wurde. Gleichzeitig wurde derselbe Task mit einer Kontrollgruppe ($n=30$) durchgeführt. Die behavioralen Resultate wurde parallel zu einer fMRI Untersuchung erhoben, damit im Antwortverhalten der Kinder ein Unterschied zur Kontrollgruppe gezeigt werden konnte.
@@ -66,12 +53,12 @@ Mehr Information zu N-Back Tasks finden Sie auf [Wikipedia](https://en.wikipedia
 
 
 
-Bei diesem Task untersuchen wir die Reaktionszeiten der Versuchspersonen bei korrekten Antworten. Im Datensatz erhalten Sie die gemittelten Reaktionszeiten der Kinder in der `ADHD` und der `Control` Gruppe.
+Bei diesem Task untersuchen wir die Reaktionszeiten der Versuchspersonen bei korrekten Antworten. Im Datensatz sind die gemittelten Reaktionszeiten in Sekunden der Kinder in der `ADHD` und der `Control` Gruppe.
 
 
 ## Daten vorbereiten
 
-Laden Sie zuerst die Daten:
+Wir laden die Daten:
 
 ```{r}
 library(tidyverse)
@@ -84,7 +71,7 @@ glimpse(nback1)
 ```
 
 
-Konvertieren Sie die Gruppierungsvariable `group` zu einem Faktor:
+Die Gruppierungsvariable `group` sollte ein Faktor sein.
 
 
 ```{}
@@ -93,8 +80,7 @@ nback1 <- nback1 %>%
 ```
 
 
-
-Verändern Sie die Reihenfolgen der Faktorstufen:
+Nun macht es Sinn, als Referenzkategorie die `control group` zu bestimmen. Mit `fct_relevel()` verändern wir die Reihenfolgen der Faktorstufen:
 
 ```{r}
 levels(nback1$group)
@@ -105,16 +91,14 @@ nback1 <- nback1 %>%
   mutate(group = fct_relevel(group, "control"))
 ```
 
+
+`control` ist nun die erste Stufe, und wir automatisch zur Referenzkategorie, wenn wir die Variable dummy-kodieren.
+
 ```{r}
 levels(nback1$group)
 ```
 
 
-Einen kurzen Blick auf die Daten werfen:
-
-```{r}
-glimpse(nback1)
-```
 
 :::exercise
 **Aufgabe 1.1**
@@ -122,19 +106,27 @@ glimpse(nback1)
 Berechnen Sie Mittelwerte und SD pro Gruppe.    
 :::
 
-```{r include = FALSE}
-nback1 %>% 
-  group_by(group) %>% 
-  summarise(mean = mean(rt),
-            sd = sd(rt))
+Zusätzlich berechnen wir gleich noch die Standardfehler, damit wir die Gruppenmittelwerte grafisch darstellen können.
+Diese Funktion definiere ich hier selber, da sie in base R nicht exisitiert.
+
+
+```{r}
+se <- function(x) sd(x)/sqrt(length(x))
 ```
 
-```{r eval=FALSE, include=TRUE}
-nback1 %>% 
+
+
+### TODO
+
+```{r}
+nback1_summary <- nback1 %>% 
   group_by(group) %>% 
-  summarise(___,
-            ---)
+  summarise(mean = mean(rt),
+            sd = sd(rt),
+            se = se(rt))
+nback1_summary
 ```
+
 
 
 
@@ -148,9 +140,9 @@ Stellen Sie die Daten mit grafisch dar, zum Beispiel mit Histogrammen, Boxplots 
 :::
 
 
-Sie sollte ungefähr solche Grafiken erhalten:
 
-```{r echo=FALSE}
+
+```{r}
 library(patchwork)
 
 p1 <- nback1 %>% 
@@ -171,13 +163,11 @@ p1 + p2
 ```
 
 
-Vielleicht hilft Ihnen folgender Code Block:
-
-```{r eval=FALSE, include=TRUE}
-nback1 %>% 
-  ggplot(aes(rt)) +
-  geom_histogram(bins = 15) +
-  facet_wrap(~group) +
+```{r}
+nback1_summary %>% 
+  ggplot(aes(group, mean)) +
+  geom_point(size = 4) +
+  geom_linerange(aes(ymin = mean-se, ymax = mean+se)) +
   theme_bw(base_size = 14)
 ```
 
@@ -192,6 +182,8 @@ nback1 %>%
 Mit welcher Methode würden Sie diese Daten analysieren? Beschreiben Sie Ihre Wahl in 1-2 Sätzen und führen Sie einen Test durch. Was können Sie damit aussagen?
 :::
 
+
+[Welch Test](http://daniellakens.blogspot.com/2015/01/always-use-welchs-t-test-instead-of.html)
 
 ```{r eval=FALSE, include=FALSE}
 t.test(rt ~ group,

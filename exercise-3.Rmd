@@ -1,0 +1,71 @@
+---
+title: "Übung 3"
+description: |
+  Hypothesen/Modelvergleiche mit Bayes Factors.
+date: "`r Sys.Date()`"
+author:
+  - first_name: "Andrew"
+    last_name: "Ellis"
+    url: https://github.com/awellis
+    affiliation: Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern 
+    affiliation_url: https://www.kog.psy.unibe.ch
+    orcid_id: 0000-0002-2788-936X
+
+citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-3.html
+# slug: ellis2021overview
+bibliography: bibliography.bib
+output: 
+    distill::distill_article:
+      toc: true
+      toc_float: true
+      toc_depth: 2
+      code_folding: false
+---
+
+
+## Aufgabe 1
+
+Ich hoffe das macht so Sinn - bin schon etwas müde :slightly_smiling_face:
+rt ~  0 + group
+oder
+rt ~  1 + group
+In dieser Studie wurden 17 Patienten mit Schizophrenie und 24 gesunde Kontrollprobanden untersucht. Die Aufgabe bestand aus einer Arbeitsgedächtnisaufgabe. Den Probanden wurden Wörter mit verschiedenen Farben präsentiert. Sie mussten sich die Wörter einer bestimmten Farbe merken. Nach einer kurzen Pause sahen die Probanden ein Wort. Falls dieses in der vorherigen Präsentation die gewünschte Farbe gehabt hatte, sollten sie Ja drücken, sonst Nein. Interessiert waren die Forscher in die Reaktionszeit der richtigen Antworten.
+
+
+Die Variablen im Datensatz sehen wie folgt aus:
+id      Versuchspersonennummer
+rt	Reaktionszeiten der richtigen Antworten in Millisekunden
+group 	Gruppenzugehörigkeit: entweder «schizophrenia» oder «control»
+Sie interessieren sich, ob sich die beiden Gruppen in der Antwortgeschwindigkeit unterscheiden.
+Smith, E. E., Eich, T. S., Cebenoyan, D., & Malapani, C. (2011). Intact and impaired cognitive-control processes in schizophrenia. Schizophrenia research, 126(1-3), 132-137.
+
+
+
+
+
+
+## Aufgabe 2
+
+Messwiederholung:
+In dieser Studie wurden 34 ältere Personen mit anodaler (aktivierender) tDCS über dem linken temporoparietalen Kortex (TPJ) stimuliert. Die Probanden wurden instruiert Assoziationen zwischen Bildern und Pseudowörtern zu lernen. Die episodische Gedächtnisleistung wurde so anhand von %-korrekt erinnerten Wortpaaren erfasst. Es gab 5 Durchgänge mit TPJ Stimulation und 5 Durchgänge mit Kontrollstimulation.
+Die Variablen im Datensatz sehen wie folgt aus:
+id		 	Versuchspersonennummer
+stimulation		TPJ oder control
+percent_correct	% der richtigen Antworten pro Durchgang (5 pro Bedingung, insgesamt 10 pro Person)
+age			Alter
+block			Durchgang (evtl. weglassen wegen Komplexität)
+Sie interessieren sich dafür, ob die Personen während der tDCS Stimulation bessere Gedächtnisleistungen erbringen als in der Kontrollbedingung.
+
+
+
+## Aufgabe 3
+
+Mental rotation
+
+
+
+
+For example, Ganis and Kievit (2015) asked 54 people to observe, on each trial, two 3-D shapes with various rotations and judge whether the two shapes were the same or not.
+
+There were 4 angles (0, 50, 100, and 150 degree rotations), but for simplicity, today we’ll only look at items that were not rotated with respect to each other, and items rotated 50 degrees. The data are freely available (thanks!) in Excel format, and the below snippet loads the data and cleans into a useable format:
+
