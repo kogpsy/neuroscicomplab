@@ -435,7 +435,7 @@ Beispiel: $BF_{12} = 5$ heisst: die Daten sind unter Modell 1 5 Mal wahrscheinli
     
     + Package [BayesFactor](https://cran.r-project.org/web/packages/BayesFactor/vignettes/manual.html) (nur für allgemeine lineare Modelle)
     
-    + [JASP](https://jasp-stats.org/): IM Prinzip ein GUI für `BayesFactor`
+    + [JASP](https://jasp-stats.org/): Im Prinzip ein GUI für `BayesFactor`
     
     + Bridge sampling mit `brms`: schwieriger zu implementieren, aber für viele Modelle möglich.
 
