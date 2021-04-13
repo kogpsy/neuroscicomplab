@@ -51,7 +51,7 @@ library(tidyverse)
 ```
 
 ```{r}
-d1 <- read_csv("data/schizophrenia-wm.csv")
+d1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/schizophrenia-wm.csv")
 ```
 
 ```{r}
@@ -99,7 +99,7 @@ Sie interessieren sich dafür, ob die Personen während der tDCS Stimulation bes
 
 
 ```{r}
-d2 <- read_csv("data/tdcs-tpj.csv")
+d2 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/tdcs-tpj.csv")
 ```
 
 
@@ -145,7 +145,7 @@ Sie interessieren sich dafür, ob die Personen bei steigendem Rotationswinkel l�
 
 
 ```{r}
-d3 <- read_csv("data/mental-rotation.csv")
+d3 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/mental-rotation.csv")
 ```
 
 
