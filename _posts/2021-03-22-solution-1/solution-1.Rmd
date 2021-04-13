@@ -17,4 +17,4 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-Die Lösung finden Sie im Menu: [Übungen > Übung 1: Lösung](https://kogpsy.github.io/neuroscicomplab/exercises/solution-1.html). 
+Die Lösung finden Sie im Menu: [Übungen > Übung 1: Lösung](https://kogpsy.github.io/neuroscicomplab/solution-1.html). 

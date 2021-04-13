@@ -1,0 +1,41 @@
+---
+title: "Übung 4"
+description: |
+  Hypothesen/Modelvergleiche mit Bayes Factors.
+date: "`r Sys.Date()`"
+author:
+  - first_name: "Andrew"
+    last_name: "Ellis"
+    url: https://github.com/awellis
+    affiliation: Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern 
+    affiliation_url: https://www.kog.psy.unibe.ch
+    orcid_id: 0000-0002-2788-936X
+
+citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-4.html
+# slug: ellis2021overview
+bibliography: bibliography.bib
+output: 
+    distill::distill_article:
+      toc: true
+      toc_float: true
+      toc_depth: 2
+      code_folding: false
+---
+
+
+:::exercise
+
+Die Aufgaben, die Sie bearbeiten sollen, finden Sie in einem gelben Kasten. Optionale Aufgaben sind in orangen Kästen.
+
+Sie haben für diese Übung 10 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Sonntag, 4. April um 00:00 Uhr**, in den Order für Übung 2 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-2.Rmd* oder *Matrikelnummer_Nachname_uebung-2.R*, z. B. *15-172-874_Nachname_uebung-2.Rmd*.
+
+Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
+:::
+
+
+
+
+
+# Aufgabe 1
+
+Lorem ipsum
