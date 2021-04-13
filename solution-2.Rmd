@@ -542,6 +542,8 @@ Fassen Sie die Daten mit Mittelwert, Standardabweichung und Standardfehler pro P
 
 
 Mit diesem Code kann ich gleichzeitig 3 Funktionen anwenden (ist effizienter):
+
+
 ```{r}
 funs <- list(mean = mean, sd = sd, se = se)
 

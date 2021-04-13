@@ -179,6 +179,7 @@ d3sum <- acc %>%
 - Falls Sie das zu kompliziert finden, können Sie sich auf nur 2 der 5 Rotationswinkel konzentrieren, z.B. 50 und 150.
 :::
 
+
 ```{r}
 d3red <- d3sum %>% 
   filter(angle %in% c(50, 150)) %>% 
