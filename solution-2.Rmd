@@ -585,7 +585,7 @@ agg
 ```
 
 
-Selbst wenn wir berücksichtigen, dass die `load` Bedingung within manipuliert wurde, so haben wir trotzdem noch foglendes Problem: die unsicherheit, die wir bei der Aggregation der RTs der einzelnen Personen haben, wrd einfach ignoriert---wir ersetzen ja die einzelnen Messwerte einfach durch den personenspezifischen Mittelwert für die beiden Bedingungen. Das heisst, anstelle der Verteilung von RTs, welche ziemlich variieren können, nehmen wir einfach den Mittelwert, und hoffen, dass dieser die RTs ausreichend gut zusammenfasst. Dies ist bei RTs leider oft nicht der Fall, da sie oft eine ausgeprägt Rechtsschiefe aufweisen.
+Selbst wenn wir berücksichtigen, dass die `load` Bedingung within manipuliert wurde, so haben wir trotzdem noch foglendes Problem: die unsicherheit, die wir bei der Aggregation der RTs der einzelnen Personen haben, wrd einfach ignoriert---wir ersetzen ja die einzelnen Messwerte einfach durch den personenspezifischen Mittelwert für die beiden Bedingungen. Das heisst, anstelle der Verteilung von RTs, welche ziemlich variieren können, nehmen wir einfach den Mittelwert, und hoffen, dass dieser die RTs ausreichend gut zusammenfasst. Dies ist bei RTs leider oft nicht der Fall, da sie eine ausgeprägt Rechtsschiefe aufweisen können.
 
 Diese Aggregation führt dazu, dass wir uns viel zu sicher sind, und die über die Personen aggregegierten Mittelwerte uns ein falsches Gefühl von Sicherheit vermitteln, in dem Sinne, dass sie viel weniger präzise sind, als wir glauben. 
 
