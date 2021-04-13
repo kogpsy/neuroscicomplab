@@ -67,9 +67,9 @@ d1 <- d1 %>%
 
 
 :::exercise
-- Spezifieren sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen den Patienten und den Kontrollprobanden untersuchen können.
+- Spezifieren Sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen den Patienten und den Kontrollprobanden untersuchen können.
 
-- Spezifieren Sie zudem ein geignetes Nullmodell.
+- Spezifieren Sie zudem ein geeignetes Nullmodell.
 :::
 
 
@@ -115,9 +115,9 @@ d2 <- d2 %>%
 
 
 :::exercise
-- Spezifieren sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen der tDCS Stimulation und den Kontrollbedingung untersuchen können.
+- Spezifieren Sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen der tDCS Stimulation und den Kontrollbedingung untersuchen können.
 
-- Spezifieren Sie zudem ein geignetes Nullmodell.
+- Spezifieren Sie zudem ein geeignetes Nullmodell.
 
 - Versuchen Sie, für das Alter der Personen zu kontrollieren.
 :::
@@ -172,9 +172,9 @@ d3sum <- acc %>%
 ```
 
 :::exercise
-- Spezifieren sie nun ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und RT untersuchen können.
+- Spezifieren Sie ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und RT untersuchen können.
 
-- Spezifieren sie nun ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und Fehlerrate untersuchen können.
+- Spezifieren Sie ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und Fehlerrate untersuchen können.
 
 - Falls Sie das zu kompliziert finden, können Sie sich auf nur 2 der 5 Rotationswinkel konzentrieren, z.B. 50 und 150.
 :::

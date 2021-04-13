@@ -2661,7 +2661,7 @@ rt: mittlere Reaktionszeiten der richtigen Antworten in Millisekunden
 group: Gruppenzugehörigkeit: entweder «schizophrenia» oder «control»</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>  
 </code></pre>
 </div>
 </div>
@@ -2676,10 +2676,10 @@ group: Gruppenzugehörigkeit: entweder «schizophrenia» oder «control»</code>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>d1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>Rows: 51
+<pre><code>Rows: 41
 Columns: 2
-$ rt    &lt;dbl&gt; 1.0267571, 2.0671470, 1.6728257, 1.0355146, 1.0310874,…
-$ group &lt;chr&gt; &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;…</code></pre>
+$ rt    &lt;dbl&gt; 1261.5479, 1141.5464, 976.5514, 1222.1543, 1753.7832, …
+$ group &lt;chr&gt; &quot;schizophrenia&quot;, &quot;schizophrenia&quot;, &quot;schizophrenia&quot;, &quot;sc…</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2690,8 +2690,8 @@ $ group &lt;chr&gt; &quot;adhd&quot;, &quot;adhd&quot;, &quot;adhd&quot;, &quot;
 </div>
 <div class="exercise">
 <ul>
-<li><p>Spezifieren sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen den Patienten und den Kontrollprobanden untersuchen können.</p></li>
-<li><p>Spezifieren Sie zudem ein geignetes Nullmodell.</p></li>
+<li><p>Spezifieren Sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen den Patienten und den Kontrollprobanden untersuchen können.</p></li>
+<li><p>Spezifieren Sie zudem ein geeignetes Nullmodell.</p></li>
 </ul>
 </div>
 <h1 id="aufgabe-2">Aufgabe 2</h1>
@@ -2735,8 +2735,8 @@ $ rt          &lt;dbl&gt; 1.650923, 1.537246, 1.235620, 1.671189, 1.408333…</c
 </div>
 <div class="exercise">
 <ul>
-<li><p>Spezifieren sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen der tDCS Stimulation und den Kontrollbedingung untersuchen können.</p></li>
-<li><p>Spezifieren Sie zudem ein geignetes Nullmodell.</p></li>
+<li><p>Spezifieren Sie nun ein lineares Modell, mit dem Sie den Unterschied zwischen der tDCS Stimulation und den Kontrollbedingung untersuchen können.</p></li>
+<li><p>Spezifieren Sie zudem ein geeignetes Nullmodell.</p></li>
 <li><p>Versuchen Sie, für das Alter der Personen zu kontrollieren.</p></li>
 </ul>
 </div>
@@ -2781,8 +2781,8 @@ accuracy: Indikator für korrekte Antwort</code></pre>
 </div>
 <div class="exercise">
 <ul>
-<li><p>Spezifieren sie nun ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und RT untersuchen können.</p></li>
-<li><p>Spezifieren sie nun ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und Fehlerrate untersuchen können.</p></li>
+<li><p>Spezifieren Sie ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und RT untersuchen können.</p></li>
+<li><p>Spezifieren Sie ein lineares Modell, mit dem Sie den Zusamenhang zwischen Rotationswinkel und Fehlerrate untersuchen können.</p></li>
 <li><p>Falls Sie das zu kompliziert finden, können Sie sich auf nur 2 der 5 Rotationswinkel konzentrieren, z.B. 50 und 150.</p></li>
 </ul>
 </div>
