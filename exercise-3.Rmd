@@ -47,7 +47,7 @@ group: Gruppenzugehörigkeit: entweder «schizophrenia» oder «control»
 
 
 ```{r}
-library(tidyverse)
+library(tidyverse)  
 ```
 
 ```{r}
