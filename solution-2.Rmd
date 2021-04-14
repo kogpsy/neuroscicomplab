@@ -79,7 +79,7 @@ nback1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/mai
 ```
 
 
-Bevor man anfängt, ist es immer eine gute Idee, einen BLick auf die Daten zu werfen.
+Bevor man anfängt, ist es immer eine gute Idee, einen Blick auf die Daten zu werfen.
 
 
 ```{r}
@@ -209,7 +209,7 @@ nback1_summary %>%
 Mit welcher Methode würden Sie diese Daten analysieren? Beschreiben Sie Ihre Wahl in 1-2 Sätzen und führen Sie einen Test durch. Was können Sie damit aussagen?
 :::
 
-Wir können hier annehmen, dass die Kinder in der `adhd` Gruppe länger brauchen. Dies bedeutet, dass wir eine gerichtete Hypothese testen. Es ist in den meisten Fällen sinnvoll, einen Welch Test durchzuführen. Dies ist auch der Default in R (wenn wir einen t-Test wünschen, müssen wir dies explizit angeben,  mit `var.eq = TRUE`.)
+Wir können hier annehmen, dass die Kinder in der `adhd` Gruppe länger brauchen. Dies bedeutet, dass wir eine gerichtete Hypothese testen. Es ist in den meisten Fällen sinnvoll, einen Welch Test durchzuführen. Dies ist auch der Default in R (wenn wir einen t-Test wünschen, müssen wir dies explizit angeben,  mit `var.eq = TRUE`).
 
 <aside>
 Für eine ausführliche Begründung können Sie hier nachschauen:
