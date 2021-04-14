@@ -72,8 +72,6 @@ navbar:
           href: slides/04-bayesian-stats-slides.html
         - text: "5. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
           href: slides/05-bayesian-stats-slides.html
-        - text: "Einführung in Bayesianische Statistik"
-          href: slides/zz-intro-bayesian-stats.html
 
 #
 #
