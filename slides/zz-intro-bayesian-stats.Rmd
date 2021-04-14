@@ -1,0 +1,100 @@
+---
+title: "Bayesianische Statistik"
+session: 1
+subtitle: "Eine Einführung"
+author: "Andrew Ellis"
+# institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
+institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["css/xaringan-themer.css", "css/slides-style.css"]
+    nature:
+      highlightStyle: github #solarized-light # github
+      highlightLines: true
+      ratio: 16:10
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r load-packages, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(rmarkdown)
+library(kableExtra)
+library(countdown)
+
+theme_set(theme_grey(base_size = 14) +
+            theme(panel.grid = element_blank()))
+```
+
+## Einführung in Bayesianische Statistik
+
+
+
+In dieser Sitzung behandeln wir messwiederholte Daten.  Dabei stellen wir uns vor allem die Frage:
+
+
+Wie können wir Messwiederholung als lineares Modell formulieren?
+
+
+--
+
+Wir fangen mit einem simplen Beispiel an, und untersuchen im zweiten Teil ein etwas komplexeres experimentelles Design.
+
+
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[1]
+]
+.pull-right-wide[
+  .larger[
+  Theorie
+  ]
+]
+
+
+
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[2]
+]
+.pull-right-wide[
+  .larger[
+  Beispiel
+  ]
+]
+
+
+
+
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[3]
+]
+.pull-right-wide[
+  .larger[
+  Hypothesentests
+  ]
+]
+
+--
