@@ -27,23 +27,27 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 
-In der Forschung und Diagnostik interessieren uns oft Eigenschaften eines Prozesses oder einer Person, welche wir nicht direkt messen können. Deshalb werden Testverfahren und Experimente angewendet um diese latenten Variablen messbar zu machen. Mit statistischen Verfahren wird dann versucht aus den gemessenen Daten Informationen über die interessierende Eigenschaft zu erhalten. 
+In der Forschung und Diagnostik interessieren uns für Eigenschaften eines Prozesses, einer Person oder einer Gruppe, welche wir nicht direkt messen können. Deshalb werden Testverfahren und Experimente angewendet um diese latenten Eigenschaften messbar zu machen. Mit statistischen Verfahren wird aus den gemessenen Daten Information über die interessierende Eigenschaft extrahiert. 
 
-Uns kann beispielsweise die Aufmerksamkeitsleistung interessieren, welche wir mit einem Testverfahren für Aufmerksamkeit zu messen versuchen. Eine Neurowissenschaftlerin, welche sich für den Prozess von Aufmerksamkeit interessiert, würde versuchen die Aufmerksamkeitsleistung von vielen Leuten unter verschiedenen Bedingungen zu messen um zu untersuchen, durch was Aufmerksamkeit beeinflusst wird.  Ein klinischer Neuropsychologe hingegen hätte vielleicht das Ziel festzustellen, ob die Aufmerksamkeitsleistung einer Person von der Norm abweicht, beispielsweise weil sie durch einen Unfall eine Kopfverletzung erlitten hat. Beide messen Daten und beide ziehen aus den gemessenen Daten Rückschlüsse auf eine unterliegende Eigenschaft eines Prozesses oder einer Person. 
+:::fyi 
+Eine Neurowissenschaftlerin, welche sich für Aufmerksamkeitsprozesse interessiert, misst die Aufmerksamkeitsleistung von Versuchspersonen unter bestimmten Bedingungen, um zu untersuchen durch was Aufmerksamkeit beeinflusst wird. Ein klinischer Neuropsychologe hingegen hat vielleicht das Ziel festzustellen, ob die Aufmerksamkeitsleistung einer Person von der Norm abweicht, beispielsweise weil sie durch einen Unfall eine Kopfverletzung erlitten hat. Beide messen Daten und beide ziehen aus den gemessenen Daten Rückschlüsse auf eine unterliegende Eigenschaft eines Prozesses oder einer Person. 
+:::
 
-Wie das gemacht werden kann wird nachfolgend mit dem in Kapitel 1 eingeführten Beispiel [Link] der beiden Spielerinnen erklärt.
+In der Bayesianischen Statistik wird dies, wie in Kapitel 1 beschrieben, mittels drei Schritten gemacht: 
+
+1. Definition  des Wahrscheinlichkeitsmodells mit der gemeinsamen Verteilung der beobachteten (messbaren) Variablen und derlatenten Parameter
+
+2. Berechnen der Posterior-Verteilung $P(θ | y) \sim P(y | \theta) \cdot p(\theta)$, bedingt auf die beobachteten Daten
+
+3. Evaluation von Modell und Posterior-Verteilung
 
 
-## Parameterschätzung: Parameter einer Binomialverteilung
+Um diese Schritte zu verdeutlichen, gehen wir nochmals das Beispiel aus Kapitel 1 durch:
 
-Wenn eine Spielerin A gegen Spielerin B spielt und 6 von 9 Spielen gewinnt, kann gefragt werden, ob Spielerin A besser ist als Spielerin B, also ob Spielerin A die höhere Wahrscheinlichkeit hat, das nächste Spiel zu gewinnen als Spielerin B. Wir interessieren uns für die Wahrscheinlichkeitsverteilung von einer latenten Eigenschaft, hier aufgeschrieben als Parameter  $\theta$. Da wir $\theta$ nicht direkt messen können, möchten wir es aufgrund der bisher gemessenen Daten schätzen. In unserem Beispiel ist $\theta$ ein Parameter einer Binomialverteilung:
+Wenn eine Spielerin A gegen Spielerin B spielt und 6 von 9 Spielen gewinnt, kann gefragt werden, ob Spielerin A besser ist als Spielerin B. Der *latente Parameter* $\theta$ ist also, ob Spielerin A die höhere Wahrscheinlichkeit hat, das nächste Spiel zu gewinnen als Spielerin B.
 
-Die Binomial Likelihood ist gegeben durch
 
-$$ P(x = k) = {n \choose k} \theta^k (1-\theta)^{n-k} $$
-
- 
-Wir haben folgende Daten beobachtet:
+Die *beobachteten Daten* sind 9 Spiele, davon siegte Spielerin A 6 mal:
 
 ```{r}
 wins <- 6
@@ -53,17 +57,18 @@ games <- 9
 
 ### Maximum Likelihood Schätzung
 
-
-Die Maximum Likelihood Schätzung ergibt eine Punktschätzung des Parameters $\theta$. Dies ist der Parameterwert unter dem die beobachteten Daten am wahrscheinlichsten entstanden sind. Der grosse Nachteil einer Punktschätzung ist es, dass wir keine Wahrscheinlichkeitsverteilung erhalten. Es gäbe auch noch viele andere Parameterwerte, die dieses Ergebnis von 6 Siegen in 9 Spielen hervorbringen könnten, diese werden bei der Punktschätzung nicht beachtet. 
+Die Maximum Likelihood Schätzung ergibt eine Punktschätzung des Parameters $\theta$, also den Parameterwert unter dem die beobachteten Daten am wahrscheinlichsten entstanden sind: 
 
 ```{r}
 theta <- wins/games
 theta
 ```
 
-Wenn man ganz viele Male diese Spiele wiederholen würde, dann würde man diese Messung am wahrscheinlichsten reproduzieren können, wenn man für $\theta$ den Wert `r theta` einsetzt. 
+Wenn die Spielerinnen die Spiele sehr viele Male wiederholen würden, dann würde man die erhobenen Daten am wahrscheinlichsten reproduzieren können, wenn man für $\theta$ den Wert `r theta` annimmt. 
 
-Um das zu veranschaulichen plotten wir die Wahrscheinlichkeit von 6 Siegen in 9 Spielen für alle Werte welche $\theta$ annehmen könnte. Diese Werte liegen zwischen 0 und 1, da wir von einer Wahrscheinlichkeit sprechen.
+Der grosse Nachteil einer Punktschätzung ist es, dass wir uns auf einen einzelnen Wert beschränken und so Information verlieren. Es gäbe auch noch viele andere Werte von $\theta$, die das Ergebnis von 6 Siegen in 9 Spielen hervorbringen könnten, diese werden aber bei der Punktschätzung nicht beachtet. Um dies zu keine Wahrscheinlichkeitsverteilung erhalten. 
+
+Wir könnten auch die Wahrscheinlichkeitsverteilung anschauen um zu schauen, wie wahrscheinlich die Daten unter allen möglichen $\theta$ Werten sind. Um das zu veranschaulichen plotten wir die Wahrscheinlichkeit von 6 Siegen in 9 Spielen für alle Werte welche $\theta$ annehmen könnte. Diese Werte liegen zwischen 0 und 1, da wir die Wahrscheinlichkeit zu Siegen schätzen.
 
 ```{r}
 library(tidyverse)
@@ -83,11 +88,16 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
         legend.position = "none")
 ```
 
-Die Punktschätzung von $\theta$ wird mit der schwarzen gestrichelten Linie dargestellt. Doch eigentlich wissen wir mehr: Betrachtet man die hellblaue Fläche wird deutlich, dass auch etwas kleinere oder grössere Werte als die Punktschätzung mit grosser Wahrscheinlichkeit diese Daten hervorgebracht haben könnten. 
+Der mit der Maximum Likelihood Schätzung geschätzte $\theta$-Wert ist der Wert am höchsten Punkt der Verteilung: Diese Punktschätzung von $\theta$ wird mit der schwarzen gestrichelten Linie dargestellt. Doch wenn wir die hellblaue Fläche anschauen, sehen wir, dass auch etwas kleinere oder grössere Werte als die Punktschätzung mit grosser Wahrscheinlichkeit diese Daten generieren könnten. Auch sehr kleine oder grosse Werte könnten möglich sein - wenn auch mit sehr viel geringerer Wahrscheinlichkeit als die Punktschätzung.
+
+:::fyi
+Möchten wir also nun die Aufmerksamkeitsleistung in Patienten oder Versuchspersonen untersuchen, interessiert uns, welche Parameterwerte die erhobenen Daten generiert haben könnten. Mit einer Wahrscheinlichkeitsverteilung können wir z.B. auch Aussagen darüber machen, wie sicher wir uns sind, dass eine Person wirklich eine unter- oder überdurchschnittliche Leistung zeigt.
+:::
+
 
 ## Bayes' Theorem
 
-In der Bayesianischen Statisik schaut man sich deshalb nicht nur eine Punktschätzung an, sondern die Wahrscheinlichkeitsverteilung von  $\theta$ unter den gemessenen Daten. Diese ergibt sich - wie im Bayes' Theorem formuliert - aus dem Produkt der Wahrscheinlichkeit der Daten unter den möglichen $\theta$ Werten und der Wahrscheinlichkeit von den  $\theta$ Werten normalisiert an der Wahrscheinlichkeit der Daten. Hier ist wichtig, dass wir eben eine Verteilung betrachten, also die Wahrscheinlichkeiten für ganz viele verschiedene Werte von  $\theta$.
+In der Bayesianischen Statisik schaut man sich deshalb nicht nur eine Punktschätzung an, sondern die Wahrscheinlichkeitsverteilung von  $\theta$ unter den gemessenen Daten. Diese ergibt sich - wie im Bayes' Theorem formuliert - aus dem Produkt der Wahrscheinlichkeit der Daten unter den möglichen $\theta$-Werten und der Wahrscheinlichkeit von den  $\theta$-Werten normalisiert an der Wahrscheinlichkeit der Daten. Hier ist wichtig, dass wir eben eine Verteilung betrachten, also die Wahrscheinlichkeiten für ganz viele verschiedene Werte von  $\theta$.
 
 $$ P(\theta|Data) = \frac{ P(Data|\theta) * P(\theta) } {P(Data)} $$
 oder ohne Normalisierungskonstante: 
@@ -97,9 +107,10 @@ $$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
 
 ## Grid Approximation
 
-Um diese Wahrscheinlichkeitsverteilung zu berechnen gibt es verschiedene Methoden. Eine davon ist die *grid approximation*. Diese ist rechnerisch sehr aufwändig und deshalb für komplizierte Modelle nicht geeignet. Die *grid approximation* zeigt aber anschaulich auf, wie wir eine Wahrscheinlichkeitsverteilung von $\theta$ schätzen können. Hierfür werden drei Schritte benötigt.
+Um diese Wahrscheinlichkeitsverteilung zu berechnen gibt es verschiedene Methoden. Eine davon ist die *grid approximation*. Diese ist rechnerisch sehr aufwändig und deshalb für komplizierte Modelle nicht geeignet. Für diese eignet sich das Markov chain Monte Carlo (MCMC) sampling besser (siehe Kapitel LINK oder diesen Satz in KASTEN). Die *grid approximation* zeigt jedoch anschaulich auf, wie wir eine Wahrscheinlichkeitsverteilung von $\theta$ schätzen können. Hierfür werden folgende Schritte benötigt.
 
-1. Erstellen einer *grid*-Variable
+
+### Erstellen einer *grid*-Variable
 
 Wir erstellen eine Variable, welche eine eingeschränkte Menge an möglichen $\theta$-Werten beinhaltet. Anders ausgedrückt: Zwischen 0 und 1 gibt es unendlich viele Werte, wir schränken uns mit unserem *grid* auf eine begrenzte Zahl an Werten ein. Hier definieren wir unsere *grid*-Variable als 100 Punkte die gleichabständig zwischen 0 und 1 liegen.
 
@@ -109,28 +120,37 @@ n_points <- 100
 theta_grid <- seq(from = 0 , to = 1 , length.out = n_points)
 ```
 
-2. Definieren der Prior Verteilung
 
-Wir entscheiden uns für einen Prior, den wir für sinnvoll halten. Hier nehmen wir einen recht uninformativen Prior. Das bedeutet, dieser Prior enthält keine starken Vorannahmen, ob Spielerin A besser ist als Spielerin B. 
+### Definieren der Prior Verteilung
+
+Wir entscheiden uns für eine Prior Verteilung, welche wir für sinnvoll halten. Hier nehmen wir einen recht uninformativen Prior. Das bedeutet, dieser Prior enthält keine starken Vorannahmen darüber, ob Spielerin A besser ist als Spielerin B.
 
 ```{r}
 prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
 ```
 
-2. Errechnen der Posterior Verteilung aus Prior und Likelihood
+
+### Berechnen der Likelihood Verteilung
+
+Wir berechnen die Likelihood (6 Siege in 9 Spielen für Spielerin A) für jeden $\theta$-Wert im *grid*.
 
 ```{r}
 likelihood <- dbinom(wins , size = games , prob = theta_grid)
 ```
-```{r}
-prior <- dbeta(x = theta_grid, shape1 = 4,  shape2 = 4)
 
-```
+
+### Errechnen der Posterior Verteilung aus Prior und Likelihood
+
+Wir berechnen das Produkt von Prior und Likelihood und erhalten so die unstandardisierte Posteriori-Verteilung und standardisieren diese.
+
 ```{r}
 unstandardized_posterior <- likelihood * prior
 posterior <- unstandardized_posterior / sum(unstandardized_posterior)
 ```
+
+
+Mit dem folgenden Code können wir uns Prior, Likelihood und Posterior darstellen, um zu verstehen, wie der Posterior duch Prior und Likelihood beeinflusst wird. 
 
 ```{r echo=TRUE}
 d <- tibble(theta_grid, prior, likelihood, posterior)
@@ -140,6 +160,7 @@ d %>%
   mutate(distribution = as_factor(distribution)) %>% 
   ggplot(aes(theta_grid, density, color = distribution)) +
   geom_line(size = 1.5) +
+  geom_point(color = "black", size = 1.5) +
   geom_vline(xintercept = 9/10, linetype = "dashed") +
   scale_color_viridis_d(end = 0.8) +
   xlab("Theta Werte") +
@@ -149,15 +170,18 @@ d %>%
   theme(legend.position = "none")
 ```
 
+Die schwarzen Punkte entsprechen den Werten im *grid*, also den Zahlen in unserem Posterior. Die farbigen Linien zeigen eine geglättete Kurve um die Wahrscheinlichkeitsverteilung zu verdeutlichen. 
 
-# Posterior Verteilungen zusammenfassen
+:::fyi
+Wenn wir die Parameter unseres Modells mit brms schätzen, besteht unsere Posterior-Verteilung aus sehr vielen "gesampelten" Zahlen, d.h. aus den zufälligen Zahlen welche mit der MCMC Methode gezogen wurden. Dann samplen wir natürlich nicht wie hier nochmals aus dem Posterior.
+:::
 
-Statt einer Punktschätzung haben wir nun eine Wahrscheinlichkeitsverteilung des Parameters $\theta$. Nun möchten wir diese Verteilung nicht nur plotten können, sondern auch beschreiben. Eine Verteilung kann mit verschiedenen Angaben beschrieben werden. [LINK Kapitel 1].
+Da wir durch die *grid approximation* Methode nur eine eingeschränkte Anzahl Werte in der Posterior-Verteilung haben, samplen wir nun aus diesem Posterior um eine höhere Auflösung zu erhalten. Dieser Zusatzschritt zeigt gleichzeitig auf, wie Sampling funktioniert:
 
 
- 
-Samples aus dem Posterior ziehen:
+## Samples aus dem Posterior ziehen 
 
+Wir möchten 10'000 Zufallszahlen ziehen.
 
 ```{r}
 n_samples <- 1e4
@@ -173,7 +197,7 @@ d %>%
     paged_table(options = list(rows.print = 6))
 ```
 
-
+Mit der *grid approximation* Methode haben wir für 100 Werte von $\theta$ aus der Prior und Likelihood die Posterior Verteilung errechnet. Jetzt ziehen wir 10 000 Samples aus dem Posterior. Das bedeutet, die Wahrscheinlichkeit einen bestimmten $\theta$-Wert zu ziehen wird bestimmt durch die in der Posterior Verteilung gegebene Wahrscheinlichkeit für diesen Wert von $\theta$.
 
 ```{r}
 samples <-
@@ -182,12 +206,11 @@ samples <-
   mutate(sample_number = 1:n())
 ```
 
-
 ```{r echo=TRUE}
 samples %>%
     paged_table(options = list(rows.print = 6))
 ```
-
+In dieser Darstellung sieht man welche Zufallszahlen nach und nach aus dem Posterior gezogen wurden.
 
 ```{r}
 samples %>%
@@ -197,6 +220,7 @@ samples %>%
   xlab("sample number")
 ```
 
+Hier sind alle gezogenen Zufallszahlen in einem Dichteplot dargestellt. Jetzt haben wir eine Posterior Verteilung, welche wir gerne beschreiben möchten.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>% 
@@ -206,13 +230,36 @@ samples %>%
 ```
 
 
+
+
+# Posterior Verteilungen zusammenfassen
+
+Statt einer Punktschätzung haben wir nun eine Wahrscheinlichkeitsverteilung des Parameters $\theta$. Diese ist etwas komplizierter zu berichten als wenn wir nur einen einzelnen Wert hätten. Wir möchten wir diese Verteilung nicht nur grafisch darstellen, sondern auch quantifizieren und beschreiben können. Dafür gibt es verschiedene Möglichkeiten. Die wichtigsten werden im folgenden Abschnitt erklärt. 
+
+Das Ziehen von Samples (egal ob *grid approximation* oder MCMC) hat den Vorteil, dass wir mit Häufigkeiten arbeiten können und nicht integrieren müssen. So können wir beispielsweise einfach zählen, wie viele der Werte sich zwischen zwei Parameterwerten befinden oder zwischen welchen zwei Werten sich die Hälfte der Samples befindet. 
+
 ## Intervalle mit definierten Endpunkten
 
+Eine Möglichkeit ist es, bestimmte Endpunkte zu definieren und zu fragen, wie viele der Samples zwischen diesen beiden Werten liegen. Diese Methode eignet sich beispielsweise um die Frage zu beantworten
+
+- Wie gross die Wahrscheinlichkeit ist, dass ein Parameterwert unter oder über einem bestimmten Wert liegt?
+
+- Wie gross ist die Wahrscheinlichkeit, dass ein Parameterwert zwischen zwei Werten liegt?
+
+- Wie gross ist die Wahrscheinlichkeit, dass ein Parameterwert ausserhalb von zwei Werten liegt?
+
+
+In unserem Beispiel interessieren wir uns für die Wahrscheinlichkeit, dass Spielerin A besser ist, als Spielerin B, also dass der Wert von $\theta$ über 0.5 liegt. 
+
+
 ### Posterior Approximation
+
+Wir beantworten diese Frage nun zuerst anhand der Posterior Verteilung, welche wir mit der *grid approximation* erhalten haben. Die Wahrscheinlichkeit für einen $\theta$-Wert über 0.5 können wir berechnen, indem wir alle Wahrscheinlichkeiten im Posterior zusammenzählen für die der $\theta$-Wert höher als 0.5 ist. Dies ergibt die Gesamtwahrscheinlichkeit für einen $\theta$-Wert über 0.5.
 
 ```{r}
 sum(posterior[theta_grid > 0.5])
 ```
+Eine andere Variante dasselbe zu tun ist:
 
 ```{r}
 d %>% 
@@ -220,9 +267,12 @@ d %>%
   summarise(sum = sum(posterior)) 
 ```
 
-## Intervalle mit definierten Endpunkten
-
 ### Posterior Samples
+
+Dasselbe können wir auch mit unseren gezogenen Zufallszahlen machen. Wenn wir ein Modell mit brms gerechnet haben, können wir die dort gezogenen Samples verwenden. 
+Hierzu zählen wir, wie viele der Samples einen $\theta$ Wert von über 0.5 haben. Wir erhalten fast denselben Wert. Er kann abweichen, da das Sampling eine Zufallskomponente hat, die nie ganz kontrolliert werden kann. Die Abweichung ist aber sehr klein. Grundsätzlich wird die Abweichung kleiner, wenn mehr Samples gezogen werden.
+
+Wir können uns die Häufigkeit anschauen, mit der Werte über 0.5 in den Samples vorkommen:
 
 ```{r}
 samples %>% #<<
@@ -230,27 +280,54 @@ samples %>% #<<
   summarise(sum = n() / n_samples) #<<
 ```
 
+Eine anderer Weg wäre es anschauen wie viele der 10000 gezogenen Zufallszahlen unter bzw. über 0.5 gelegen haben. 
+
 ```{r}
 samples %>% 
   count(theta_grid > .5) %>% 
   mutate(probability = n / sum(n))
 ```
 
+Wir können also sagen, dass die Wahrscheinlichkeit, dass Spielerin A besser ist als Spielerin B 77% beträgt. 
 
+:::fyi
+Mit dieser Zahl wird der Degree of Belief quantifiziert, d.h. es ist nun ziemlich plausibel, dass Spielerin A besser ist als Spielerin B. Wenn Sie entscheiden müssen, ob eine Patientin in einer Aufgabe schlechter ist, als eine durschnittliche Person, und Sie nun wissen, dass diese Wahrscheinlichkeit 90% beträgt, können Sie noch keine Entscheidung treffen (bzw. keine Hypothese testen).  Dafür müssen Sie eine "cost function" definieren (siehe Kapitel XX). Das bedeutet, dass Sie sich entscheiden müssten, welches Risiko Sie in Kauf nehmen falsch zu liegen oder ob Sie noch mehr Daten sammeln möchten.
+:::
 
 ## Intervalle mit definierter Masse
 
+Werden Posterior-Verteilungen mit Intervallen mit definierter Masse zusammengefasst, spricht man von *credible intervals*. Ein *credible interval* beschreibt, in welchem Bereich der geschätzte Parameterwert am wahrscheinlichsten liegt. Wie gross dieser Bereich (die Masse) ist, muss definiert werden. Eine klassische Zahl für diese Masse ist 95% oder 99%, aber auch 50%, 80% oder ganz andere Zahlen können gewählt werden. Dies hängt von der Fragestellung ab. Der *credible interval* sagt etwas darüber aus, welche Parameterwerte mit unserem Modell und unseren Daten kompatibel sind.
+
 ### Quantile
+
+Wir können berechnen zwischen welchen $\theta$-Werten die mittleren 50% unserer Samples liegen (zwischen der 25. und 75. Perzentile).
 
 ```{r}
 quantile(samples$theta_grid, prob = c(.25, .75))
 ```
 
+Oder die mittleren 90%:
+
+```{r}
+quantile(samples$theta_grid, prob = c(.05, .95))
+```
+
+Wenn wir eine definierte Masse um ein Mass der zentralen Tendenz erhalten möchten können wir dies mit `median_qi` oder `mean_qi` nutzen. Mit der `.width = 0.5` wird die Masse spezifiziert, sie entspricht hier 50%.
+
 ```{r}
 library(tidybayes)
 median_qi(samples$theta_grid, .width = .5)
+
 ```
 
+Mit dem Mittelwert als Ausgangspunkt erhalten wir ähnliche Zahlen, dass war zu erwarten, weil unsere Verteilung recht symmetrisch ist. Je schiefer eine Verteilung, desto mehr weichen Median und Mittelwert voneinander ab und desto unterschiedlicher können die Intervalle ausfallen.
+
+```{r}
+library(tidybayes)
+mean_qi(samples$theta_grid, .width = .5)
+```
+
+Es können auch mehrere *credible intervals* gleichzeitig spezifiziert werden.
 
 ```{r}
 library(tidybayes)
@@ -259,6 +336,8 @@ median_qi(samples$theta_grid, .width = c(.5, .8, .99))
 
 
 ### Highest Posterior Density (HPDI)
+
+Manchmal möchten wir wissen, welches der kleinstmögliche Bereich für eine bestimmte Masse, z.B. 50% der Parameterwerte, ist. Dies kann mit dem **H**ighest** **P**osterior **D**ensity** **I**nterval (HPDI) zusammengefasst werden. Der Nachteil des HPDI ist es, dass er rechnerisch aufwändiger ist und sich schon kleine Unterschiede in der Posteriorverteilung stark auswirken (z.B. weil nur wenige Samples gezogen wurde).
 
 ```{r}
 mode_hdi(samples$theta_grid, .width = .5)
@@ -300,6 +379,8 @@ p2 <-
 
 p1 | p2
 ```
+
+Der Unterschied zwischen dem 50% Perzentilen Intervall und dem 50% HPDI zeigt sich darin, dass beim 50% PI die Masse der beiden Enden gleich gross ist (je 25%), dies kann beim HDPI unterschiedlich sein und so kann der HDPI besser für die Dichte optimieren.
 
 
 # Sampling: Simulation
