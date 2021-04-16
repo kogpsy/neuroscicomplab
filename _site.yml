@@ -5,7 +5,7 @@ repository_url: https://github.com/kogpsy/neuroscicomplab
 source_url: https://github.com/kogpsy/neuroscicomplab
 description: |
   Neurowissenschaft im Computerlab
-include: ["slides/", "data/"]
+include: ["data/"]
 exclude: ["_do_not_build/", "jasp"]
 output_dir: "docs"
 theme: css/theme.css
