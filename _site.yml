@@ -45,6 +45,8 @@ navbar:
           href: solution-2.html
         - text: "Übung 3 (nicht abgeben)"
           href: exercise-3.html
+        - text: "Übung 3: Lösung"
+          href: solution-3.html
 
 
   right:
