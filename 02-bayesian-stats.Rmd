@@ -27,10 +27,10 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 
-In der Forschung und Diagnostik interessieren uns für Eigenschaften eines Prozesses, einer Person oder einer Gruppe, welche wir nicht direkt messen können. Deshalb werden Testverfahren und Experimente angewendet um diese latenten Eigenschaften messbar zu machen. Mit statistischen Verfahren wird aus den gemessenen Daten Information über die interessierende Eigenschaft extrahiert. 
+In der Forschung und Diagnostik interessieren uns die Eigenschaften eines Prozesses, einer Person oder einer Gruppe, welche wir nicht direkt messen können. Deshalb werden Testverfahren und Experimente angewendet um diese latenten Eigenschaften messbar zu machen. Mit statistischen Verfahren wird aus den gemessenen Daten Information über die interessierende Eigenschaft extrahiert. 
 
 :::fyi 
-Eine Neurowissenschaftlerin, welche sich für Aufmerksamkeitsprozesse interessiert, misst die Aufmerksamkeitsleistung von Versuchspersonen unter bestimmten Bedingungen, um zu untersuchen durch was Aufmerksamkeit beeinflusst wird. Ein klinischer Neuropsychologe hingegen hat vielleicht das Ziel festzustellen, ob die Aufmerksamkeitsleistung einer Person von der Norm abweicht, beispielsweise weil sie durch einen Unfall eine Kopfverletzung erlitten hat. Beide messen Daten und beide ziehen aus den gemessenen Daten Rückschlüsse auf eine unterliegende Eigenschaft eines Prozesses oder einer Person. 
+Eine Neurowissenschaftlerin, welche sich für Aufmerksamkeit interessiert, misst die Aufmerksamkeitsleistung von Versuchspersonen unter bestimmten Bedingungen, um zu untersuchen durch was Aufmerksamkeit beeinflusst wird. Ein klinischer Neuropsychologe hingegen hat vielleicht das Ziel festzustellen, ob die Aufmerksamkeitsleistung einer Person von der Norm abweicht, beispielsweise weil sie durch einen Unfall eine Kopfverletzung erlitten hat. Beide messen Daten und ziehen aus den gemessenen Daten Rückschlüsse auf eine unterliegende Eigenschaft eines Prozesses oder einer Person. 
 :::
 
 In der Bayesianischen Statistik wird dies, wie in Kapitel 1 beschrieben, mittels drei Schritten gemacht: 
@@ -91,7 +91,7 @@ tibble(x = seq(from = 0, to = 1, by = .01)) %>%
 Der mit der Maximum Likelihood Schätzung geschätzte $\theta$-Wert ist der Wert am höchsten Punkt der Verteilung: Diese Punktschätzung von $\theta$ wird mit der schwarzen gestrichelten Linie dargestellt. Doch wenn wir die hellblaue Fläche anschauen, sehen wir, dass auch etwas kleinere oder grössere Werte als die Punktschätzung mit grosser Wahrscheinlichkeit diese Daten generieren könnten. Auch sehr kleine oder grosse Werte könnten möglich sein - wenn auch mit sehr viel geringerer Wahrscheinlichkeit als die Punktschätzung.
 
 :::fyi
-Möchten wir also nun die Aufmerksamkeitsleistung in Patienten oder Versuchspersonen untersuchen, interessiert uns, welche Parameterwerte die erhobenen Daten generiert haben könnten. Mit einer Wahrscheinlichkeitsverteilung können wir z.B. auch Aussagen darüber machen, wie sicher wir uns sind, dass eine Person wirklich eine unter- oder überdurchschnittliche Leistung zeigt.
+Möchten wir also nun die Aufmerksamkeitsleistung in Patienten oder Versuchspersonen untersuchen, interessiert uns, welche Parameterwerte die erhobenen Daten generiert haben könnten. Mit einer Wahrscheinlichkeitsverteilung können wir z.B. auch Aussagen darüber machen, wie sicher wir uns sind, dass eine Person wirklich eine unter- oder überdurchschnittliche Leistung zeigt. 
 :::
 
 
@@ -107,7 +107,7 @@ $$ P(\theta|Data) \propto P(Data|\theta) * P(\theta) $$
 
 ## Grid Approximation
 
-Um diese Wahrscheinlichkeitsverteilung zu berechnen gibt es verschiedene Methoden. Eine davon ist die *grid approximation*. Diese ist rechnerisch sehr aufwändig und deshalb für komplizierte Modelle nicht geeignet. Für diese eignet sich das Markov chain Monte Carlo (MCMC) sampling besser (siehe Kapitel LINK oder diesen Satz in KASTEN). Die *grid approximation* zeigt jedoch anschaulich auf, wie wir eine Wahrscheinlichkeitsverteilung von $\theta$ schätzen können. Hierfür werden folgende Schritte benötigt.
+Um diese Wahrscheinlichkeitsverteilung zu berechnen gibt es verschiedene Methoden. Eine davon ist die *grid approximation*. Diese ist rechnerisch sehr aufwändig und deshalb für komplizierte Modelle nicht geeignet. Für diese eignet sich das Markov chain Monte Carlo (MCMC) sampling besser. (Wie wir Parameter mit MCMC sampling schätzen können wird am Ende des Kapitels erklärt.) Die *grid approximation* zeigt anschaulich auf, wie wir eine Wahrscheinlichkeitsverteilung von $\theta$ schätzen können. Hierfür werden folgende Schritte benötigt.
 
 
 ### Erstellen einer *grid*-Variable
@@ -181,7 +181,7 @@ Da wir durch die *grid approximation* Methode nur eine eingeschränkte Anzahl We
 
 ## Samples aus dem Posterior ziehen 
 
-Wir möchten 10'000 Zufallszahlen ziehen.
+Wir möchten 10 000 Zufallszahlen ziehen.
 
 ```{r}
 n_samples <- 1e4
@@ -197,7 +197,7 @@ d %>%
     paged_table(options = list(rows.print = 6))
 ```
 
-Mit der *grid approximation* Methode haben wir für 100 Werte von $\theta$ aus der Prior und Likelihood die Posterior Verteilung errechnet. Jetzt ziehen wir 10 000 Samples aus dem Posterior. Das bedeutet, die Wahrscheinlichkeit einen bestimmten $\theta$-Wert zu ziehen wird bestimmt durch die in der Posterior Verteilung gegebene Wahrscheinlichkeit für diesen Wert von $\theta$.
+Mit der *grid approximation* Methode haben wir für 100 Werte von $\theta$ die Posterior Verteilung aus der Prior und Likelihood errechnet. Jetzt ziehen wir 10 000 Samples aus dem Posterior. Das bedeutet, die Wahrscheinlichkeit einen bestimmten $\theta$-Wert zu ziehen wird bestimmt durch die in der Posterior Verteilung gegebene Wahrscheinlichkeit für diesen Wert von $\theta$.
 
 ```{r}
 samples <-
@@ -220,7 +220,7 @@ samples %>%
   xlab("sample number")
 ```
 
-Hier sind alle gezogenen Zufallszahlen in einem Dichteplot dargestellt. Jetzt haben wir eine Posterior Verteilung, welche wir gerne beschreiben möchten.
+Hier sind alle gezogenen Zufallszahlen in einem Dichteplot dargestellt. 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 samples %>% 
@@ -230,24 +230,19 @@ samples %>%
 ```
 
 
-
-
 # Posterior Verteilungen zusammenfassen
 
-Statt einer Punktschätzung haben wir nun eine Wahrscheinlichkeitsverteilung des Parameters $\theta$. Diese ist etwas komplizierter zu berichten als wenn wir nur einen einzelnen Wert hätten. Wir möchten wir diese Verteilung nicht nur grafisch darstellen, sondern auch quantifizieren und beschreiben können. Dafür gibt es verschiedene Möglichkeiten. Die wichtigsten werden im folgenden Abschnitt erklärt. 
-
-Das Ziehen von Samples (egal ob *grid approximation* oder MCMC) hat den Vorteil, dass wir mit Häufigkeiten arbeiten können und nicht integrieren müssen. So können wir beispielsweise einfach zählen, wie viele der Werte sich zwischen zwei Parameterwerten befinden oder zwischen welchen zwei Werten sich die Hälfte der Samples befindet. 
+Statt einer Punktschätzung haben wir nun eine Wahrscheinlichkeitsverteilung des Parameters $\theta$. Nun möchten wir diese Verteilung nicht nur grafisch darstellen, sondern auch quantifizieren und beschreiben können. Dafür gibt es verschiedene Möglichkeiten. Die wichtigsten werden im folgenden Abschnitt erklärt. Das Arbeiten mit Samples (egal ob *grid approximation* oder MCMC) hat den Vorteil, dass wir mit Häufigkeiten arbeiten können und nicht integrieren müssen. So können wir beispielsweise einfach zählen, wie viele der Werte sich zwischen zwei Parameterwerten befinden oder zwischen welchen zwei Werten sich die Hälfte der Samples befindet. 
 
 ## Intervalle mit definierten Endpunkten
 
-Eine Möglichkeit ist es, bestimmte Endpunkte zu definieren und zu fragen, wie viele der Samples zwischen diesen beiden Werten liegen. Diese Methode eignet sich beispielsweise um die Frage zu beantworten
+Eine Möglichkeit ist es, bestimmte Endpunkte zu definieren und zu fragen, wie viele der Samples zwischen diesen beiden Werten liegen. Diese Methode eignet sich beispielsweise um die folgenden Fragen zu beantworten:
 
 - Wie gross die Wahrscheinlichkeit ist, dass ein Parameterwert unter oder über einem bestimmten Wert liegt?
 
 - Wie gross ist die Wahrscheinlichkeit, dass ein Parameterwert zwischen zwei Werten liegt?
 
 - Wie gross ist die Wahrscheinlichkeit, dass ein Parameterwert ausserhalb von zwei Werten liegt?
-
 
 In unserem Beispiel interessieren wir uns für die Wahrscheinlichkeit, dass Spielerin A besser ist, als Spielerin B, also dass der Wert von $\theta$ über 0.5 liegt. 
 
@@ -259,6 +254,7 @@ Wir beantworten diese Frage nun zuerst anhand der Posterior Verteilung, welche w
 ```{r}
 sum(posterior[theta_grid > 0.5])
 ```
+
 Eine andere Variante dasselbe zu tun ist:
 
 ```{r}
@@ -269,8 +265,7 @@ d %>%
 
 ### Posterior Samples
 
-Dasselbe können wir auch mit unseren gezogenen Zufallszahlen machen. Wenn wir ein Modell mit brms gerechnet haben, können wir die dort gezogenen Samples verwenden. 
-Hierzu zählen wir, wie viele der Samples einen $\theta$ Wert von über 0.5 haben. Wir erhalten fast denselben Wert. Er kann abweichen, da das Sampling eine Zufallskomponente hat, die nie ganz kontrolliert werden kann. Die Abweichung ist aber sehr klein. Grundsätzlich wird die Abweichung kleiner, wenn mehr Samples gezogen werden.
+Dasselbe können wir auch mit unseren gezogenen Zufallszahlen machen. Wenn wir ein Modell mit brms gerechnet haben, können wir die dort gezogenen Samples verwenden. Hierzu zählen wir, wie viele der Samples einen $\theta$ Wert von über 0.5 haben. Der Wert kann etwas abweichen, da das Sampling eine Zufallskomponente hat, die nie ganz kontrolliert werden kann. Die Abweichung ist aber sehr klein. Grundsätzlich wird die Abweichung kleiner, wenn mehr Samples gezogen werden.
 
 Wir können uns die Häufigkeit anschauen, mit der Werte über 0.5 in den Samples vorkommen:
 
@@ -280,7 +275,7 @@ samples %>% #<<
   summarise(sum = n() / n_samples) #<<
 ```
 
-Eine anderer Weg wäre es anschauen wie viele der 10000 gezogenen Zufallszahlen unter bzw. über 0.5 gelegen haben. 
+Eine anderer Weg wäre es anschauen wie viele der 10 000 gezogenen Zufallszahlen unter bzw. über 0.5 gelegen haben. 
 
 ```{r}
 samples %>% 
@@ -291,7 +286,7 @@ samples %>%
 Wir können also sagen, dass die Wahrscheinlichkeit, dass Spielerin A besser ist als Spielerin B 77% beträgt. 
 
 :::fyi
-Mit dieser Zahl wird der Degree of Belief quantifiziert, d.h. es ist nun ziemlich plausibel, dass Spielerin A besser ist als Spielerin B. Wenn Sie entscheiden müssen, ob eine Patientin in einer Aufgabe schlechter ist, als eine durschnittliche Person, und Sie nun wissen, dass diese Wahrscheinlichkeit 90% beträgt, können Sie noch keine Entscheidung treffen (bzw. keine Hypothese testen).  Dafür müssen Sie eine "cost function" definieren (siehe Kapitel XX). Das bedeutet, dass Sie sich entscheiden müssten, welches Risiko Sie in Kauf nehmen falsch zu liegen oder ob Sie noch mehr Daten sammeln möchten.
+Mit dieser Zahl wird der Degree of Belief quantifiziert, d.h. es ist nun ziemlich plausibel, dass Spielerin A besser ist als Spielerin B. Wenn Sie entscheiden müssen, ob eine Patientin in einer Aufgabe schlechter ist, als eine durschnittliche Person, und Sie nun wissen, dass diese Wahrscheinlichkeit 90% beträgt, können Sie noch keine binäre Entscheidung treffen (bzw. keine Hypothese testen). Dafür müssen Sie eine "cost function" definieren (siehe Kapitel ?). Das bedeutet, dass Sie sich entscheiden müssten, welches Risiko Sie in Kauf nehmen falsch zu liegen oder ob Sie noch mehr Daten sammeln möchten.
 :::
 
 ## Intervalle mit definierter Masse
@@ -339,14 +334,19 @@ median_qi(samples$theta_grid, .width = c(.5, .8, .99))
 
 Manchmal möchten wir wissen, welches der kleinstmögliche Bereich für eine bestimmte Masse, z.B. 50% der Parameterwerte, ist. Dies kann mit dem **H**ighest** **P**osterior **D**ensity** **I**nterval (HPDI) zusammengefasst werden. Der Nachteil des HPDI ist es, dass er rechnerisch aufwändiger ist und sich schon kleine Unterschiede in der Posteriorverteilung stark auswirken (z.B. weil nur wenige Samples gezogen wurde).
 
+Der HPDI kann um den Modalwert berechnet werden:
+
 ```{r}
 mode_hdi(samples$theta_grid, .width = .5)
 ```
+
+Oder ohne Modalwert:
 
 ```{r}
 hdi(samples$theta_grid, .width = .5)
 ```
 
+Der HPDI wird eher selten verwendet. Er eignet sich, wenn man sehr schiefe oder bimodale Posterior Verteilungen hat.
 
 ```{r echo = TRUE}
 library(patchwork)
@@ -380,11 +380,16 @@ p2 <-
 p1 | p2
 ```
 
-Der Unterschied zwischen dem 50% Perzentilen Intervall und dem 50% HPDI zeigt sich darin, dass beim 50% PI die Masse der beiden Enden gleich gross ist (je 25%), dies kann beim HDPI unterschiedlich sein und so kann der HDPI besser für die Dichte optimieren.
-
 
 # Sampling: Simulation
 
+Sampling - also das Ziehen von Zufallszahlen aus einer Verteilung - hat den Vorteil, dass wir simulieren können, welche Daten ein bestimmter Parameterwert (hier $\theta$) generieren würde. Wenn wir annehmen, dass wir den wahren Wert von $\theta$ kennen können wir für diesen Wert Daten generieren. Da wir $\theta$ nicht wirklich kennen, machen wir das für verschiedene Werte von $\theta$. Simulationen mit Sampling dienen dazu, die Modellannahmen (z.B. Priors) zu überprüfen und verbessern sowie unsere Datenerhebung/Experimente zu planen.
+
+:::fyi
+Dies ist beispielsweise sinnvoll, bei der Planung eines Experiments um erfahren, wie viele Versuchspersonen oder Durchgänge benötigt werden, um einen Effekt bestimmter Grösse zu finden. In vielen neurowissenschaftlichen Experimenten ist das von zentraler Bedeutung. Oft ist das Durchführen von Experimenten mit zeitintensiven Methoden (z.B. EEG) oder teuren Untersuchungen (z.B. MRT) verbunden. Bei Patientenstudien können oft nur eine beschränkte Anzahl Patienten untersucht werden, da das Rekrutieren und Testen von Patienten vielmals aufwändiger ist.
+:::
+
+Wenn wir in unserem Beispiel für $\theta$ einen Wert von 0.7 bei 9 gespielten Spiele annehmen, erhalten wir mit 10 000 Samples folgende Verteilung:
 
 ```{r echo = FALSE}
 set.seed(3)
@@ -401,6 +406,8 @@ d %>%
   coord_cartesian(xlim = c(0, 9)) +
   theme(panel.grid = element_blank())
 ```
+
+Wir können uns aber auch anschauen, zu welchen Verteilungen verschiedene Werte von $\theta$ führen könnten, z.B. für Werte von 0.3, 0.6 und 0.9. Zudem können wir die Anzahl Spiele variieren und einen Eindruck davon erhalten, wie sich die Anzahl Spiele auf die Verteilung auswirkt. So erhalten wir viele unterschiedliche Verteilungen.
 
 ```{r echo = TRUE}
 n_draws <- 1e5
@@ -431,19 +438,31 @@ d %>%
   facet_grid(n ~ probability)
 ```
 
+Dieses Beispiel zeigt Verteilungen, welche mit einer Punktschätzung (also einem einzelnen angenommenen Wert von $\theta$) gesamplet wurden. Da wir in der Bayesianischen Statistik aber mit Wahrscheinlichkeitsverteilungen statt Punktschätzungen arbeiten haben wir die Möglichkeit die Unsicherheit ebenfalls zu berücksichtigen. Statt viele einzelne Verteilungen anzuschauen können wir unsere Unsicherheit also in der Verteilung sichtbar machen.
+
 # Prior Predictive Distribution
+Die Prior Predictive Distribution ist die Verteilung der Daten, wie wir sie erwarten würden bevor wir die Daten gesehen haben. Die Breite der Verteilung stellt unsere Unsicherheit dar. Wenn wir uns sehr sicher sind, wie die Daten verteilt sein werden (z.B. zwischen 0.5 und 0.6), dann ist diese Verteilung schmaler, wenn wir uns hingegen weniger sicher sind (z.B. zwischen 0.2 und 0.8) dann ist die Verteilung breiter. 
+
+:::note
+Die Prior Predictive Verteilung ist keine empirische Vorhersage, sondern eine Verteilung von plausiblen Werten **vor** dem Einbeziehen der Daten. Wir können damit überprüfen, ob unsere Priors und unsere Modellspezifikation Sinn machen.
+:::
+
+Wir nehmen für unser Beispiel einen Prior mit einer Beta-Verteilung mit den Parametern 4 und 4 an. Wir sehen im unteren Plot, welche Anzahl Erfolge wie plausibel sind unter dem gewählten Prior. Sie können die Parameter der Beta-Verteilung ändern, um sich anzuschauen wie der Prior sich verändert. Geben Sie dazu andere Werte für `shape_1` und `shape_2` ein. In unserem einfachen Beispiel gleicht die Prior Predictive Distribution sehr der Beta-Verteilung, dies ändert sich, sobald Sie mehrere Priors haben. Aber auch hier sehen Sie besser, welche Anzahl Erfolge am plausibelsten ist, als wenn Sie einfach eine Beta-Verteilung wie in Kapitel 1 betrachten.
+
 
 ```{r echo = FALSE}
 n_samples <- 1e4
 n <- 100
-n_success <- 6
-n_trials <- 9
+
+shape_1 = 4
+shape_2 = 4
 
 d <-
   tibble(theta_grid = seq(from = 0, to = 1, length.out = n),
-         prior  = dbeta(theta_grid, shape1 = 4, shape2 = 4)) %>% 
-  mutate(likelihood = dbinom(n_success, size = n_trials, prob = theta_grid)) %>% 
-  mutate(posterior = (likelihood * prior) / sum(likelihood * prior))
+         prior  = dbeta(theta_grid, shape1 = shape_1, shape2 = shape_2))
+
+# make it reproducible
+set.seed(3)
 
 samples <-
   d %>% 
@@ -464,11 +483,27 @@ samples %>%
   theme(panel.grid = element_blank())
 ```
 
+:::fyi
+Dieses Vorgehen scheint vielen Leuten auf den ersten Blick nicht als hilfreich, da keine gemessenen Daten einbezogen werden. Es kann uns aber gute Dienste leisten. Jedes Modell, welches wir schätzen wurde von uns spezifiziert, die Priors haben wir nach bestem Wissen über die zu messende Variable ausgewählt. Da Modelle oftmals mehrere Parameter gleichzeitig schätzen (z.B. $\mu$ und $\sigma$), ist es für uns schwierig vorherzusehen, welchen Einfluss unsere Priors aufeinander nehmen. Durch das Samplen aus den Priors, können wir dies sichtbar machen und so beurteilen, ob wir das Modell und die Priors sinnvoll spezifiziert haben.
+:::
 
 # Posterior Predictive Distribution
 
+Statt aus dem Prior können wir auch aus dem Posterior samplen. Das macht Sinn, wenn ich Daten gesammelt habe und jetzt Vorhersagen für neue Experimente machen möchte. Wenn die Daten in einem neuen Experiment nicht dazu pasesn, war mein Modell nicht gut genug und muss überarbeitet werden. Die Posterior Predictive Distribution kann also verwendet werden um Modelle zu prüfen und anzupassen.
+
+Mit diesem Code wird aus der Posterior Verteilung gesamplet:
+
 ```{r echo = FALSE}
 n_samples <- 1e4
+n <- 100
+n_success <- 6
+n_trials <- 9
+
+d <-
+  tibble(theta_grid = seq(from = 0, to = 1, length.out = n),
+         prior  = dbeta(theta_grid, shape1 = 4, shape2 = 4)) %>% 
+  mutate(likelihood = dbinom(n_success, size = n_trials, prob = theta_grid)) %>% 
+  mutate(posterior = (likelihood * prior) / sum(likelihood * prior))
 
 # make it reproducible
 set.seed(3)
@@ -492,8 +527,9 @@ samples %>%
 ```
 
 
-
 ## Graphical model
+
+Ein *graphical model* beschreibt ein generatives Modell, also ein Modell mit dem wir Daten erzeugen können (wie das gemacht werden kann, wird weiter unten klarer). Wir definieren damit, welche Parameter unser Modell hat und wie diese verteilt sind. Das Aufzeichnen eines *graphical models* kann uns helfen zu verstehen, wie unser Modell spezifiziert werden muss.
 
 ### Binomial Model
 
@@ -505,6 +541,9 @@ knitr::include_graphics("images/binomial-graphical-model.png")
 ```
 </aside>
 
+In den Kreisen werden alle Variablen eingezeichnet, die unser Modell enthält. Die Variablen, deren Wert wir schätzen wollen sind weiss, wie hier $\theta$. Alle Variablen, die geschätzt werden sollen, haben eine Verteilung, hier eine Beta-Verteilung mit 2 Parametern ($\alpha$ und $\beta$). Die grau unterlegten Variablen werden nicht geschätzt. Entweder weil wir ihre Werte kennen: *N* beschreibt die Anzahl Versuche und *y* die gemessenen Daten; oder weil wir sie festgelegt haben wie $\alpha$ und $\beta$ auf 4 und 4. 
+
+Wir können dasselbe Modell auch wie folgt darstellen, um statt das Ergebnis mehrerer Spiele ein einzelnes Ereignis vorherzusagen:
 
 <aside>
 ```{r bernoulli-graphical-model, echo=FALSE, fig.cap="Graphical Model für bernoulliverteilte Daten."}
@@ -512,11 +551,12 @@ knitr::include_graphics("images/bernoulli-graphical-model.png")
 ```
 </aside>
 
-
 ## Gaussian model
 
-Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen Modells</span> mit normalverteilten Daten:
+Ebenso können wir ein *graphical model* für normalverteilte Daten aufzeichnen. In diesem Modell werden die IQ-Werte einer Gruppe Menschen mit eher hohem IQ gemessen. Wir nehmen an das die IQ Werte aus einer Normalverteilung kommen. Die gemessenen Daten *y* werden durch zwei zu schätzende Parameter $\mu$ und $\sigma$ bestimmt. Für die zu schätzenden Parameter muss unter Einbezug von Vorwissen ein Prior bestimmt werden.
+Als Prior für $\mu$, also die Verteilung der IQ Werte, nehmen wir eine Normalverteilung mit Mittelwert 120 und Standardabweichung 5, weil es ja eine eher homogene Gruppe ist. Für $\sigma$ setzen wir den Prior eher unspezifisch, aber positiv, weil es eine Standardabweichung ist.
 
+Grafische Darstellung eines  <span style="color: var(--text-color)">Generativen Modells</span> mit normalverteilten Daten:
 
 <aside>
 ```{r normal-graphical-model, echo=FALSE, fig.cap="Graphical Model für normalverteilte Daten."}
@@ -526,20 +566,25 @@ knitr::include_graphics("images/normal-graphical-model.png")
 
 \@ref(fig:normal-graphical-model)
 
+Die hier in *graphical models* dargestellten Modelle sind **generative Modelle**. Das bedeutet, dass wenn ein Modell spezifiziert wurde, damit auch Daten generiert werden können. Dies kann folgendermassen gemacht werden:
+
 ```{r}
-n <- 20
-
-mu_sigma <- 5
-
 set.seed(6)
+
+# Definiere Werte für Parameter
+n <- 20
+mu_sigma <- 5
 mu <- rnorm(n = 1, mean = 120, 
             sd = mu_sigma)
 sigma <- runif(n = 1, 1, 10)
+
+# Generiere die Daten
 y <- rnorm(n = n, mean = mu, 
            sd = sigma) %>% 
      round(2)
 ```
 
+Die generierten Daten sehen wie folgt aus:
 
 ```{r echo = TRUE}
 hist(y, col = 'skyblue3', breaks = 10) 
@@ -547,6 +592,14 @@ hist(y, col = 'skyblue3', breaks = 10)
 
 
 ## Posterior Inference
+
+Um den Mittelwert $\mu$ und die Standardabweichung $\sigma$ der oben generierten Daten zu schätzen, können wir diese mit Stan oder einfacher mit brms schätzen. 
+
+:::fyi
+In diesem Fall kennen wir die wahren Werte, da wir diese ja selber definiert haben. Das Schätzen der Parameter könnte in der Praxis dazu dienen zu überprüfen, ob unsere Analyse in der Lage ist diese wahren Werte wieder zu finden. 
+:::
+
+Der Stan Code sieht wie folgt aus:
 
 ```{C++}
 // The input data is a vector 'y' of length 'N'.
@@ -572,17 +625,18 @@ model {
 }
 ```
 
+Als benutzerfreundlichere Variante können wir Stan mit dem package *brms* in R nutzen. 
 
 ```{r}
 library(brms)
 d <- tibble(y)
 ```
 
-
+Dann würde der Stan-Code wie folgt aussehen:
 
 ```{r eval = FALSE}
 priors <- set_prior("normal(120, 5)", class = "Intercept") +
-    set_prior("uniform(1, 10)", class = "sigma")
+    set_prior("uniform(1,10)", class = "sigma")
 
 fit <- brm(y ~ 1,
            family = gaussian,
@@ -592,14 +646,17 @@ fit <- brm(y ~ 1,
 ```
 
 
-
 ## `brms` Model
 
+Wir möchten also nun das oben spezifizierte Modell schätzen. Dafür definieren wir zuerst die Priors und schätzen dann das Modell.
 
 ```{r}
 library(brms)
 d <- tibble(y)
 ```
+
+
+Mit dem Befehl `get_prior()` in brms können wir uns ansehen, welche Priors für das spezifizierte Modell definiert werden müssen. brms schlägt Priors vor, die verwendet werden, wenn keine definiert wurden. 
 
 ```{r}
 get_prior(y ~ 1,
@@ -607,11 +664,14 @@ get_prior(y ~ 1,
           data = d)
 ```
 
+Es ist aber unbedingt empfehlenswert die Priors bewusst auszuwählen. Mit `set_prior()` können wir die Priors verändern:
+
 ```{r}
 priors <- set_prior("normal(120, 5)", class = "Intercept") +
   set_prior("cauchy(0, 1)", class = "sigma")
 ```
 
+Dann schätzen wir unser Modell:
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 m <- brm(y ~ 1,
@@ -622,19 +682,33 @@ m <- brm(y ~ 1,
            file = "models/model_1")
 ```
 
+Mit `summary()` können wir uns das Resultat anschauen.
+
 ```{r eval=FALSE, include=TRUE}
 summary(m)
 ```
+
+Im oberen Teil des Outputs sehen wir die gerechnete Formel und die verwendeten Daten. 
+
+Unter *Samples* sehen wir, dass wir 4 Markov-Chains berechnet haben, wir haben also 4-mal 2000 samples gezogen (die ersten 1000 werden nicht verwendet). Diese Chains sollten nicht zu stark voneinander abweichen, sonst dürfen die Resultate nicht intepretiert werden, sondern müssen wir das Modell anpassen, die Priors verändern oder mehr Samples ziehen. Liegt der *Rhat* Wert unter 1.01 stimmen die Chains überein.
+
+Bei den *Population-Level Effects* den Mittelwert, die Standardabweichung und das 95% credible interval. 
+
+Bei den *Family Specific Parameters* Residualstandardabweichung der Normalverteilung.
+
 
 <aside>
 Parameter werden durch Mittelwert, SD (Est.Error), 2-seitige 95% Credible
 intervals der Posterior-Verteilung zusammengefasst.
 </aside>
 
-
 ```{r}
 plot(m)
 ```
+
+Sehr hilfreich ist es auch, sich die grafische Darstellung der Posterior-Verteilungen und der Chains anzuschauen. Die Grafiken rechts, die ausschauen wie eine dicke, haarige Raupe, sind die verundenen Punkte der einzelnen gezogenen Samples. Diese sollten wie oben beschrieben übereinander liegen.
+
+Um die Posterior Verteilungen zusammenzufassen können wir die mit brms erhaltenen Posterior Samples verwenden:
 
 ```{r}
 library(tidybayes)
@@ -647,6 +721,7 @@ m %>%
   kableExtra::kbl()
 ```
 
+Das können wir auch grafisch darstellen.
 
 ```{r}
 m %>%
