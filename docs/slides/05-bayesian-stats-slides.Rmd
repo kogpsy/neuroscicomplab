@@ -466,7 +466,7 @@ vergleichen, gibt es eine einfache Methode.
 
 Unter dem Nullmodell (Nullhypothese): $H_0: \theta = \theta_0$
 
-Unter Modell 1: $H_0: \theta \neq \theta_0$
+Unter Modell 1: $H_1: \theta \neq \theta_0$
 
 --
 
