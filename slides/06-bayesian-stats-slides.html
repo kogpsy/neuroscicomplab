@@ -119,7 +119,7 @@ Wie würden Sie diese Daten analysieren?
 
 ]
 
-<div class="countdown" id="timer_607e2cfa" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_607e4ac1" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -142,7 +142,11 @@ class: middle
 
 ---
 
-Wir nehme als Beispiel [Übung 2, Aufgabe 3](https://kogpsy.github.io/neuroscicomplab/solution-3.html#aufgabe-3). Wir wollen wissen, ob Vpn bei 150 länger brauchen, um eine korrekte Antwort zu geben, als bei 50 Grad.
+Wir nehme als Beispiel einen simulierten Datensatz vom Package [bcogsci](https://github.com/bnicenboim/bcogsci). Falls Sie das Package nicht installieren können, können Sie einfach das File `df_contrasts1.rda` von hier [downloaden](https://github.com/bnicenboim/bcogsci/tree/master/data).
+
+Wir haben eine abhängige Variable `DV` (Reaktionzeit) in 2 Gruppen, F1 mit `\(\mu_1=0.8\)` Sekunden. und F2 mit `\(\mu_2=0.4\)` Sekunden. Die Daten sind von 10 simulierten Vpn.
+
+---
 
 
 .panelset[
@@ -150,102 +154,162 @@ Wir nehme als Beispiel [Übung 2, Aufgabe 3](https://kogpsy.github.io/neuroscico
 
 
 ```r
-d &lt;- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/mental-rotation.csv")
+library(bcogsci)
+data("df_contrasts1") 
+df_contrasts1
+```
+
+```
+## # A tibble: 10 x 3
+##    F        DV    id
+##    &lt;fct&gt; &lt;dbl&gt; &lt;int&gt;
+##  1 F1    0.636     1
+##  2 F1    0.841     2
+##  3 F1    0.555     3
+##  4 F1    1.03      4
+##  5 F1    0.938     5
+##  6 F2    0.123     6
+##  7 F2    0.304     7
+##  8 F2    0.659     8
+##  9 F2    0.469     9
+## 10 F2    0.444    10
 ```
 ]
 
-.panel[.panel-name[Daten verarbeiten]
+.panel[.panel-name[Daten laden (Alternativmethode)]
 
 
 ```r
-d &lt;- d %&gt;% 
-  mutate(id = as_factor(id))
-  
-rts &lt;- d %&gt;% 
-  group_by(id, angle, accuracy) %&gt;% 
-  summarise(rt = mean(rt)) %&gt;% 
-  filter(accuracy == 1) %&gt;% 
-  select(-accuracy)
+df_contrasts1 &lt;- load("data/df_contrasts1.rda")
+df_contrasts1
+```
+]
 
-acc &lt;- d %&gt;% 
-  group_by(id, angle) %&gt;% 
-  summarise(accuracy = mean(accuracy))
+.panel[.panel-name[Daten zusammenfassen]
+
+
+```r
+df_contrasts1_sum &lt;- df_contrasts1 %&gt;% 
+  group_by(F) %&gt;% 
+  summarise(mean = mean(DV),
+            se = sd(DV)/sqrt(n()))
+df_contrasts1_sum
 ```
 
-
-```r
-dsum &lt;- acc %&gt;% 
-  left_join(rts)
+```
+## # A tibble: 2 x 3
+##   F      mean     se
+##   &lt;fct&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 F1      0.8 0.0894
+## 2 F2      0.4 0.0894
 ```
 
 ]
 
-.panel[.panel-name[Daten filtern]
+.panel[.panel-name[Plot]
 
 ```r
-dred &lt;- dsum %&gt;% 
-  filter(angle %in% c(50, 150)) %&gt;% 
-  mutate(angle = as_factor(angle),
-         rt = rt/1000)
+df_contrasts1_sum %&gt;% 
+  ggplot(aes(F, mean)) +
+  geom_errorbar(aes(ymin = mean-se, ymax = mean+se),
+                width = 0.2, size=1, color="blue") +
+  geom_point(size = 4) +
+  geom_line(aes(group = 1), linetype = 3)
 ```
 
-]
-.panel[.panel-name[Daten anschauen]
+&lt;img src="06-bayesian-stats-slides_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
 
-
-```r
-dred
-```
-
-```
-## # A tibble: 108 x 4
-## # Groups:   id [54]
-##    id    angle accuracy    rt
-##    &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;
-##  1 1     50       0.833  1.98
-##  2 1     150      0.875  2.93
-##  3 2     50       0.875  3.04
-##  4 2     150      0.542  3.93
-##  5 3     50       1      2.69
-##  6 3     150      0.792  4.23
-##  7 4     50       1      1.87
-##  8 4     150      0.708  2.69
-##  9 5     50       0.958  1.20
-## 10 5     150      0.875  2.02
-## # … with 98 more rows
-```
 ]]
 
 
 ---
 
-## Savage-Dickey Density Ratio
+## Parameterschätzung
 
 
 
 ```r
 library(brms)
-get_prior(rt ~ angle + (angle | id),
-          data = dred) %&gt;% 
-  as_tibble %&gt;% 
-  select(1:4)
+
+get_prior(DV ~ 1 + F,
+          data = df_contrasts1)
 ```
 
 ```
-## # A tibble: 10 x 4
-##    prior                    class     coef        group
-##    &lt;chr&gt;                    &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;
-##  1 ""                       b         ""          ""   
-##  2 ""                       b         "angle150"  ""   
-##  3 "lkj(1)"                 cor       ""          ""   
-##  4 ""                       cor       ""          "id" 
-##  5 "student_t(3, 2.9, 2.5)" Intercept ""          ""   
-##  6 "student_t(3, 0, 2.5)"   sd        ""          ""   
-##  7 ""                       sd        ""          "id" 
-##  8 ""                       sd        "angle150"  "id" 
-##  9 ""                       sd        "Intercept" "id" 
-## 10 "student_t(3, 0, 2.5)"   sigma     ""          ""
+##                   prior     class coef group resp dpar nlpar bound       source
+##                  (flat)         b                                       default
+##                  (flat)         b  FF2                             (vectorized)
+##  student_t(3, 0.6, 2.5) Intercept                                       default
+##    student_t(3, 0, 2.5)     sigma                                       default
 ```
+
+---
+
+## Parameterschätzung
+
+
+
+```r
+priors &lt;- prior(normal(0, 2), class = Intercept) +
+          prior(normal(0, 2), class = sigma) +
+          prior(normal(0, 1), class = b)
+```
+
+
+```r
+fit1 &lt;- brm(DV ~ 1 + F,
+            data = df_contrasts1,
+            family = gaussian(),
+            prior = priors,
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F1", 
+            file_refit = "on_change") 
+```
+
+
+
+---
+
+
+
+```r
+round(fixef(fit1),3)
+```
+
+```
+##           Estimate Est.Error   Q2.5  Q97.5
+## Intercept    0.788     0.119  0.540  1.018
+## FF2         -0.388     0.156 -0.701 -0.072
+```
+
+
+
+```r
+mcmc_plot(fit1)
+```
+
+&lt;img src="06-bayesian-stats-slides_files/figure-html/unnamed-chunk-11-1.png" width="100%" /&gt;
+
+---
+
+## Savage-Dickey Density Ratio
+
+
+
+
+```r
+fit2 &lt;- brm(DV ~ 1 + F,
+            data = df_contrasts1,
+            family = gaussian(),
+            prior = prior(normal(0, 2), class = Intercept) +
+                    prior(normal(0, 2), class = sigma) +
+                    prior(normal(0, 1), class = b),
+*           sample_prior = TRUE,
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F2", 
+            file_refit = "on_change") 
+```
+
 
 
 ---
@@ -254,23 +318,12 @@ get_prior(rt ~ angle + (angle | id),
 
 
 ```r
-priors &lt;- prior(normal(0, 1), class = b)
+fit2 %&gt;% 
+  mcmc_plot(c("b_FF2", "prior_b"))
 ```
 
-Ca. 95% der Verteilung liegt zwischen `\(-2 \cdot \sigma\)` und `\(+2 \cdot \sigma\)`.
+&lt;img src="06-bayesian-stats-slides_files/figure-html/unnamed-chunk-13-1.png" width="100%" /&gt;
 
-
-
-```r
-library(tidybayes)
-rnorm(1e3, 0, 1) %&gt;% 
-  mean_qi()
-```
-
-```
-##             y      ymin     ymax .width .point .interval
-## 1 -0.01760938 -2.009851 1.978171   0.95   mean        qi
-```
 
 
 ---
@@ -279,15 +332,91 @@ rnorm(1e3, 0, 1) %&gt;%
 
 
 
-.panelset[
-.panel[.panel-name[Model spezifizieren]
+```r
+h1 &lt;- fit2 %&gt;% 
+  hypothesis("FF2 = 0")
+h1
+```
 
-]
+```
+## Hypothesis Tests for class b:
+##   Hypothesis Estimate Est.Error CI.Lower CI.Upper Evid.Ratio Post.Prob Star
+## 1  (FF2) = 0    -0.39      0.16    -0.71    -0.07       0.37      0.27    *
+## ---
+## 'CI': 90%-CI for one-sided and 95%-CI for two-sided hypotheses.
+## '*': For one-sided hypotheses, the posterior probability exceeds 95%;
+## for two-sided hypotheses, the value tested against lies outside the 95%-CI.
+## Posterior probabilities of point hypotheses assume equal prior probabilities.
+```
 
-.panel[.panel-name[Model spezifizieren]
+---
 
-]
-]
+## Savage-Dickey Density Ratio
+
+
+```r
+BF01 &lt;- h1$hypothesis$Evid.Ratio
+BF01
+```
+
+```
+## [1] 0.3679575
+```
+
+```r
+BF10 &lt;- 1/BF01
+BF10
+```
+
+```
+## [1] 2.717705
+```
+
+
+
+
+---
+
+
+## Bridge sampling
+
+
+
+```r
+fit3 &lt;- brm(DV ~ 1 + F,
+                 data = df_contrasts1,
+                 family = gaussian(),
+                 prior = prior(normal(0, 2), class = Intercept) +
+                     prior(normal(0, 2), class = sigma) +
+                     prior(normal(0, 1), class = b),
+*            save_pars = save_pars(all = TRUE),
+*            iter = 1e4,
+             cores = parallel::detectCores(),
+             file = "models/BF_fit_F3", 
+             file_refit = "on_change") 
+```
+
+
+---
+
+## Bridge sampling
+
+Nullmodell (Vergleichsmodell)
+
+
+```r
+fit4 &lt;- brm(DV ~ 1,
+                 data = df_contrasts1,
+                 family = gaussian(),
+                 prior = prior(normal(0, 2), class = Intercept) +
+                     prior(normal(0, 2), class = sigma),
+*            save_pars = save_pars(all = TRUE),
+*            iter = 1e4,
+             cores = parallel::detectCores(),
+             file = "models/BF_fit_F4", 
+             file_refit = "on_change") 
+```
+
 
 
 ---
@@ -295,16 +424,107 @@ rnorm(1e3, 0, 1) %&gt;%
 ## Bridge sampling
 
 
+```r
+BF &lt;- bayes_factor(fit3, fit4)
+```
+
+
+```r
+BF
+```
+
+```
+## Estimated Bayes factor in favor of fit3 over fit4: 3.33338
+```
+
+
+Bayes factor für Nullmodell: `\(BF_{01}\)`
+
+
+```r
+# Estimated Bayes factor in favor of fit4 over fit3
+1/BF$bf
+```
+
+```
+## [1] 0.2999954
+```
+
 
 ---
 
 ## BayesFactor Package
 
 
+```r
+library(BayesFactor)
+bf = ttestBF(formula = DV ~ F, data = df_contrasts1)
+
+bf
+```
+
+```
+## Bayes factor analysis
+## --------------
+## [1] Alt., r=0.707 : 4.29645 ±0%
+## 
+## Against denominator:
+##   Null, mu1-mu2 = 0 
+## ---
+## Bayes factor type: BFindepSample, JZS
+```
+
 
 ---
 
 ## JASP
+
+- Daten als CSV exportieren:
+
+```r
+library(readr)
+
+df_contrasts1 &lt;- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/df_contrasts1.csv")
+
+df_contrasts1 %&gt;% 
+  write_csv(file = "data/df_contrasts1.csv")
+```
+
+- Öffnen Sie den Datensatz in JASP
+
+---
+
+.your-turn[
+Versuchen Sie, in JASP einen Bayes Factor zu schätzen.
+
+- Sie sollten zuerst den BF vom `BayesFactor` Package replizieren.
+- Stellen Sie Prior und Posterior grafisch dar.
+- F¨ühren Sie eine **Robustness Check** durch.
+- Führen Sie eine **Sequential Analysis** durch.
+]
+
+<div class="countdown" id="timer_607e4da6" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+
+---
+
+## Bayesian Anova 
+
+.your-turn[
+Öffnen Sie in JASP den `Bugs` Datensatz (ANOVA), und versuchen Sie Bayes Factors zu schätzen.
+
+Vpn mussten Ratings abgeben, wie sehr sie [Arthropoden](https://de.wikipedia.org/wiki/Gliederf%C3%BC%C3%9Fer) töten wollten.
+
+- Versuchen Sie, eine repeated-measures Bayesian ANOVA durchzuführen.
+- Einen Beispielbericht finden Sie hier: [https://osf.io/wae57/](https://osf.io/wae57/).
+]
+
+<div class="countdown" id="timer_607e4c23" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
