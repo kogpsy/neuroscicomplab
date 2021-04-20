@@ -47,7 +47,8 @@ navbar:
           href: exercise-3.html
         - text: "Übung 3: Lösung"
           href: solution-3.html
-
+        - text: "Übung 4"
+          href: exercise-4.html
 
   right:
     - text: "Kapitel"

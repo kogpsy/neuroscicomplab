@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-04-20-uebung-4/",
+    "title": "Übung 4",
+    "description": "Die vierte Übung ist online.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-04-20",
+    "categories": [
+      "uebungen"
+    ],
+    "contents": "\nDie Übung finden Sie im Menu: Übungen > Übung 4.\nSie haben für diese Übung 8 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis Mittwoch, 28. April um 00:00 Uhr, in den Order für Übung 4 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File Matrikelnummer_Nachname_uebung-4.Rmd oder Matrikelnummer_Nachname_uebung-4.R, z. B. 15-172-874_Nachname_uebung-4.Rmd.\n\nBevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-04-20T02:13:30+02:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-04-09-solution-2/",
     "title": "Lösung zur Übung 2",
     "description": "Die Lösung zur zweiten Übung finden Sie unter Übungen.",

@@ -294,7 +294,6 @@ Etwas, das oft falsch gemacht wurde: Mit der Formel `rt ~ 1` wird ein Achsenabsc
 :::
 
 
-
 Nun schauen wir uns für beide Möglichkeiten die Priors an. Wenn wir `rt ~ 1 + group` oder einfach `rt ~ group` verwenden, dann erhalten wir einen `student_t(3, 1.2, 2.5)` Prior für den Intercept, und einen flachen Prior für den Unterschied.
 
 ```{r message=FALSE, warning=FALSE}
@@ -319,7 +318,7 @@ Wenn wir uns hier für die ersten Variante entscheiden, können wir eine bessere
 
 
 ```{r}
-priors <-  prior(normal(0, 5), class = b)
+priors <- prior(normal(0, 5), class = b)
 ```
 
 
