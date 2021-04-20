@@ -372,7 +372,7 @@ countdown(minutes = 15)
 .your-turn[
 Öffnen Sie in JASP den `Bugs` Datensatz (ANOVA), und versuchen Sie Bayes Factors zu schätzen.
 
-Vpn mussten Ratings abgeben, wie sehr sie [Arthropoden](https://de.wikipedia.org/wiki/Gliederf%C3%BC%C3%9Fer) töten wollten.
+Vpn mussten Ratings angeben, wie sehr sie [Arthropoden](https://de.wikipedia.org/wiki/Gliederf%C3%BC%C3%9Fer) töten wollten.
 
 - Versuchen Sie, eine repeated-measures Bayesian ANOVA durchzuführen.
 - Einen Beispielbericht finden Sie hier: [https://osf.io/wae57/](https://osf.io/wae57/).
