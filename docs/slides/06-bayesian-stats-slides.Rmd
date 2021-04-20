@@ -37,73 +37,16 @@ theme_set(theme_grey(base_size = 14) +
 
 
 
-## Inhalt
+## Schätzung von Bayes Factors
 
+1) Savage-Dickey Density Ratio
 
-1) Exkurs: Was ist eine Hypothese?
+2) `bridge sampling` Package
 
-2) Schätzung von Bayes Factors.
+3) `BayesFactor` Package
 
-  + Savage-Dickey Density Ratio
-  + `bridge sampling` Package
-  + `BayesFactor` Package
-  + JASP: [jasp-stats.org/download](https://jasp-stats.org/download/)
+4) JASP: [jasp-stats.org/download](https://jasp-stats.org/download/)
 
----
-
-class: middle
-
-.pull-left-narrow[
-  .huge-blue-number[1]
-]
-.pull-right-wide[
-  .larger[
-  Was ist eine Hypothese?
-  ]
-]
-
----
-
-
-lorem ipsum
-
-
----
-
-
-.discussion[
-Wie würden Sie diese Daten analysieren?
-
-
-- Die Daten sind messwiederholt. Für jede Person haben wir 3 Messungen.
-
-
-- Welche Frage könnte hier interessant sein?
-- Welche Methode(n) würden Sie hier anwenden?
-- Bei Person 3 gibt einen _Ausreisser_. Was würden Sie tun?
-
-]
-
-```{r echo=FALSE}
-countdown(minutes = 3)
-```
-
----
-
-
-
-
-
-class: middle
-
-.pull-left-narrow[
-  .huge-blue-number[2]
-]
-.pull-right-wide[
-  .larger[
-  Schätzung von Bayes Factors
-  ]
-]
 
 ---
 
@@ -207,6 +150,19 @@ mcmc_plot(fit1)
 
 ---
 
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[1]
+]
+.pull-right-wide[
+  .larger[
+  Savage-Dickey Density Ratio
+  ]
+]
+
+---
+
 ## Savage-Dickey Density Ratio
 
 
@@ -262,7 +218,18 @@ BF10
 ```
 
 
+---
 
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[2]
+]
+.pull-right-wide[
+  .larger[
+  Bridge sampling
+  ]
+]
 
 ---
 
@@ -329,6 +296,19 @@ Bayes factor für Nullmodell: $BF_{01}$
 
 ---
 
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[3]
+]
+.pull-right-wide[
+  .larger[
+  BayesFactor Package
+  ]
+]
+
+---
+
 ## BayesFactor Package
 
 ```{r message=FALSE, warning=FALSE}
@@ -338,6 +318,19 @@ bf = ttestBF(formula = DV ~ F, data = df_contrasts1)
 bf
 ```
 
+
+---
+
+class: middle
+
+.pull-left-narrow[
+  .huge-blue-number[4]
+]
+.pull-right-wide[
+  .larger[
+   JASP
+  ]
+]
 
 ---
 
