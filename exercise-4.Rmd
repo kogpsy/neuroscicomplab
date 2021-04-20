@@ -181,7 +181,7 @@ plot(h2)
 
 
 :::puzzle
-Optionale Aufgabe: Wie könnten Sie den Bayes Factor für die Alternativhypothese $BF_{10}$ grösser machen?
+Optionale Aufgabe: Wie erhalten Sie einen grösseren Bayes Factor für die Alternativhypothese $BF_{10}$?
 :::
 
 ```{r echo=FALSE, include=FALSE}
