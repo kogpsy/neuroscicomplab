@@ -4,7 +4,7 @@
     <title>Bayesianische Statistik</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
-    <meta name="date" content="2021-04-20" />
+    <meta name="date" content="2021-04-21" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -38,7 +38,7 @@ class: center, middle, inverse, title-slide
 ## Teil 6 <br/> Bayes Factors
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
-### 2021-04-20
+### 2021-04-21
 
 ---
 
@@ -193,9 +193,7 @@ get_prior(DV ~ 1 + F,
 
 
 ```r
-priors &lt;- prior(normal(0, 2), class = Intercept) +
-          prior(normal(0, 2), class = sigma) +
-          prior(normal(0, 1), class = b)
+priors &lt;- prior(normal(0, 1), class = b)
 ```
 
 
@@ -221,8 +219,8 @@ round(fixef(fit1),3)
 
 ```
 ##           Estimate Est.Error   Q2.5  Q97.5
-## Intercept    0.788     0.119  0.540  1.018
-## FF2         -0.388     0.156 -0.701 -0.072
+## Intercept    0.794     0.112  0.551  1.023
+## FF2         -0.391     0.158 -0.699 -0.074
 ```
 
 
@@ -257,9 +255,7 @@ class: middle
 fit2 &lt;- brm(DV ~ 1 + F,
             data = df_contrasts1,
             family = gaussian(),
-            prior = prior(normal(0, 2), class = Intercept) +
-                    prior(normal(0, 2), class = sigma) +
-                    prior(normal(0, 1), class = b),
+            prior = priors,
 *           sample_prior = TRUE,
             cores = parallel::detectCores(),
             file = "models/BF_fit_F2", 
@@ -297,7 +293,7 @@ h1
 ```
 ## Hypothesis Tests for class b:
 ##   Hypothesis Estimate Est.Error CI.Lower CI.Upper Evid.Ratio Post.Prob Star
-## 1  (FF2) = 0    -0.39      0.16    -0.71    -0.07       0.37      0.27    *
+## 1  (FF2) = 0    -0.39      0.15    -0.69     -0.1       0.26      0.21    *
 ## ---
 ## 'CI': 90%-CI for one-sided and 95%-CI for two-sided hypotheses.
 ## '*': For one-sided hypotheses, the posterior probability exceeds 95%;
@@ -316,7 +312,7 @@ BF01
 ```
 
 ```
-## [1] 0.3679575
+## [1] 0.2647813
 ```
 
 ```r
@@ -325,7 +321,7 @@ BF10
 ```
 
 ```
-## [1] 2.717705
+## [1] 3.776701
 ```
 
 
@@ -351,16 +347,14 @@ class: middle
 
 ```r
 fit3 &lt;- brm(DV ~ 1 + F,
-                 data = df_contrasts1,
-                 family = gaussian(),
-                 prior = prior(normal(0, 2), class = Intercept) +
-                     prior(normal(0, 2), class = sigma) +
-                     prior(normal(0, 1), class = b),
-*            save_pars = save_pars(all = TRUE),
-*            iter = 1e4,
-             cores = parallel::detectCores(),
-             file = "models/BF_fit_F3", 
-             file_refit = "on_change") 
+            data = df_contrasts1,
+            family = gaussian(),
+            prior = priors,
+*           save_pars = save_pars(all = TRUE),
+*           iter = 1e4,
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F3", 
+            file_refit = "on_change") 
 ```
 
 
@@ -368,20 +362,18 @@ fit3 &lt;- brm(DV ~ 1 + F,
 
 ## Bridge sampling
 
-Nullmodell (Vergleichsmodell)
+Nullmodell (Vergleichsmodell) mit default Priors für Intercept und sigma.
 
 
 ```r
 fit4 &lt;- brm(DV ~ 1,
-                 data = df_contrasts1,
-                 family = gaussian(),
-                 prior = prior(normal(0, 2), class = Intercept) +
-                     prior(normal(0, 2), class = sigma),
-*            save_pars = save_pars(all = TRUE),
-*            iter = 1e4,
-             cores = parallel::detectCores(),
-             file = "models/BF_fit_F4", 
-             file_refit = "on_change") 
+            data = df_contrasts1,
+            family = gaussian(),
+*           save_pars = save_pars(all = TRUE),
+*           iter = 1e4,
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F4", 
+            file_refit = "on_change") 
 ```
 
 
@@ -401,7 +393,7 @@ BF
 ```
 
 ```
-## Estimated Bayes factor in favor of fit3 over fit4: 3.29144
+## Estimated Bayes factor in favor of fit3 over fit4: 3.27722
 ```
 
 
@@ -414,7 +406,7 @@ Bayes factor für Nullmodell: `\(BF_{01}\)`
 ```
 
 ```
-## [1] 0.3038186
+## [1] 0.3051369
 ```
 
 
@@ -496,7 +488,7 @@ Versuchen Sie, in JASP einen Bayes Factor zu schätzen.
 - Führen Sie eine **Sequential Analysis** durch.
 ]
 
-<div class="countdown" id="timer_607ea305" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_607fe5e9" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -515,7 +507,7 @@ Vpn mussten Ratings angeben, wie sehr sie [Arthropoden](https://de.wikipedia.org
 - Einen Beispielbericht finden Sie hier: [https://osf.io/wae57/](https://osf.io/wae57/).
 ]
 
-<div class="countdown" id="timer_607ea335" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_607fe54d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
     </textarea>

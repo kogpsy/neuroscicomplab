@@ -119,9 +119,7 @@ get_prior(DV ~ 1 + F,
 
 
 ```{r}
-priors <- prior(normal(0, 2), class = Intercept) +
-          prior(normal(0, 2), class = sigma) +
-          prior(normal(0, 1), class = b)
+priors <- prior(normal(0, 1), class = b)
 ```
 
 ```{r}
@@ -171,9 +169,7 @@ class: middle
 fit2 <- brm(DV ~ 1 + F,
             data = df_contrasts1,
             family = gaussian(),
-            prior = prior(normal(0, 2), class = Intercept) +
-                    prior(normal(0, 2), class = sigma) +
-                    prior(normal(0, 1), class = b),
+            prior = priors,
             sample_prior = TRUE, #<<
             cores = parallel::detectCores(),
             file = "models/BF_fit_F2", 
@@ -239,16 +235,14 @@ class: middle
 
 ```{r}
 fit3 <- brm(DV ~ 1 + F,
-                 data = df_contrasts1,
-                 family = gaussian(),
-                 prior = prior(normal(0, 2), class = Intercept) +
-                     prior(normal(0, 2), class = sigma) +
-                     prior(normal(0, 1), class = b),
-             save_pars = save_pars(all = TRUE), #<<
-             iter = 1e4, #<<
-             cores = parallel::detectCores(),
-             file = "models/BF_fit_F3", 
-             file_refit = "on_change") 
+            data = df_contrasts1,
+            family = gaussian(),
+            prior = priors,
+            save_pars = save_pars(all = TRUE), #<<
+            iter = 1e4, #<<
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F3", 
+            file_refit = "on_change") 
 ```
 
 
@@ -256,19 +250,17 @@ fit3 <- brm(DV ~ 1 + F,
 
 ## Bridge sampling
 
-Nullmodell (Vergleichsmodell)
+Nullmodell (Vergleichsmodell) mit default Priors für Intercept und sigma.
 
 ```{r}
 fit4 <- brm(DV ~ 1,
-                 data = df_contrasts1,
-                 family = gaussian(),
-                 prior = prior(normal(0, 2), class = Intercept) +
-                     prior(normal(0, 2), class = sigma),
-             save_pars = save_pars(all = TRUE), #<<
-             iter = 1e4, #<<
-             cores = parallel::detectCores(),
-             file = "models/BF_fit_F4", 
-             file_refit = "on_change") 
+            data = df_contrasts1,
+            family = gaussian(),
+            save_pars = save_pars(all = TRUE), #<<
+            iter = 1e4, #<<
+            cores = parallel::detectCores(),
+            file = "models/BF_fit_F4", 
+            file_refit = "on_change") 
 ```
 
 
