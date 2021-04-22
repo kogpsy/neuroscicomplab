@@ -2803,7 +2803,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p>Im Output erhalten nun zwei <code>Population-Level Effects</code>, <code>Intercept</code> und <code>groupschizophrenia</code>, und einen <code>Family Specific Parameter</code>, die Standardabweichung <code>sigma</code>.</p>
 <p>Nochmal zur Wiederholung: das statistische Modell, das wir hier verwenden, lautet:</p>
 <p><span class="math display">\[ y_{i} \sim \mathcal{N}(\beta_0 + \beta_1 \cdot \text{groupschizophrenia}, \sigma^2) \]</span> <code>groupschizophrenia</code> ist eine Indikatorvariable mit den Werten 0 und 1.</p>
-<p>Im entsprechenden Nullmodell müssen wir die Gruppierungsvariable weglassen. Dies bedeutet, dass wir ein Modell mit nur einem Achsenabschnitt schätzen (2 Parameter insgesamt), so dass der Achsenabschnitt den Gesamtmittelwert darstellt. MIt dem Nullmodell behaupten wir also, dass der Unterschied zwischen den Gruppen 0 ist.</p>
+<p>Im entsprechenden Nullmodell müssen wir die Gruppierungsvariable weglassen. Dies bedeutet, dass wir ein Modell mit nur einem Achsenabschnitt schätzen (2 Parameter insgesamt), so dass der Achsenabschnitt den Gesamtmittelwert darstellt. Mit dem Nullmodell behaupten wir also, dass der Unterschied zwischen den Gruppen 0 ist.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m1_null</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>rt</span> <span class='op'>~</span> <span class='fl'>1</span>,
