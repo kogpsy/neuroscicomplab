@@ -246,7 +246,7 @@ Wir wollen nun die beiden Gruppenmittelwerte Bayesianisch schätzen. Sie haben z
 Entscheiden Sie sich für eine der beiden, und schätzen sie die Mittelwerte mit brms. Schauen Sie sich vorher mit der Funktion `get_prior` die Default Prior Verteilungen an. Wenn sie wollen, können Sie anstelle der Defaults eigene Priors spezifieren. Falls Sie das tun, begründen Sie kurz Ihre Wahl.
 :::
 
-Mit den zwei Möglichkeiten sind die folgendenn gemeint:
+Mit den zwei Möglichkeiten sind die folgenden gemeint:
 
 ```r
 rt ~ 1 + group
