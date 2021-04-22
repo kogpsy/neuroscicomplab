@@ -131,7 +131,7 @@ Nochmal zur Wiederholung: das statistische Modell, das wir hier verwenden, laute
 $$ y_{i} \sim \mathcal{N}(\beta_0 + \beta_1 \cdot \text{groupschizophrenia}, \sigma^2) $$
 `groupschizophrenia` ist eine Indikatorvariable mit den Werten 0 und 1.
 
-Im entsprechenden Nullmodell müssen wir die Gruppierungsvariable weglassen. Dies bedeutet, dass wir ein Modell mit nur einem Achsenabschnitt schätzen (2 Parameter insgesamt), so dass der Achsenabschnitt den Gesamtmittelwert darstellt. MIt dem Nullmodell behaupten wir also, dass der Unterschied zwischen den Gruppen 0 ist.
+Im entsprechenden Nullmodell müssen wir die Gruppierungsvariable weglassen. Dies bedeutet, dass wir ein Modell mit nur einem Achsenabschnitt schätzen (2 Parameter insgesamt), so dass der Achsenabschnitt den Gesamtmittelwert darstellt. Mit dem Nullmodell behaupten wir also, dass der Unterschied zwischen den Gruppen 0 ist.
 
 
 ```{r}
