@@ -81,7 +81,8 @@ df_contrasts1
 df_contrasts1_sum <- df_contrasts1 %>% 
   group_by(F) %>% 
   summarise(mean = mean(DV),
-            se = sd(DV)/sqrt(n()))
+            sd = sd(DV),
+            se = sd/sqrt(n()))
 df_contrasts1_sum
 ```
 

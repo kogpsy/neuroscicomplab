@@ -222,7 +222,7 @@ t.test(rt ~ group,
        alternative = "less")
 ```
 
-Selbst wenn wir einen gerichteten t-Test durchführen, erhalten wir einen p-Wert von 0.0687. Dies bedeutet, dass wir unter Verwendung von $\alpha = 0.05$ die Nullhypothese nocht ablehnen dürfen. Falls Sie hier ungerichtet getestet haben, haben Sie einen p-Wert von $0.1375$ erhalten (entspricht dem doppeltem einseitigen p-Wert).
+Selbst wenn wir einen gerichteten t-Test durchführen, erhalten wir einen p-Wert von 0.0687. Dies bedeutet, dass wir unter Verwendung von $\alpha = 0.05$ die Nullhypothese nicht ablehnen dürfen. Falls Sie hier ungerichtet getestet haben, haben Sie einen p-Wert von $0.1375$ erhalten (entspricht dem doppeltem einseitigen p-Wert).
 
 ```{r}
 t.test(rt ~ group,
