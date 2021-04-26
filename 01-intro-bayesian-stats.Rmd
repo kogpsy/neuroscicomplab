@@ -204,7 +204,7 @@ mehr Information.
 ## Degrees of belief
 
 Wir werden nun mit einem anderen Ansatz arbeiten. Dieser beruht auf den Axiomen
-der Wahrscheinlichkeitstheorie, und auf der Auffassung von Wahrscheinlichkeit
+der Wahrscheinlichkeitstheorie und der Auffassung von Wahrscheinlichkeit
 als **degree of belief**, also vom der Grad persönlichen Überzeugung. Daher wird
 dieser Ansatz of *subjektiv* genannt.
 
@@ -322,8 +322,7 @@ und einen **statistical toolkit** lernen, der weit über den Einsatz von
 
 ### Parameter sind Zufallsvariablen
 
-- Parameters sind Zufallsvariablen, im Gegensatz zum frequentistischen Ansatz,
-in dem Parameter keine Verteilung haben können.
+- Parameter sind Zufallsvariablen. Im Gegensatz dazu können Parameter im frequentistischen Ansatz keine Verteilung haben.
 
 - Parameter kommen aus Wahrscheinlichkeitsverteilung, welche unser Wissen
 (Unsicherheit) repräsentieren
@@ -340,7 +339,7 @@ Im Prinzip folgt Bayesianische Datenanalyse immer den folgenden drei Schritten:
 gemeinsamen Verteilung der beobachtent Variablen ($y$, $x$) und der latenten
 Parameter $\theta$).
 
-2. Wir  berechnen die  Posterior-Verteilung $P(θ | y) \sim P(y | \theta) \cdot p(\theta)$, bedingt auf die beobachteten Daten.
+2. Wir  berechnen die  Posterior-Verteilung $P(θ | y) \sim P(y | \theta) \cdot p(\theta)$, beruhend auf den beobachteten Daten.
 
 3. Wir evaluieren das  Modell und die Posterior-Verteilung.
     + Wie gut passt das Modell?
@@ -509,7 +508,7 @@ Wir können aber unser Vorwissen auch anders ausdrücken. Vielleicht halten wir 
 
 
 ```{r}
-prior2 <- ifelse(p_grid < 0.5 , 0 , 1)
+prior2 <- ifelse(p_grid < 0.5, 0, 1)
 compute_posterior(likelihood, prior2)
 ```
 Dies führt dazu, dass in unserem Posterior Werte $< 0.5$ nicht möglich sind, weil wir dieses Vorwissen in unserem Prior spezifiziert hatten.
