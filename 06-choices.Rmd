@@ -53,7 +53,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 ```{r}
 library(tidyverse)
 
-df_recall <- read_csv("data/df_recall.csv")
+df_recall <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/df_recall.csv")
 
 df_recall <- df_recall %>%
   mutate(c_set_size = set_size - mean(set_size))
