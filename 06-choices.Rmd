@@ -221,7 +221,7 @@ Versuchen Sie, das Modell in `brms` zu schätzen.
 Wir spezifizieren Verteilung der abhängigen Variable mit dem Argument `family`. Die Verteilung, hier `bernoulli()` nimmt selber ein Argument, welches die Link Funktion definiert.
 
 <aside>
-Es gibt hier auch anderen Möglichkeiten als `logit`. Es kommen viele Verteilungsfunktionen in Frage---eine häufig benutzte Variante ist `probit`. Dies benutzt die kumulative Nomrlaverteilung als Link Funktion. 
+Es gibt hier auch anderen Möglichkeiten als `logit`. Es kommen viele Verteilungsfunktionen in Frage---eine häufig benutzte Variante ist `probit`. Dies benutzt die kumulative Normalverteilung als Link Funktion. 
 </aside>
 
 

@@ -379,7 +379,8 @@ $$\theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
 d3 <- d3 %>% mutate(angle = as_factor(angle))
 
 p <- get_prior(accuracy ~ 1 + angle + (1 + angle | id),
-          data = d3)
+               family = bernoulli(link = logit),
+               data = d3)
 as_tibble(p) %>% select(1:4)
 ```
 
@@ -395,6 +396,7 @@ d3_20 <- d3 %>% filter(id %in% 1:20)
 priors <- prior(normal(0, 1), class = b)
 
 m1 <- brm(accuracy ~ 1 + angle + (1 + angle | id),
+          family = bernoulli(link = logit),
           prior = priors,
           data = d3_20,
           control = list(adapt_delta = 0.9),

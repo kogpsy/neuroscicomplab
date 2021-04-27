@@ -326,7 +326,7 @@ m_l2 %&gt;% mcmc_plot("b")
 Was könnten Vor- und Nachteile dieser 2-Level Analyse sein (dies könnte hier genausogut eine frequentistische Analyse sein)?
 ]
 
-<div class="countdown" id="timer_6087c677" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6087de4c" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -479,12 +479,13 @@ oder
 d3 &lt;- d3 %&gt;% mutate(angle = as_factor(angle))
 
 p &lt;- get_prior(accuracy ~ 1 + angle + (1 + angle | id),
-          data = d3)
+               family = bernoulli(link = logit),
+               data = d3)
 as_tibble(p) %&gt;% select(1:4)
 ```
 
 ```
-## # A tibble: 14 x 4
+## # A tibble: 13 x 4
 ##    prior                  class     coef        group
 ##    &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;
 ##  1 ""                     b         ""          ""   
@@ -493,14 +494,13 @@ as_tibble(p) %&gt;% select(1:4)
 ##  4 ""                     b         "angle50"   ""   
 ##  5 "lkj(1)"               cor       ""          ""   
 ##  6 ""                     cor       ""          "id" 
-##  7 "student_t(3, 1, 2.5)" Intercept ""          ""   
+##  7 "student_t(3, 0, 2.5)" Intercept ""          ""   
 ##  8 "student_t(3, 0, 2.5)" sd        ""          ""   
 ##  9 ""                     sd        ""          "id" 
 ## 10 ""                     sd        "angle100"  "id" 
 ## 11 ""                     sd        "angle150"  "id" 
 ## 12 ""                     sd        "angle50"   "id" 
-## 13 ""                     sd        "Intercept" "id" 
-## 14 "student_t(3, 0, 2.5)" sigma     ""          ""
+## 13 ""                     sd        "Intercept" "id"
 ```
 
 ---
@@ -516,6 +516,7 @@ d3_20 &lt;- d3 %&gt;% filter(id %in% 1:20)
 priors &lt;- prior(normal(0, 1), class = b)
 
 m1 &lt;- brm(accuracy ~ 1 + angle + (1 + angle | id),
+          family = bernoulli(link = logit),
           prior = priors,
           data = d3_20,
           control = list(adapt_delta = 0.9),
@@ -532,11 +533,11 @@ fixef(m1)
 ```
 
 ```
-##              Estimate  Est.Error        Q2.5        Q97.5
-## Intercept  0.96419194 0.01609076  0.93291075  0.995698261
-## angle50   -0.05350685 0.02364749 -0.09870419 -0.007756152
-## angle100  -0.13242403 0.02826610 -0.18871973 -0.076268006
-## angle150  -0.19669871 0.03320572 -0.26223179 -0.130294319
+##             Estimate Est.Error      Q2.5       Q97.5
+## Intercept  3.2467205 0.2730034  2.722703  3.79682284
+## angle50   -0.6505253 0.3298081 -1.262615  0.02722595
+## angle100  -1.4767602 0.2665032 -1.994347 -0.95807806
+## angle150  -1.9144632 0.2552711 -2.420739 -1.43763655
 ```
 
 ---
