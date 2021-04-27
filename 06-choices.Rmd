@@ -1,5 +1,5 @@
 ---
-title: "Experimentelle Daten"
+title: "Datenanalyse"
 description: | 
   Teil 6: Binäre Daten: Choices & Accuracy.
 date: "`April 27, 2021"

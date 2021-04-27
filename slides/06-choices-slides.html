@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Bayesianische Statistik</title>
+    <title>Datenanalyse</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
     <meta name="date" content="2021-04-27" />
@@ -34,7 +34,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Bayesianische Statistik
+# Datenanalyse
 ## Teil 6 <br/> Binäre Daten
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
@@ -230,7 +230,7 @@ d3sum
 
 ---
 
-## Level 1: Group level
+## Level 2: Group level
 
 .panelset[
 .panel[.panel-name[Deskriptiv]
@@ -326,7 +326,7 @@ m_l2 %&gt;% mcmc_plot("b")
 Was könnten Vor- und Nachteile dieser 2-Level Analyse sein (dies könnte hier genausogut eine frequentistische Analyse sein)?
 ]
 
-<div class="countdown" id="timer_608782bb" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60878a9b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -461,12 +461,14 @@ Diese folgen einer Bernoulli-Verteilung:
 
 
 
-$$ y_{ijk} \sim Bernoulli(\theta_{ijk})$$
+`$$y_{ijk} \sim Bernoulli(\theta_{ijk})$$`
 
-$$ logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j} $$
+`$$logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j}$$`
+
 
 oder 
-$$ \theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
+
+`$$\theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$`
 
 ---
 

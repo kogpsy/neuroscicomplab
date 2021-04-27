@@ -37,3 +37,50 @@ Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File gekni
 
 
 # Aufgabenstellung
+
+
+For this example, we’ll use the data of one participant’s pupil size of the control experiment of Wahn et al. (2016) averaged by trial, df_pupil from the package bcogsci. In this experiment, a participant covertly tracked between zero and five objects among several randomly moving objects on a computer screen. This task is called multiple object tracking (or MOT: Pylyshyn and Storm 1988) task. First, several objects appear on the screen, and a subset of them are indicated as “targets” at the beginning. Then, the objects start moving randomly across the screen and become indistinguishable. After several seconds, the objects stop moving and the participant need to indicate which objects were the targets. See also Figure 4.1. Our research goal is to examine how the number of moving objects being tracked, that is how the attentional load, affects pupil size.
+
+```{r}
+df_pupil_complete <- read_csv("data/df_pupil_complete.csv")
+```
+
+```{r}
+df_pupil_complete <- df_pupil %>%
+   mutate(c_load = load - mean(load))
+```
+
+
+```{r}
+df_pupil  <-  read_csv("data/df_pupil.ecsv")
+df_pupil <- df_pupil %>%
+   mutate(c_load = load - mean(load))
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+m_pupil <- brm(p_size ~ 1 + c_load,
+                 data = df_pupil,
+                 family = gaussian(),
+                 prior = c(
+                     prior(normal(1000, 500), class = Intercept),
+                     prior(normal(0, 1000), class = sigma),
+                     prior(normal(0, 100), class = b, coef = c_load)),
+               file = "models/06-m_pupil",
+               file_refit = "on_change") 
+```
+
+
+```{r eval=FALSE, include=FALSE}
+m_complete <- brm(p_size ~ 1 + c_load + (1 + c_load),
+                 data = df_pupil,
+                 family = gaussian(),
+                 prior = c(
+                     prior(normal(1000, 500), class = Intercept),
+                     prior(normal(0, 1000), class = sigma),
+                     prior(normal(0, 100), class = b, coef = c_load)),
+               file = "models/06-m_complete",
+               file_refit = "on_change") 
+```
+

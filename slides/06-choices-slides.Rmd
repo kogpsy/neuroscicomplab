@@ -1,5 +1,5 @@
 ---
-title: "Bayesianische Statistik"
+title: "Datenanalyse"
 session: 8
 subtitle: "Teil 6 <br/> Binäre Daten"
 author: "Andrew Ellis"
@@ -157,7 +157,7 @@ d3sum
 
 ---
 
-## Level 1: Group level
+## Level 2: Group level
 
 .panelset[
 .panel[.panel-name[Deskriptiv]
@@ -362,12 +362,14 @@ Diese folgen einer Bernoulli-Verteilung:
 
 
 
-$$ y_{ijk} \sim Bernoulli(\theta_{ijk})$$
+$$y_{ijk} \sim Bernoulli(\theta_{ijk})$$
 
-$$ logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j} $$
+$$logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j}$$
+
 
 oder 
-$$ \theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
+
+$$\theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
 
 ---
 
