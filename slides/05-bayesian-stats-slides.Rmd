@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 session: 6
-subtitle: "Teil 5 <br/> Modellvergleiche & Hypothesentests"
+subtitle: "Teil 5a <br/> Modellvergleiche & Hypothesentests"
 author: "Andrew Ellis"
 # institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
 institute: "Methodenkurs Neurowissenschaft im Computerlab"

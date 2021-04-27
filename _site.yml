@@ -49,6 +49,8 @@ navbar:
           href: solution-3.html
         - text: "Übung 4"
           href: exercise-4.html
+        - text: "Übung 5"
+          href: exercise-5.html
 
   right:
     - text: "Kapitel"
@@ -63,6 +65,8 @@ navbar:
           href: 04-bayesian-stats.html
         - text: "5. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
           href: 05-bayesian-stats.html
+        - text: "6. Binäre Daten: Choices & Accuracy"
+          href: 06-choices.html
 
 
     - text: "Slides"
@@ -73,19 +77,12 @@ navbar:
           href: slides/03-bayesian-stats-slides.html
         - text: "4. Bayesianische Statistik: Hierarchische Modelle mit `brms`"
           href: slides/04-bayesian-stats-slides.html
-        - text: "5. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
+        - text: "5a. Bayesianische Statistik: Modellvergleiche und Hypothesentests"
           href: slides/05-bayesian-stats-slides.html
-        - text: "6. Bayesianische Statistik: Bayes Factors"
-          href: slides/06-bayesian-stats-slides.html
-
-#
-#
-#     - text: "Cognitive Models"
-#       menu:
-#         - text: Decision Making
-#           href: intro.html
-#         - text: "Weitere Modelle"
-#           href: intro.html
+        - text: "5b. Bayesianische Statistik: Bayes Factors"
+          href: slides/05b-bayesian-stats-slides.html
+        - text: "6. Binäre Daten: Choices & Accuracy"
+          href: slides/06-choices-slides.html
 
     - icon: fab fa-github
       href: https://github.com/kogpsy/neuroscicomplab
