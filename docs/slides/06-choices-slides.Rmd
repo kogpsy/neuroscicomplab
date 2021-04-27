@@ -1,5 +1,5 @@
 ---
-title: "Bayesianische Statistik"
+title: "Datenanalyse"
 session: 8
 subtitle: "Teil 6 <br/> Binäre Daten"
 author: "Andrew Ellis"
@@ -157,7 +157,7 @@ d3sum
 
 ---
 
-## Level 1: Group level
+## Level 2: Group level
 
 .panelset[
 .panel[.panel-name[Deskriptiv]
@@ -259,7 +259,7 @@ Moscatelli, A., M. Mezzetti, and F. Lacquaniti. “Modeling Psychophysical Data 
 
 ## Generalized Linear Model (GLM)
 
-- Anstelle der aggregierten Accuracy können auch die Antworten selber modellieren
+- Anstelle der aggregierten Accuracy können wir auch die Antworten selber modellieren
     + Wir wissen, ob eine Antwort richtig oder falsch ist.
     + Wir sagen die Wahrscheinlichkeit einer korrekten Antwort mit einem linearen Modell vorher.
     
@@ -331,7 +331,7 @@ d1 %>%
     ggplot(aes(x, y)) +
     geom_hline(yintercept = 0.5, linetype = 3) +
     geom_vline(xintercept = 0, linetype = 3) +
-    geom_line(size = 2) 
+    geom_line(size = 2, color = "steelblue") 
 ```
 
 ]
@@ -345,7 +345,7 @@ d2 %>%
     ggplot(aes(y, x)) +
     geom_hline(yintercept = 0, linetype = 3) +
     geom_vline(xintercept = 0.5, linetype = 3) +
-    geom_line(size = 2) +
+    geom_line(size = 2, color = "steelblue") +
     scale_y_continuous(limits = c(-5, 5))
 ```
 ]]
@@ -362,12 +362,14 @@ Diese folgen einer Bernoulli-Verteilung:
 
 
 
-$$ y_{ijk} \sim Bernoulli(\theta_{ijk})$$
+$$y_{ijk} \sim Bernoulli(\theta_{ijk})$$
 
-$$ logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j} $$
+$$logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j}$$
+
 
 oder 
-$$ \theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
+
+$$\theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
 
 ---
 

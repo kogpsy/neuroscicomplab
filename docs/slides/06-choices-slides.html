@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Bayesianische Statistik</title>
+    <title>Datenanalyse</title>
     <meta charset="utf-8" />
     <meta name="author" content="Andrew Ellis" />
     <meta name="date" content="2021-04-27" />
@@ -34,7 +34,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Bayesianische Statistik
+# Datenanalyse
 ## Teil 6 <br/> Binäre Daten
 ### Andrew Ellis
 ### Methodenkurs Neurowissenschaft im Computerlab
@@ -230,7 +230,7 @@ d3sum
 
 ---
 
-## Level 1: Group level
+## Level 2: Group level
 
 .panelset[
 .panel[.panel-name[Deskriptiv]
@@ -326,7 +326,7 @@ m_l2 %&gt;% mcmc_plot("b")
 Was könnten Vor- und Nachteile dieser 2-Level Analyse sein (dies könnte hier genausogut eine frequentistische Analyse sein)?
 ]
 
-<div class="countdown" id="timer_608782bb" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6087c76c" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -349,7 +349,7 @@ Moscatelli, A., M. Mezzetti, and F. Lacquaniti. “Modeling Psychophysical Data 
 
 ## Generalized Linear Model (GLM)
 
-- Anstelle der aggregierten Accuracy können auch die Antworten selber modellieren
+- Anstelle der aggregierten Accuracy können wir auch die Antworten selber modellieren
     + Wir wissen, ob eine Antwort richtig oder falsch ist.
     + Wir sagen die Wahrscheinlichkeit einer korrekten Antwort mit einem linearen Modell vorher.
     
@@ -425,7 +425,7 @@ d1 %&gt;%
     ggplot(aes(x, y)) +
     geom_hline(yintercept = 0.5, linetype = 3) +
     geom_vline(xintercept = 0, linetype = 3) +
-    geom_line(size = 2) 
+    geom_line(size = 2, color = "steelblue") 
 ```
 
 &lt;img src="06-choices-slides_files/figure-html/unnamed-chunk-14-1.png" width="100%" /&gt;
@@ -442,7 +442,7 @@ d2 %&gt;%
     ggplot(aes(y, x)) +
     geom_hline(yintercept = 0, linetype = 3) +
     geom_vline(xintercept = 0.5, linetype = 3) +
-    geom_line(size = 2) +
+    geom_line(size = 2, color = "steelblue") +
     scale_y_continuous(limits = c(-5, 5))
 ```
 
@@ -461,12 +461,14 @@ Diese folgen einer Bernoulli-Verteilung:
 
 
 
-$$ y_{ijk} \sim Bernoulli(\theta_{ijk})$$
+`$$y_{ijk} \sim Bernoulli(\theta_{ijk})$$`
 
-$$ logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j} $$
+`$$logit(\theta_{ijk}) = b_0^{k} + b_{angle}^{k} \cdot angle_{j}$$`
+
 
 oder 
-$$ \theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$
+
+`$$\theta_{ijk} = logistic(b_0^{k} + b_{angle}^{k} \cdot angle_{j})$$`
 
 ---
 

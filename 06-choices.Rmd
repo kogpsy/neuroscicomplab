@@ -38,12 +38,12 @@ theme_set(theme_grey(base_size = 14) +
 
 Wir untersuchen die Logistische Regression anhand eines Beispiels aus dem Online Buch [Bayesian Data Analysis for Cognitive Science](https://vasishth.github.io/bayescogsci/book/). Wir gehen hier der Frage nach ob die Anzahl Stimuli (Wortlisten unterschiedlicher Länge) einen Einfluss auf die Working Memory Kapazität hat.
 
-Die Daten stammen aus @oberauerResourcesFormalModels2001. Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt `set_size`, und sie mussten danach Wörter anhand ihrer Position wiedergeben.
+Die Daten stammen aus @oberauerResourcesFormalModels2001. Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt `set_size`, und sie mussten danach Wörter anhand ihrer Position wiedergeben. Wir schauen uns hier der Einfachheit halber nur die Daten einer Person an.
 
 
 ## Daten vorbereiten
 
-Wir laden zuerst die Daten, und zentrieren den Prädiktor `set_size`, um die Interpretation der Koeffizienten einfacher zu machen. Wir laden den Datensatz nur einer Person, `df_recall`.
+Wir laden zuerst die Daten, und zentrieren den Prädiktor `set_size`, um die Interpretation der Koeffizienten einfacher zu machen.
 
 <aside>
 Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - das ist dann der Wert des linearen Prädiktors am Mittelwert von `set_size`.
@@ -77,7 +77,7 @@ Wir interessieren uns für die Variablen `c_set_size` und `correct`, welche angi
 
 
 :::exercise
-Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy dieser Person für jede Wortlistenlänge zu bestimmen. 
+Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy dieser Person für jede Wortlistenlänge zu bestimmen.
 :::
 
 
@@ -88,6 +88,14 @@ df_recall%>%
             sd = sd(correct))
 ```
 
+```{r eval=FALSE, include=FALSE}
+df_recall%>% 
+  mutate(across(c(set_size, correct), ~as_factor(.))) %>% 
+  ggplot(aes(set_size, correct, color = correct)) +
+  geom_jitter(width = 0.1) +
+  scale_color_viridis_d(end = 0.8)
+```
+
 
 
 ## Likelihood
@@ -96,7 +104,7 @@ Wir schreiben nun die Verteilung der Daten auf.
 
 $$ correct_i \sim Bernoulli(\theta_{i})$$
 
-Die Antwort kommt also aus einer Bernoulliverteilung, und ist mit Wahrscheinlichkeit $\theta$ richtig, und mit Wahrscheinlichkeit $1-\theta$ falsch. Diese Wahrscheinlichkeit soll anhand eines linearen Prädiktors vohergesagt werden.
+Jede Antwort $i$ kommt also aus einer Bernoulliverteilung, und ist mit Wahrscheinlichkeit $\theta_i$ richtig, und mit Wahrscheinlichkeit $1-\theta_i$ falsch. Diese Wahrscheinlichkeit soll anhand eines linearen Prädiktors vohergesagt werden.
 
 $$ g(\theta_i) = logit(\theta_i) = b_0 + b_{set\_size} \cdot set\_size_i $$
 <aside>
@@ -122,15 +130,26 @@ prob
 ```
 
 :::exercise
-Versuchen Sie mit R herauszufinden, wie die log-odds Werte mit Wahscheinlichkeiten zusammenhängen.
+Versuchen Sie mit R herauszufinden, wie sich die Wahrscheinlichkeiten in als Funktion der log-odds verhalten (eine ähnliche Grafik wie in den [Slides](https://kogpsy.github.io/neuroscicomplab/slides/06-choices-slides.html?panelset5=studie2&panelset6=daten-laden2&panelset7=level-12&panelset8=deskriptiv2&panelset9=verteilungsfunktion2#11) hilft).
 :::
+
+```{r eval=FALSE, include=FALSE}
+d1 <- tibble(x = seq(-5, 5, by = 0.01),
+            y = plogis(x))
+
+d1 %>% 
+    ggplot(aes(x, y)) +
+    geom_hline(yintercept = 0.5, linetype = 3) +
+    geom_vline(xintercept = 0, linetype = 3) +
+    geom_line(size = 2, color = "steelblue") 
+```
 
 
 Wenn wir uns mit log-odds auskennen, hilft uns dies, den Output einer logistischen Regression zu verstehen, und geeignete Priorverteilungen zu verwenden. 
 
 ## Priorverteilungen
 
-Da wir den Prädiktor `set_size` zentriert haben, wird der Intercept $b_0$ die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unserer Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit $\theta$ eine korrekte oder falsche Antwort gibt. Wenn $\theta = 0.5$, dann sind die log-odds `r qlogis(0.5)`. Wir können unsere Unsicherheit mit einer Standarabweichung von ca. 1.5 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-3, 3]$
+Da wir den Prädiktor `set_size` zentriert haben, wird der Intercept $b_0$ die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unserer Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit $\theta$ eine korrekte oder falsche Antwort gibt. Wenn $\theta = 0.5$, dann sind die log-odds `r qlogis(0.5)`. Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.5 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-3, 3]$
 
 :::exercise
 Versuchen Sie dies mit der Funktion `qlogis()` zu demonstrieren.
@@ -142,12 +161,12 @@ Den Prior können wir so grafisch darstellen.
 ```{r}
 library(patchwork)
 
-samples_logodds <- tibble(alpha = rnorm(100000, 0, 1.5))
+samples_logodds <- tibble(Intercept = rnorm(100000, 0, 1.5))
 
 samples_prob <- tibble(p = plogis(rnorm(100000, 0, 1.5)))
 
 p_logodds <- samples_logodds %>% 
-  ggplot(aes(alpha)) +
+  ggplot(aes(Intercept)) +
   geom_density() +
   ggtitle("Log-odds")
 
@@ -169,16 +188,16 @@ tibble(x = seq(0, 1, by = 0.01),
   geom_line()
 ```
 
-Für die `set_size` gehen wir davon aus, dass der Effekt auf die Wahrscheinlichkeit einer korrekten Antwort so ist, dass der Unterschied zwischen der kleinsten und grössten `set_size` ca. 0.4 ist. Das heisst, dass eine Erhöhung um eine Einheit zu einer Änderung der Wahrscheinlichkeit von ca. $0.4/4 = 0.1$ führen sollte. Wir versuchen es mit einem `normal(0, 0.1)` Prior. Wir erwarten also einen Effekt im Bereich $[-0.2, 0.2] mit einer Wahrscheinlichkeit von 95%. 
+Für die `set_size` gehen wir davon aus, dass der Effekt auf die Wahrscheinlichkeit einer korrekten Antwort so ist, dass der Unterschied zwischen der kleinsten und grössten `set_size` ca. 0.4 ist. Das heisst, dass eine Erhöhung um eine Einheit zu einer Änderung der Wahrscheinlichkeit von ca. $0.4/4 = 0.1$ führen sollte. Wir versuchen es mit einem `normal(0, 0.1)` Prior. Wir erwarten also einen Effekt im Bereich $[-0.2, 0.2]$ mit einer Wahrscheinlichkeit von 95%. 
 
 
 ```{r}
-samples_logodds <- tibble(alpha = rnorm(100000, 0, 0.1))
+samples_logodds <- tibble(b_set_size = rnorm(100000, 0, 0.1))
 
 samples_prob <- tibble(p = plogis(rnorm(100000, 0, 0.1)))
 
 p_logodds <- samples_logodds %>% 
-  ggplot(aes(alpha)) +
+  ggplot(aes(b_set_size)) +
   geom_density() +
   ggtitle("Log-odds")
 
@@ -198,6 +217,13 @@ p_logodds + p_prob
 :::exercise
 Versuchen Sie, das Modell in `brms` zu schätzen.
 :::
+
+Wir spezifizieren Verteilung der abhängigen Variable mit dem Argument `family`. Die Verteilung, hier `bernoulli()` nimmt selber ein Argument, welches die Link Funktion definiert.
+
+<aside>
+Es gibt hier auch anderen Möglichkeiten als `logit`. Es kommen viele Verteilungsfunktionen in Frage---eine häufig benutzte Variante ist `probit`. Dies benutzt die kumulative Nomrlaverteilung als Link Funktion. 
+</aside>
+
 
 ```{r}
 library(brms)
@@ -224,7 +250,7 @@ plot(m_recall)
 ## Output
 
 :::exercise
-Versuchen Sie, die Koeffizienten zu verstehen. Was ist der `Intercept`? Was ist der Effekt `c_set_size`?
+Versuchen Sie, die Koeffizienten zu interpretieren. Was ist der `Intercept`? Was ist der Effekt `c_set_size`?
 :::
 
 ```{r}
@@ -243,12 +269,14 @@ m_recall %>%
 
 Die Koeffizienten sind auf der log-odds Skala. Wenn wir diese auf der Wahrscheinlichkeitsskala haben wollen, müssen wir die Posterior Samples extrahieren und anschliessend diese Samples mit der Umkehrfunktion der Linkfunktion transformieren. Diese Umkehrfunktion ist die logistische Funktion (`plogis()` in R).
 
+
 ```{r}
 samples1 <- tibble(posterior_samples(m_recall)) %>% 
   select(starts_with("b"))
 ```
 
-Die Samples können wir nun zusammnefassen, z.B. mit den Funktionen aus dem `tidybayes` Package. Dafür macht es Sinn, die Samples auch mit einer Funktion die extrahieren, welche einen Dataframe im `long`-Format liefert.
+
+Die Samples können wir nun zusammenfassen, z.B. mit den Funktionen aus dem `tidybayes` Package. Dafür macht es Sinn, die Samples auch mit einer Funktion die extrahieren, welche einen Dataframe im `long`-Format liefert.
 
 ```{r}
 library(tidybayes)
