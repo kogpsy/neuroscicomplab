@@ -64,7 +64,7 @@ df_recall <- df_recall %>%
 df_recall
 ```
 
-Wir haben für jede set size 23 Trials.
+Wir haben für jede `set_size` 23 Trials.
 
 ```{r}
 df_recall %>%
@@ -73,7 +73,7 @@ df_recall %>%
 ```
 
 
-Wir interessieren uns für die Variablen `c_set_size` und `correct`, welches angibt, ob die Antwort richtig oder falsch war.
+Wir interessieren uns für die Variablen `c_set_size` und `correct`, welche angibt, ob die Antwort richtig oder falsch war.
 
 
 :::exercise
