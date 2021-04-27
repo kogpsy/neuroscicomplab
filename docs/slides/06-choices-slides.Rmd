@@ -54,7 +54,7 @@ Oft werden auch Reaktionszeiten miterhoben. Diese schauen wir uns später an.
 
 ## Beipiel
 
-Übung 3, [Aufgabe 3](https://kogpsy.github.io/neuroscicomplab/solution-3.html#aufgabe-3).
+[Übung 3, Aufgabe 3](https://kogpsy.github.io/neuroscicomplab/solution-3.html#aufgabe-3).
 
 
 .panelset[
