@@ -38,7 +38,15 @@ theme_set(theme_grey(base_size = 14) +
 
 Wir untersuchen die Logistische Regression anhand eines Beispiels aus dem Online Buch [Bayesian Data Analysis for Cognitive Science](https://vasishth.github.io/bayescogsci/book/). Wir gehen hier der Frage nach ob die Anzahl Stimuli (Wortlisten unterschiedlicher Länge) einen Einfluss auf die Working Memory Kapazität hat.
 
-Die Daten stammen aus @oberauerResourcesFormalModels2001. Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt `set_size`, und sie mussten danach Wörter anhand ihrer Position wiedergeben. Wir schauen uns hier der Einfachheit halber nur die Daten einer Person an.
+Die Daten stammen aus @oberauerWorkingMemoryCapacity2019 Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt (`set_size`), und sie mussten danach Wörter anhand ihrer Position wiedergeben.
+
+Ein Trial dieses Experiments ist in Figure \@ref(fig:oberauer-2019) dargestellt.
+
+```{r oberauer-2019, echo=FALSE, fig.cap="Ein Beipieltrial. Den Versuchspersonen wurden Wörter der einstudierten Liste gezeigt. Die Position des Testwortes wurde am Schluss gezeigt, und die das Wort musste wiedergegeben werden."}
+knitr::include_graphics("images/oberauer-2019.png")
+```
+
+Wir schauen uns hier der Einfachheit halber nur die Daten einer Person an.
 
 
 ## Daten vorbereiten

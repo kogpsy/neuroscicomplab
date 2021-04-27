@@ -2657,7 +2657,17 @@ Slides
 </div>
 <h1 id="logistische-regression">Logistische Regression</h1>
 <p>Wir untersuchen die Logistische Regression anhand eines Beispiels aus dem Online Buch <a href="https://vasishth.github.io/bayescogsci/book/">Bayesian Data Analysis for Cognitive Science</a>. Wir gehen hier der Frage nach ob die Anzahl Stimuli (Wortlisten unterschiedlicher Länge) einen Einfluss auf die Working Memory Kapazität hat.</p>
-<p>Die Daten stammen aus <span class="citation" data-cites="oberauerResourcesFormalModels2001"><a href="#ref-oberauerResourcesFormalModels2001" role="doc-biblioref">Oberauer and Kliegl</a> (<a href="#ref-oberauerResourcesFormalModels2001" role="doc-biblioref">2001</a>)</span>. Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt <code>set_size</code>, und sie mussten danach Wörter anhand ihrer Position wiedergeben. Wir schauen uns hier der Einfachheit halber nur die Daten einer Person an.</p>
+<p>Die Daten stammen aus <span class="citation" data-cites="oberauerWorkingMemoryCapacity2019"><a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">Oberauer</a> (<a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">2019</a>)</span> Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt (<code>set_size</code>), und sie mussten danach Wörter anhand ihrer Position wiedergeben.</p>
+<p>Ein Trial dieses Experiments ist in Figure <a href="#fig:oberauer-2019">1</a> dargestellt.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:oberauer-2019"></span>
+<img src="images/oberauer-2019.png" alt="Ein Beipieltrial. Den Versuchspersonen wurden Wörter der einstudierten Liste gezeigt. Die Position des Testwortes wurde am Schluss gezeigt, und die das Wort musste wiedergegeben werden." width="320" />
+<p class="caption">
+Figure 1: Ein Beipieltrial. Den Versuchspersonen wurden Wörter der einstudierten Liste gezeigt. Die Position des Testwortes wurde am Schluss gezeigt, und die das Wort musste wiedergegeben werden.
+</p>
+</div>
+</div>
+<p>Wir schauen uns hier der Einfachheit halber nur die Daten einer Person an.</p>
 <h2 id="daten-vorbereiten">Daten vorbereiten</h2>
 <p>Wir laden zuerst die Daten, und zentrieren den Prädiktor <code>set_size</code>, um die Interpretation der Koeffizienten einfacher zu machen.</p>
 <aside>
@@ -2915,8 +2925,8 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-oberauerResourcesFormalModels2001" class="csl-entry" role="doc-biblioentry">
-Oberauer, Klaus, and Reinhold Kliegl. 2001. <span>“Beyond Resources: <span>Formal</span> Models of Complexity Effects and Age Differences in Working Memory.”</span> <em>European Journal of Cognitive Psychology</em> 13 (1-2): 187–215. <a href="https://doi.org/10.1080/09541440042000278">https://doi.org/10.1080/09541440042000278</a>.
+<div id="ref-oberauerWorkingMemoryCapacity2019" class="csl-entry" role="doc-biblioentry">
+Oberauer, Klaus. 2019. <span>“Working <span>Memory Capacity Limits Memory</span> for <span>Bindings</span>.”</span> <em>Journal of Cognition</em> 2 (1, 1): 40. <a href="https://doi.org/10.5334/joc.86">https://doi.org/10.5334/joc.86</a>.
 </div>
 </div>
 <!--radix_placeholder_article_footer-->
