@@ -1,7 +1,7 @@
 ---
 title: "Übung 5"
 description: |
-  Binäre Daten.
+  Pupillengrösse und Cognitive Load.
 date: "April 28, 2021"
 author:
   - first_name: "Andrew"
@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-4.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-5.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -27,7 +27,7 @@ output:
 
 Die Aufgaben, die Sie bearbeiten sollen, finden Sie in einem gelben Kasten. Optionale Aufgaben sind in orangen Kästen.
 
-Sie haben für diese Übung 8 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Mittwoch, 28. April um 00:00 Uhr**, in den Order für Übung 4 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-4.Rmd* oder *Matrikelnummer_Nachname_uebung-4.R*, z. B. *15-172-874_Nachname_uebung-4.Rmd*.
+Sie haben für diese Übung 8 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown File bis **Donnerstag, 6. Mai um 00:00 Uhr**, in den Order für Übung 5 auf ILIAS. Falls Rmarkdown nicht funkionieren sollte, werden auch Lösungen in Form eines R Skriptes akzeptiert. Nennen Sie Ihr File *Matrikelnummer_Nachname_uebung-5.Rmd* oder *Matrikelnummer_Nachname_uebung-5.R*, z. B. *15-172-874_Nachname_uebung-5.Rmd*.
 
 Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
 :::
