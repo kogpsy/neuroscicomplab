@@ -104,7 +104,7 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 </aside>
 
 
-Die `logit` Link Funktion ist 
+Die `logit` Funktion ist 
 
 $$ logit(\theta) = \frac{\theta}{(1-\theta)} $$
 und wird auch auch `log-odds` genannt, da sie den Logarithmus der `odds` (Wettquotienten) wiedergibt.

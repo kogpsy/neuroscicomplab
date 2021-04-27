@@ -2668,7 +2668,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
-<span class='va'>df_recall</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/df_recall.csv"</span><span class='op'>)</span>
+<span class='va'>df_recall</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/df_recall.csv"</span><span class='op'>)</span>
 
 <span class='va'>df_recall</span> <span class='op'>&lt;-</span> <span class='va'>df_recall</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate</span><span class='op'>(</span>c_set_size <span class='op'>=</span> <span class='va'>set_size</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>set_size</span><span class='op'>)</span><span class='op'>)</span>
@@ -2695,7 +2695,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 10    10        6       0    16       1     3      5          1
 # … with 82 more rows</code></pre>
 </div>
-<p>Wir haben für jede set size 23 Trials.</p>
+<p>Wir haben für jede <code>set_size</code> 23 Trials.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df_recall</span> <span class='op'>%&gt;%</span>
@@ -2712,7 +2712,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 3        6    23
 4        8    23</code></pre>
 </div>
-<p>Wir interessieren uns für die Variablen <code>c_set_size</code> und <code>correct</code>, welches angibt, ob die Antwort richtig oder falsch war.</p>
+<p>Wir interessieren uns für die Variablen <code>c_set_size</code> und <code>correct</code>, welche angibt, ob die Antwort richtig oder falsch war.</p>
 <div class="exercise">
 <p>Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy dieser Person für jede Wortlistenlänge zu bestimmen.</p>
 </div>
@@ -2724,7 +2724,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 <aside>
 Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss. Man nennt sie gewöhnlich <span class="math inline">\(g()\)</span>.
 </aside>
-<p>Die <code>logit</code> Link Funktion ist</p>
+<p>Die <code>logit</code> Funktion ist</p>
 <p><span class="math display">\[ logit(\theta) = \frac{\theta}{(1-\theta)} \]</span> und wird auch auch <code>log-odds</code> genannt, da sie den Logarithmus der <code>odds</code> (Wettquotienten) wiedergibt. Es folgt also</p>
 <p><span class="math display">\[ log \bigg( \frac{\theta_i}{1-\theta_i} \bigg) = b_0 + b_{set\_size} \cdot set\_size_i \]</span> Dies bedeutet, dass die Koeffizienten <span class="math inline">\(b_0\)</span> und <span class="math inline">\(b_{set\_size}\)</span> einen additiven Effekt auf die log-odds haben. Wenn wenn den Effekt auf der Wahrscheinlichkeitsskala haben möchten, müssen wir die inverse Link Fukntion anwenden, d.h. die logistische Funktion. Diese ist die kumulative logistische Verteilungsfunktion, <code>plogis()</code>.</p>
 <p>Wenn die log-odds z.B. 0.1 sind, dann ist die Wahrscheinlichkeit 0.52:</p>
