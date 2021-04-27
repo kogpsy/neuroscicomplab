@@ -169,16 +169,15 @@ Den Prior können wir so grafisch darstellen.
 ```{r}
 library(patchwork)
 
-samples_logodds <- tibble(Intercept = rnorm(100000, 0, 1.5))
+samples <- tibble(Intercept = rnorm(1e5, 0, 1.5),
+                  p = plogis(Intercept))
 
-samples_prob <- tibble(p = plogis(rnorm(100000, 0, 1.5)))
-
-p_logodds <- samples_logodds %>% 
+p_logodds <- samples %>% 
   ggplot(aes(Intercept)) +
   geom_density() +
   ggtitle("Log-odds")
 
-p_prob <- samples_prob %>% 
+p_prob <- samples %>% 
   ggplot(aes(p)) +
   geom_density() +
   ggtitle("Probability")
@@ -200,16 +199,15 @@ Für die `set_size` gehen wir davon aus, dass der Effekt auf die Wahrscheinlichk
 
 
 ```{r}
-samples_logodds <- tibble(b_set_size = rnorm(100000, 0, 0.1))
+samples2 <- tibble(b_set_size = rnorm(1e5, 0, 0.1),
+                          p = plogis(b_set_size))
 
-samples_prob <- tibble(p = plogis(rnorm(100000, 0, 0.1)))
-
-p_logodds <- samples_logodds %>% 
+p_logodds <- samples2 %>% 
   ggplot(aes(b_set_size)) +
   geom_density() +
   ggtitle("Log-odds")
 
-p_prob <- samples_prob %>% 
+p_prob <- samples2 %>% 
   ggplot(aes(p)) +
   geom_density() +
   ggtitle("Probability")
