@@ -372,6 +372,14 @@ effect_4m2 %>% mean_qi()
 conditional_effects(m_recall)
 ```
 
+
+Wenn wir die erwarteten bedingten Wahrscheinlichkeiten wollen, ist es einfacher, die `predict()` Funktion zu benutzen.
+
+```{r}
+predict(m_recall, newdata = tibble(c_set_size = c(-1, 0, 1)))
+```
+
+
 ## Bayes Factor
 
 Bayes Factors schätzen funktioniert genauso wie bei den bisherigen Modellen. Wir schätzen das Modell nochmals, mit dem Argument `sample_prior = TRUE`, und können dann die `hypothesis()` Funktion benutzen, um das Savage-Dickey Densoty Ratio zu bestimmen, (oder die `bayes_factor()` Funktion aus dem `bridgesampling` Package, wenn wir `save_pars = save_pars(all = TRUE)` benutzen.
@@ -398,6 +406,7 @@ BF01 <- hypothesis(m_recall_2, "c_set_size = 0")
 
 
 Der Bayes Factor für die Alternativhypothese ist:
+
 ```{r}
 BF10 <- 1/BF01$hypothesis$Evid.Ratio
 

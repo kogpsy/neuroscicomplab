@@ -39,11 +39,15 @@ theme_set(theme_grey(base_size = 14) +
 
 ## Reaktionszeiten
 
-Ebenfalls sehr häufig anzutreffen in der experimentellen Psychologie/Neuroscience
+Reaktionszeiten sind neben binären Daten ebenfalls sehr häufig anzutreffen in der experimentellen Psychologie/Neuroscience
 
 - Reaction tasks
 - Go/No Go tasks
 - Discrimination tasks
+
+
+Wir gehen davon, aus, dass die Zeit, die benötigt wird, um einen Task auszuführen, bedeutsam ist.
+
 
 ---
 
@@ -72,38 +76,70 @@ Outcome Variable: Reaktionszeit und Antwort
 
 ---
 
+
+.panelset[
+.panel[.panel-name[Daten laden]
+
+
 ```{r}
-df_mc <- read_csv("data/mental-chronometry.csv") %>% 
+mentalchronometry <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/mental-chronometry.csv") %>% 
   mutate(across(c(subj, block, stimulus, handedness, gender), ~as_factor(.)))
 ```
 
----
+]
+
+.panel[.panel-name[Zufällig Vpn auswählen]
+
+```{r message=FALSE, warning=FALSE}
+subjects <- sample(levels(mentalchronometry$subj), 6)
+df <- mentalchronometry %>% 
+  filter(subj %in% subjects)
+```
+
+]
+
+.panel[.panel-name[Histogramme]
 
 
 ```{r message=FALSE, warning=FALSE}
-subjects <- sample(levels(df_mc$subj), 6)
-
-df_mc %>% 
-  filter(subj %in% subjects) %>% 
+df %>% 
   ggplot(aes(RT, fill = block)) +
   geom_histogram(alpha = 1.0, position = "identity") + 
-  geom_density() +
   scale_fill_viridis_d(end = 0.8) +
-  facet_grid(block ~ subj, scales = "free_x")
+  facet_grid(block ~ subj, scales = "free_x") +
+  theme(legend.position = "none")
 ```
 
----
+]
+
+.panel[.panel-name[Violin Plots]
+
 
 
 ```{r}
-df_mc %>% 
+df %>% 
   filter(subj %in% subjects) %>% 
   ggplot(aes(y = RT, x = block, fill = block)) +
   geom_violin(alpha = 0.6) +
   geom_jitter(width = 0.1) +
   scale_fill_viridis_d(end = 0.8) +
-  facet_wrap(~ subj, scales = "free_x")
+  facet_wrap(~ subj, scales = "free_x") +
+  theme(legend.position = "none")
 ```
 
 
+]]
+
 ---
+
+
+.your-turn[
+
+1) Überlegen Sie sich, was Sie mit diesen Daten machen können
+
+2) Welche Kennzahlen eignen sich gut, um die Daten zu beschreiben?
+
+3) Berechnen Sie die mittlere Reaktionszeit pro Block für jede Person individuell.
+
+4) Berechnen Sie die mittlere Reaktionszeit pro Block ¨über alle Personen aggregiert.
+]

@@ -2613,6 +2613,7 @@ Slides
 <a href="slides/05-bayesian-stats-slides.html">5a. Bayesianische Statistik: Modellvergleiche und Hypothesentests</a>
 <a href="slides/05b-bayesian-stats-slides.html">5b. Bayesianische Statistik: Bayes Factors</a>
 <a href="slides/06-choices-slides.html">6. Binäre Daten: Choices &amp; Accuracy</a>
+<a href="slides/07-mental-chronometry-slides.html">6. Mental Chronometry: Reaktionszeiten</a>
 </div>
 </div>
 <a href="https://github.com/kogpsy/neuroscicomplab">
@@ -2652,6 +2653,7 @@ Slides
 <li><a href="#priorverteilungen">Priorverteilungen</a></li>
 <li><a href="#modell">Modell</a></li>
 <li><a href="#output">Output</a></li>
+<li><a href="#bayes-factor">Bayes Factor</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2977,7 +2979,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <p><img src="06-choices_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
 </div>
-<h3 id="effekte-auf-der-wahrscheinlichkeitsskala">Effekte auf der Wahrscheinlichkeitsskala</h3>
+<h3 id="effekte-auf-der-oddswahrscheinlichkeitsskala">Effekte auf der Odds/Wahrscheinlichkeitsskala</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_set_size</span> <span class='op'>&lt;-</span> <span class='va'>m_recall</span> <span class='op'>%&gt;%</span> 
@@ -3047,35 +3049,55 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p>Da der Effekt ist auf der <code>logodds</code> Skala additiv, auf der <code>odds</code> Skala multiplikativ, und auf der <code>prob</code> Skala non-linear.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>intercept_samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span><span class='op'>$</span><span class='va'>b_Intercept</span>
-<span class='va'>beta_samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span><span class='op'>$</span><span class='va'>b_c_set_size</span>
-
-<span class='va'>effect_avg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>-</span> <span class='va'>beta_samples</span><span class='op'>)</span>
-
-<span class='va'>effect_avg</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>mean_qi</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>            y        ymin         ymax .width .point .interval
-1 -0.02014103 -0.03925112 -0.003428443   0.95   mean        qi</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>effect_4m2</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>4</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df_recall</span><span class='op'>$</span><span class='va'>set_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>beta_samples</span><span class='op'>)</span> <span class='op'>-</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df_recall</span><span class='op'>$</span><span class='va'>set_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>beta_samples</span><span class='op'>)</span>
-
-<span class='va'>effect_4m2</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>mean_qi</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>            y        ymin         ymax .width .point .interval
-1 -0.03178895 -0.05671769 -0.006544814   0.95   mean        qi</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>conditional_effects</span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="06-choices_files/figure-html5/unnamed-chunk-24-1.png" width="624" /></p>
+</div>
+<p>Wenn wir die erwarteten bedingten Wahrscheinlichkeiten wollen, ist es einfacher, die <code>predict()</code> Funktion zu benutzen.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>m_recall</span>, newdata <span class='op'>=</span> <span class='fu'>tibble</span><span class='op'>(</span>c_set_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     Estimate Est.Error Q2.5 Q97.5
+[1,]  0.88300 0.3214605    0     1
+[2,]  0.85375 0.3534008    0     1
+[3,]  0.83300 0.3730225    0     1</code></pre>
+</div>
+<h2 id="bayes-factor">Bayes Factor</h2>
+<p>Bayes Factors schätzen funktioniert genauso wie bei den bisherigen Modellen. Wir schätzen das Modell nochmals, mit dem Argument <code>sample_prior = TRUE</code>, und können dann die <code>hypothesis()</code> Funktion benutzen, um das Savage-Dickey Densoty Ratio zu bestimmen, (oder die <code>bayes_factor()</code> Funktion aus dem <code>bridgesampling</code> Package, wenn wir <code>save_pars = save_pars(all = TRUE)</code> benutzen.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'>prior</span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1.0</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>Intercept</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>prior</span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>.1</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span>, coef <span class='op'>=</span> <span class='va'>c_set_size</span><span class='op'>)</span>
+
+<span class='va'>m_recall_2</span> <span class='op'>&lt;-</span> <span class='fu'>brm</span><span class='op'>(</span><span class='va'>correct</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>c_set_size</span>,
+                family <span class='op'>=</span> <span class='fu'>bernoulli</span><span class='op'>(</span>link <span class='op'>=</span> <span class='va'>logit</span><span class='op'>)</span>,
+                prior <span class='op'>=</span> <span class='va'>priors</span>,
+                data <span class='op'>=</span> <span class='va'>df_recall</span>,
+                sample_prior <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                file <span class='op'>=</span> <span class='st'>"models/06-m_recall_2"</span>,
+                file_refit <span class='op'>=</span> <span class='st'>"on_change"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Mit <code>hypothesis()</code> erhalten wir folgenden Bayes Factor für die Nullhypothese.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>BF01</span> <span class='op'>&lt;-</span> <span class='fu'>hypothesis</span><span class='op'>(</span><span class='va'>m_recall_2</span>, <span class='st'>"c_set_size = 0"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Der Bayes Factor für die Alternativhypothese ist:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>BF10</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>BF01</span><span class='op'>$</span><span class='va'>hypothesis</span><span class='op'>$</span><span class='va'>Evid.Ratio</span>
+
+<span class='va'>BF10</span>
+</code></pre>
+</div>
+<pre><code>[1] 8.200683</code></pre>
 </div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">

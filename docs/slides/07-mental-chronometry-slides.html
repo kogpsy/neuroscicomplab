@@ -72,11 +72,15 @@ layout: true
 
 ## Reaktionszeiten
 
-Ebenfalls sehr häufig anzutreffen in der experimentellen Psychologie/Neuroscience
+Reaktionszeiten sind neben binären Daten ebenfalls sehr häufig anzutreffen in der experimentellen Psychologie/Neuroscience
 
 - Reaction tasks
 - Go/No Go tasks
 - Discrimination tasks
+
+
+Wir gehen davon, aus, dass die Zeit, die benötigt wird, um einen Task auszuführen, bedeutsam ist.
+
 
 ---
 
@@ -101,10 +105,85 @@ Versuchspersonen drücken F-Taste wenn ein Quadrat erscheint, J-Taste wenn ein K
 Outcome Variable: Reaktionszeit und Antwort
 
 
+**Annahme**: Versuchspersonen brauchen im Reaction task am wenigsten Zeit, um eine korrekte Antwort zu geben, gefolgt vom Go/No-Go task. Im Discrimination task brauchen Versuchspersonen länger, um korrekte Antworten zu geben.
+
+---
+
+
+.panelset[
+.panel[.panel-name[Daten laden]
+
+
+
 ```r
-df_mc &lt;- read_csv("data/mental-chronometry.csv")
+mentalchronometry &lt;- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/mental-chronometry.csv") %&gt;% 
+  mutate(across(c(subj, block, stimulus, handedness, gender), ~as_factor(.)))
 ```
 
+]
+
+.panel[.panel-name[Zufällig Vpn auswählen]
+
+
+```r
+subjects &lt;- sample(levels(mentalchronometry$subj), 6)
+df &lt;- mentalchronometry %&gt;% 
+  filter(subj %in% subjects)
+```
+
+]
+
+.panel[.panel-name[Histogramme]
+
+
+
+```r
+df %&gt;% 
+  ggplot(aes(RT, fill = block)) +
+  geom_histogram(alpha = 1.0, position = "identity") + 
+  scale_fill_viridis_d(end = 0.8) +
+  facet_grid(block ~ subj, scales = "free_x") +
+  theme(legend.position = "none")
+```
+
+&lt;img src="07-mental-chronometry-slides_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+]
+
+.panel[.panel-name[Violin Plots]
+
+
+
+
+```r
+df %&gt;% 
+  filter(subj %in% subjects) %&gt;% 
+  ggplot(aes(y = RT, x = block, fill = block)) +
+  geom_violin(alpha = 0.6) +
+  geom_jitter(width = 0.1) +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_wrap(~ subj, scales = "free_x") +
+  theme(legend.position = "none")
+```
+
+&lt;img src="07-mental-chronometry-slides_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
+
+
+]]
+
+---
+
+
+.your-turn[
+
+1) Überlegen Sie sich, was Sie mit diesen Daten machen können
+
+2) Welche Kennzahlen eignen sich gut, um die Daten zu beschreiben?
+
+3) Berechnen Sie die mittlere Reaktionszeit pro Block für jede Person individuell.
+
+4) Berechnen Sie die mittlere Reaktionszeit pro Block ¨über alle Personen aggregiert.
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
