@@ -2658,7 +2658,7 @@ Slides
 </div>
 <h1 id="logistische-regression">Logistische Regression</h1>
 <p>Wir untersuchen die Logistische Regression anhand eines Beispiels aus dem Online Buch <a href="https://vasishth.github.io/bayescogsci/book/">Bayesian Data Analysis for Cognitive Science</a>. Wir gehen hier der Frage nach ob die Anzahl Stimuli (Wortlisten unterschiedlicher Länge) einen Einfluss auf die Working Memory Kapazität hat.</p>
-<p>Die Daten stammen aus <span class="citation" data-cites="oberauerWorkingMemoryCapacity2019"><a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">Oberauer</a> (<a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">2019</a>)</span> Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt (<code>set_size</code>), und sie mussten danach Wörter anhand ihrer Position wiedergeben.</p>
+<p>Die Daten stammen aus <span class="citation" data-cites="oberauerWorkingMemoryCapacity2019"><a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">Oberauer</a> (<a href="#ref-oberauerWorkingMemoryCapacity2019" role="doc-biblioref">2019</a>)</span>. Versuchspersonen wurden Wortlisten mit 2, 4, 6, oder 8 Elementen gezeigt (<code>set_size</code>), und sie mussten danach Wörter anhand ihrer Position wiedergeben.</p>
 <p>Ein Trial dieses Experiments ist in Figure <a href="#fig:oberauer-2019">1</a> dargestellt.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:oberauer-2019"></span>
@@ -2725,6 +2725,33 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 <p>Wir interessieren uns für die Variablen <code>c_set_size</code> und <code>correct</code>, welche angibt, ob die Antwort richtig oder falsch war.</p>
 <div class="exercise">
 <p>Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy dieser Person für jede Wortlistenlänge zu bestimmen.</p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df_recall</span><span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>set_size</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarise</span><span class='op'>(</span>accuracy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>correct</span><span class='op'>)</span>,
+            sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>correct</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 4 x 3
+  set_size accuracy    sd
+     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1        2    1     0    
+2        4    0.957 0.209
+3        6    0.913 0.288
+4        8    0.609 0.499</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df_recall</span><span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span><span class='fu'>across</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>set_size</span>, <span class='va'>correct</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>set_size</span>, <span class='va'>correct</span>, color <span class='op'>=</span> <span class='va'>correct</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_jitter</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_viridis_d</span><span class='op'>(</span>end <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
 <h2 id="likelihood">Likelihood</h2>
 <p>Wir schreiben nun die Verteilung der Daten auf.</p>
@@ -2922,7 +2949,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 <p><img src="06-choices_files/figure-html5/unnamed-chunk-17-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-oberauerWorkingMemoryCapacity2019" class="csl-entry" role="doc-biblioentry">
 Oberauer, Klaus. 2019. <span>“Working <span>Memory Capacity Limits Memory</span> for <span>Bindings</span>.”</span> <em>Journal of Cognition</em> 2 (1, 1): 40. <a href="https://doi.org/10.5334/joc.86">https://doi.org/10.5334/joc.86</a>.
