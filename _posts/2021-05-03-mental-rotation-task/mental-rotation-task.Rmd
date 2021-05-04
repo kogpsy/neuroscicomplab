@@ -45,7 +45,7 @@ Einige wichtige Punkte für die Durchführung:
 
 Vielen Dank für das Interesse und die Teilnahmebereitschaft an dieser Studie. Bevor Sie sich bereit erklären, an der Studie teilzunehmen, ist es wichtig, dass Sie die folgenden Erklärungen genau durchlesen. Ihnen wird der Zweck dieser Studie erklärt, ebenso die Prozedur mit dazugehörigen Risiken, Unannehmlichkeiten und Vorsichtsmassnahmen.  
 
-Das Experiment dauert ungefähr 30 Minuten und beinhaltet Fragen zur Person und eine Rotationsaufgabe, welche mit unterschiedlichen Strategien möglichst richtig gelöst werden soll. Für diese Studie gibt es keine Ausschlusskriterien. Die Teilnahme an der Studie stellt kein uns bekanntes Risiko dar.
+Das Experiment dauert ungefähr 30 Minuten und beinhaltet Fragen zur Person und eine Rotationsaufgabe, welche mit unterschiedlichen Strategien gelöst werden soll. Für diese Studie gibt es keine Ausschlusskriterien. Die Teilnahme an der Studie stellt kein uns bekanntes Risiko dar.
 
 Die Teilnahme an der Studie ist freiwillig und kann jederzeit und ohne Begründung abgebrochen werden. Hierbei entstehen für die Teilnehmenden keine Nachteile. Diese Studie wurde durch die Ethik-Kommission der philosophisch-humanwissenschaftlichen Fakultät der Universität Bern genehmigt. Bei Fragen oder Bedenken dürfen Sie sich jederzeit an die Studienleiterin wenden: [gerda.wyssen@psy.unibe.ch](mailto:gerda.wyssen@psy.unibe.ch). 
 
@@ -56,6 +56,9 @@ Mit der Teilnahme bestätigen Sie, dass Sie schriftlich über die Ziele, den Abl
 
 Klicken Sie bitte auf den untenstehenden Link und befolgen Sie bitte die Anweisungen, die Sie dort vorfinden. Bei *participant* können Sie eine 5-stellige Zahl eingeben.
 
+**Legen Sie den linken Zeigefinger auf die linke Pfeiltaste und den rechten Zeigefinger auf die rechte Pfeiltaste um die Aufgabe zu lösen**
+
+**Lösen Sie die Aufgaben jeweils so schnell wie möglich**
 
 [**Online Experiment Mentale Rotation**](https://run.pavlovia.org/Wyssen/navigation2)
 
