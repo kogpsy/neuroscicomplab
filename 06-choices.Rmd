@@ -318,7 +318,7 @@ samples2 %>%
 ```
 
 
-### Effekte auf der Wahrscheinlichkeitsskala 
+### Effekte auf der Odds/Wahrscheinlichkeitsskala 
 
 ```{r}
 
@@ -350,7 +350,7 @@ samples_set_size %>%
 
 Da der Effekt ist auf der `logodds` Skala additiv, auf der `odds` Skala multiplikativ, und auf der `prob` Skala non-linear.
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 
 intercept_samples <- posterior_samples(m_recall)$b_Intercept
 beta_samples <- posterior_samples(m_recall)$b_c_set_size
@@ -360,11 +360,47 @@ effect_avg <- plogis(intercept_samples) - plogis(intercept_samples - beta_sample
 effect_avg %>% mean_qi()
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 effect_4m2 <-
   plogis(intercept_samples + (4 - mean(df_recall$set_size)) * beta_samples) -
   plogis(intercept_samples + (2 - mean(df_recall$set_size)) * beta_samples)
 
 effect_4m2 %>% mean_qi()
+```
+
+```{r}
+conditional_effects(m_recall)
+```
+
+## Bayes Factor
+
+Bayes Factors schätzen funktioniert genauso wie bei den bisherigen Modellen. Wir schätzen das Modell nochmals, mit dem Argument `sample_prior = TRUE`, und können dann die `hypothesis()` Funktion benutzen, um das Savage-Dickey Densoty Ratio zu bestimmen, (oder die `bayes_factor()` Funktion aus dem `bridgesampling` Package, wenn wir `save_pars = save_pars(all = TRUE)` benutzen.
+
+```{r}
+priors <- prior(normal(0, 1.0), class = Intercept) +
+    prior(normal(0, .1), class = b, coef = c_set_size)
+
+m_recall_2 <- brm(correct ~ 1 + c_set_size,
+                family = bernoulli(link = logit),
+                prior = priors,
+                data = df_recall,
+                sample_prior = TRUE,
+                file = "models/06-m_recall_2",
+                file_refit = "on_change")
+```
+
+
+Mit `hypothesis()` erhalten wir folgenden Bayes Factor für die Nullhypothese.
+
+```{r}
+BF01 <- hypothesis(m_recall_2, "c_set_size = 0")
+```
+
+
+Der Bayes Factor für die Alternativhypothese ist:
+```{r}
+BF10 <- 1/BF01$hypothesis$Evid.Ratio
+
+BF10
 ```
 

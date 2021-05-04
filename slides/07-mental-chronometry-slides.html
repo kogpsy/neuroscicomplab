@@ -101,10 +101,52 @@ Versuchspersonen drücken F-Taste wenn ein Quadrat erscheint, J-Taste wenn ein K
 Outcome Variable: Reaktionszeit und Antwort
 
 
+**Annahme**: Versuchspersonen brauchen im Reaction task am wenigsten Zeit, um eine korrekte Antwort zu geben, gefolgt vom Go/No-Go task. Im Discrimination task brauchen Versuchspersonen länger, um korrekte Antworten zu geben.
+
+---
+
+
 ```r
-df_mc &lt;- read_csv("data/mental-chronometry.csv")
+df_mc &lt;- read_csv("data/mental-chronometry.csv") %&gt;% 
+  mutate(across(c(subj, block, stimulus, handedness, gender), ~as_factor(.)))
 ```
 
+---
+
+
+
+```r
+subjects &lt;- sample(levels(df_mc$subj), 6)
+
+df_mc %&gt;% 
+  filter(subj %in% subjects) %&gt;% 
+  ggplot(aes(RT, fill = block)) +
+  geom_histogram(alpha = 1.0, position = "identity") + 
+  geom_density() +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_grid(block ~ subj, scales = "free_x")
+```
+
+&lt;img src="07-mental-chronometry-slides_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+---
+
+
+
+```r
+df_mc %&gt;% 
+  filter(subj %in% subjects) %&gt;% 
+  ggplot(aes(y = RT, x = block, fill = block)) +
+  geom_violin(alpha = 0.6) +
+  geom_jitter(width = 0.1) +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_wrap(~ subj, scales = "free_x")
+```
+
+&lt;img src="07-mental-chronometry-slides_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
