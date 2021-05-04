@@ -83,7 +83,7 @@ navbar:
           href: slides/05b-bayesian-stats-slides.html
         - text: "6. Binäre Daten: Choices & Accuracy"
           href: slides/06-choices-slides.html
-        - text: "6. Mental Chronometry: Reaktionszeiten"
+        - text: "7. Mental Chronometry: Reaktionszeiten"
           href: slides/07-mental-chronometry-slides.html
 
     - icon: fab fa-github

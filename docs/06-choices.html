@@ -2613,7 +2613,7 @@ Slides
 <a href="slides/05-bayesian-stats-slides.html">5a. Bayesianische Statistik: Modellvergleiche und Hypothesentests</a>
 <a href="slides/05b-bayesian-stats-slides.html">5b. Bayesianische Statistik: Bayes Factors</a>
 <a href="slides/06-choices-slides.html">6. Binäre Daten: Choices &amp; Accuracy</a>
-<a href="slides/07-mental-chronometry-slides.html">6. Mental Chronometry: Reaktionszeiten</a>
+<a href="slides/07-mental-chronometry-slides.html">7. Mental Chronometry: Reaktionszeiten</a>
 </div>
 </div>
 <a href="https://github.com/kogpsy/neuroscicomplab">
@@ -2764,8 +2764,8 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss.
 </aside>
 <p>Die <code>logit</code> Funktion ist</p>
-<p><span class="math display">\[ logit(\theta) = \frac{\theta}{(1-\theta)} \]</span> und wird auch auch <code>log-odds</code> genannt, da sie den Logarithmus der <code>odds</code> (Wettquotienten) wiedergibt. Es folgt also</p>
-<p><span class="math display">\[ log \bigg( \frac{\theta_i}{1-\theta_i} \bigg) = b_0 + b_{set\_size} \cdot set\_size_i \]</span> Dies bedeutet, dass die Koeffizienten <span class="math inline">\(b_0\)</span> und <span class="math inline">\(b_{set\_size}\)</span> einen additiven Effekt auf die log-odds haben. Wenn wenn den Effekt auf der Wahrscheinlichkeitsskala haben möchten, müssen wir die inverse Link Fukntion anwenden, d.h. die logistische Funktion. Diese ist die kumulative logistische Verteilungsfunktion, <code>plogis()</code>.</p>
+<p><span class="math display">\[ logit(\theta) = log \bigg( \frac{\theta}{(1-\theta)} \bigg) \]</span> und wird auch auch <code>log-odds</code> genannt, da sie den Logarithmus der <code>odds</code> (Wettquotienten) wiedergibt. Es folgt also</p>
+<p><span class="math display">\[ log \bigg( \frac{\theta_i}{1-\theta_i} \bigg) = b_0 + b_{set\_size} \cdot set\_size_i \]</span> Dies bedeutet, dass die Koeffizienten <span class="math inline">\(b_0\)</span> und <span class="math inline">\(b_{set\_size}\)</span> einen additiven Effekt auf die log-odds haben. Wenn wenn den Effekt auf der Wahrscheinlichkeitsskala haben möchten, müssen wir die inverse Link Funktion anwenden, d.h. die logistische Funktion. Diese ist die kumulative logistische Verteilungsfunktion, <code>plogis()</code>.</p>
 <p>Wenn die log-odds z.B. 0.1 sind, dann ist die Wahrscheinlichkeit 0.52:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2796,16 +2796,16 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <p>Wenn wir uns mit log-odds auskennen, hilft uns dies, den Output einer logistischen Regression zu verstehen, und geeignete Priorverteilungen zu verwenden.</p>
 <h2 id="priorverteilungen">Priorverteilungen</h2>
 <p>Da wir den Prädiktor <code>set_size</code> zentriert haben, wird der Intercept <span class="math inline">\(b_0\)</span> die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unser Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit <span class="math inline">\(\theta\)</span> eine korrekte oder falsche Antwort gibt. Wenn <span class="math inline">\(\theta = 0.5\)</span>, dann sind die log-odds 0.</p>
-<p>Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich <span class="math inline">\([-3.6, 3.6]\)</span></p>
+<p>Wir können unsere Unsicherheit durch eine Normalverteilung mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich <span class="math inline">\([-2, 2]\)</span></p>
 <div class="exercise">
 <p>Versuchen Sie dies mit der Funktion <code>qlogis()</code> zu demonstrieren.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.025</span>, <span class='fl'>.975</span><span class='op'>)</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1.0</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.025</span>, <span class='fl'>.975</span><span class='op'>)</span>, mean <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1.0</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] -3.663562  3.663562</code></pre>
+<pre><code>[1] -1.959964  1.959964</code></pre>
 </div>
 <p>Den Prior können wir so grafisch darstellen.</p>
 <div class="layout-chunk" data-layout="l-body">

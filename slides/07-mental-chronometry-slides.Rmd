@@ -141,5 +141,5 @@ df %>%
 
 3) Berechnen Sie die mittlere Reaktionszeit pro Block für jede Person individuell.
 
-4) Berechnen Sie die mittlere Reaktionszeit pro Block ¨über alle Personen aggregiert.
+4) Berechnen Sie die mittlere Reaktionszeit pro Block über alle Personen aggregiert.
 ]

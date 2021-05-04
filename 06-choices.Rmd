@@ -122,12 +122,12 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 
 Die `logit` Funktion ist 
 
-$$ logit(\theta) = \frac{\theta}{(1-\theta)} $$
+$$ logit(\theta) = log \bigg( \frac{\theta}{(1-\theta)} \bigg) $$
 und wird auch auch `log-odds` genannt, da sie den Logarithmus der `odds` (Wettquotienten) wiedergibt.
 Es folgt also
 
 $$ log \bigg( \frac{\theta_i}{1-\theta_i} \bigg) = b_0 + b_{set\_size} \cdot set\_size_i $$
-Dies bedeutet, dass die Koeffizienten $b_0$ und $b_{set\_size}$ einen additiven Effekt auf die log-odds haben. Wenn wenn den Effekt auf der Wahrscheinlichkeitsskala haben möchten, müssen wir die inverse Link Fukntion anwenden, d.h. die logistische Funktion. Diese ist die kumulative logistische Verteilungsfunktion, `plogis()`.
+Dies bedeutet, dass die Koeffizienten $b_0$ und $b_{set\_size}$ einen additiven Effekt auf die log-odds haben. Wenn wenn den Effekt auf der Wahrscheinlichkeitsskala haben möchten, müssen wir die inverse Link Funktion anwenden, d.h. die logistische Funktion. Diese ist die kumulative logistische Verteilungsfunktion, `plogis()`.
 
 Wenn die log-odds z.B. 0.1 sind, dann ist die Wahrscheinlichkeit 0.52:
 
@@ -159,14 +159,14 @@ Wenn wir uns mit log-odds auskennen, hilft uns dies, den Output einer logistisch
 
 Da wir den Prädiktor `set_size` zentriert haben, wird der Intercept $b_0$ die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unser Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit $\theta$ eine korrekte oder falsche Antwort gibt. Wenn $\theta = 0.5$, dann sind die log-odds `r qlogis(0.5)`. 
 
-Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-3.6, 3.6]$
+Wir können unsere Unsicherheit durch eine Normalverteilung mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-2, 2]$
 
 :::exercise
 Versuchen Sie dies mit der Funktion `qlogis()` zu demonstrieren.
 :::
 
 ```{r}
-qlogis(c(.025, .975), location = 0, scale = 1.0)
+qnorm(c(.025, .975), mean = 0, sd = 1.0)
 ```
 
 
