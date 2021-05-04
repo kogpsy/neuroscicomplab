@@ -2722,13 +2722,13 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 3        6    23
 4        8    23</code></pre>
 </div>
-<p>Wir interessieren uns für die Variablen <code>c_set_size</code> und <code>correct</code>, welche angibt, ob die Antwort richtig oder falsch war.</p>
+<p>Wir interessieren uns für die Variablen <code>c_set_size</code> und <code>correct</code>, welche angibt, ob die Antwort richtig oder falsch war. Insbesondere interessieren wir uns dafür, ob es einen linearen Zusammenhang zwischen <code>c_set_size</code> und <code>correct</code> gibt. Wir verwenden dafür die Formel <code>correct ~ 1 + c_set_size</code>.</p>
 <div class="exercise">
 <p>Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy dieser Person für jede Wortlistenlänge zu bestimmen.</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df_recall</span><span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df_recall</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>set_size</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>summarise</span><span class='op'>(</span>accuracy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>correct</span><span class='op'>)</span>,
             sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>correct</span><span class='op'>)</span><span class='op'>)</span>
@@ -2759,7 +2759,7 @@ Wenn wir den Prädiktor zentrieren, können wir den Intercept interpretieren - d
 <p>Jede Antwort <span class="math inline">\(i\)</span> kommt also aus einer Bernoulliverteilung, und ist mit Wahrscheinlichkeit <span class="math inline">\(\theta_i\)</span> richtig, und mit Wahrscheinlichkeit <span class="math inline">\(1-\theta_i\)</span> falsch. Diese Wahrscheinlichkeit soll anhand eines linearen Prädiktors vohergesagt werden.</p>
 <span class="math display">\[ g(\theta_i) = logit(\theta_i) = b_0 + b_{set\_size} \cdot set\_size_i \]</span>
 <aside>
-Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss. Man nennt sie gewöhnlich <span class="math inline">\(g()\)</span>.
+Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss.
 </aside>
 <p>Die <code>logit</code> Funktion ist</p>
 <p><span class="math display">\[ logit(\theta) = \frac{\theta}{(1-\theta)} \]</span> und wird auch auch <code>log-odds</code> genannt, da sie den Logarithmus der <code>odds</code> (Wettquotienten) wiedergibt. Es folgt also</p>
@@ -2777,18 +2777,40 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <div class="exercise">
 <p>Versuchen Sie mit R herauszufinden, wie sich die Wahrscheinlichkeiten in als Funktion der log-odds verhalten (eine ähnliche Grafik wie in den <a href="https://kogpsy.github.io/neuroscicomplab/slides/06-choices-slides.html?panelset5=studie2&amp;panelset6=daten-laden2&amp;panelset7=level-12&amp;panelset8=deskriptiv2&amp;panelset9=verteilungsfunktion2#11">Slides</a> hilft).</p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d1</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
+            y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>d1</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_hline</span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0.5</span>, linetype <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>0</span>, linetype <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_line</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span>, color <span class='op'>=</span> <span class='st'>"steelblue"</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+</div>
 <p>Wenn wir uns mit log-odds auskennen, hilft uns dies, den Output einer logistischen Regression zu verstehen, und geeignete Priorverteilungen zu verwenden.</p>
 <h2 id="priorverteilungen">Priorverteilungen</h2>
-<p>Da wir den Prädiktor <code>set_size</code> zentriert haben, wird der Intercept <span class="math inline">\(b_0\)</span> die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unserer Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit <span class="math inline">\(\theta\)</span> eine korrekte oder falsche Antwort gibt. Wenn <span class="math inline">\(\theta = 0.5\)</span>, dann sind die log-odds 0. Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.5 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich <span class="math inline">\([-3, 3]\)</span></p>
+<p>Da wir den Prädiktor <code>set_size</code> zentriert haben, wird der Intercept <span class="math inline">\(b_0\)</span> die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unser Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit <span class="math inline">\(\theta\)</span> eine korrekte oder falsche Antwort gibt. Wenn <span class="math inline">\(\theta = 0.5\)</span>, dann sind die log-odds 0.</p>
+<p>Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich <span class="math inline">\([-3.6, 3.6]\)</span></p>
 <div class="exercise">
 <p>Versuchen Sie dies mit der Funktion <code>qlogis()</code> zu demonstrieren.</p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>qlogis</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.025</span>, <span class='fl'>.975</span><span class='op'>)</span>, location <span class='op'>=</span> <span class='fl'>0</span>, scale <span class='op'>=</span> <span class='fl'>1.0</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] -3.663562  3.663562</code></pre>
 </div>
 <p>Den Prior können wir so grafisch darstellen.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>
 
-<span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>Intercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1e5</span>, <span class='fl'>0</span>, <span class='fl'>1.5</span><span class='op'>)</span>,
+<span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>Intercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1e5</span>, <span class='fl'>0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,
                   p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>Intercept</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>p_logodds</span> <span class='op'>&lt;-</span> <span class='va'>samples</span> <span class='op'>%&gt;%</span> 
@@ -2805,18 +2827,18 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <span class='va'>p_logodds</span> <span class='op'>+</span> <span class='va'>p_prob</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
-<p>Unser <code>normal(0, 1.5)</code> Prior führt also zu einem Prior auf der Wahrscheinlichkeitsskala, welcher ungefähr einem <code>beta(1.1, 1.1)</code> Prior entspricht.</p>
+<p>Unser <code>normal(0, 1.0)</code> Prior führt also zu einem Prior auf der Wahrscheinlichkeitsskala, welcher ungefähr einem <code>beta(2, 2)</code> Prior entspricht.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>,
-       dens <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span><span class='va'>x</span>, shape1 <span class='op'>=</span> <span class='fl'>1.1</span>, shape2 <span class='op'>=</span> <span class='fl'>1.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+       dens <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>dbeta</a></span><span class='op'>(</span><span class='va'>x</span>, shape1 <span class='op'>=</span> <span class='fl'>2</span>, shape2 <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dens</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_line</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
 <p>Für die <code>set_size</code> gehen wir davon aus, dass der Effekt auf die Wahrscheinlichkeit einer korrekten Antwort so ist, dass der Unterschied zwischen der kleinsten und grössten <code>set_size</code> ca. 0.4 ist. Das heisst, dass eine Erhöhung um eine Einheit zu einer Änderung der Wahrscheinlichkeit von ca. <span class="math inline">\(0.4/4 = 0.1\)</span> führen sollte. Wir versuchen es mit einem <code>normal(0, 0.1)</code> Prior. Wir erwarten also einen Effekt im Bereich <span class="math inline">\([-0.2, 0.2]\)</span> mit einer Wahrscheinlichkeit von 95%.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2838,7 +2860,7 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <span class='va'>p_logodds</span> <span class='op'>+</span> <span class='va'>p_prob</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <h2 id="modell">Modell</h2>
 <div class="exercise">
@@ -2852,7 +2874,7 @@ Es gibt hier auch anderen Möglichkeiten als <code>logit</code>. Es kommen viele
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/paul-buerkner/brms'>brms</a></span><span class='op'>)</span>
 
-<span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1.5</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>Intercept</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1.0</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>Intercept</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>.1</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span>, coef <span class='op'>=</span> <span class='va'>c_set_size</span><span class='op'>)</span>
 
 <span class='va'>m_recall</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>correct</span> <span class='op'>~</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='va'>c_set_size</span>,
@@ -2869,7 +2891,7 @@ Es gibt hier auch anderen Möglichkeiten als <code>logit</code>. Es kommen viele
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
 </div>
 <h2 id="output">Output</h2>
 <div class="exercise">
@@ -2889,11 +2911,11 @@ Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
 
 Population-Level Effects: 
            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept      1.92      0.30     1.36     2.52 1.00     3177
-c_set_size    -0.18      0.08    -0.34    -0.03 1.00     2427
+Intercept      1.82      0.29     1.29     2.44 1.00     2885
+c_set_size    -0.18      0.08    -0.33    -0.03 1.00     3163
            Tail_ESS
-Intercept      2741
-c_set_size     2334
+Intercept      2407
+c_set_size     2573
 
 Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -2905,9 +2927,15 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='st'>"b"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
-<p>Die Koeffizienten sind auf der log-odds Skala. Wenn wir diese auf der Wahrscheinlichkeitsskala haben wollen, müssen wir die Posterior Samples extrahieren und anschliessend diese Samples mit der Umkehrfunktion der Linkfunktion transformieren. Diese Umkehrfunktion ist die logistische Funktion (<code>plogis()</code> in R).</p>
+<p><strong>Interpretation</strong>:</p>
+<p>Die Koeffizienten sind auf der log-odds Skala.</p>
+<ul>
+<li><p>Der Intercept repräsentiert die log-odds einer korrekten Antwort bei einer mittleren Set Size.</p></li>
+<li><p>Der Parameter <code>c_set_size</code> repräsentiert den Effekt der Set Size. Bei einer Erhähung um eine Einheit sinken die log-odds um ca. -0.18.</p></li>
+</ul>
+<p>Wenn wir diese Effekte auf der Wahrscheinlichkeitsskala haben wollen, müssen wir die Posterior Samples extrahieren und anschliessend diese Samples mit der Umkehrfunktion der Linkfunktion transformieren. Diese Umkehrfunktion ist die logistische Funktion (<code>plogis()</code> in R).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples1</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2930,12 +2958,12 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <pre><code># A tibble: 6 x 7
   .variable    .value .lower  .upper .width .point .interval
   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-1 b_c_set_size -0.184 -0.341 -0.0251   0.95 median qi       
-2 b_Intercept   1.91   1.36   2.52     0.95 median qi       
-3 b_c_set_size -0.184 -0.287 -0.0785   0.8  median qi       
-4 b_Intercept   1.91   1.55   2.32     0.8  median qi       
-5 b_c_set_size -0.184 -0.239 -0.127    0.5  median qi       
-6 b_Intercept   1.91   1.71   2.13     0.5  median qi       </code></pre>
+1 b_c_set_size -0.179 -0.331 -0.0288   0.95 median qi       
+2 b_Intercept   1.81   1.29   2.44     0.95 median qi       
+3 b_c_set_size -0.179 -0.281 -0.0850   0.8  median qi       
+4 b_Intercept   1.81   1.47   2.20     0.8  median qi       
+5 b_c_set_size -0.179 -0.235 -0.130    0.5  median qi       
+6 b_Intercept   1.81   1.62   2.00     0.5  median qi       </code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2947,9 +2975,102 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
   <span class='fu'>xlab</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ylab</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="06-choices_files/figure-html5/unnamed-chunk-17-1.png" width="624" /></p>
+<p><img src="06-choices_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h3 id="effekte-auf-der-wahrscheinlichkeitsskala">Effekte auf der Wahrscheinlichkeitsskala</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_set_size</span> <span class='op'>&lt;-</span> <span class='va'>m_recall</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/tidybayes/reference/spread_draws.html'>gather_draws</a></span><span class='op'>(</span><span class='va'>b_c_set_size</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>select</span><span class='op'>(</span>logodds <span class='op'>=</span> <span class='va'>.value</span><span class='op'>)</span>
+
+<span class='va'>samples_set_size</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 4,000 x 1
+   logodds
+     &lt;dbl&gt;
+ 1  -0.285
+ 2  -0.253
+ 3  -0.135
+ 4  -0.196
+ 5  -0.106
+ 6  -0.263
+ 7  -0.154
+ 8  -0.166
+ 9  -0.102
+10  -0.245
+# … with 3,990 more rows</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_set_size</span> <span class='op'>&lt;-</span> <span class='va'>samples_set_size</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>odds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>logodds</span><span class='op'>)</span>,
+         prob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>logodds</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>samples_set_size</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 4,000 x 3
+   logodds  odds  prob
+     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  -0.285 0.752 0.429
+ 2  -0.253 0.776 0.437
+ 3  -0.135 0.874 0.466
+ 4  -0.196 0.822 0.451
+ 5  -0.106 0.899 0.474
+ 6  -0.263 0.769 0.435
+ 7  -0.154 0.857 0.462
+ 8  -0.166 0.847 0.459
+ 9  -0.102 0.903 0.474
+10  -0.245 0.783 0.439
+# … with 3,990 more rows</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_set_size</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_longer</span><span class='op'>(</span><span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>, 
+               names_to <span class='op'>=</span> <span class='st'>"Parameter"</span>, 
+               values_to <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>Parameter</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>median_qi</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 7
+  Parameter  value .lower  .upper .width .point .interval
+  &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+1 logodds   -0.179 -0.331 -0.0288   0.95 median qi       
+2 odds       0.836  0.718  0.972    0.95 median qi       
+3 prob       0.455  0.418  0.493    0.95 median qi       </code></pre>
+</div>
+<p>Da der Effekt ist auf der <code>logodds</code> Skala additiv, auf der <code>odds</code> Skala multiplikativ, und auf der <code>prob</code> Skala non-linear.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>intercept_samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span><span class='op'>$</span><span class='va'>b_Intercept</span>
+<span class='va'>beta_samples</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/posterior_samples.brmsfit.html'>posterior_samples</a></span><span class='op'>(</span><span class='va'>m_recall</span><span class='op'>)</span><span class='op'>$</span><span class='va'>b_c_set_size</span>
+
+<span class='va'>effect_avg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>-</span> <span class='va'>beta_samples</span><span class='op'>)</span>
+
+<span class='va'>effect_avg</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>mean_qi</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>            y        ymin         ymax .width .point .interval
+1 -0.02014103 -0.03925112 -0.003428443   0.95   mean        qi</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>effect_4m2</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>4</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df_recall</span><span class='op'>$</span><span class='va'>set_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>beta_samples</span><span class='op'>)</span> <span class='op'>-</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>intercept_samples</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>df_recall</span><span class='op'>$</span><span class='va'>set_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>beta_samples</span><span class='op'>)</span>
+
+<span class='va'>effect_4m2</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='http://mjskay.github.io/ggdist/reference/point_interval.html'>mean_qi</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>            y        ymin         ymax .width .point .interval
+1 -0.03178895 -0.05671769 -0.006544814   0.95   mean        qi</code></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-oberauerWorkingMemoryCapacity2019" class="csl-entry" role="doc-biblioentry">
 Oberauer, Klaus. 2019. <span>“Working <span>Memory Capacity Limits Memory</span> for <span>Bindings</span>.”</span> <em>Journal of Cognition</em> 2 (1, 1): 40. <a href="https://doi.org/10.5334/joc.86">https://doi.org/10.5334/joc.86</a>.

@@ -2694,7 +2694,7 @@ Figure 1: Beispieltrial eines Multiple Object Tracking Tasks. Versuchspersonen s
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pupilsize</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/df_pupil_complete.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pupilsize</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/df_pupil_complete.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>subj <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>subj</span><span class='op'>)</span>,
          attentional_load <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>load</span><span class='op'>)</span><span class='op'>)</span>
 

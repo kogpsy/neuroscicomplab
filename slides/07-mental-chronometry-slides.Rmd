@@ -1,0 +1,109 @@
+---
+title: "Datenanalyse"
+session: 9
+subtitle: "Teil 7 <br/> Mentale Chronometry"
+author: "Andrew Ellis"
+# institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
+institute: "Methodenkurs Neurowissenschaft im Computerlab"
+date: "2021-04-27"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["css/xaringan-themer.css", "css/slides-style.css"]
+    nature:
+      highlightStyle: github #solarized-light # github
+      highlightLines: true
+      ratio: 16:10
+      countIncrementalSlides: false
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r load-packages, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(rmarkdown)
+library(kableExtra)
+library(countdown)
+
+theme_set(theme_grey(base_size = 14) +
+            theme(panel.grid = element_blank()))
+```
+
+
+
+## Reaktionszeiten
+
+Ebenfalls sehr häufig anzutreffen in der experimentellen Psychologie/Neuroscience
+
+- Reaction tasks
+- Go/No Go tasks
+- Discrimination tasks
+
+---
+
+## Beipiel
+
+Daten aus einem Experiement mit 3 Blöcken:
+
+1) Reaction task
+
+Versuchspersonen drücken SPACE-Taste wenn ein Stimulus erscheint (Quadrat oder Kreis).
+Outcome Variable: Reaktionszeit
+
+
+2) Go/No-Go task
+
+Versuchspersonen drücken SPACE-Taste wenn Target erscheint (entweder Quadrat oder Kreis)
+Outcome Variable: Reaktionszeit und Antwort
+
+3) Discrimination task
+
+Versuchspersonen drücken F-Taste wenn ein Quadrat erscheint, J-Taste wenn ein Kreis erscheint.
+Outcome Variable: Reaktionszeit und Antwort
+
+
+**Annahme**: Versuchspersonen brauchen im Reaction task am wenigsten Zeit, um eine korrekte Antwort zu geben, gefolgt vom Go/No-Go task. Im Discrimination task brauchen Versuchspersonen länger, um korrekte Antworten zu geben.
+
+---
+
+```{r}
+df_mc <- read_csv("data/mental-chronometry.csv") %>% 
+  mutate(across(c(subj, block, stimulus, handedness, gender), ~as_factor(.)))
+```
+
+---
+
+
+```{r message=FALSE, warning=FALSE}
+subjects <- sample(levels(df_mc$subj), 6)
+
+df_mc %>% 
+  filter(subj %in% subjects) %>% 
+  ggplot(aes(RT, fill = block)) +
+  geom_histogram(alpha = 1.0, position = "identity") + 
+  geom_density() +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_grid(block ~ subj, scales = "free_x")
+```
+
+---
+
+
+```{r}
+df_mc %>% 
+  filter(subj %in% subjects) %>% 
+  ggplot(aes(y = RT, x = block, fill = block)) +
+  geom_violin(alpha = 0.6) +
+  geom_jitter(width = 0.1) +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_wrap(~ subj, scales = "free_x")
+```
+
+
+---

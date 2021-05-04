@@ -81,7 +81,7 @@ df_recall %>%
 ```
 
 
-Wir interessieren uns für die Variablen `c_set_size` und `correct`, welche angibt, ob die Antwort richtig oder falsch war.
+Wir interessieren uns für die Variablen `c_set_size` und `correct`, welche angibt, ob die Antwort richtig oder falsch war. Insbesondere interessieren wir uns dafür, ob es einen linearen Zusammenhang zwischen `c_set_size` und `correct` gibt. Wir verwenden dafür die Formel `correct ~ 1 + c_set_size`.
 
 
 :::exercise
@@ -90,7 +90,7 @@ Bevor Sie mit der Bayesianischen Analyse beginnen, versuchen Sie die Accuracy di
 
 
 ```{r}
-df_recall%>% 
+df_recall %>% 
   group_by(set_size) %>% 
   summarise(accuracy = mean(correct),
             sd = sd(correct))
@@ -116,7 +116,7 @@ Jede Antwort $i$ kommt also aus einer Bernoulliverteilung, und ist mit Wahrschei
 
 $$ g(\theta_i) = logit(\theta_i) = b_0 + b_{set\_size} \cdot set\_size_i $$
 <aside>
-Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss. Man nennt sie gewöhnlich $g()$.
+Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen Variablen transformiert werden muss.
 </aside>
 
 
@@ -141,7 +141,7 @@ prob
 Versuchen Sie mit R herauszufinden, wie sich die Wahrscheinlichkeiten in als Funktion der log-odds verhalten (eine ähnliche Grafik wie in den [Slides](https://kogpsy.github.io/neuroscicomplab/slides/06-choices-slides.html?panelset5=studie2&panelset6=daten-laden2&panelset7=level-12&panelset8=deskriptiv2&panelset9=verteilungsfunktion2#11) hilft).
 :::
 
-```{r eval=FALSE, include=FALSE}
+```{r}
 d1 <- tibble(x = seq(-5, 5, by = 0.01),
             y = plogis(x))
 
@@ -157,11 +157,17 @@ Wenn wir uns mit log-odds auskennen, hilft uns dies, den Output einer logistisch
 
 ## Priorverteilungen
 
-Da wir den Prädiktor `set_size` zentriert haben, wird der Intercept $b_0$ die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unserer Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit $\theta$ eine korrekte oder falsche Antwort gibt. Wenn $\theta = 0.5$, dann sind die log-odds `r qlogis(0.5)`. Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.5 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-3, 3]$
+Da wir den Prädiktor `set_size` zentriert haben, wird der Intercept $b_0$ die log-odds einer korrekten Antwort für die mittlere Wortlistenlänge repräsentieren. Unser Prior sollte abhängig sein von der Schwierigkeit des Tasks. Wenn wir uns hier unsicher sind, können wir annehmen, dass die Person bei der mittleren Wortlistenlänge mit ungefähr gleicher Wahrscheinlichkeit $\theta$ eine korrekte oder falsche Antwort gibt. Wenn $\theta = 0.5$, dann sind die log-odds `r qlogis(0.5)`. 
+
+Wir können unsere Unsicherheit mit einer Standardabweichung von ca. 1.0 ausdrücken. Dies bedeutet, dass ca. 95% der Verteilung im Bereich $[-3.6, 3.6]$
 
 :::exercise
 Versuchen Sie dies mit der Funktion `qlogis()` zu demonstrieren.
 :::
+
+```{r}
+qlogis(c(.025, .975), location = 0, scale = 1.0)
+```
 
 
 Den Prior können wir so grafisch darstellen.
@@ -169,7 +175,7 @@ Den Prior können wir so grafisch darstellen.
 ```{r}
 library(patchwork)
 
-samples <- tibble(Intercept = rnorm(1e5, 0, 1.5),
+samples <- tibble(Intercept = rnorm(1e5, 0, 1.0),
                   p = plogis(Intercept))
 
 p_logodds <- samples %>% 
@@ -186,11 +192,11 @@ p_prob <- samples %>%
 p_logodds + p_prob
 ```
 
-Unser `normal(0, 1.5)` Prior führt also zu einem Prior auf der Wahrscheinlichkeitsskala, welcher ungefähr einem `beta(1.1, 1.1)` Prior entspricht.
+Unser `normal(0, 1.0)` Prior führt also zu einem Prior auf der Wahrscheinlichkeitsskala, welcher ungefähr einem `beta(2, 2)` Prior entspricht.
 
 ```{r}
 tibble(x = seq(0, 1, by = 0.01),
-       dens =  dbeta(x, shape1 = 1.1, shape2 = 1.1)) %>% 
+       dens =  dbeta(x, shape1 = 2, shape2 = 2)) %>% 
   ggplot(aes(x, dens)) +
   geom_line()
 ```
@@ -224,6 +230,7 @@ p_logodds + p_prob
 Versuchen Sie, das Modell in `brms` zu schätzen.
 :::
 
+
 Wir spezifizieren Verteilung der abhängigen Variable mit dem Argument `family`. Die Verteilung, hier `bernoulli()` nimmt selber ein Argument, welches die Link Funktion definiert.
 
 <aside>
@@ -234,7 +241,7 @@ Es gibt hier auch anderen Möglichkeiten als `logit`. Es kommen viele Verteilung
 ```{r}
 library(brms)
 
-priors <- prior(normal(0, 1.5), class = Intercept) +
+priors <- prior(normal(0, 1.0), class = Intercept) +
     prior(normal(0, .1), class = b, coef = c_set_size)
 
 m_recall <- brm(correct ~ 1 + c_set_size,
@@ -271,9 +278,15 @@ m_recall %>%
 ```
 
 
+**Interpretation**: 
 
+Die Koeffizienten sind auf der log-odds Skala.
 
-Die Koeffizienten sind auf der log-odds Skala. Wenn wir diese auf der Wahrscheinlichkeitsskala haben wollen, müssen wir die Posterior Samples extrahieren und anschliessend diese Samples mit der Umkehrfunktion der Linkfunktion transformieren. Diese Umkehrfunktion ist die logistische Funktion (`plogis()` in R).
+- Der Intercept repräsentiert die log-odds einer korrekten Antwort bei einer mittleren Set Size.
+
+- Der Parameter `c_set_size` repräsentiert den Effekt der Set Size. Bei einer Erhähung um eine Einheit sinken die log-odds um ca. -0.18.
+
+Wenn wir diese Effekte auf der Wahrscheinlichkeitsskala haben wollen, müssen wir die Posterior Samples extrahieren und anschliessend diese Samples mit der Umkehrfunktion der Linkfunktion transformieren. Diese Umkehrfunktion ist die logistische Funktion (`plogis()` in R).
 
 
 ```{r}
@@ -302,5 +315,56 @@ samples2 %>%
   geom_vline(xintercept = 0.0, linetype = "dashed") +
   scale_fill_manual(values = c("gray80", "skyblue")) +
   xlab("") + ylab("")
+```
+
+
+### Effekte auf der Wahrscheinlichkeitsskala 
+
+```{r}
+
+samples_set_size <- m_recall %>% 
+  gather_draws(b_c_set_size) %>% 
+  ungroup() %>% 
+  select(logodds = .value)
+
+samples_set_size
+```
+
+```{r}
+samples_set_size <- samples_set_size %>% 
+  mutate(odds = exp(logodds),
+         prob = plogis(logodds))
+
+samples_set_size
+```
+
+```{r}
+samples_set_size %>% 
+  pivot_longer(everything(), 
+               names_to = "Parameter", 
+               values_to = "value") %>% 
+  group_by(Parameter) %>% 
+  median_qi()
+```
+
+
+Da der Effekt ist auf der `logodds` Skala additiv, auf der `odds` Skala multiplikativ, und auf der `prob` Skala non-linear.
+
+```{r}
+
+intercept_samples <- posterior_samples(m_recall)$b_Intercept
+beta_samples <- posterior_samples(m_recall)$b_c_set_size
+
+effect_avg <- plogis(intercept_samples) - plogis(intercept_samples - beta_samples)
+
+effect_avg %>% mean_qi()
+```
+
+```{r}
+effect_4m2 <-
+  plogis(intercept_samples + (4 - mean(df_recall$set_size)) * beta_samples) -
+  plogis(intercept_samples + (2 - mean(df_recall$set_size)) * beta_samples)
+
+effect_4m2 %>% mean_qi()
 ```
 

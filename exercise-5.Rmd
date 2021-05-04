@@ -73,7 +73,7 @@ theme_set(theme_grey(base_size = 14) +
 
 
 ```{r}
-pupilsize <- read_csv("data/df_pupil_complete.csv") %>% 
+pupilsize <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/df_pupil_complete.csv") %>% 
   mutate(subj = as_factor(subj),
          attentional_load = as_factor(load))
 
