@@ -25,7 +25,7 @@ output:
 ```{r child = "setup.Rmd"}
 ```
 
-```{r load-packages, include=FALSE, warning=FALSE}
+```{r load-packages}
 library(tidyverse)
 library(rmarkdown)
 library(kableExtra)

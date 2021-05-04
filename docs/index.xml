@@ -7,7 +7,15 @@
     <description>Neurowissenschaft im Computerlab
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 20 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Online Experiment</title>
+      <dc:creator>Gerda Wyssen</dc:creator>
+      <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-05-03-mental-rotation-task</link>
+      <description>Mentale Rotation unter verschiedenen Strategien.</description>
+      <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-05-03-mental-rotation-task</guid>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Übung 4</title>
       <dc:creator>Andrew Ellis</dc:creator>

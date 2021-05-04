@@ -5,7 +5,7 @@ subtitle: "Teil 6 <br/> Binäre Daten"
 author: "Andrew Ellis"
 # institute: "Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"
 institute: "Methodenkurs Neurowissenschaft im Computerlab"
-date: "April 27, 2021"
+date: "2021-04-27"
 output:
   xaringan::moon_reader:
     lib_dir: libs

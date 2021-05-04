@@ -2,7 +2,7 @@
 title: "Übung 4: Lösung"
 description: |
   Hypothesentest/Modelvergleich mit Bayes Factors.
-date: "Mai 1, 2021"
+date: "2021-05-04"
 author:
   - first_name: "Andrew"
     last_name: "Ellis"

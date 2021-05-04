@@ -2,7 +2,7 @@
 title: "Datenanalyse"
 description: | 
   Teil 6: Binäre Daten: Choices & Accuracy.
-date: "`April 27, 2021"
+date: "2021-04-27"
 author:
   - first_name: "Andrew"
     last_name: "Ellis"

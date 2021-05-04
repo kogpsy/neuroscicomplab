@@ -122,7 +122,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Datenanalyse"]},{"type":"character","attributes":{},"value":["Teil 6: Binäre Daten: Choices & Accuracy.\n"]},{"type":"character","attributes":{},"value":["`April 27, 2021"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/06-choices.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","citation_url","bibliography","output"]}},"value":[{"type":"character","attributes":{},"value":["Datenanalyse"]},{"type":"character","attributes":{},"value":["Teil 6: Binäre Daten: Choices & Accuracy.\n"]},{"type":"character","attributes":{},"value":["2021-04-27"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Andrew"]},{"type":"character","attributes":{},"value":["Ellis"]},{"type":"character","attributes":{},"value":["https://github.com/awellis"]},{"type":"character","attributes":{},"value":["Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"]},{"type":"character","attributes":{},"value":["https://www.kog.psy.unibe.ch"]},{"type":"character","attributes":{},"value":["0000-0002-2788-936X"]}]}]},{"type":"character","attributes":{},"value":["https://kogpsy.github.io/neuroscicomplab/06-choices.html"]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_float","toc_depth","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2579,6 +2579,7 @@ Syllabus
 <a href="exercise-3.html">Übung 3 (nicht abgeben)</a>
 <a href="solution-3.html">Übung 3: Lösung</a>
 <a href="exercise-4.html">Übung 4</a>
+<a href="exercise-5.html">Übung 5</a>
 </div>
 </div>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
@@ -2636,7 +2637,7 @@ Slides
   
   true
   
-<br/>`April 27, 2021
+<br/>2021-04-27
 </div>
 
 <div class="d-article">
@@ -2760,16 +2761,15 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>
 
-<span class='va'>samples_logodds</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>Intercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>samples</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>Intercept <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1e5</span>, <span class='fl'>0</span>, <span class='fl'>1.5</span><span class='op'>)</span>,
+                  p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>Intercept</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>samples_prob</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>1.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>p_logodds</span> <span class='op'>&lt;-</span> <span class='va'>samples_logodds</span> <span class='op'>%&gt;%</span> 
+<span class='va'>p_logodds</span> <span class='op'>&lt;-</span> <span class='va'>samples</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>Intercept</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Log-odds"</span><span class='op'>)</span>
 
-<span class='va'>p_prob</span> <span class='op'>&lt;-</span> <span class='va'>samples_prob</span> <span class='op'>%&gt;%</span> 
+<span class='va'>p_prob</span> <span class='op'>&lt;-</span> <span class='va'>samples</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Probability"</span><span class='op'>)</span>
@@ -2794,16 +2794,15 @@ Die Link Funktion ist die Funktion, mit der der erwartete Wert der abhängigen V
 <p>Für die <code>set_size</code> gehen wir davon aus, dass der Effekt auf die Wahrscheinlichkeit einer korrekten Antwort so ist, dass der Unterschied zwischen der kleinsten und grössten <code>set_size</code> ca. 0.4 ist. Das heisst, dass eine Erhöhung um eine Einheit zu einer Änderung der Wahrscheinlichkeit von ca. <span class="math inline">\(0.4/4 = 0.1\)</span> führen sollte. Wir versuchen es mit einem <code>normal(0, 0.1)</code> Prior. Wir erwarten also einen Effekt im Bereich <span class="math inline">\([-0.2, 0.2]\)</span> mit einer Wahrscheinlichkeit von 95%.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples_logodds</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>b_set_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>samples2</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>b_set_size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1e5</span>, <span class='fl'>0</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+                          p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='va'>b_set_size</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>samples_prob</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>0</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>p_logodds</span> <span class='op'>&lt;-</span> <span class='va'>samples_logodds</span> <span class='op'>%&gt;%</span> 
+<span class='va'>p_logodds</span> <span class='op'>&lt;-</span> <span class='va'>samples2</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>b_set_size</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Log-odds"</span><span class='op'>)</span>
 
-<span class='va'>p_prob</span> <span class='op'>&lt;-</span> <span class='va'>samples_prob</span> <span class='op'>%&gt;%</span> 
+<span class='va'>p_prob</span> <span class='op'>&lt;-</span> <span class='va'>samples2</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Probability"</span><span class='op'>)</span>
