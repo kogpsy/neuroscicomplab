@@ -303,7 +303,7 @@ bf <- hypothesis(m_savage_dickey, "c_load = 0")
 
 Versuchen Sie, mit der Funktion `bayes_factor()` einen Bayes Factor für die Hypothese, dass der Effekt von attentional load > 0 ist. Sie brauchen dafür zwei Modelle; eines mit dem Population-Level Effekt von `c_load`, das andere ohne diesen Effekt (aber sonst in jeder Hinsicht identisch).
 
-Sie brauchen die beiden zusätzlichen Argumente `iter = 1e4` und `save_pars = save_pars(all = TRUE)`. Mit dem ersteren erhalten Sie 60000 Samples aus dem Posterior, mit zweiterem speichern Sie die Log Likelihood.
+Sie brauchen die beiden zusätzlichen Argumente `iter = 6e4` und `save_pars = save_pars(all = TRUE)`. Mit dem ersteren erhalten Sie 60000 Samples aus dem Posterior, mit zweiterem speichern Sie die Log Likelihood.
 
 Achtung: Wenn Sie das Modell selber schätzen wollen, müssen Sie damit rechnen, dass es sehr lange dauert.
 :::
