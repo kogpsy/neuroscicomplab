@@ -67,6 +67,8 @@ navbar:
           href: 05-bayesian-stats.html
         - text: "6. Binäre Daten: Choices & Accuracy"
           href: 06-choices.html
+        - text: "7. Mental Chronometry: Reaktionszeiten"
+          href: 07-mental-chronometry.html
 
 
     - text: "Slides"
