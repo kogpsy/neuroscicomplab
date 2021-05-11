@@ -301,11 +301,11 @@ mentalchronometry_cleaned <- mentalchronometry_cleaned %>%
     trial = row_number())
 ```
 
-```{r}
+```{r layout="l-body-outset", fig.width=9, fig.height=4.5}
 # visualize outlier trials
 
 mentalchronometry_cleaned %>% 
-  ggplot(aes(x = trial, y = RT, color = trial_type)) +
+  ggplot(aes(x = trial, y = RT, color = trial_type, shape = trial_type)) +
   geom_point(alpha = 0.6) + 
   geom_point(data = filter(mentalchronometry_cleaned, trial_type != "OK"), 
              alpha = 0.9) + 
