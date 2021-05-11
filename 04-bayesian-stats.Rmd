@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 description: | 
-  Teil 4: Hierarchische Modelle mit brms.
+  Teil 4: Hierarchische Modelle mit brms
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"

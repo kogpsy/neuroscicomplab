@@ -1,7 +1,7 @@
 ---
 title: "Bayesianische Statistik"
 description: | 
-  Teil 5: Hypothesentests & Modellvergleiche.
+  Teil 5: Hypothesentests & Modellvergleiche
 date: "`r Sys.Date()`"
 author:
   - first_name: "Andrew"
