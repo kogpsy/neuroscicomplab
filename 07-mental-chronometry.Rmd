@@ -485,15 +485,15 @@ df_quantiles <- df %>%
 df_quantile_differences <- df_quantiles %>% 
   select(-data) %>% 
   pivot_wider(names_from = "block", values_from = "RT") %>% 
-  mutate(Differenz = goNoGo - discrimination)
+  mutate(`goNoGo - discrimination` = goNoGo - discrimination)
 ```
 
 
 ```{r}
 df_quantile_differences %>% 
-  ggplot(aes(x = goNoGo, y = Differenz)) +
+  ggplot(aes(x = goNoGo, y = `goNoGo - discrimination`)) +
   geom_line(aes(group = 1), color = "steelblue", size = 2) +
-  geom_point(shape = 21, color = "steelblue", fill = "white", size = 3, stroke = 3) +
+  geom_point(shape = 21, color = "steelblue", fill = "white", size = 5, stroke = 1) +
   geom_hline(yintercept = 0, linetype = 3) +
   coord_cartesian(ylim = c(-100, 100))
 ```
