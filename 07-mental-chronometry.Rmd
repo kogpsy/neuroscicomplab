@@ -107,7 +107,7 @@ mentalchronometry <- read_csv("https://raw.githubusercontent.com/kogpsy/neurosci
 
 
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, layout="l-body-outset", fig.width=9, fig.height=4.5}
 set.seed(98)
 subjects <- sample(levels(mentalchronometry$subj), 3)
 df <- mentalchronometry %>%
@@ -121,7 +121,7 @@ df %>%
   theme(legend.position = "none")
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE, layout="l-body-outset", fig.width=9, fig.height=4.5}
 df %>% 
   filter(subj %in% subjects) %>% 
   ggplot(aes(y = RT, x = block, fill = block)) +
@@ -144,7 +144,7 @@ df %>%
 
 
 
-## Summarise
+## Daten zusammenfassen
 
 Wir können ohne Ausreisser zu behandeln die Date pro Person pro Block mit Mittelwert, Median und Standarabweichung zusammenfassen.
 
@@ -368,6 +368,7 @@ aggregated_cleaned %>%
 Ein soches Data Cleaning ist zwar in den meisten Fällen notwendig,  aber leider etwas willkürlich, und gibt dem Forscher/der Forscherin sehr viele Freiheiten (researcher degrees of freedom). Es ist deshlab wichtig, Ausschlusskriterien für Personen und einzelne Trials vor der Analyse festzulegen, und offen zu berichten.
 
 ## Shift Function
+
 In den Neurowissenschaften wird ein Vergleich zwischen Gruppen oder Bedingungen oft wie oben beschrieben durchgeführt. Wir machen dabei folgende Annahmen:
 
 - Die RT Verteilungen unterscheiden sich nur in ihrer zentralen Tendenz, aber nicht in anderen Aspekten.
@@ -386,16 +387,23 @@ Anstelle einer Zusammenfassung anhand von Mittelwert und Standardabweichung kön
 
 
 
-Grafik \@ref(fig:rousselet2016) zeigt eine traditionelle Level 1 / Level 2 Analyse. In diesem Datensatz wurden 2 Gruppen (between) in 2 Bedingungen (within) getest. A) zeigt die Mittelwerte und Standarfehler. Eine ANOVA würde hier eine signifikante Gruppen x Bedingung Interaktion zeigen. B) zeigt die Unterschiede zwischen den Bedingungen für alle Vpn innerhalb der beiden Gruppen. C) zeigt, dass die Scores in Gruppe in Bediungung 2 grösser sind als in Bedingung 1. Weiter scheinen diese Differenzen grösser zu werden, mit wachsendem SCore in Bedingung 1. Diese beide Zusammenhänge existieren nicht in Gruppe 2. D) zeigt einen Scatterplot der beiden Bedingungen. Während die Punkte der Gruppe 2 auf der geraden liegen, ist auch hier ersichtlich, dass bei Gruppe 1 der Unterschied zwischen den Bedingungen bei wachsendem SCore in Bedingung 1 ansteigt.
+Grafik \@ref(fig:rousselet2016) zeigt eine traditionelle Level 1 / Level 2 Analyse. In diesem Datensatz wurden 2 Gruppen (between) in 2 Bedingungen (within) getest. A) zeigt die Mittelwerte und Standarfehler. Eine ANOVA würde hier eine signifikante Gruppen x Bedingung Interaktion zeigen. B) zeigt die Unterschiede zwischen den Bedingungen für alle Vpn innerhalb der beiden Gruppen. C) zeigt, dass die Scores in Gruppe in Bediungung 2 grösser sind als in Bedingung 1. Weiter scheinen diese Differenzen grösser zu werden, mit wachsendem Score in Bedingung 1. Diese beide Zusammenhänge existieren nicht in Gruppe 2. D) zeigt einen Scatterplot der beiden Bedingungen. Während die Punkte der Gruppe 2 auf der geraden liegen, ist auch hier ersichtlich, dass bei Gruppe 1 der Unterschied zwischen den Bedingungen bei wachsendem SCore in Bedingung 1 ansteigt.
   
 ```{r rousselet2016, echo = FALSE, fig.height=5, fig.width=7, fig.cap="Grafische Darstellung von Reaktionszeiten (aus @rousseletFewSimpleSteps2016a). "}
-knitr::include_graphics("images/rousselet2016.tiff")
+knitr::include_graphics("images/rousselet2016.png")
 ```
 
 Dies sind lediglich unterschiedliche Darstellungen derselben Daten. Eine Standardtest, wie z.B. eine ANOVA, bietet in diesem Fall nicht mehr Information als eine grafische Darstellung.
 
 Sowohl der Mittelwert als auch der Median sind nicht ideal, um schiefe Verteilungen zusammenfassen. Solche Verteilungen sind asymmetrisch, und die Asymmetrie selber kann sich zwischen Bedingungen unterscheiden, so dass Masse der zentralen Tendenz und der Streuung nicht ausreichend sind (keine sogenannten *sufficient statistics*) [@rousseletFewSimpleSteps2016a].
 
+
+Ein Ansatz, um die ganze Verteilung zu benutzen, anstatt die Verteilung durch eine Kennzahl zusammenzufassen, ist die empirischen Quantile der Daten zu berechnen. Wenn wir zwei Gruppen oder Bedingungen vergleichen möchten, können wir zum Beispiel die Dezile  berechen, und dann für jedes Dezil die Differenz berechen. Wenn wir anschliessend die Quantile einer Bedingung gegen die Differenzen plotten, erhalten eine sogennante **Shift Function**. Diese hat ihren Namen, weil sie anzeigt, in welche Richtung und um wieviel man eine Verteilung verschieben muss, um sie einer anderen Verteilung anzugleichen.
+
+
+<aside>
+Wir können auch andere, willkürlich gewählte, Quantil benutzen, aber die Dezile sind ein gute Kompromiss. Mit 9 Quantilen können wir die meisten Verteilungen ziemlich gut zusammenfassen.
+</aside>
 
 ### Beispiel 1: unterschiedliche Streuung
 
@@ -437,7 +445,71 @@ Im dritten Beispiel unterscheiden sich die beiden Gruppen vor allem am rechten E
 
 
 
-## Parametric approach
+## Shift Function von Hand
+
+
+Eine Shift Function von Hand zu berechen ist relativ einfach, aber selbstverständlich gibt es dafür ein R Package (`rogme`). Hier werden wir aber zunächst für eine Person in zwei Bedingungen die Quantile per Hand berechnen, um ein Verständnis dafür zu entwicklen, wie eine Shift Function verwendet werden kann.
+
+
+Wir wählen aus dem `mentalchronometry` Dataframe, aus dem die Ausreisser entfernt wurden, eine Person und die beiden Tasks `goNoGo` und `discrimination` aus.
+
+```{r}
+set.seed(294)
+subject <- with(mentalchronometry_cleaned, sample(levels(subj), 1))
+
+df <- mentalchronometry_cleaned %>% 
+  filter(subj == subject,
+         block != "reaction") %>% 
+  mutate(subj = fct_drop(subj))
+```
+
+
+
+```{r}
+deciles <- seq(0.1, 0.9, length.out = 9)
+
+quantilefun <- function(x) {
+  as_tibble(t(quantile(x$RT, probs = deciles)))
+}
+
+df_quantiles <- df %>% 
+  group_by(block) %>% 
+  nest() %>% 
+  mutate(quantiles = map(data, ~ quantilefun(.x))) %>% 
+  unnest(quantiles) %>% 
+  pivot_longer(`10%`:`90%`, names_to = "quantile", values_to = "RT") %>% 
+  arrange(block)
+```
+
+```{r}
+df_quantile_differences <- df_quantiles %>% 
+  select(-data) %>% 
+  pivot_wider(names_from = "block", values_from = "RT") %>% 
+  mutate(Differenz = goNoGo - discrimination)
+```
+
+
+```{r}
+df_quantile_differences %>% 
+  ggplot(aes(x = goNoGo, y = Differenz)) +
+  geom_line(aes(group = 1), color = "steelblue", size = 2) +
+  geom_point(shape = 21, color = "steelblue", fill = "white", size = 3, stroke = 3) +
+  geom_hline(yintercept = 0, linetype = 3) +
+  coord_cartesian(ylim = c(-100, 100))
+```
+```{r}
+df %>% 
+  ggplot(aes(x = RT, color = block, fill = block)) +
+  geom_density(alpha = 0.3) +
+  scale_fill_viridis(discrete=TRUE, option="cividis") +
+  scale_color_viridis(discrete=TRUE, option="cividis")
+```
+:::exercise
+Versuchen Sie nun, ein Shift Function für zufällig ausgewählte Versuchspersonen in 2 beliebig ausgewählen Bedingungen grafisch darzustellen.
+:::
+
+
+## Reaktionszeitverteilungen
 
 :::exercise
 [Reaction time distributions: an interactive overview](https://lindeloev.shinyapps.io/shiny-rt/)
