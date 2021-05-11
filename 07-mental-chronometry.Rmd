@@ -492,9 +492,13 @@ df_quantile_differences <- df_quantiles %>%
 ```{r}
 df_quantile_differences %>% 
   ggplot(aes(x = goNoGo, y = `goNoGo - discrimination`)) +
+  geom_hline(yintercept = 0, linetype = 3) +
+  geom_vline(xintercept = df_quantile_differences %>% 
+               filter(quantile == "50%") %>% 
+               select(goNoGo) %>% 
+               pull(), linetype = 3) +
   geom_line(aes(group = 1), color = "steelblue", size = 2) +
   geom_point(shape = 21, color = "steelblue", fill = "white", size = 5, stroke = 1) +
-  geom_hline(yintercept = 0, linetype = 3) +
   coord_cartesian(ylim = c(-100, 100))
 ```
 ```{r}
