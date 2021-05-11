@@ -469,7 +469,7 @@ df <- mentalchronometry_cleaned %>%
 deciles <- seq(0.1, 0.9, length.out = 9)
 
 quantilefun <- function(x) {
-  as_tibble(t(quantile(x$RT, probs = deciles)))
+  as_tibble(t(quantile(x$RT, probs = deciles, type = 8)))
 }
 
 df_quantiles <- df %>% 
