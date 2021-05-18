@@ -51,6 +51,10 @@ navbar:
           href: exercise-4.html
         - text: "Übung 5"
           href: exercise-5.html
+        - text: "Übung 6"
+          href: exercise-6.html
+        - text: "Übung 7"
+          href: exercise-7.html
 
   right:
     - text: "Kapitel"
