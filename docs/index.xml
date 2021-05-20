@@ -7,7 +7,16 @@
     <description>Neurowissenschaft im Computerlab
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Lösung zur Übung 4</title>
+      <dc:creator>Andrew Ellis</dc:creator>
+      <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-05-20-solution-4</link>
+      <description>Die Lösung zur zweiten Übung finden Sie unter Lösungen.</description>
+      <category>uebungen</category>
+      <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-05-20-solution-4</guid>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Online Experiment</title>
       <dc:creator>Gerda Wyssen</dc:creator>
@@ -38,7 +47,7 @@
       <title>Lösung zur Übung 2</title>
       <dc:creator>Andrew Ellis</dc:creator>
       <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-04-09-solution-2</link>
-      <description>Die Lösung zur zweiten Übung finden Sie unter Übungen.</description>
+      <description>Die Lösung zur zweiten Übung finden Sie unter Lösungen</description>
       <category>uebungen</category>
       <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-04-09-solution-2</guid>
       <pubDate>Fri, 09 Apr 2021 00:00:00 +0000</pubDate>
@@ -56,7 +65,7 @@
       <title>Lösung zur Übung 1</title>
       <dc:creator>Andrew Ellis</dc:creator>
       <link>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-22-solution-1</link>
-      <description>Die Lösung zur ersten Übung finden Sie unter Übungen.</description>
+      <description>Die Lösung zur ersten Übung finden Sie unter Lösungen</description>
       <category>uebungen</category>
       <guid>https://kogpsy.github.io/neuroscicomplab/posts/2021-03-22-solution-1</guid>
       <pubDate>Mon, 22 Mar 2021 00:00:00 +0000</pubDate>

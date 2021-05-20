@@ -1,8 +1,8 @@
 ---
-title: "Übung 4"
+title: "Übung 4: Lösung"
 description: |
   Hypothesentest/Modelvergleich mit Bayes Factors.
-date: "2021-04-20"
+date: "2021-05-18"
 author:
   - first_name: "Andrew"
     last_name: "Ellis"
@@ -11,7 +11,7 @@ author:
     affiliation_url: https://www.kog.psy.unibe.ch
     orcid_id: 0000-0002-2788-936X
 
-citation_url: https://kogpsy.github.io/neuroscicomplab/exercise-4.html
+citation_url: https://kogpsy.github.io/neuroscicomplab/solution-4.html
 # slug: ellis2021overview
 bibliography: bibliography.bib
 output: 
@@ -22,7 +22,6 @@ output:
       code_folding: false
 ---
 
-
 :::exercise
 
 Die Aufgaben, die Sie bearbeiten sollen, finden Sie in einem gelben Kasten. Optionale Aufgaben sind in orangen Kästen.
@@ -31,9 +30,6 @@ Sie haben für diese Übung 8 Tage Zeit. Laden Sie Ihre Lösung als Rmarkdown Fi
 
 Bevor Sie einreichen, vergewissern Sie sich bitte, dass Ihr Rmarkdown File geknittet werden kann, und dass der R Code ohne Fehler läuft.
 :::
-
-
-
 
 
 # Aufgabenstellung
@@ -46,7 +42,7 @@ library(tidyverse)
 nback1 <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/adhd-nback.csv")
 ```
 
-Die Gruppierungsvariable `group` zu einem Faktor konvertieren.
+Die Gruppierungsvariable `group` sollte zu einem Faktor konvertiert werden.
 
 
 ```{r}
@@ -72,13 +68,31 @@ Wir wollen nun in dieser Übung die Parameter Bayesianisch schätzen, wie in Üb
 Schätzen Sie einen Achsenabschnitt und einen Unterschied zur Referenzkategorie. Wählen Sie einen `normal(0, 1)` Prior für den Unterschied zwischen den Gruppen.
 :::
 
-```{r echo=FALSE, include=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(brms)
+```
 
-get_prior(rt ~ 1 + group,
+Wir unterscuhen zuerst mit der `get_prior()` Funktion, welche Priors für dieses Modell möglich sind und was `brms` als Default Prior definiert. 
+
+<aside>
+Da der Ouput sonst zu lang ist, nehme ich hier mit `select()` nur die ersten vier Spalten.
+</aside>
+
+```{r}
+default_priors <- get_prior(rt ~ 1 + group,
           data = nback1)
+
+default_priors %>% 
+  as_tibble() %>% 
+  select(1:4)
+```
+
+Wie erwartet ist der Default Prior für den Koeffizienten `b_groupadhd` flach (dies erkennt man daran, dass kein Prior definiert wird, so dass `rstan` dann einen flachen Prior benutzt). Wir defnieren nun eine Normalverteilung mit $\mu = 0$ und $\sigma = 1$ als Prior für den Unterschied zwischen den Gruppen.
+
+```{r}
 priors <- prior(normal(0, 1), class = b)
 ```
+
 
 ```{r echo=FALSE, include=FALSE}
 m1 <- brm(rt ~ group,

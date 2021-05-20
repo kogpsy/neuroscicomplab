@@ -37,24 +37,30 @@ navbar:
       menu:
         - text: "Übung 1"
           href: exercise-1.html
-        - text: "Übung 1: Lösung"
-          href: solution-1.html
         - text: "Übung 2"
           href: exercise-2.html
-        - text: "Übung 2: Lösung"
-          href: solution-2.html
         - text: "Übung 3 (nicht abgeben)"
           href: exercise-3.html
-        - text: "Übung 3: Lösung"
-          href: solution-3.html
         - text: "Übung 4"
           href: exercise-4.html
         - text: "Übung 5"
           href: exercise-5.html
-        - text: "Übung 6"
-          href: exercise-6.html
-        - text: "Übung 7"
-          href: exercise-7.html
+        # - text: "Übung 6"
+        #   href: exercise-6.html
+        # - text: "Übung 7"
+        #   href: exercise-7.html
+
+    - text: "Lösungen"
+      menu:
+        - text: "Übung 1: Lösung"
+          href: solution-1.html
+        - text: "Übung 2: Lösung"
+          href: solution-2.html
+        - text: "Übung 3: Lösung"
+          href: solution-3.html
+        - text: "Übung 4: Lösung"
+          href: solution-4.html
+
 
   right:
     - text: "Kapitel"

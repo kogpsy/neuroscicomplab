@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-05-20-solution-4/",
+    "title": "Lösung zur Übung 4",
+    "description": "Die Lösung zur zweiten Übung finden Sie unter Lösungen.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-05-18",
+    "categories": [
+      "uebungen"
+    ],
+    "contents": "\nDie Lösung finden Sie im Menu: Lösungen > Übung 4: Lösung.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-05-20T15:11:20+02:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-05-03-mental-rotation-task/",
     "title": "Online Experiment",
     "description": "Mentale Rotation unter verschiedenen Strategien.",
@@ -57,7 +76,7 @@
   {
     "path": "posts/2021-04-09-solution-2/",
     "title": "Lösung zur Übung 2",
-    "description": "Die Lösung zur zweiten Übung finden Sie unter Übungen.",
+    "description": "Die Lösung zur zweiten Übung finden Sie unter Lösungen",
     "author": [
       {
         "name": "Andrew Ellis",
@@ -68,9 +87,9 @@
     "categories": [
       "uebungen"
     ],
-    "contents": "\nDie Lösung finden Sie im Menu: Übungen > Übung 2: Lösung.\n\n\n\n",
+    "contents": "\nDie Lösung finden Sie im Menu: Lösungen > Übung 2: Lösung.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-04-13T06:09:41+02:00",
+    "last_modified": "2021-05-20T15:11:46+02:00",
     "input_file": {}
   },
   {
@@ -95,7 +114,7 @@
   {
     "path": "posts/2021-03-22-solution-1/",
     "title": "Lösung zur Übung 1",
-    "description": "Die Lösung zur ersten Übung finden Sie unter Übungen.",
+    "description": "Die Lösung zur ersten Übung finden Sie unter Lösungen",
     "author": [
       {
         "name": "Andrew Ellis",
@@ -106,9 +125,9 @@
     "categories": [
       "uebungen"
     ],
-    "contents": "\nDie Lösung finden Sie im Menu: Übungen > Übung 1: Lösung.\n\n\n\n",
+    "contents": "\nDie Lösung finden Sie im Menu: Lösungen > Übung 1: Lösung.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-03-22T22:27:16+01:00",
+    "last_modified": "2021-05-20T15:12:06+02:00",
     "input_file": {}
   },
   {
