@@ -25,7 +25,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
@@ -79,6 +79,15 @@ Das Ziel dieser Onlinestudie ist es das neue Stimulusmaterial zu validieren. Hie
 
 ## Daten laden
 
+```{r}
+library(tidyverse)
+library(viridis)
+
+# ggplot Optionen
+theme_set(theme_grey(base_size = 14) +
+            theme(panel.grid = element_blank()))
+```
+
 Wir laden den Datensatz mit folgende Informationen:
 
 - `id` : Identifikationsnummer für jede Versuchsperson
@@ -91,15 +100,10 @@ Wir laden den Datensatz mit folgende Informationen:
 Alter, Geschlecht und Händigkeit wurden aus Datenschutzgründen aus dem Datensatz entfernt. Wir laden die Variablen `id`, `condition` sowie die absoluten Winkelwerte (d.h. 45° links und 45° rechts werden aggregiert) `fc_angle` als Faktoren und schauen uns kurz den Datensatz an:
 
 
+
+
 ```{r load dataframe}
-library(tidyverse)
-library(viridis)
-
-# ggplot Optionen
-theme_set(theme_grey(base_size = 14) +
-            theme(panel.grid = element_blank()))
-
-pathrotation <- read_csv("data/PathRotation.csv") %>%
+pathrotation <- read_csv("https://raw.githubusercontent.com/kogpsy/neuroscicomplab/main/data/PathRotation.csv") %>%
   mutate(id = as_factor(id),
          condition = as_factor(condition),
          fc_angle = as_factor(abs(angle)))
