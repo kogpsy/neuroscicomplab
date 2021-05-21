@@ -178,7 +178,7 @@ pathrotation %>%
   theme(legend.position = "none")
 ```
 
-```{r rts solution, echo = FALSE}
+```{r rts solution, eval=FALSE, include=FALSE}
 # bar plot
 pathrotation %>% 
   ggplot(aes(rt, fill = condition)) +
@@ -222,7 +222,9 @@ df %>%
   facet_grid(id ~ condition, scales = "free_x") +
   theme(legend.position = "none")
 ```
-```{r f1 visualization solution, echo=FALSE}
+
+
+```{r f1 visualization solution, eval=FALSE, include=FALSE}
 subjects <- sample(levels(pathrotation$id), 3)
 df <- pathrotation %>% 
   filter(id %in% subjects)
@@ -252,7 +254,7 @@ df %>%
 ```
 
 
-```{r f1 violin plot solution, echo=FALSE}
+```{r f1 violin plot solution, eval=FALSE, include=FALSE}
 # violin plot
 df %>%
   group_by(id, fc_angle, condition) %>%
@@ -276,7 +278,7 @@ Fassen Sie nun die Daten zusammen und stellen Sie sie für jeden Winkel und jede
 :::
 
 
-```{r, f1 data summary, echo=TRUE, eval = FALSE}
+```{r f1 data summary, echo=TRUE, eval = FALSE}
 # define functions
 funs <- list(mean = mean, median = median, sd = sd)
 
@@ -307,7 +309,7 @@ agg %>%
   theme(legend.position = "none")
 ```
 
-```{r, f1 data summary solution, echo = FALSE}
+```{r f1 data summary solution, eval=FALSE, include=FALSE}
 # define functions
 funs <- list(mean = mean, median = median, sd = sd)
 
@@ -358,7 +360,7 @@ Sehen Sie eine Verlangsamung in der Bedingung *allozentrisch* im Vergleich zu *e
 
 ### Explorative Datenanalyse: Shift Function
 
-Vergleichen Sie anhand einer hierarchischen Shift Function die beiden Rotationsbedinungen (separat) bei den Rotationswinkeln 45 Grad, 90 Grad und 180 Grad (135 Grad aus mir unerklärlichen Gründen zu einem Fehler).
+Vergleichen Sie anhand einer hierarchischen Shift Function die beiden Rotationsbedinungen (separat) bei den Rotationswinkeln 45 Grad, 90 Grad und 180 Grad.
 
 
 
@@ -379,7 +381,7 @@ p_shiftfun45
 ```
 
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 shiftfun45 <- pathrotation %>% 
     filter(fc_angle == 45) %>% 
     rogme::hsf_pb(rt ~ condition + id)
@@ -403,7 +405,7 @@ p_shiftfun90  <- shiftfun90 %>%
 p_shiftfun90 
 ```
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 shiftfun90 <- pathrotation %>% 
     filter(fc_angle == 90) %>% 
     rogme::hsf_pb(rt ~ condition + id)
@@ -428,7 +430,7 @@ p_shiftfun180
 ```
 
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 shiftfun180 <- pathrotation %>% 
     filter(fc_angle == 180) %>% 
     rogme::hsf_pb(rt ~ condition + id)

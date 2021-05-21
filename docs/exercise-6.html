@@ -2786,9 +2786,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(fc_angle <span class="sc">~</span> condition, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/rts%20solution-1.png" width="624" /></p>
-</div>
 <p>Teilweise hatten die Versuchspersonen bis 8 Sekunden um die Aufgabe zu lösen. Das ist sehr lange, diese Reaktionszeiten weisen in dieser Aufgabe auf fehlende Konzentration hin. Schliessen Sie alle Antwortzeiten aus, welche grösser als 4000ms sind. Auch Reaktionszeiten unter 100ms sind physiologisch unplausibel und werden ausgeschlossen.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exclude trials with rt &gt; 4000ms</span></span>
@@ -2815,9 +2812,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(id <span class="sc">~</span> condition, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/f1%20visualization%20solution-1.png" width="624" /></p>
-</div>
 <div class="exercise">
 <p>Zusatzaufgabe: Verwenden Sie nun einen Violin Plot um die Reaktionszeiten für Winkel und Bedingung darzustellen:</p>
 </div>
@@ -2831,9 +2825,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>, <span class="at">option=</span><span class="st">&quot;cividis&quot;</span>) <span class="sc">+</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> __, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/f1%20violin%20plot%20solution-1.png" width="624" /></p>
 </div>
 <div class="exercise">
 <p>Schauen Sie sich die Grafiken an. Was fällt Ihnen auf?</p>
@@ -2872,9 +2863,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> condition) <span class="sc">+</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/f1%20data%20summary%20solution-1.png" width="624" /></p>
-</div>
 <div class="exercise">
 <p>Schauen Sie sich die Plots an. Was wird mit den Punkten dargestellt? Was bedeuten die Balken?</p>
 </div>
@@ -2888,7 +2876,7 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <p>Sehen Sie eine Verlangsamung in der Bedingung <em>allozentrisch</em> im Vergleich zu <em>egozentrisch</em>?</p>
 </div>
 <h3 id="explorative-datenanalyse-shift-function">Explorative Datenanalyse: Shift Function</h3>
-<p>Vergleichen Sie anhand einer hierarchischen Shift Function die beiden Rotationsbedinungen (separat) bei den Rotationswinkeln 45 Grad, 90 Grad und 180 Grad (135 Grad aus mir unerklärlichen Gründen zu einem Fehler).</p>
+<p>Vergleichen Sie anhand einer hierarchischen Shift Function die beiden Rotationsbedinungen (separat) bei den Rotationswinkeln 45 Grad, 90 Grad und 180 Grad.</p>
 <div class="exercise">
 <p>Berechnen Sie die Shift Functions und stellen Sie den Output grafisch dar. Versuchen Sie, die Grafiken zu interpretieren. Erkennen SIe ein Muster?</p>
 </div>
@@ -2903,9 +2891,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>p_shiftfun45</span></code></pre></div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>shiftfun90 <span class="ot">&lt;-</span> pathrotation <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fc_angle <span class="sc">==</span> <span class="dv">90</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    rogme<span class="sc">::</span><span class="fu">hsf_pb</span>(rt <span class="sc">~</span> ___ <span class="sc">+</span> ___)</span>
@@ -2916,9 +2901,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>p_shiftfun90 </span></code></pre></div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>shiftfun180 <span class="ot">&lt;-</span> pathrotation <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(fc_angle <span class="sc">==</span> <span class="dv">180</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    rogme<span class="sc">::</span><span class="fu">hsf_pb</span>(rt <span class="sc">~</span> ___ <span class="sc">+</span> ___)</span>
@@ -2926,9 +2908,6 @@ $ fc_angle  &lt;fct&gt; 45, 135, 180, 90, 135, 90, 135, 45, 90, 90, 45, 90…</c
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>p_shiftfun180  <span class="ot">&lt;-</span> shiftfun180 <span class="sc">%&gt;%</span> </span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    rogme<span class="sc">::</span><span class="fu">plot_hsf_pb</span>(<span class="at">interv =</span> <span class="st">&quot;ci&quot;</span>)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>p_shiftfun180</span></code></pre></div>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="exercise-6_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
 <h2 id="fazit">Fazit</h2>
 <p>Das Ziel der Datenerhebung war es, das Stimulusmaterial zu validieren. Wir haben angeschaut, ob wir den typischen Winkeleffekt finden und ob sich die Strategien wie erwartet unterscheiden.</p>
