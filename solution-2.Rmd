@@ -132,7 +132,7 @@ se <- function(x) sd(x)/sqrt(length(x))
 
 
 
-```{r}
+```{r summarise-nback1}
 nback1_summary <- nback1 %>% 
   group_by(group) %>% 
   summarise(mean = mean(rt),
@@ -543,12 +543,20 @@ Fassen Sie die Daten mit Mittelwert, Standardabweichung und Standardfehler pro P
 Mit diesem Code kann ich gleichzeitig 3 Funktionen anwenden (ist effizienter):
 
 
-```{r}
+```{r summarise-nback2-broken, eval=FALSE, include=FALSE}
 funs <- list(mean = mean, sd = sd, se = se)
 
 nback2 %>% 
   group_by(id, load) %>% 
   summarise(across(rt, funs))
+```
+
+```{r summarise-nback2}
+nback2 %>% 
+  group_by(id, load) %>% 
+  summarise(mean = mean(rt),
+            sd = sd(rt), 
+            se = se(rt))
 ```
 
 Wir erhalten so die mittlere Reaktionszeit für jede Person in jeder Bedingung, plus die SD und die Standardfehler.   

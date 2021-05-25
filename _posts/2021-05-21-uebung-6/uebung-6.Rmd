@@ -25,4 +25,4 @@ knitr::opts_chunk$set(echo = FALSE)
 Die Übung finden Sie im Menu: [Übungen > Übung 6](https://kogpsy.github.io/neuroscicomplab/exercise-6.html). 
 
 
-Sie haben für diese Übung 10 Tage Zeit. Laden Sie bitte Ihre Lösung als ZIP File bis **Dienstag, 1. Juni um 00:00 Uhr**, in den Order für Übung 6 auf ILIAS. Das ZIP File sollte sowohl das Rmarkdown File als auch das generierte HTML File enthalten.
+Laden Sie bitte Ihre Lösung als ZIP File bis **Freitag, 4. Juni um 00:00 Uhr**, in den Order für Übung 6 auf ILIAS. Das ZIP File sollte sowohl das Rmarkdown File als auch das generierte HTML File enthalten.

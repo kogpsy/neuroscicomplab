@@ -809,8 +809,6 @@ Der Mittelwert ist $\theta + exp\left( \mu + \frac{1}{2}\sigma^2\right)$
 Von Interesse ist vor hauptsächlich der Parameter $\mu$, weil davon ausgegangen wird, dass Änderungen der Task Schwierigkeit sich vor allem darin manifestieren.
 
 
-
-
 Wir können diese Verteilung mit `brms` an unsere Date fitten. Wir müssen dabei aber beachten, dass die Parameter $\mu$ und $\sigma$ auf der Logarithmusskala sind. Wenn wir z.B. $\mu$ mit einem linearen Modell vorhersagen, müssen wir die Koeffizienten exponentieren,damit sie wieder auf der RT Skala sind.
 
 $$ y_i \sim Shifted Lognormal(\mu, \sigma, \theta) $$

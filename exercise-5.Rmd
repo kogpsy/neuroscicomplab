@@ -116,7 +116,7 @@ c) Beschreiben Sie in Worten (kurz) was sie hier sehen. Ist eine Tendenz ersicht
 :::
 
 
-```{r eval=TRUE, include=FALSE}
+```{r eval=FALSE, include=FALSE}
 se <- function(x) sd(x)/sqrt(length(x))
 
 funs <- list(mean = mean, median = median, sd = sd, se = se)
@@ -124,6 +124,18 @@ funs <- list(mean = mean, median = median, sd = sd, se = se)
 by_subj <- pupilsize %>% 
   group_by(subj, attentional_load) %>% 
   summarise(across(p_size, funs, .names = "{.fn}"))
+```
+```{r eval=TRUE, include=FALSE}
+
+se <- function(x) sd(x)/sqrt(length(x))
+
+
+by_subj <- pupilsize %>% 
+  group_by(subj, attentional_load) %>% 
+  summarise(mean = mean(p_size), 
+            median = median(p_size), 
+            sd = sd(p_size), 
+            se = se(p_size))
 ```
 
 ```{r eval=TRUE, include=FALSE}
