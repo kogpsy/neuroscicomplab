@@ -10,12 +10,7 @@ exclude: ["_do_not_build/", "jasp"]
 output_dir: "docs"
 theme: css/theme.css
 creative_commons: CC BY
-# cookie_consent:
-#   style: simple
-#   type: express
-#   palette: light
-#   lang: en
-#   cookies_policy: url
+
 navbar:
   # left:
   #   - icon: fas fa-laptop-code
@@ -79,6 +74,8 @@ navbar:
           href: 06-choices.html
         - text: "7. Mental Chronometry: Reaktionszeiten"
           href: 07-mental-chronometry.html
+        - text: "8. Diffusion Decision Model of Decision Making"
+          href: 08-ddm.html
 
 
     - text: "Slides"
