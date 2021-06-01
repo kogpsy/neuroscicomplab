@@ -453,6 +453,19 @@ knitr::include_graphics("images/BOLD-payoff.png")
 ```
 
 
+
+Figure \@ref(fig:mulder-BOLD-startingpoint) zeigt die 5 Areale, deren Aktivität einen starken ZUsammenhanf mit den individuellen starting point Parametern hatte. 
+
+
+```{r mulder-BOLD-startingpoint, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a",  layout="l-body-outset", fig.width=6, fig.height=5.}
+knitr::include_graphics("images/BOLD-starting-point.png")
+```
+
+
+### Fazit
+
+Aufgrund der Verwendung eines kognitiven Prozessmodells konnten die Autoren das BOLD Signal mit den Auswirkungen der experimentellen Manipulation auf einen spezifischen Parameter untersuchten, anstatt lediglich den Zusammenhang zwischen BOLD Signal und Eigeschaften des Cues zu untersuchen. Dem starting point Parameter kann eine spezifische zugeschrieben werden---er repräsentiert die Stärke des a-priori Wissens, welches bereits vor der Evidenzakkumulierung existiert.
+
 # DDM mit brms
 
 Im letzten Teil wollen wir einen ähnlichen Datensatz wie aus dem @mulderBiasBrainDiffusion2012a Experiment mit einem DDM analysieren. Dies können wir mit einer Verteilung tun, welche in brms und Stan implementiert ist; die `wiener` Verteilung. Wir beschränken uns hier auf die Daten nur einer Versuchsperson aus einem fiktiven Experiment, welches eine Vereinfach des Mulder Experiments ist. Die Versuchsperson musste sich entscheiden, ob eine Punktwolke sich nach links oder nach rechts bewegte. Vor Beginn des Trials wurde jeweils ein Cue gezeigt in Form eines Pfeils, dessen Richtung entweder **kongruent** (valid cue) oder **inkongruent** (invalid cue) mit der Stimulusrichtung war. 
