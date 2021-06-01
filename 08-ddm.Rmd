@@ -444,7 +444,7 @@ Die Resultate zeigent, dass die beiden Manipulationen von Vorwissen sich 1) nich
 
 In Figure \@ref(fig:BOLD) sind die BOLD Responses der Areale welche besonder stark auf die "prior probability" (oben) und auf die "payoff" Manipulation (unten) reagierten.
 
-Die Areale welche unabhängig der Art der Manipulation einen erhöhten BOLD Response zeigten waren der rechte MedFG (right medial frontal gyrus), ACG (anterior congulate cortex), SFG (superior frontal gyrus), left middle temporal gyrus und IPS (intra-parietal sulcus). Die Autoren schlossen, dass diese Areale eine besondere Rolle in der Verarbeitung von Bias im Entscheidungsverhalten haben, und unabhängig davon, wie dieser Bias zustande kam.
+Die Areale welche unabhängig der Art der Manipulation einen erhöhten BOLD Response zeigten waren der rechte MedFG (right medial frontal gyrus), ACG (anterior cingulate cortex), SFG (superior frontal gyrus), left middle temporal gyrus und IPS (intra-parietal sulcus). Die Autoren schlossen, dass diese Areale eine besondere Rolle in der Verarbeitung von Bias im Entscheidungsverhalten haben, und unabhängig davon, wie dieser Bias zustande kam.
 
 
 ```{r BOLD, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a", fig.show="hold", out.width = "20%"}
