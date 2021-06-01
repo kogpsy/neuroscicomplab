@@ -464,7 +464,7 @@ knitr::include_graphics("images/BOLD-starting-point.png")
 
 ### Fazit
 
-Aufgrund der Verwendung eines kognitiven Prozessmodells konnten die Autoren das BOLD Signal mit den Auswirkungen der experimentellen Manipulation auf einen spezifischen Parameter untersuchten, anstatt lediglich den Zusammenhang zwischen BOLD Signal und Eigeschaften des Cues zu untersuchen. Dem starting point Parameter kann eine spezifische zugeschrieben werden---er repräsentiert die Stärke des a-priori Wissens, welches bereits vor der Evidenzakkumulierung existiert.
+Aufgrund der Verwendung eines kognitiven Prozessmodells konnten die Autoren das BOLD Signal mit den Auswirkungen der experimentellen Manipulation auf einen spezifischen Parameter untersuchten, anstatt lediglich den Zusammenhang zwischen BOLD Signal und Eigeschaften des Cues zu untersuchen. Dem starting point Parameter kann eine spezifische Rolle zugeschrieben werden---er repräsentiert die Stärke des a-priori Wissens, welches bereits vor der Evidenzakkumulierung existiert.
 
 # DDM mit brms
 
