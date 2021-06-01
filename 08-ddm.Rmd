@@ -234,9 +234,9 @@ tribble(~Parameter, ~Bedeutung, ~Anwendung,
         "drift rate", "Qualität der Evidenz pro Zeiteinheit", "Task Schwierigkeit, Fähigkeit",
         "bias", "Anfangspunkt der Evidenzakkumulierung", "A priori Präferenz für eine der beiden Alternativen",
         "boundary separation", "Vorsicht (caution)", "Speed-Accuracy Trade-off",
-        "non'decision time", "Verzögerung", "Periphere Prozesse") |> 
+        "non'decision time", "Verzögerung", "Periphere Prozesse") %>% 
 
-  kbl() |> 
+  kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
@@ -495,7 +495,7 @@ d_valid<- tibble(rdiffusion(ntrials, a = a, v = v, z = 0.8, t0 = ndt),
 d_invalid <- tibble(rdiffusion(ntrials, a = a, v = v, z = 0.2, t0 = ndt),
                           cue = "invalid")
 
-d <- rbind(d_valid, d_invalid) |> 
+d <- rbind(d_valid, d_invalid) %>% 
   mutate(cue = as_factor(cue))
 
 glimpse(d)
@@ -503,11 +503,11 @@ glimpse(d)
 
 
 ```{r code_folding=TRUE}
-d |>
+d %>%
     mutate(response = ifelse(response == "upper", 
                              "correct", "error"),
            cue = ifelse(cue == "valid", "valid cue",
-                        "invalid cue")) |> 
+                        "invalid cue")) %>% 
     ggplot(aes(rt, fill = response)) +
     geom_density() +
     geom_rug() +
@@ -534,8 +534,8 @@ formula <- bf(rt | dec(response) ~ 0 + cue,
 
 
 ```{r}
-get_prior(formula, family = wiener(), data = d) |> 
-  as_tibble() |> 
+get_prior(formula, family = wiener(), data = d) %>% 
+  as_tibble() %>% 
   select(1:4)
 ```
 
@@ -574,7 +574,7 @@ Die beiden Parameter `bias_cuevalid` und `bias_cueinvalid` sind auf der log-odds
 Mit `fixef()` erhalten wir eine Zusammenfassung, welche wir wieder in Werte zwischen 0 und 1 konvertieren können.
 
 ```{r}
-fixef(fit, pars = c("bias_cuevalid", "bias_cueinvalid")) |> 
+fixef(fit, pars = c("bias_cuevalid", "bias_cueinvalid")) %>% 
   plogis()
 ```
 
