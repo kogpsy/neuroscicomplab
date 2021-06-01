@@ -264,9 +264,9 @@ fastslow %>%
 
 ## Bias
 
-Wenn der bias $>0.5$ ist, wird die Obergrenze schneller erreicht. Hier gibt es nun eine Interaktion mit der drift rate---ist diese klein, ist die Chance, schnelle Fehler zu machen erhöht.
+Wenn der bias $>0.5$ ist, wird die Obergrenze schneller erreicht. Hier gibt es nun eine Interaktion mit der drift rate---ist diese klein, und der bias $<0.5$, ist die Chance, schnelle Fehler zu machen erhöht.
 
-```{r}
+```{r code_folding = TRUE}
 set.seed(29)
 
 unbiased <- drift_diffusion(bias = 0.5) %>% mutate(type = "unbiased")
@@ -292,7 +292,7 @@ bias %>%
 Liegen die Grenzen weiter auseinander, braucht es mehr akkumulierte Evidenz, um eine der Grenzen zu erreichen. Dies führt dazu, dass weniger Fehler gemacht werden, da die zufällige Fluktuation über längere Zeit hinweg einen weniger starken Einfluss hat. Deshalb kann eine Verschiebung der Grenzen den Speed-Accuracy Trade-off erklären.
 
 
-```{r}
+```{r code_folding = TRUE}
 set.seed(84)
 
 carefree <- drift_diffusion(decision_boundary = 1.6) %>% mutate(type = "carefree")
@@ -318,7 +318,7 @@ cautiouscareless %>%
 Eine Veränderung der non-decision time hat eine Auswirkung auf die durschnittliche Reaktionszeit, hat aber keinen Einfluss auf die Fehlerrate.
 
 
-```{r}
+```{r code_folding = TRUE}
 set.seed(4534)
 
 longndt <- drift_diffusion(ndt = 0.7) %>% mutate(type = "longndt")
