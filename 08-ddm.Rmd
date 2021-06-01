@@ -524,7 +524,7 @@ Wir wissen, dass sich zwischen den Bedingungen nur der `bias` verändert. Wenn w
 
 Nun müssen wir beachten, dass die Wiener Verteilung in brms 4 Parameter hat, und wir zwei davon vorhersagen möchten. Deshalb verwenden wir die Funktion `bf()`, umd die verschiedenen Teile der Formel zu verbinden.
 
-Der erste Teil, `rt | dec(response) ~ 0 + cue` bedeudet, dass wir den Erartungswert der `drift rate` vohersagen, mit je einem Parameter für die beiden Bedingunen. Mit dem yweiten Teil, `bias ~ 0 + cue`, erreichen wir dasselbe für den `bias`.
+Der erste Teil, `rt | dec(response) ~ 0 + cue` bedeutet, dass wir den Erwartungswert der `drift rate` vohersagen, mit je einem Parameter für die beiden Bedingunen. Mit dem yweiten Teil, `bias ~ 0 + cue`, erreichen wir dasselbe für den `bias`.
 
 
 ```{r}
