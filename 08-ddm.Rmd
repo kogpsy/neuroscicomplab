@@ -107,7 +107,8 @@ set.seed(546)
 zufallszahlen_1 <- c(0, rnorm(99, 0, 1))
 random_walk_1 <- cumsum(zufallszahlen_1)
 plot(1:100, random_walk_1, type = "s", col = "#7fc97f", 
-     ylim=c(-10,30), lwd = 2)
+     ylim=c(-10,30), lwd = 2, 
+     xlab = "Zeit", ylab="Random Walk")
 
 zufallszahlen_2 <- c(0, rnorm(99, 0.3, 1))
 random_walk_2 <- cumsum(zufallszahlen_2)
@@ -227,7 +228,7 @@ Hier ist derselbe Algorithmus wie oben, aber in Pseudo-Code, anstelle von R Code
 Wir können nun einige Trials plotten, um den Effekt dieser Parameter zu visualisieren.
 
 
-```{r}
+```{r echo=FALSE}
 library(kableExtra)
 tribble(~Parameter, ~Bedeutung, ~Anwendung,
         "drift rate", "Qualität der Evidenz pro Zeiteinheit", "Task Schwierigkeit, Fähigkeit",

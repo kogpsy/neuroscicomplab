@@ -2764,7 +2764,8 @@ Show code
 <span class='va'>zufallszahlen_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>random_walk_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>zufallszahlen_1</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='va'>random_walk_1</span>, type <span class='op'>=</span> <span class='st'>"s"</span>, col <span class='op'>=</span> <span class='st'>"#7fc97f"</span>, 
-     ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>,<span class='fl'>30</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+     ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>,<span class='fl'>30</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fl'>2</span>, 
+     xlab <span class='op'>=</span> <span class='st'>"Zeit"</span>, ylab<span class='op'>=</span><span class='st'>"Random Walk"</span><span class='op'>)</span>
 
 <span class='va'>zufallszahlen_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='fl'>0.3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>random_walk_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>zufallszahlen_2</span><span class='op'>)</span>
@@ -2890,18 +2891,6 @@ Show code
 </div>
 <p>Wir können nun einige Trials plotten, um den Effekt dieser Parameter zu visualisieren.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
-<span class='fu'>tribble</span><span class='op'>(</span><span class='op'>~</span><span class='va'>Parameter</span>, <span class='op'>~</span><span class='va'>Bedeutung</span>, <span class='op'>~</span><span class='va'>Anwendung</span>,
-        <span class='st'>"drift rate"</span>, <span class='st'>"Qualität der Evidenz pro Zeiteinheit"</span>, <span class='st'>"Task Schwierigkeit, Fähigkeit"</span>,
-        <span class='st'>"bias"</span>, <span class='st'>"Anfangspunkt der Evidenzakkumulierung"</span>, <span class='st'>"A priori Präferenz für eine der beiden Alternativen"</span>,
-        <span class='st'>"boundary separation"</span>, <span class='st'>"Vorsicht (caution)"</span>, <span class='st'>"Speed-Accuracy Trade-off"</span>,
-        <span class='st'>"non'decision time"</span>, <span class='st'>"Verzögerung"</span>, <span class='st'>"Periphere Prozesse"</span><span class='op'>)</span> |&gt; 
-
-  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='op'>)</span> |&gt; 
-  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"striped"</span>, <span class='st'>"hover"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
