@@ -447,17 +447,17 @@ In Figure \@ref(fig:BOLD) sind die BOLD Responses der Areale welche besonder sta
 Die Areale welche unabhängig der Art der Manipulation einen erhöhten BOLD Response zeigten waren der rechte MedFG (right medial frontal gyrus), ACG (anterior congulate cortex), SFG (superior frontal gyrus), left middle temporal gyrus und IPS (intra-parietal sulcus). Die Autoren schlossen, dass diese Areale eine besondere Rolle in der Verarbeitung von Bias im Entscheidungsverhalten haben, und unabhängig davon, wie dieser Bias zustande kam.
 
 
-```{r BOLD, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a", fig.show="hold", out.width="50%"}
+```{r BOLD, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a", fig.show="hold", out.width = "20%"}
 knitr::include_graphics("images/BOLD-prior-prob.png")
 knitr::include_graphics("images/BOLD-payoff.png")
 ```
 
 
 
-Figure \@ref(fig:mulder-BOLD-startingpoint) zeigt die 5 Areale, deren Aktivität einen starken ZUsammenhanf mit den individuellen starting point Parametern hatte. 
+Figure \@ref(fig:mulder-BOLD-startingpoint) zeigt die 5 Areale, deren Aktivität einen starken Zusammenhang mit den individuellen starting point Parametern hatte. 
 
 
-```{r mulder-BOLD-startingpoint, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a",  layout="l-body-outset", fig.width=6, fig.height=5.}
+```{r mulder-BOLD-startingpoint, echo=FALSE, fig.cap = "Figure from @mulderBiasBrainDiffusion2012a", out.width="50%"}
 knitr::include_graphics("images/BOLD-starting-point.png")
 ```
 
