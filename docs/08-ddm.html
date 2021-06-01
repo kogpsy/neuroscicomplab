@@ -119,6 +119,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="citation_author_institution" content="Kognitive Psychologie, Wahrnehmung und Methodenlehre, Universität Bern"/>
   <!--/radix_placeholder_meta_tags-->
   
+  <meta name="citation_reference" content="citation_title=Sequential Sampling Models in Cognitive Neuroscience: Advantages, Applications, and Extensions;citation_publication_date=2016;citation_volume=67;citation_doi=10.1146/annurev-psych-122414-033645;citation_issn=0066-4308, 1545-2085;citation_author=B. U. Forstmann;citation_author=R. Ratcliff;citation_author=E.-J. Wagenmakers"/>
+  <meta name="citation_reference" content="citation_title=Bias in the Brain: A Diffusion Model Analysis of Prior Probability and Potential Payoff;citation_publication_date=2012;citation_volume=32;citation_doi=10.1523/JNEUROSCI.4156-11.2012;citation_issn=0270-6474, 1529-2401;citation_author=M. J. Mulder;citation_author=E.-J. Wagenmakers;citation_author=R. Ratcliff;citation_author=W. Boekel;citation_author=B. U. Forstmann"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
@@ -2210,10 +2212,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .distill-site-footer {
-    --text-color:       #1D2645FF; /*rgba(93, 128, 174, 0.8);*/
+    --text-color:       rgba(255, 255, 255, 0.8);
     --text-size:        12px;
-    --hover-color:      rgb(37, 62, 131);
-    --bkgd-color:       #8acfaf;
+    --hover-color:      #638CC7; /*#241926; /* #1D2645FF */
+    --bkgd-color:       #0F4C81; /*#B33F53; /*#AE93BEFF;*/
   }
 
   /* Change the appearance of in-line code chunks */
@@ -2384,6 +2386,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2418,8 +2422,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     background-position: 15px center;
     min-height: 120px;
     color: #000000;
-    background-color: #a3be8c;
-    border: dashed 5px #ffffff;
+    background-color: #ffffff;
+    border: dashed 5px #a3be8c;
   }
 
 
@@ -2535,6 +2539,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     border-right: solid 5px var(--peach-quartz);
     background-color: var(--peach-quartz-30);
   } */
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2667,8 +2672,23 @@ Slides
 <ul>
 <li><a href="#entscheidungen">Entscheidungen</a></li>
 <li><a href="#diffusion-decision-model">Diffusion Decision Model</a></li>
-<li><a href="#model-in-r">Model in R</a></li>
+<li><a href="#model-in-r">Model in R</a>
+<ul>
+<li><a href="#drift-rate">Drift rate</a></li>
+<li><a href="#bias">Bias</a></li>
+<li><a href="#boundary-separation">Boundary separation</a></li>
+<li><a href="#non-decision-time">Non-decision time</a></li>
+</ul></li>
 <li><a href="#simulationen">Simulationen</a></li>
+<li><a href="#model-based-cognitive-neuroscience">Model-based Cognitive Neuroscience</a>
+<ul>
+<li><a href="#beispiele">Beispiele</a></li>
+<li><a href="#bias-in-the-brain">Bias in the Brain</a></li>
+</ul></li>
+<li><a href="#ddm-mit-brms">DDM mit brms</a>
+<ul>
+<li><a href="#resultat">Resultat</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
@@ -2689,40 +2709,83 @@ Slides
 <h1 id="diffusion-decision-model">Diffusion Decision Model</h1>
 <p>Das von Ratcliff entwickelte Modell hat seinen Ursprung in Modellen zu den Bewegungen von Partikeln in einer Flüssigkeit, und geht auf Arbeiten von Albert Einstein und <a href="https://en.wikipedia.org/wiki/Norbert_Wiener">Norbert Wiener</a> zurück.</p>
 <aside>
-Hier schauen wir uns eine vereinfachte Version dieses Modells an.
+Hier schauen wir uns eine vereinfachte Version dieses Modells an, welches nur 4 Parameter—im “standard” DDM hat es 7 Parameter.
 </aside>
 <p>Die Grundidee ist, dass wir Evidenz für die eine oder die andere Antwortalternative brauchen, um eine Entscheidung zu treffen, und dass diese Evidenz über die Zeit akkumuliert wird. Diese Evidenz wird, je nach Task, von einem Teil unseres Gehirns verarbeitet, so dass sie für die Entscheidung zur Verfügung steht. Wenn wir beispielsweise eine perzeptuelle Entscheidung modellieren, wie etwa die Entscheidung, ob sich etwas nach rechts oder links bewegt, nehmen wir an, dass die Evidenz von den kortikalen Arealen verarbeitet wird, welche für Bewegungswahrnehmung zuständig sind. Diese Evidenz wird dann kontinuerlich einem Decision Process verfügbar gemacht, und zwar in Form einer Verteilung.</p>
-<p>In dem Modell wird angenommen, dass pro Zeiteinheit eine Zufallszahl aus dieser Evidenzverteilung gezogen wird, so dass positive Werte als Evidenz für die eine Antwortalternative gezählt wird, während negative Werte als Evidenz für die andere Antwortalternative gezählt wird. Diese Evidenz, welche oft <strong>Decision Variable</strong> genannt wird, wird über die Zeit aufsummiert, bis entweder eine obere oder eine untere Grenze erreicht wird. Ist das der Fall, wird eine Antwort ausgelöst. Die Tendenz der Decision Variable, auf- oder abzusteigen, nennt man <strong>drift rate</strong>.</p>
+<p>Wir nehmen nun an, dass wir die Zeit in diskrete kleine Intervalle <span class="math inline">\(\Delta t\)</span> einteilen können. Pro Zeiteinheit wird eine Zufallszahl aus dieser Evidenzverteilung gezogen wird, so dass positive Werte als Evidenz für die eine Antwortalternative gezählt wird, während negative Werte als Evidenz für die andere Antwortalternative gezählt wird. Diese Evidenz wird über die Zeit aufsummiert, bis entweder eine obere oder eine untere Grenze erreicht wird. Die aufsummierte Evidenz wird <strong>Decision Variable</strong> genannt. Ist eine der Grenzen erreicht, wird eine Antwort ausgelöst. Die Tendenz der Decision Variable, auf- oder abzusteigen, nennt man <strong>drift rate</strong>. Diese hat natürlich etwas mit dem Stimulus zu tun—je stärker der Stimulus, desto grösser wird die drift rate.</p>
 <p>In Experimenten zum Bewegungssehen wird oft ein ‘random dot motion’ task verwendet. Hier muss entschieden werden, ob sich eine Punktwolke nach rechts oder nach links bewegt. Es wird hier angenommen, dass die drift rate von der Stimulusstärke abhängt; in diesem Fall ist das die Kohärenz, d.h. der Anteil der Punkte, welcher sich kohärent in eine Richtung bewegt.</p>
-<aside>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="images/dots.jpg" /><!-- --></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="images/dotsddm.jpg" /><!-- --></p>
-</div>
-</aside>
-<p>Die Distanz zwischen den Grenzen wird <strong>threshold</strong> gennant, und der Anfangspunkt der Evidenzakkumulierung wird <strong>bias</strong> genannt. Die letzte wichtige Komponente dieses Modells ist die <strong>non-decision time</strong>. Darunter werden alle Prozesse zusammengefasst, welche ausgefährt werden müssen, jedoch nicht direkt mit der Entscheidung zu tun haben. Darunter fällt z.B. die Ausführung der Antwort durch das motorische System, aber auch die sensorische Verarbeitung.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<div class="figure"><span id="fig:mulder"></span>
+<img src="images/ddm-mulder.png" alt="Figure from @mulderBiasBrainDiffusion2012a" width="299" />
+<p class="caption">
+Figure 1: Figure from <span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span>
+</p>
+</div>
+</div>
+<p>Die Distanz zwischen den Grenzen wird <strong>threshold</strong> gennant, und der Anfangspunkt der Evidenzakkumulierung wird <strong>bias</strong> genannt. Die letzte wichtige Komponente dieses Modells ist die <strong>non-decision time</strong>. Darunter werden alle Prozesse zusammengefasst, welche ausgefährt werden müssen, jedoch nicht direkt mit der Entscheidung zu tun haben. Darunter fällt z.B. die Ausführung der Antwort durch das motorische System, aber auch die sensorische Verarbeitung. Wird dieser Entscheidungsprozess oft wiederholt, resultieren daraus Reaktionszeitverteilungen für korrekte und inkorrekte Entscheidungen.</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
 <img src="images/ddm-illustration.png" alt="Figure from @vindingVolitionProspectiveMemory2018" width="428" />
 <p class="caption">
-Figure 1: Figure from <span class="citation" data-cites="vindingVolitionProspectiveMemory2018"><a href="#ref-vindingVolitionProspectiveMemory2018" role="doc-biblioref">Vinding et al.</a> (<a href="#ref-vindingVolitionProspectiveMemory2018" role="doc-biblioref">2018</a>)</span>
+Figure 2: Figure from <span class="citation" data-cites="vindingVolitionProspectiveMemory2018"><a href="#ref-vindingVolitionProspectiveMemory2018" role="doc-biblioref">Vinding et al.</a> (<a href="#ref-vindingVolitionProspectiveMemory2018" role="doc-biblioref">2018</a>)</span>
 </p>
 </div>
 </div>
 <h1 id="model-in-r">Model in R</h1>
-<p>In R können wir die aktuelle Decision Variable zu Zeitpunkt <span class="math inline">\(t\)</span> als normalverteilte Zufallszahl modellieren, bei der <code>evidence</code> den Mittelwert der Evidenz repräsentiert, und <code>sd</code> die Standardabweichung</p>
+<p>In R können wir die aktuelle Decision Variable zu Zeitpunkt <span class="math inline">\(t\)</span> als normalverteilte Zufallszahl modellieren, bei der die <code>driftrate</code> den Mittelwert der Evidenz repräsentiert, und <code>sd</code> die Standardabweichung.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>drift</span> <span class='op'>&lt;-</span> <span class='fl'>0.3</span>
-<span class='va'>sd</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span>
-<span class='va'>dv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>drift</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>driftrate</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='va'>sd</span> <span class='op'>&lt;-</span> <span class='fl'>0.1</span>
+<span class='va'>evidence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>driftrate</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
+<span class='va'>evidence</span>
 </code></pre>
 </div>
+<pre><code>[1] 0.4381618</code></pre>
 </div>
-<p>Wenn wir dies nun über einen Zeitraum wiederholen, und die <code>dv</code> Werte aufsummieren, erhalten wir einen <code>random walk</code> mit einem Drift in die Richtung der durchschnittlichen Evidenz.</p>
+<p>Dies bedeutet, dass zum Zeitpunkt <span class="math inline">\(t\)</span> die Evidenz ungefähr 0.44 beträgt. Da die Evidenz die durchschnittliche Steigung repräsentiert, wird Evidenz <span class="math inline">\(&gt;0\)</span> dazu führen, dass an Schritt in Richtung der oberen Grenze gemaacht wird. Wäre die Evidenz negativ, wird ein Schritt nach unten gemacht. Da die Evidenz aus einer Normalverteilung gezogen wird, ist es also möglich, dass die Evidenz zufällig negativ wird, obwohl die drift rate, d.h. die Repräsentation ser Stimulusstärke, positiv ist.</p>
+<aside>
+Es wird angenommen, dass dieser Aspekt einigermassen gut die Vorgänge im Gehirn abbildet, da die neuronalen Antworten auf einen Reiz variabel sind (dies bedeutet, dass Neurone immer unterschiedlich auf einen Reiz reagieren, auch wenn dieser gleich bleibt).
+</aside>
+<p>Wenn wir dieses Prozess nun über einen Zeitraum wiederholen, und die <code>evidence</code> Werte aufsummieren, erhalten wir die <code>decision variable</code>. Diese sieht aus wie ein <code>random walk</code> mit einem Drift in die Richtung der durchschnittlichen Evidenz.</p>
+<div class="example">
+<p><strong>Random walk simulieren</strong></p>
+<p>Ein random walk ist das Resultat der Aufsummierung von Zufallszahlen. Probieren Sie es selber aus; simulieren Sie einen random walk mit 100 Zeitschritten. Fangen Sie bei <span class="math inline">\(0\)</span> an, ziehen Sie 99 normalverteilte Zufallszahlen und berechnen Sie die kumulierte Summe. Plotten Sie das Resultat.</p>
+<p>Dieser random walk hat keinen Trend, weil wir immer aus einer Normalverteilung mit Mittelwert <span class="math inline">\(\mu=0\)</span> ziehen. Wenn wir stattdessen aus einer Verteilung mit <span class="math inline">\(\mu=0.1\)</span> ziehen, erhalten wir einen positiven Trend.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>546</span><span class='op'>)</span>
+
+<span class='co'># hier z.B&gt; standardnormalverteilte Zahlen</span>
+<span class='va'>zufallszahlen_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>random_walk_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>zufallszahlen_1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='va'>random_walk_1</span>, type <span class='op'>=</span> <span class='st'>"s"</span>, col <span class='op'>=</span> <span class='st'>"#7fc97f"</span>, 
+     ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span>,<span class='fl'>30</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+
+<span class='va'>zufallszahlen_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='fl'>0.3</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>random_walk_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>zufallszahlen_2</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='va'>random_walk_2</span>, pch <span class='op'>=</span> <span class='fl'>18</span>, col <span class='op'>=</span> <span class='st'>"#beaed4"</span>, 
+      type <span class='op'>=</span> <span class='st'>"s"</span>, lwd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"topleft"</span>, legend<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Ohne Trend"</span>, <span class='st'>"Mit Trend"</span><span class='op'>)</span>,
+       col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#7fc97f"</span>, <span class='st'>"#beaed4"</span><span class='op'>)</span>, lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+</div>
+<p>Die Evidenzakkumulierung wird analog modelliert. Wenn wir explizit die Zeitschritte als Iterationen aufschreiben, können wir dies in R mit einer <code>for</code> Loop machen.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>n_steps</span> <span class='op'>&lt;-</span> <span class='fl'>10</span>
 <span class='va'>evidence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='va'>n_steps</span><span class='op'>)</span>
@@ -2731,16 +2794,17 @@ Figure 1: Figure from <span class="citation" data-cites="vindingVolitionProspect
 <span class='va'>time_steps</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n_steps</span>
 
 <span class='co'># Wir ziehen den ersten Wert aus der Verteilung</span>
-<span class='va'>evidence</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>drift</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
+<span class='va'>evidence</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>driftrate</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
 <span class='va'>dv</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>evidence</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
 
 <span class='co'># für jeden weitern Zeitpunkt ziehen wir wieder eine Zufallszahl und addieren zur kumulierten DV</span>
-<span class='kw'>for</span> <span class='op'>(</span><span class='va'>t</span> <span class='kw'>in</span> <span class='va'>time_steps</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>evidence</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>drift</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>t</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>n_steps</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>evidence</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, mean <span class='op'>=</span> <span class='va'>driftrate</span>, sd <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
     <span class='va'>dv</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>dv</span><span class='op'>[</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='va'>evidence</span><span class='op'>[</span><span class='va'>t</span><span class='op'>]</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
+</details>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2752,9 +2816,10 @@ Figure 1: Figure from <span class="citation" data-cites="vindingVolitionProspect
     <span class='fu'>scale_color_viridis_d</span><span class='op'>(</span>begin <span class='op'>=</span> <span class='fl'>0.2</span>, end <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="08-ddm_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<p>Die Decision Variable repräsentiert nun die kumulierten Evidenz, aufgrund dessen das Gehirn eine Entscheiung treffen kann. Wenn die Decision Varaible entweder grösser als die ober Grenze ist, oder kleiner als die untere Grenze, wird die Evidenzakkumulierung abgebrochen, und eine Antwort wird ausgelöst. Wir können nun noch die “non-decision time” hinzufügen, und den Anfangspunkt der Evidenzakkumulierung. Dieser Anfangspunkt ist ein sehr wichtiger Parameter, denn wenn der Anfagnspunkt nicht genau in der Mitte zwischen den beiden Grenzen liegt, dann braucht es natürlich weniger Evindenz, um die Grenze zu erreichen, welche näher beim Anfangspunkt liegt.</p>
+<p>Die Decision Variable <code>dv</code> repräsentiert nun die kumulierten Evidenz, aufgrund dessen das Gehirn eine Entscheiung treffen kann. Wenn die Decision Variable entweder grösser als die ober Grenze ist, oder kleiner als die untere Grenze, wird die Evidenzakkumulierung abgebrochen, und eine Antwort wird ausgelöst. Wir können nun noch die “non-decision time” hinzufügen, und den Anfangspunkt der Evidenzakkumulierung. Dieser Anfangspunkt ist ein sehr wichtiger Parameter, denn wenn der Anfagnspunkt nicht genau in der Mitte zwischen den beiden Grenzen liegt, dann braucht es natürlich weniger Evindenz, um die Grenze zu erreichen, welche näher beim Anfangspunkt liegt.</p>
+<p>Anhand der folgenden Funktion lässt sich ein simpler Entscheidungsprozess simulieren, welcher alle wesentlichen Komponenten enthält: die <code>drift rate</code>, <code>boundary separation</code>, <code>bias</code> und die non-decision time <code>ndt</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -2811,8 +2876,101 @@ Show code
 </div>
 </details>
 </div>
+<div class="example">
+<p><strong>Entscheidungsprozess in Pseudo-Code:</strong></p>
+<p>Hier ist derselbe Algorithmus wie oben, aber in Pseudo-Code, anstelle von R Code.</p>
+<ol type="1">
+<li><p>Wähle einen Punkt zwischen Unter- und Obergrenze. Dieser Punkt ist der <code>bias</code>. Wenn dieser genau 0.5 ist, sind wir auf halben Weg zwischen den Grenzen.</p></li>
+<li><p>Ziehe Evidenz aus einer Normalverteilung mit Mittelwert 0 und addiere die Differenz zwischen 0.5 und dem bias. Hier fangen wir mit der Akkumulierung an.</p></li>
+<li><p>Warte bis die non-decision time vorbei ist.</p></li>
+<li><p>Fange an, Evidenz aus einer Normalverteilung mit <span class="math inline">\(\mu = \text{driftrate}\)</span> zu ziehen. Addiere die aktuelle Evidenz zur akkumulierten decision variable.</p></li>
+<li><p>Wiederhole dies, bis eine der Grenzen erreicht ist.</p></li>
+<li><p>Entscheide dich für diejenige Alternative, dessen Grenze du erreicht hast.</p></li>
+</ol>
+</div>
 <p>Wir können nun einige Trials plotten, um den Effekt dieser Parameter zu visualisieren.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span>
+<span class='fu'>tribble</span><span class='op'>(</span><span class='op'>~</span><span class='va'>Parameter</span>, <span class='op'>~</span><span class='va'>Bedeutung</span>, <span class='op'>~</span><span class='va'>Anwendung</span>,
+        <span class='st'>"drift rate"</span>, <span class='st'>"Qualität der Evidenz pro Zeiteinheit"</span>, <span class='st'>"Task Schwierigkeit, Fähigkeit"</span>,
+        <span class='st'>"bias"</span>, <span class='st'>"Anfangspunkt der Evidenzakkumulierung"</span>, <span class='st'>"A priori Präferenz für eine der beiden Alternativen"</span>,
+        <span class='st'>"boundary separation"</span>, <span class='st'>"Vorsicht (caution)"</span>, <span class='st'>"Speed-Accuracy Trade-off"</span>,
+        <span class='st'>"non'decision time"</span>, <span class='st'>"Verzögerung"</span>, <span class='st'>"Periphere Prozesse"</span><span class='op'>)</span> |&gt; 
+
+  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='op'>)</span> |&gt; 
+  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"striped"</span>, <span class='st'>"hover"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:left;">
+Bedeutung
+</th>
+<th style="text-align:left;">
+Anwendung
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+drift rate
+</td>
+<td style="text-align:left;">
+Qualität der Evidenz pro Zeiteinheit
+</td>
+<td style="text-align:left;">
+Task Schwierigkeit, Fähigkeit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bias
+</td>
+<td style="text-align:left;">
+Anfangspunkt der Evidenzakkumulierung
+</td>
+<td style="text-align:left;">
+A priori Präferenz für eine der beiden Alternativen
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+boundary separation
+</td>
+<td style="text-align:left;">
+Vorsicht (caution)
+</td>
+<td style="text-align:left;">
+Speed-Accuracy Trade-off
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+non’decision time
+</td>
+<td style="text-align:left;">
+Verzögerung
+</td>
+<td style="text-align:left;">
+Periphere Prozesse
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="drift-rate">Drift rate</h2>
+<p>Wir fangen an mit der drift rate. Wenn diese <span class="math inline">\(&gt;&gt; 0\)</span> ist, wird die Obergrenze schnell erreicht, und es wir wenige Fehler geben. Ist die drift rate kleiner, aber immer noch <span class="math inline">\(&gt; 0\)</span>, wird die durschnittliche Zeit länger, um eine korrekte Antowort zu geben.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>829</span><span class='op'>)</span>
 
@@ -2830,8 +2988,11 @@ Show code
     <span class='fu'>ggtitle</span><span class='op'>(</span><span class='st'>"Grosse vs. kleine Drift Rate"</span><span class='op'>)</span>
 </code></pre>
 </div>
+</details>
 <p><img src="08-ddm_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
+<h2 id="bias">Bias</h2>
+<p>Wenn der bias <span class="math inline">\(&gt;0.5\)</span> ist, wird die Obergrenze schneller erreicht. Hier gibt es nun eine Interaktion mit der drift rate—ist diese klein, ist die Chance, schnelle Fehler zu machen erhöht.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>29</span><span class='op'>)</span>
@@ -2855,17 +3016,19 @@ Show code
 </div>
 <p><img src="08-ddm_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
+<h2 id="boundary-separation">Boundary separation</h2>
+<p>Liegen die Grenzen weiter auseinander, braucht es mehr akkumulierte Evidenz, um eine der Grenzen zu erreichen. Dies führt dazu, dass weniger Fehler gemacht werden, da die zufällige Fluktuation über längere Zeit hinweg einen weniger starken Einfluss hat. Deshalb kann eine Verschiebung der Grenzen den Speed-Accuracy Trade-off erklären.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>829</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>84</span><span class='op'>)</span>
 
-<span class='va'>careless</span> <span class='op'>&lt;-</span> <span class='fu'>drift_diffusion</span><span class='op'>(</span>decision_boundary <span class='op'>=</span> <span class='fl'>1.6</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"careless"</span><span class='op'>)</span>
+<span class='va'>carefree</span> <span class='op'>&lt;-</span> <span class='fu'>drift_diffusion</span><span class='op'>(</span>decision_boundary <span class='op'>=</span> <span class='fl'>1.6</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"carefree"</span><span class='op'>)</span>
 <span class='va'>cautious</span> <span class='op'>&lt;-</span> <span class='fu'>drift_diffusion</span><span class='op'>(</span>decision_boundary <span class='op'>=</span> <span class='fl'>2.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"cautious"</span><span class='op'>)</span>
 
-<span class='va'>cautiouscareless</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>careless</span>, <span class='va'>cautious</span><span class='op'>)</span> 
+<span class='va'>cautiouscareless</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>carefree</span>, <span class='va'>cautious</span><span class='op'>)</span> 
 
 <span class='va'>decision_boundaries</span> <span class='op'>&lt;-</span> <span class='fu'>tribble</span><span class='op'>(</span><span class='op'>~</span><span class='va'>type</span>, <span class='op'>~</span><span class='va'>decision_boundary</span>,
-                               <span class='st'>"careless"</span>, <span class='fl'>1.6</span>,
+                               <span class='st'>"carefree"</span>, <span class='fl'>1.6</span>,
                                <span class='st'>"cautious"</span>, <span class='fl'>2.1</span><span class='op'>)</span>
 <span class='va'>cautiouscareless</span> <span class='op'>%&gt;%</span> 
     <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>dv</span>, color <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2879,6 +3042,8 @@ Show code
 </div>
 <p><img src="08-ddm_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
+<h2 id="non-decision-time">Non-decision time</h2>
+<p>Eine Veränderung der non-decision time hat eine Auswirkung auf die durschnittliche Reaktionszeit, hat aber keinen Einfluss auf die Fehlerrate.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>4534</span><span class='op'>)</span>
@@ -2912,17 +3077,23 @@ Show code
 </code></pre>
 </div>
 </div>
-<p>Wir können so ein Experiment simulieren, bei dem die Fehler im Schnitt schneller als die korrekten Antworten sind.</p>
+<p>Wir können so ein Experiment simulieren, bei dem die Fehler im Schnitt schneller als die korrekten Antworten sind, indem wir eine A Priori Präferenz für die Untergrenze definieren (<code>z = 0.2</code>).</p>
+<p>Die 5 wichtigsten Argumente der Funktion sind:</p>
+<pre><code>n: Anzahl Zufallszahlen
+a: boundary separation
+v: drift rate
+t0: non-decision time
+z: bias</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rtdists/man/Diffusion.html'>rdiffusion</a></span><span class='op'>(</span><span class='fl'>500</span>, a <span class='op'>=</span> <span class='fl'>1</span>, v <span class='op'>=</span> <span class='fl'>2</span>, t0 <span class='op'>=</span> <span class='fl'>0.5</span>, z <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rtdists/man/Diffusion.html'>rdiffusion</a></span><span class='op'>(</span><span class='fl'>500</span>, a <span class='op'>=</span> <span class='fl'>1</span>, v <span class='op'>=</span> <span class='fl'>2</span>, t0 <span class='op'>=</span> <span class='fl'>0.5</span>, z <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
 
 <span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>rts</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Rows: 500
 Columns: 2
-$ rt       &lt;dbl&gt; 1.0120109, 0.6844542, 0.5881428, 0.8324614, 0.76397…
+$ rt       &lt;dbl&gt; 0.9946603, 0.6598096, 0.5840942, 0.8145105, 0.74481…
 $ response &lt;fct&gt; upper, upper, lower, upper, upper, upper, upper, up…</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2931,14 +3102,18 @@ $ response &lt;fct&gt; upper, upper, lower, upper, upper, upper, upper, up…</c
 </code></pre>
 </div>
 <pre><code>         rt response
-1 1.0120109    upper
-2 0.6844542    upper
-3 0.5881428    lower
-4 0.8324614    upper
-5 0.7639793    upper
-6 0.6601477    upper</code></pre>
+1 0.9946603    upper
+2 0.6598096    upper
+3 0.5840942    lower
+4 0.8145105    upper
+5 0.7448141    upper
+6 0.6305719    upper</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rts</span> <span class='op'>%&gt;%</span> 
     <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>rt</span>, <span class='va'>response</span>, fill <span class='op'>=</span> <span class='va'>response</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2947,6 +3122,7 @@ $ response &lt;fct&gt; upper, upper, lower, upper, upper, upper, upper, up…</c
                        begin <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, end <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>
 </code></pre>
 </div>
+</details>
 <p><img src="08-ddm_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2961,11 +3137,239 @@ $ response &lt;fct&gt; upper, upper, lower, upper, upper, upper, upper, up…</c
 <pre><code># A tibble: 2 x 4
   response  mean median    sd
   &lt;fct&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 lower    0.621  0.576 0.122
-2 upper    0.751  0.713 0.160</code></pre>
+1 lower    0.585  0.550 0.106
+2 upper    0.767  0.724 0.159</code></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h1 id="model-based-cognitive-neuroscience">Model-based Cognitive Neuroscience</h1>
+<p><span class="citation" data-cites="forstmannSequentialSamplingModels2016a"><a href="#ref-forstmannSequentialSamplingModels2016a" role="doc-biblioref">Forstmann, Ratcliff, and Wagenmakers</a> (<a href="#ref-forstmannSequentialSamplingModels2016a" role="doc-biblioref">2016</a>)</span> bieten einen gut Überblick über Anwendungen des DDM in den Neurowissenschaften. Sie schreiben, dass die Verwendung eines kognitiven Prozessmodels sich besonders gut dafür eignet, individuelle Fähigkeiten zu messen, welche nicht durch die periphere Verarbeitung oder durch “response caution” kontaminiert ist.</p>
+<h2 id="beispiele">Beispiele</h2>
+<ul>
+<li><p>Altern: ältere Erwachsene sind oft langsamer als jüngere, machen aber nicht mehr Fehler. DDM Resultate haben gezeigt, dass es nicht immer kognitive Fähigkeiten sind, welche mit dem alter abnehmen, sondern oftmals periphere Prozesse und grössere Vorsicht. Dies konnte in Studien zu numerosity judgments, lexical decisions und recognition memory gezeigt werden.</p></li>
+<li><p>Arbeitsgedächtnis und IQ: ein höherer IQ geht mit einer grösserern drift rate einher.</p></li>
+<li><p>Klinische Studien: Patienten mit Angststörungen haben eine höhere drift rate für bedrohliche Wörter/Bilder mit bedrohlichem Inhalt.</p></li>
+</ul>
+<p>Anhand von DDM können Neuowissenschaftler Hirnmessungen mit kognitiven Prozessen assoziieren, anstelle von behavioralen “Effekten.” Folgende Studie ist ein gutes Beispiel einer solchen Studie, und gleichzeitig eine der ersten Model-based Neuroscience Studien.</p>
+<h2 id="bias-in-the-brain">Bias in the Brain</h2>
+<p><span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span> haben untersucht, wie “prior knowledge” den Entscheidungsprozess in einem Random Dot Motion Task beeinflusst, und ob es ein neuronales Korrelat solchen Vorwissen gibt. Ein Beispielstrial ist weiter oben in diesem Kapitel dargestellt (siehe Figure <a href="#fig:mulder">1</a>).</p>
+<p>Aus diesem Grund haben sie zwei verschieden Typen von Vorwissen benutzt.</p>
+<ol type="1">
+<li>A Priori Wahrscheinlichkeit, dass die Punktwolke sich nach rechts oder nach links bewegte.</li>
+<li>Asymmetrische Belohnung für korrekte links/rechts Entscheidungen.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div class="figure"><span id="fig:mulder-payoff"></span>
+<img src="images/bias-payoff-mulder.png" alt="Figure from @mulderBiasBrainDiffusion2012a" width="346" />
+<p class="caption">
+Figure 3: Figure from <span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span>
+</p>
+</div>
+</div>
+<p>Figure <a href="#fig:mulder-expected-results">4</a> zeigt schematisch die erwarteten Resultate. Für den Fall, dass der <code>starting point</code> im DDM betroffen ist, sind Reaktionszeiten schneller und die Fehlerrate kleiner, wenn das Vorwissen valide war. Bei invalidem Vorwissen sind die Fehler schneller, korrekte Entscheidungen sind langsamer, und die Fehlerrate ist erhöht.</p>
+<p>Wenn die <code>draift rate</code> betroffen wäre, würde sich dies nur im Muster der Fehler manifestieren. Um also die neuronalen Korrelate von Vorwissen in perzeptuellen Entscheidungen zu untersuchen, ist es entscheidend, vorher zu demonstrieren, ob ein Parameter betroffen ist, der vor Beginn des Trials festegelegt wurde, oder ob die Akkumulation sensorischen Evidenz betroffen war, da anzunehmen war, dass die Prozesse in unterschiedlichen Hirnarealen ablaufen.</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<div class="figure"><span id="fig:mulder-expected-results"></span>
+<img src="images/exptected-results-mulder.png" alt="Figure from @mulderBiasBrainDiffusion2012a" width="447" />
+<p class="caption">
+Figure 4: Figure from <span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span>
+</p>
+</div>
+</div>
+<p>Die Resultate zeigent, dass die beiden Manipulationen von Vorwissen sich 1) nicht unterschieden, und 2) den <code>starting point</code> Parameter beeinflussten, und nicht die <code>drift rate</code>.</p>
+<p>In Figure <a href="#fig:BOLD">5</a> sind die BOLD Responses der Areale welche besonder stark auf die “prior probability” (oben) und auf die “payoff” Manipulation (unten) reagierten.</p>
+<p>Die Areale welche unabhängig der Art der Manipulation einen erhöhten BOLD Response zeigten waren der rechte MedFG (right medial frontal gyrus), ACG (anterior congulate cortex), SFG (superior frontal gyrus), left middle temporal gyrus und IPS (intra-parietal sulcus). Die Autoren schlossen, dass diese Areale eine besondere Rolle in der Verarbeitung von Bias im Entscheidungsverhalten haben, und unabhängig davon, wie dieser Bias zustande kam.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:BOLD"></span>
+<img src="images/BOLD-prior-prob.png" alt="Figure from @mulderBiasBrainDiffusion2012a" width="50%" /><img src="images/BOLD-payoff.png" alt="Figure from @mulderBiasBrainDiffusion2012a" width="50%" />
+<p class="caption">
+Figure 5: Figure from <span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span>
+</p>
+</div>
+</div>
+<h1 id="ddm-mit-brms">DDM mit brms</h1>
+<p>Im letzten Teil wollen wir einen ähnlichen Datensatz wie aus dem <span class="citation" data-cites="mulderBiasBrainDiffusion2012a"><a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">Mulder et al.</a> (<a href="#ref-mulderBiasBrainDiffusion2012a" role="doc-biblioref">2012</a>)</span> Experiment mit einem DDM analysieren. Dies können wir mit einer Verteilung tun, welche in brms und Stan implementiert ist; die <code>wiener</code> Verteilung. Wir beschränken uns hier auf die Daten nur einer Versuchsperson aus einem fiktiven Experiment, welches eine Vereinfach des Mulder Experiments ist. Die Versuchsperson musste sich entscheiden, ob eine Punktwolke sich nach links oder nach rechts bewegte. Vor Beginn des Trials wurde jeweils ein Cue gezeigt in Form eines Pfeils, dessen Richtung entweder <strong>kongruent</strong> (valid cue) oder <strong>inkongruent</strong> (invalid cue) mit der Stimulusrichtung war.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rtdists/rtdists/'>rtdists</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/paul-buerkner/brms'>brms</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Wir generieren hier die Daten mit bekannten Parametern, damit wir wissen, ob wir diese rekonstruieren können. Die drift rate <code>v</code>, boundary separation <code>a</code> und non-decision time <code>ndt</code> bleiben in den beiden Bedingugen konstant. In der valid cue Bedingungen hat der starting point <code>z</code> den Wert <span class="math inline">\(0.8\)</span>—in der invalid cue Bedingung den Wert <span class="math inline">\(0.2\)</span>. Wir simulieren in jeder Bedingung 100 Trials.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>v</span> <span class='op'>&lt;-</span>  <span class='fl'>0.5</span>  <span class='co'># average driftrate</span>
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fl'>1.0</span>   <span class='co'># average boundary separation</span>
+<span class='va'>ndt</span> <span class='op'>&lt;-</span> <span class='fl'>0.3</span>    <span class='co'># average non-decision time</span>
+
+<span class='va'>ntrials</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># 100 Trials pro Bedingung</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d_valid</span><span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/rtdists/man/Diffusion.html'>rdiffusion</a></span><span class='op'>(</span><span class='va'>ntrials</span>, a <span class='op'>=</span> <span class='va'>a</span>, v <span class='op'>=</span> <span class='va'>v</span>, z <span class='op'>=</span> <span class='fl'>0.8</span>, t0 <span class='op'>=</span> <span class='va'>ndt</span><span class='op'>)</span>,
+                          cue <span class='op'>=</span> <span class='st'>"valid"</span><span class='op'>)</span>
+<span class='va'>d_invalid</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/rtdists/man/Diffusion.html'>rdiffusion</a></span><span class='op'>(</span><span class='va'>ntrials</span>, a <span class='op'>=</span> <span class='va'>a</span>, v <span class='op'>=</span> <span class='va'>v</span>, z <span class='op'>=</span> <span class='fl'>0.2</span>, t0 <span class='op'>=</span> <span class='va'>ndt</span><span class='op'>)</span>,
+                          cue <span class='op'>=</span> <span class='st'>"invalid"</span><span class='op'>)</span>
+
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>d_valid</span>, <span class='va'>d_invalid</span><span class='op'>)</span> |&gt; 
+  <span class='fu'>mutate</span><span class='op'>(</span>cue <span class='op'>=</span> <span class='fu'>as_factor</span><span class='op'>(</span><span class='va'>cue</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>Rows: 200
+Columns: 3
+$ rt       &lt;dbl&gt; 0.3395435, 0.3041726, 0.6660463, 0.3255624, 0.45590…
+$ response &lt;fct&gt; upper, upper, upper, upper, lower, upper, upper, up…
+$ cue      &lt;fct&gt; valid, valid, valid, valid, valid, valid, valid, va…</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> |&gt;
+    <span class='fu'>mutate</span><span class='op'>(</span>response <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>response</span> <span class='op'>==</span> <span class='st'>"upper"</span>, 
+                             <span class='st'>"correct"</span>, <span class='st'>"error"</span><span class='op'>)</span>,
+           cue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>cue</span> <span class='op'>==</span> <span class='st'>"valid"</span>, <span class='st'>"valid cue"</span>,
+                        <span class='st'>"invalid cue"</span><span class='op'>)</span><span class='op'>)</span> |&gt; 
+    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>rt</span>, fill <span class='op'>=</span> <span class='va'>response</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_density</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_rug</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_color_brewer</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"qual"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_fill_brewer</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"qual"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>facet_grid</span><span class='op'>(</span><span class='va'>response</span> <span class='op'>~</span> <span class='va'>cue</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-20-1.png" width="624" /></p>
+</div>
+<p>Die Daten zeigen den Effekt, dass die Fehler in der <code>valid cue</code> Bedingung langsamer als die korrekten Entscheidungen sind, während die Fehler in der <code>invalid cue</code> Bedingung schneller sind.</p>
+<p>Wir wissen, dass sich zwischen den Bedingungen nur der <code>bias</code> verändert. Wenn wir die Daten jedoch nicht selber generieren, würden wir wahrscheinlich davon ausgehen, dass sich sowohl die <code>drift rate</code> als auch der <code>bias</code> zwischen den Bedingungen unterscheiden könnte.</p>
+<p>Nun müssen wir beachten, dass die Wiener Verteilung in brms 4 Parameter hat, und wir zwei davon vorhersagen möchten. Deshalb verwenden wir die Funktion <code>bf()</code>, umd die verschiedenen Teile der Formel zu verbinden.</p>
+<p>Der erste Teil, <code>rt | dec(response) ~ 0 + cue</code> bedeudet, dass wir den Erartungswert der <code>drift rate</code> vohersagen, mit je einem Parameter für die beiden Bedingunen. Mit dem yweiten Teil, <code>bias ~ 0 + cue</code>, erreichen wir dasselbe für den <code>bias</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>formula</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brmsformula.html'>bf</a></span><span class='op'>(</span><span class='va'>rt</span> <span class='op'>|</span> <span class='fu'>dec</span><span class='op'>(</span><span class='va'>response</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>cue</span>,
+              <span class='va'>bias</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>+</span> <span class='va'>cue</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/get_prior.html'>get_prior</a></span><span class='op'>(</span><span class='va'>formula</span>, family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brmsfamily.html'>wiener</a></span><span class='op'>(</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>d</span><span class='op'>)</span> |&gt; 
+  <span class='fu'>as_tibble</span><span class='op'>(</span><span class='op'>)</span> |&gt; 
+  <span class='fu'>select</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 8 x 4
+  prior               class coef         group
+  &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
+1 &quot;&quot;                  b     &quot;&quot;           &quot;&quot;   
+2 &quot;&quot;                  b     &quot;cueinvalid&quot; &quot;&quot;   
+3 &quot;&quot;                  b     &quot;cuevalid&quot;   &quot;&quot;   
+4 &quot;gamma(1, 1)&quot;       bs    &quot;&quot;           &quot;&quot;   
+5 &quot;uniform(0, min_Y)&quot; ndt   &quot;&quot;           &quot;&quot;   
+6 &quot;&quot;                  b     &quot;&quot;           &quot;&quot;   
+7 &quot;&quot;                  b     &quot;cueinvalid&quot; &quot;&quot;   
+8 &quot;&quot;                  b     &quot;cuevalid&quot;   &quot;&quot;   </code></pre>
+</div>
+<p>Da wir hier sowohl die drafit rate als auch den bias mit einem linearen Modell vorhersagen, haben die Koeffizienten flache Prior. Wir benutzen lieber eigene Priors—in beiden Fällen Normalverteilungen mit <span class="math inline">\(\mu = 0\)</span> und <span class="math inline">\(\sigma = 1\)</span>, da wir keine grossen Werte für die Parameter erwarten können.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>priors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/brms/man/set_prior.html'>prior</a></span><span class='op'>(</span><span class='fu'>normal</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='va'>b</span>, dpar <span class='op'>=</span> <span class='va'>bias</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brm.html'>brm</a></span><span class='op'>(</span><span class='va'>formula</span>,
+            prior <span class='op'>=</span> <span class='va'>priors</span>,
+            family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/brms/man/brmsfamily.html'>wiener</a></span><span class='op'>(</span>link <span class='op'>=</span> <span class='st'>"identity"</span>, link_bias <span class='op'>=</span> <span class='st'>"logit"</span><span class='op'>)</span>,
+            data <span class='op'>=</span> <span class='va'>d</span>,
+            file <span class='op'>=</span> <span class='st'>"models/ddm1"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fit</span>
+</code></pre>
+</div>
+<pre><code> Family: wiener 
+  Links: mu = identity; bs = identity; ndt = identity; bias = logit 
+Formula: rt | dec(response) ~ 0 + cue 
+         bias ~ 0 + cue
+   Data: d (Number of observations: 200) 
+Samples: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup samples = 4000
+
+Population-Level Effects: 
+                Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+cuevalid            0.32      0.27    -0.21     0.83 1.00     3789
+cueinvalid          0.62      0.25     0.14     1.12 1.00     3575
+bias_cuevalid       1.32      0.12     1.09     1.55 1.00     2620
+bias_cueinvalid    -1.31      0.13    -1.55    -1.05 1.00     2522
+                Tail_ESS
+cuevalid            2942
+cueinvalid          3066
+bias_cuevalid       2805
+bias_cueinvalid     2639
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+bs      1.04      0.04     0.97     1.12 1.00     3560     2672
+ndt     0.30      0.00     0.30     0.30 1.00     2728     2745
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/mcmc_plot.brmsfit.html'>mcmc_plot</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-26-1.png" width="624" /></p>
+</div>
+<p>Die beiden Parameter <code>bias_cuevalid</code> und <code>bias_cueinvalid</code> sind auf der log-odds Skala. Deis bedeutet, dass Werte &gt; 0 eine Präferenz für die Obergrenze darstellen. Wenn wir die Werte auf der bias-Skala (als Wert zwischen den Grenzen) haben wollen, müssen wir sie mit <code>plogis()</code> transformieren, genau wie bei der logistischen Regression.</p>
+<p>Mit <code>fixef()</code> erhalten wir eine Zusammenfassung, welche wir wieder in Werte zwischen 0 und 1 konvertieren können.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/fixef.brmsfit.html'>fixef</a></span><span class='op'>(</span><span class='va'>fit</span>, pars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias_cuevalid"</span>, <span class='st'>"bias_cueinvalid"</span><span class='op'>)</span><span class='op'>)</span> |&gt; 
+  <span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>                 Estimate Est.Error      Q2.5     Q97.5
+bias_cuevalid   0.7900052 0.5296627 0.7490201 0.8254932
+bias_cueinvalid 0.2130513 0.5317967 0.1745968 0.2592626</code></pre>
+</div>
+<aside>
+Streng genommen ist dies nicht korrekt, denn eigentlich müssten wir die Posterior Samples zuerst transformieren, und erst dann zusammenfassen.
+</aside>
+<h2 id="resultat">Resultat</h2>
+<p>Wir können die wahren <code>bias</code> Parameter ziemlich gut schätzen, aber aufgrund der wenigen Trials ist die Schätzung nicht sehr genau (100 Trials pro Bedingung sind für ein DDM nicht sehr viele).</p>
+<p>Ausserdem wird die drift rate unterschiedlich pro Bedingung geschätzt. Dies ist eher ungünstig, da wir wissen, dass nur der bias sich zwischen den Bedingungen geändert hat.</p>
+<p>In einer Studie wäre es sinnvoller, zwei Modelle zu schätzen, eines davon mit unterschiedlichen drift rates, das andere mit unterschiedichen bias Parametern, und die beiden Modell dann zu vergleichen.</p>
+<p>Wir schätzen hier den <code>bias</code> für diese Versuchsperson in den beiden Cue Bedingungen, und stellen fest, dass diesse Versuchsperson eine starke a priori Präferenz für korrekte Entscheidungen hat, wenn der Cue valide war, das heisst wenn die Richtungen des Pfeils und des Stimulus gleich waren. Wir könnten nun diese individuellen bias Parameter in einer fMRI Untersuchung benutzen, um herauszufinden, in welche Hirnregionen erhöhte BOLD Aktivität sich mit den personenspezifischen Parametern vorhersagen lässt.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-forstmannSequentialSamplingModels2016a" class="csl-entry" role="doc-biblioentry">
+Forstmann, B. U., R. Ratcliff, and E.-J. Wagenmakers. 2016. <span>“Sequential <span>Sampling Models</span> in <span>Cognitive Neuroscience</span>: <span>Advantages</span>, <span>Applications</span>, and <span>Extensions</span>.”</span> <em>Annual Review of Psychology</em> 67 (1): 641–66. <a href="https://doi.org/10.1146/annurev-psych-122414-033645">https://doi.org/10.1146/annurev-psych-122414-033645</a>.
+</div>
+<div id="ref-mulderBiasBrainDiffusion2012a" class="csl-entry" role="doc-biblioentry">
+Mulder, M. J., E.-J. Wagenmakers, R. Ratcliff, W. Boekel, and B. U. Forstmann. 2012. <span>“Bias in the <span>Brain</span>: <span>A Diffusion Model Analysis</span> of <span>Prior Probability</span> and <span>Potential Payoff</span>.”</span> <em>Journal of Neuroscience</em> 32 (7): 2335–43. <a href="https://doi.org/10.1523/JNEUROSCI.4156-11.2012">https://doi.org/10.1523/JNEUROSCI.4156-11.2012</a>.
+</div>
 <div id="ref-ratcliffDiffusionDecisionModel2008b" class="csl-entry" role="doc-biblioentry">
 Ratcliff, Roger, and Gail McKoon. 2008. <span>“The <span>Diffusion Decision Model</span>: <span>Theory</span> and <span>Data</span> for <span>Two</span>-<span>Choice Decision Tasks</span>.”</span> <em>Neural Computation</em> 20 (4): 873–922. <a href="https://doi.org/10.1162/neco.2008.12-06-420">https://doi.org/10.1162/neco.2008.12-06-420</a>.
 </div>

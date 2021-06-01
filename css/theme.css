@@ -84,10 +84,10 @@ d-appendix {
 }
 
 .distill-site-footer {
-  --text-color:       #1D2645FF; /*rgba(93, 128, 174, 0.8);*/
+  --text-color:       rgba(255, 255, 255, 0.8);
   --text-size:        12px;
-  --hover-color:      rgb(37, 62, 131);
-  --bkgd-color:       #8acfaf;
+  --hover-color:      #638CC7; /*#241926; /* #1D2645FF */
+  --bkgd-color:       #0F4C81; /*#B33F53; /*#AE93BEFF;*/
 }
 
 /* Change the appearance of in-line code chunks */
