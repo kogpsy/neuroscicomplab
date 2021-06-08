@@ -83,14 +83,14 @@ evidence <- rnorm(n = 1, mean = driftrate, sd = sd)
 evidence
 ```
 
-Dies bedeutet, dass zum Zeitpunkt $t$ die Evidenz ungefähr `r round(evidence, 2)` beträgt. Da die Evidenz die durchschnittliche Steigung repräsentiert, wird Evidenz $>0$ dazu führen, dass an Schritt in Richtung der oberen Grenze gemacht wird. Wäre die Evidenz negativ, wird ein Schritt nach unten gemacht. Da die Evidenz aus einer Normalverteilung gezogen wird, ist es also möglich, dass die Evidenz zufällig negativ wird, obwohl die drift rate, d.h. die Repräsentation ser Stimulusstärke, positiv ist.
+Dies bedeutet, dass zum Zeitpunkt $t$ die Evidenz ungefähr `r round(evidence, 2)` beträgt. Da die Evidenz die durchschnittliche Steigung repräsentiert, wird Evidenz $>0$ dazu führen, dass ein Schritt in Richtung der oberen Grenze gemacht wird. Wäre die Evidenz negativ, wird ein Schritt nach unten gemacht. Da die Evidenz aus einer Normalverteilung gezogen wird, ist es also möglich, dass die Evidenz zufällig negativ wird, obwohl die drift rate, d.h. die Repräsentation der Stimulusstärke, positiv ist.
 
 <aside>
 Es wird angenommen, dass dieser Aspekt einigermassen gut die Vorgänge im Gehirn abbildet, da die neuronalen Antworten auf einen Reiz variabel sind (dies bedeutet, dass Neurone immer unterschiedlich auf einen Reiz reagieren, auch wenn dieser gleich bleibt).
 </aside>
 
 
-Wenn wir dieses Prozess nun über einen Zeitraum wiederholen, und die `evidence` Werte aufsummieren, erhalten wir die `decision variable`. Diese sieht aus wie ein `random walk` mit einem Drift in die Richtung der durchschnittlichen Evidenz.
+Wenn wir dieses Prozess nun über einen Zeitraum wiederholen, und die `evidence` Werte aufsummieren, erhalten wir die *decision variable*. Diese sieht aus wie ein *random walk* mit einem Drift in die Richtung der durchschnittlichen Evidenz.
 
 :::example
 **Random walk simulieren**
@@ -576,6 +576,16 @@ Mit `fixef()` erhalten wir eine Zusammenfassung, welche wir wieder in Werte zwis
 ```{r}
 fixef(fit, pars = c("bias_cuevalid", "bias_cueinvalid")) %>% 
   plogis()
+```
+
+
+
+```{r}
+conditional_effects(fit, effects = "cue", dpar = "mu")
+```
+
+```{r}
+conditional_effects(fit, effects = "cue", dpar = "bias")
 ```
 
 

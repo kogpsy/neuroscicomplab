@@ -55,7 +55,8 @@ navbar:
           href: solution-3.html
         - text: "Übung 4: Lösung"
           href: solution-4.html
-
+        - text: "Übung 5: Lösung"
+          href: solution-5.html
 
   right:
     - text: "Kapitel"

@@ -2602,6 +2602,7 @@ Lösungen
 <a href="solution-2.html">Übung 2: Lösung</a>
 <a href="solution-3.html">Übung 3: Lösung</a>
 <a href="solution-4.html">Übung 4: Lösung</a>
+<a href="solution-5.html">Übung 5: Lösung</a>
 </div>
 </div>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
@@ -2743,11 +2744,11 @@ Figure 2: Figure from <span class="citation" data-cites="vindingVolitionProspect
 </div>
 <pre><code>[1] 0.5716492</code></pre>
 </div>
-<p>Dies bedeutet, dass zum Zeitpunkt <span class="math inline">\(t\)</span> die Evidenz ungefähr 0.57 beträgt. Da die Evidenz die durchschnittliche Steigung repräsentiert, wird Evidenz <span class="math inline">\(&gt;0\)</span> dazu führen, dass an Schritt in Richtung der oberen Grenze gemacht wird. Wäre die Evidenz negativ, wird ein Schritt nach unten gemacht. Da die Evidenz aus einer Normalverteilung gezogen wird, ist es also möglich, dass die Evidenz zufällig negativ wird, obwohl die drift rate, d.h. die Repräsentation ser Stimulusstärke, positiv ist.</p>
+<p>Dies bedeutet, dass zum Zeitpunkt <span class="math inline">\(t\)</span> die Evidenz ungefähr 0.57 beträgt. Da die Evidenz die durchschnittliche Steigung repräsentiert, wird Evidenz <span class="math inline">\(&gt;0\)</span> dazu führen, dass ein Schritt in Richtung der oberen Grenze gemacht wird. Wäre die Evidenz negativ, wird ein Schritt nach unten gemacht. Da die Evidenz aus einer Normalverteilung gezogen wird, ist es also möglich, dass die Evidenz zufällig negativ wird, obwohl die drift rate, d.h. die Repräsentation der Stimulusstärke, positiv ist.</p>
 <aside>
 Es wird angenommen, dass dieser Aspekt einigermassen gut die Vorgänge im Gehirn abbildet, da die neuronalen Antworten auf einen Reiz variabel sind (dies bedeutet, dass Neurone immer unterschiedlich auf einen Reiz reagieren, auch wenn dieser gleich bleibt).
 </aside>
-<p>Wenn wir dieses Prozess nun über einen Zeitraum wiederholen, und die <code>evidence</code> Werte aufsummieren, erhalten wir die <code>decision variable</code>. Diese sieht aus wie ein <code>random walk</code> mit einem Drift in die Richtung der durchschnittlichen Evidenz.</p>
+<p>Wenn wir dieses Prozess nun über einen Zeitraum wiederholen, und die <code>evidence</code> Werte aufsummieren, erhalten wir die <em>decision variable</em>. Diese sieht aus wie ein <em>random walk</em> mit einem Drift in die Richtung der durchschnittlichen Evidenz.</p>
 <div class="example">
 <p><strong>Random walk simulieren</strong></p>
 <p>Ein random walk ist das Resultat der Aufsummierung von Zufallszahlen. Probieren Sie es selber aus; simulieren Sie einen random walk mit 100 Zeitschritten. Fangen Sie bei <span class="math inline">\(0\)</span> an, ziehen Sie 99 normalverteilte Zufallszahlen und berechnen Sie die kumulierte Summe. Plotten Sie das Resultat.</p>
@@ -3368,6 +3369,20 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <pre><code>                 Estimate Est.Error      Q2.5     Q97.5
 bias_cuevalid   0.7900052 0.5296627 0.7490201 0.8254932
 bias_cueinvalid 0.2130513 0.5317967 0.1745968 0.2592626</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/conditional_effects.brmsfit.html'>conditional_effects</a></span><span class='op'>(</span><span class='va'>fit</span>, effects <span class='op'>=</span> <span class='st'>"cue"</span>, dpar <span class='op'>=</span> <span class='st'>"mu"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-28-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/brms/man/conditional_effects.brmsfit.html'>conditional_effects</a></span><span class='op'>(</span><span class='va'>fit</span>, effects <span class='op'>=</span> <span class='st'>"cue"</span>, dpar <span class='op'>=</span> <span class='st'>"bias"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="08-ddm_files/figure-html5/unnamed-chunk-29-1.png" width="624" /></p>
 </div>
 <aside>
 Streng genommen ist dies nicht korrekt, denn eigentlich müssten wir die Posterior Samples zuerst transformieren, und erst dann zusammenfassen.
