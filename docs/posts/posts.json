@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-06-22-solution-6/",
+    "title": "Lösung zur Übung 6",
+    "description": "Die Lösung zur Übung 6 finden Sie unter Lösungen.",
+    "author": [
+      {
+        "name": "Andrew Ellis",
+        "url": "https://github.com/awellis"
+      }
+    ],
+    "date": "2021-06-21",
+    "categories": [
+      "uebungen"
+    ],
+    "contents": "\nDie Lösung finden Sie im Menu: Lösungen > Übung 6: Lösung.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-06-22T00:02:38+02:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-06-08-solution-5/",
     "title": "Lösung zur Übung 5",
     "description": "Die Lösung zur Übung 5 finden Sie unter Lösungen.",
